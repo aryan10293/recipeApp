@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "CommonJs",
+        "target": "ES2016",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictNullChecks": true,
+        },
+        "ts-node": {
+        "esm": true, // «———— enabling ESM for ts-node
+  },
+  "include": ["server.ts"],
+  "exclude": ["node_modules"]
+}
