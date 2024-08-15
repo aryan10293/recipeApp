@@ -13,7 +13,16 @@ const UserSchema = new mongoose_2.Schema({
     email: { type: String, unique: true },
     password: { type: String, required: true },
     bio: { type: String, default: '' },
-    img: { type: String, default: 'https://s-media-cache-ak0.pinimg.com/736x/dd/6f/40/dd6f403a57b73215b5be860bd397ec34.jpg' },
+    profilePic: { type: String, default: 'https://s-media-cache-ak0.pinimg.com/736x/dd/6f/40/dd6f403a57b73215b5be860bd397ec34.jpg' },
+    savedRecipes: { type: Array, default: [] },
+    skillLevel: { type: String, default: 'Beginner' },
+    followers: { type: Array, default: [] },
+    followings: { type: Array, default: [] },
+    dob: { type: String, default: '' },
+    pinnedPost: { type: Array, default: [] },
+    cookingStyle: { type: String, default: 'Grill Master' },
+    country: { type: String, default: 'Hungary' },
+    accountAge: { type: Date, default: Date.now() },
 });
 UserSchema.pre("save", function save(next) {
     const user = this;

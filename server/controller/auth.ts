@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../model/user";
 let auth = {
     postCreateAccount: (req, res, next) => {
+      console.log(req.body)
         //const validationErrors = [];
         interface Message {
             msg: string;
@@ -35,14 +36,13 @@ let auth = {
           gmail_remove_dots: false,
         });
         const user = new User({
-          userName: req.body.userName,
+          userName: req.body.username,
           email: req.body.email,
           password: req.body.password,
-          tutor: req.body.tutor,
-          lastName: req.body.fullName,
-          firstName: req.body.fullName,
-          courses: req.body.courses
+          lastName: req.body.first,
+          firstName: req.body.last,
         });
+
         User.findOne(
           { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
           (err, existingUser) => {
@@ -53,7 +53,6 @@ let auth = {
               req.flash("errors", {
                 msg: "Account with that email address or username already exists.",
               });
-             // return res.redirect("../");
             }
             user.save((err) => {
               if (err) {
@@ -65,7 +64,7 @@ let auth = {
                 }
                 const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1h' });
                 res.send(
-                  { token, newUser: user }
+                  { token, newUser: user, status:'200' }
                 )
               });
             });
@@ -73,6 +72,7 @@ let auth = {
         );
       },
       postLogin: (req,res,next) => {
+        console.log(req.body)
         interface Message {
             msg: string;
         }
@@ -113,7 +113,7 @@ let auth = {
             
              const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string,);//{ expiresIn: '1h' }
              res.send(
-                  { token, newUser: user }
+                  { token, newUser: user, status:'200' }
                 )
           });
         })(req, res, next);

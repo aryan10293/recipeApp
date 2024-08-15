@@ -9,7 +9,16 @@ interface UserI extends Document{
     email: string
     password: string
     bio: string
-    img: string
+    profilePic: string
+    savedRecipes: string[]
+    skillLevel: string
+    followers: string[]
+    followings: string[]
+    dob: string
+    pinnedPost: string[]
+    cookingStyle: string
+    country: string
+    accountAge: string
 }
 const UserSchema = new Schema<UserI>({
   userName: { type: String, unique: true , required: true},
@@ -18,28 +27,17 @@ const UserSchema = new Schema<UserI>({
   email: { type: String, unique: true },
   password: {type: String, required: true},
   bio: {type: String, default: ''},
-  img: {type: String,  default: 'https://s-media-cache-ak0.pinimg.com/736x/dd/6f/40/dd6f403a57b73215b5be860bd397ec34.jpg'},
-  
+  profilePic: {type: String,  default: 'https://s-media-cache-ak0.pinimg.com/736x/dd/6f/40/dd6f403a57b73215b5be860bd397ec34.jpg'},
+  savedRecipes:{type: Array, default: []},
+  skillLevel:{type: String, default: 'Beginner'},
+  followers:{type: Array, default: []},
+  followings:{type: Array, default: []},
+  dob:{type: String, default:''}, 
+  pinnedPost:{type: Array, default: []},
+  cookingStyle: {type: String, default:'Grill Master'},
+  country: {type: String, default: 'Hungary'},
+  accountAge: {type: Date, default: Date.now()},
 
-  // ill enter the characterestic not in the list below later just tryna get things set up
-    // Profile characteristic
-	// Profile pic    
-	// Username 
-	// Recipes shared
-	// Name
-	// Followers
-	// Following
-	// Achievements
-	// Personal info (ex: DOB, country)
-	// Cooking style
-	// Skill level
-	// Pinned post
-	// Account age 
-	// Online status
-	// Last login
-
-
-  //cd {type: Object, required:false}
 });
 
 // Password hash middleware.

@@ -18,6 +18,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = __importDefault(require("../model/user"));
 let auth = {
     postCreateAccount: (req, res, next) => {
+        console.log(req.body);
         const validationErrors = [];
         const validEmail = {
             msg: "Please enter a valid email address."
@@ -42,13 +43,11 @@ let auth = {
             gmail_remove_dots: false,
         });
         const user = new user_1.default({
-            userName: req.body.userName,
+            userName: req.body.username,
             email: req.body.email,
             password: req.body.password,
-            tutor: req.body.tutor,
-            lastName: req.body.fullName,
-            firstName: req.body.fullName,
-            courses: req.body.courses
+            lastName: req.body.first,
+            firstName: req.body.last,
         });
         user_1.default.findOne({ $or: [{ email: req.body.email }, { userName: req.body.userName }] }, (err, existingUser) => {
             if (err) {
@@ -68,12 +67,13 @@ let auth = {
                         return next(err);
                     }
                     const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
-                    res.send({ token, newUser: user });
+                    res.send({ token, newUser: user, status: '200' });
                 });
             });
         });
     },
     postLogin: (req, res, next) => {
+        console.log(req.body);
         const validationErrors = [];
         const validEmail = {
             msg: "Please enter a valid email address."
@@ -106,7 +106,7 @@ let auth = {
                 }
                 req.flash("success", { msg: "Success! You are logged in." });
                 const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY);
-                res.send({ token, newUser: user });
+                res.send({ token, newUser: user, status: '200' });
             });
         })(req, res, next);
     },
