@@ -72,7 +72,6 @@ let auth = {
         );
       },
       postLogin: (req,res,next) => {
-        console.log(req.body)
         interface Message {
             msg: string;
         }
@@ -88,7 +87,6 @@ let auth = {
           validationErrors.push(validEmail);
         if (validator.isEmpty(req.body.password))
           validationErrors.push(emptyPassword);
-      
         if (validationErrors.length) {
           req.flash("errors", validationErrors);
           return res.redirect("/login");
@@ -96,23 +94,24 @@ let auth = {
         req.body.email = validator.normalizeEmail(req.body.email, {
           gmail_remove_dots: false,
         });
-      
-        passport.authenticate("local", (err, user, info) => {
+        passport.authenticate("local", (err:any, user:any, info:any) => {
           if (err) {
+            console.log(err)
             return next(err);
           }
           if (!user) {
+
             req.flash("errors", info);
             return res.redirect("/login");
           }
           req.logIn(user, (err) => {
             if (err) {
+              console.log(err)
               return next(err);
             }
             req.flash("success", { msg: "Success! You are logged in." });
-            
-             const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string,);//{ expiresIn: '1h' }
-             res.send(
+             const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1h' })
+             res.status(200).send(
                   { token, newUser: user, status:'200' }
                 )
           });

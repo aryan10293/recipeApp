@@ -18,17 +18,17 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
 const server = http_1.default.createServer(app);
 const MongoStore = (0, connect_mongo_1.default)(express_session_1.default);
-const database_js_1 = __importDefault(require("./config/database.js"));
-const main_js_1 = __importDefault(require("./routes/main.js"));
+const database_1 = __importDefault(require("./config/database"));
+const main_1 = __importDefault(require("./routes/main"));
 dotenv_1.default.config({ path: "./config/.env" });
-(0, database_js_1.default)();
+(0, database_1.default)();
 app.use((0, cors_1.default)({
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));
-app.use(express_1.default.urlencoded({ extended: true, limit: "25mb" }));
-app.use(express_1.default.json({ limit: "25mb" }));
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use(express_1.default.json());
 app.use((0, morgan_1.default)("dev"));
 app.use((0, express_session_1.default)({
     secret: "keyboard cat",
@@ -41,7 +41,7 @@ app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 (0, passport_js_1.default)(passport_1.default);
 app.use((0, express_flash_1.default)());
-app.use("/", main_js_1.default);
+app.use("/", main_1.default);
 app.listen(process.env.PORT, () => {
     console.log("Server is running, you better catch it! on " + process.env.PORT);
 });

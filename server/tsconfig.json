@@ -10,6 +10,10 @@
         "forceConsistentCasingInFileNames": true,
         "strictNullChecks": true,
         },
+        "typeRoots": [
+          "./node_modules/@types",
+          "./node_modules/koa-body"
+        ],
         "ts-node": {
         "esm": true, // «———— enabling ESM for ts-node
   },
