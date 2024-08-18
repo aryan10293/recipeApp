@@ -21,7 +21,7 @@ function Register() {
         country:string,
         skillLevel:string,
     }
-    const registerInfo = {
+    const registerInfo: RegisterInfo = {
         username:username,
         first:first,
         last:last,
@@ -41,8 +41,8 @@ function Register() {
         })
 
         const createUserRequestInfo = await createUser.json()
-        if(createUserRequestInfo.status = '200'){
-            window.location.href = '/login'
+        if(createUserRequestInfo.status === '200'){
+            console.log(createUserRequestInfo)
         } else {
             alert('there was an aerror')
         }

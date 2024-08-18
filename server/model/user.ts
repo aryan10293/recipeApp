@@ -25,7 +25,7 @@ const UserSchema = new Schema<UserI>({
   firstName: { type: String, required: true},
   lastName: { type: String, required: true},
   email: { type: String, unique: true },
-  password: {type: String, required: true},
+  password: {type: String, required: true, },
   bio: {type: String, default: ''},
   profilePic: {type: String,  default: 'https://s-media-cache-ak0.pinimg.com/736x/dd/6f/40/dd6f403a57b73215b5be860bd397ec34.jpg'},
   savedRecipes:{type: Array, default: []},

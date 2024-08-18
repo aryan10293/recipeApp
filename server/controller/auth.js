@@ -73,7 +73,6 @@ let auth = {
         });
     },
     postLogin: (req, res, next) => {
-        console.log(req.body);
         const validationErrors = [];
         const validEmail = {
             msg: "Please enter a valid email address."
@@ -94,6 +93,7 @@ let auth = {
         });
         passport_1.default.authenticate("local", (err, user, info) => {
             if (err) {
+                console.log(err);
                 return next(err);
             }
             if (!user) {
@@ -102,11 +102,12 @@ let auth = {
             }
             req.logIn(user, (err) => {
                 if (err) {
+                    console.log(err);
                     return next(err);
                 }
                 req.flash("success", { msg: "Success! You are logged in." });
-                const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY);
-                res.send({ token, newUser: user, status: '200' });
+                const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+                res.status(200).send({ token, newUser: user, status: '200' });
             });
         })(req, res, next);
     },

@@ -13,6 +13,7 @@ function Login() {
     }
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        console.log(loginInfo)
         try {
             const handleLoggingInUser = await fetch('http://localhost:2020/login', {
                 method: "POST",
@@ -20,8 +21,7 @@ function Login() {
                 body: JSON.stringify(loginInfo),
             })
             const HandleLogin = await handleLoggingInUser.json()
-
-            if(HandleLogin.status = '200'){
+            if(HandleLogin.status === '200'){
                 window.location.href = '/home'
                 console.log(HandleLogin, 'sucess')
                 
@@ -30,7 +30,7 @@ function Login() {
             }
 
         } catch (error) {
-            
+            console.log(error)
         }
     }
 

@@ -17,8 +17,8 @@ const MongoStore = connectMongo(session);
 // Your application logic goes here...
 
 // Import other modules (CommonJS syntax)
-import connectDB from "./config/database.js";
-import mainRoutes from "./routes/main.js";
+import connectDB from "./config/database";
+import mainRoutes from "./routes/main";
 
 //Use .env file in config folder
 dotenv.config({ path: "./config/.env" });
@@ -36,8 +36,8 @@ app.use(
   })
 );
 //Body Parsing
-app.use(express.urlencoded({ extended: true, limit: "25mb" }));
-app.use(express.json({ limit: "25mb" }));
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
 
 //Logging
 app.use(logger("dev"));

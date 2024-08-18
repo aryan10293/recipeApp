@@ -1,6 +1,6 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import mongoose from "mongoose"
-import User from "../model/user.js";
+import User from "../model/user";
 
 const configurePassport = (passport) => {
   passport.use(
@@ -12,8 +12,12 @@ const configurePassport = (passport) => {
         if (!user) {
           return done(null, false, { msg: `Email ${email} not found.` });
         }
-        if (!user.password) {
+        if (!password) {
           return done(null, false, {
+            // lol:user.password,
+            // yoo:user.email,
+            // adwef:password,
+            // yeqoo:email,
             msg:
               'Your account was registered using a sign-in provider. To enable password login, sign in using a provider, and then set a password under your user profile.',
           });
