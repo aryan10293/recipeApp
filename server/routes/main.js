@@ -11,4 +11,5 @@ router.post('/createaccount', auth_1.default.postCreateAccount);
 router.post('/login', auth_1.default.postLogin);
 router.post('/createrecipe', feed_1.default.createRecipe);
 router.post('/createcomment', feed_1.default.commentRecipe);
+router.get('/getuser/:id', auth_1.default.checkUser);
 exports.default = router;

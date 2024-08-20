@@ -123,7 +123,7 @@ let auth = {
         });
     },
     checkUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        jsonwebtoken_1.default.verify(req.params.token, process.env.SECRET_KEY, (err, decoded) => __awaiter(void 0, void 0, void 0, function* () {
+        jsonwebtoken_1.default.verify(req.params.id, process.env.SECRET_KEY, (err, decoded) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 res.status(401).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
             }
