@@ -1,0 +1,64 @@
+body{
+    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp7092278.jpg&f=1&nofb=1&ipt=a161394971fe9e35d1bd2c6e744ac04ca7c44802ca7a97be6122e71a23bf45b6&ipo=images');
+    height: 100vh;
+    background-size:cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.login-page .submit-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 150px 0 0 0;
+    width: 415px;
+    height: 300px;
+    background-color: rgba(0,0,0,0.3);
+    backdrop-filter: blur(1px) grayscale(10%);
+    box-shadow: 0 0 100px rgba(0,0,0,1);
+    box-shadow: 0 0 30px rgb(84, 84, 84,0.5);
+    border: 5px solid rgba(255,255,255,0.1);
+}
+.login-page .submit-form .fields{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 400px;
+    justify-content: space-around;
+}
+.submit-form .input-titles{
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+}
+.submit-form .input-titles label{
+    font-size: 1rem;
+    margin: 10px 0 0 0;
+}
+.submit-form .input-fields{
+    display: flex;
+    flex-direction: column;
+}
+.submit-form .input-fields input{
+    font-size: 1rem;
+    margin: 10px 0 0 0;
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px) greyscale(200%);
+    outline: none;
+    border: 1px solid white;
+    padding: 5px 10px;
+}
+.submit-form button{
+    margin: 20px 0 0 0;
+    font-size: 0.8rem;
+    background-color: transparent;
+    outline: 1px solid white;
+    padding: 5px 20px;
+    border: none;
+}
+.submit-form button:hover{
+    cursor: pointer;
+}
