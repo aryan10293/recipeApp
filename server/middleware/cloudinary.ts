@@ -19,7 +19,7 @@ const opts: Opts =  {
   resource_type: "auto",
 };
 
-export const uploadImage = (image: string) => {
+const uploadImage = (image: string) => {
   // Image => base64
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(image, opts, (error:any, result) => {
@@ -32,6 +32,8 @@ export const uploadImage = (image: string) => {
     });
   });
 };
+
+export default uploadImage
 
 // export const uploadMultipleImages = (images) => {
 //   return new Promise((resolve, reject) => {

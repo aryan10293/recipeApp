@@ -23,7 +23,7 @@ function Login() {
             const HandleLogin = await handleLoggingInUser.json()
             if(HandleLogin.status === '200'){
                 window.location.href = '/home'
-                console.log(HandleLogin, 'sucess')
+                window.localStorage.setItem('token', HandleLogin.token)
                 
             } else {
                 console.log(HandleLogin, 'failure')

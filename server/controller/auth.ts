@@ -129,7 +129,7 @@ let auth = {
         });
       },
       checkUser:  async (req,res) => {
-        jwt.verify(req.params.token, process.env.SECRET_KEY as string, async (err, decoded) => {
+        jwt.verify(req.params.id, process.env.SECRET_KEY as string, async (err, decoded) => {
           if (err) {
             // Token is invalid or expired
             // Handle unauthorized access
