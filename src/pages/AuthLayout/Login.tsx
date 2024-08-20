@@ -35,17 +35,19 @@ function Login() {
     }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-            <label htmlFor="email">Email</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
+    <div className='login-page'>
+      <form className='submit-form' onSubmit={handleSubmit}>
+        <div className="fields">
+            <div className='input-titles'>
+                <label htmlFor="email">Email</label>
+                <label htmlFor="password">Password</label>  
+            </div>
+            <div className='input-fields'>
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
+            </div>
         </div>
-        <div>
-            <label htmlFor="password">Password</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
-        </div>
-        <button>Login</button>
+        <button>Login</button>        
       </form>
     </div>
   )
