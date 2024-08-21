@@ -16,11 +16,9 @@ body{
     margin: 150px 0 0 0;
     width: 415px;
     height: 300px;
-    background-color: rgba(0,0,0,0.3);
-    backdrop-filter: blur(1px) grayscale(10%);
-    box-shadow: 0 0 100px rgba(0,0,0,1);
-    box-shadow: 0 0 30px rgb(84, 84, 84,0.5);
-    border: 5px solid rgba(255,255,255,0.1);
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(1px) grayscale(25%);
+    box-shadow: 8px 15px 15px rgba(0,0,0,0.7);
 }
 .login-page .submit-form .fields{
     display: flex;
@@ -48,16 +46,16 @@ body{
     background-color: rgba(0,0,0,0.4);
     backdrop-filter: blur(10px) greyscale(200%);
     outline: none;
-    border: 1px solid white;
+    border: 1px solid rgba(255,255,255,0.5);
     padding: 5px 10px;
 }
 .submit-form button{
     margin: 20px 0 0 0;
     font-size: 0.8rem;
     background-color: transparent;
-    outline: 1px solid white;
+    outline: none;
     padding: 5px 20px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.5);
 }
 .submit-form button:hover{
     cursor: pointer;
