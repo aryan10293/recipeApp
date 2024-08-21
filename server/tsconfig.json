@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "CommonJs",
+        "target": "ES2016",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictNullChecks": true,
+        },
+        "typeRoots": [
+          "./node_modules/@types",
+          "./node_modules/koa-body"
+        ],
+        "ts-node": {
+        "esm": true, // «———— enabling ESM for ts-node
+  },
+  "include": ["server.ts"],
+  "exclude": ["node_modules"]
+}
