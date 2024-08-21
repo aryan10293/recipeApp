@@ -6,4 +6,6 @@ router.post('/createaccount', auth.postCreateAccount)
 router.post('/login', auth.postLogin)
 router.post('/createrecipe', feed.createRecipe)
 router.post('/createcomment', feed.commentRecipe)
+
+router.get('/getuser/:id', auth.checkUser)
 export default router;

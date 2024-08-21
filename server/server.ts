@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import http from "http";
 import mongoose from "mongoose";
 import passport from "passport";
@@ -10,9 +10,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import configurePassport from "./config/passport.js";
 import dotenv from "dotenv";
+import * as bodyParser from 'body-parser';
 const app = express();
 const server = http.createServer(app);
 const MongoStore = connectMongo(session);
+
+let router: Router = express.Router();
+router.use(bodyParser.text());
 
 // Your application logic goes here...
 
@@ -37,7 +41,7 @@ app.use(
 );
 //Body Parsing
 app.use(express.urlencoded({ extended: true}));
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 
 //Logging
 app.use(logger("dev"));
