@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 function Login() {
     const [email, setEmail] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
@@ -35,17 +35,21 @@ function Login() {
     }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className='login-page'>
+      < form onSubmit={handleSubmit} className='submit-form'>
+        <div className='fields'>
+        <div className='input-titles'>
             <label htmlFor="email">Email</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
-        </div>
-        <div>
             <label htmlFor="password">Password</label>
+        </div>
+        <div className='input-fields'> 
+            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />     
             <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
         </div>
+        </div>
         <button>Login</button>
+
+        <Link to={"/register"} className='redirect-btn'><p>Not a member yet? Register here</p></Link>
       </form>
     </div>
   )

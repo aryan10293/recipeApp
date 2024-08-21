@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Register() {
     const [username, setUsername] = React.useState<string>('')
@@ -55,41 +56,32 @@ function Register() {
        
     }
   return (
-    <div>
-      <form onSubmit={handleSubmit} action="">
-        <div>
-            <label htmlFor="firstname">First Name</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} type="text" />
-        </div>
-        <div>
-            <label htmlFor="lastname">Last Name</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setLast(e.target.value)} type="text" />
-        </div>
-        <div>
-            <label htmlFor="username">Username</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} type="text" />
-        </div>
-         <div>
-            <label htmlFor="country">Country</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCountry(e.target.value)} type="text" />
-        </div>
-         <div>
-            <label htmlFor="skilllevel">Skill Level</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setSkillLevel(e.target.value)} type="text" />
-        </div>
-        <div>
-            <label htmlFor="email">Email</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
-        </div>
-        <div>
-            <label htmlFor="password">Password</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
-        </div>
-        <div>
-            <label htmlFor="confirmpassword">Confirm Password</label>
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} type="password" />
+    <div className='register-box'>
+      <form onSubmit={handleSubmit} className='register-form' action="">
+        <div className="inputs">
+            <div className='input-titles'>
+                <label htmlFor="firstname">First Name</label>
+                <label htmlFor="lastname">Last Name</label>
+                <label htmlFor="username">Username</label>
+                <label htmlFor="country">Country</label>
+                <label htmlFor="skilllevel">Skill Level</label>
+                <label htmlFor="email">Email</label>
+                <label htmlFor="password">Password</label>
+                <label htmlFor="confirmpassword">Confirm Password</label>      
+            </div>
+            <div className='input-fields'>     
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setLast(e.target.value)} type="text" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} type="text" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} type="text" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCountry(e.target.value)} type="text" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setSkillLevel(e.target.value)} type="text" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
+                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} type="password" />
+            </div>
         </div>
         <button>Create Account</button>
+        <Link to={"/login"}  className='redirect-btn'><p>Already a member? Sign in here</p></Link>
       </form>
     </div>
   )

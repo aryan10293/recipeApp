@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import '../src/pages/AuthLayout/Login.css'
+import '../src/pages/AuthLayout/Register.css'
 import AuthLayout from './pages/AuthLayout/AuthLayout';
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
