@@ -7,6 +7,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
 const postSchema = new mongoose_2.Schema({
     timeOfPost: { type: String, default: Date.now() },
+    nameOfDish: { type: String, required: true },
     userWhoPostId: { type: String, required: true },
     image: { type: String, required: true },
     ingridentList: { type: Array, required: true },

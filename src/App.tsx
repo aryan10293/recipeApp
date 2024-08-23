@@ -12,6 +12,7 @@ import Feed from './Feed';
 import Messages from './Messages';
 import Profile from './Profile';
 import SavedRecipes from './SavedRecipes';
+import Comment from './pages/commentPage/Comment';
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/messages" element={<Messages/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/savedrecipes" element={<SavedRecipes/>} />
+        <Route path="/comment/:id" element={<Comment/>} />
       </Routes>
     </>
   );  

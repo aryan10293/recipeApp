@@ -16,4 +16,5 @@ const commentSchema = new Schema<Comments>({
     likes:{type: Array, default: []},
 })
 
-export default commentSchema
+const comment = mongoose.model<Comments>('Comment', commentSchema);
+export default comment
