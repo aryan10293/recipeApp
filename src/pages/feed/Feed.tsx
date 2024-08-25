@@ -1,4 +1,5 @@
-import Navbar from "./Navbar";
+import Navbar from "../../Navbar";
+import RecipeCard from "../../RecipeCard";
 
 
 const Feed = () => {
@@ -6,7 +7,7 @@ const Feed = () => {
         
         <div className="feed">
             <Navbar/>
-            <h2>Feed</h2>
+            {<RecipeCard/>}
         </div>
      );
 }

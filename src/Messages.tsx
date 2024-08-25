@@ -4,7 +4,7 @@ const Messages = () => {
     return ( 
         <div>
             <Navbar/>
-            <h2>Messages</h2>
+            
         </div>
      );
 }

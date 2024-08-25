@@ -22,11 +22,12 @@ function Login() {
             })
             const HandleLogin = await handleLoggingInUser.json()
             if(HandleLogin.status === '200'){
-                window.location.href = '/home'
+                window.location.href = '/feed'
                 window.localStorage.setItem('token', HandleLogin.token)
                 
             } else {
                 console.log(HandleLogin, 'failure')
+                new Error('Cannot login')
             }
 
         } catch (error) {
@@ -37,14 +38,15 @@ function Login() {
   return (
     <div className='login-page'>
       < form onSubmit={handleSubmit} className='submit-form'>
+      <h2 className='hero'>Login</h2>
         <div className='fields'>
-        <div className='input-titles'>
+{/*         <div className='input-titles'>
             <label htmlFor="email">Email</label>
             <label htmlFor="password">Password</label>
-        </div>
+        </div> */}
         <div className='input-fields'> 
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />     
-            <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
+            <input placeholder='E-mail' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />     
+            <input placeholder='Password' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
         </div>
         </div>
         <button>Login</button>

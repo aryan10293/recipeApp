@@ -58,8 +58,9 @@ function Register() {
   return (
     <div className='register-box'>
       <form onSubmit={handleSubmit} className='register-form' action="">
+        <h2 className='hero'>Register</h2>
         <div className="inputs">
-            <div className='input-titles'>
+{/*             <div className='input-titles'>
                 <label htmlFor="firstname">First Name</label>
                 <label htmlFor="lastname">Last Name</label>
                 <label htmlFor="username">Username</label>
@@ -68,16 +69,16 @@ function Register() {
                 <label htmlFor="email">Email</label>
                 <label htmlFor="password">Password</label>
                 <label htmlFor="confirmpassword">Confirm Password</label>      
-            </div>
+            </div> */}
             <div className='input-fields'>     
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setLast(e.target.value)} type="text" />
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} type="text" />
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} type="text" />
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCountry(e.target.value)} type="text" />
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setSkillLevel(e.target.value)} type="text" />
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
-                <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} type="password" />
+                <input placeholder='First Name' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} type="text" />
+                <input placeholder='Last Name' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setLast(e.target.value)} type="text" />
+                <input placeholder='Username' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} type="text" />
+                <input placeholder='Country' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCountry(e.target.value)} type="text" />
+                <input placeholder='Skill Level' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setSkillLevel(e.target.value)} type="text" />
+                <input placeholder='E-mail adress' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
+                <input placeholder='Password' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
+                <input placeholder='Confirm Password' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} type="password" />
             </div>
         </div>
         <button>Create Account</button>
