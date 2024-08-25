@@ -3,7 +3,7 @@ import LikeButton from "./LikeButton";
 const RecipeCard = () => {
 
     return ( 
-    <div className="recipe-card">
+    <button className="recipe-card">
         <div className="left-side">
 
             <div className="left-top">
@@ -17,15 +17,28 @@ const RecipeCard = () => {
         <div className="right-side">
 
             <div className="right-top">
-
+                <h2 className="recipe-title">Lecsó</h2>
+                <h3 className="recipe-time">45m</h3>
+                <div className="recipe-ingredients">
+                    <ul>
+                        <li>Tomato</li>
+                        <li>Tomato</li>
+                        <li>Tomato</li>
+                        <li>Tomato</li>
+                        <li>Tomato</li>
+                        <li>Tomato</li>
+                        <li>Tomato</li>
+                    </ul>
+                </div>
             </div>
             <div className="right-bottom">
-
+                <h2 className="recipe-steps"></h2>
             </div>
 
         </div>
 
-    </div>
+    </button>
+    
      );
 }
  

@@ -7,7 +7,9 @@ const Feed = () => {
         
         <div className="feed">
             <Navbar/>
-            {<RecipeCard/>}
+            <RecipeCard/>
+            <RecipeCard/>
+            <RecipeCard/>
         </div>
      );
 }

@@ -10,13 +10,15 @@ import Home from './pages/home/Home';
 import Feed from './pages/feed/Feed';
 import './Navbar.css'
 import { Routes, Route, Navigate , Router} from 'react-router-dom'
-import Messages from './Messages';
+import Messages from './pages/Messages/Messages';
+import Navbar from './Navbar';
 function App() {
   return (
     <>
+    
       <Routes>
           {/* More routes can be added here */}
-        <Route path="/"element={ <AuthLayout />  } />
+        <Route path="/"element={<AuthLayout />  } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path='/home' element={<Home />} />
