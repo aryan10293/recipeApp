@@ -13,11 +13,11 @@ const RecipeList = () => {
 
     return ( 
         <div>
-            {recipes && (recipes as Recipe[]).map((recipe)=>(
+            {/* {recipes && (recipes as Recipe[]).map((recipe)=>(
                 <div key={recipe.id}>
                     <h2>{recipe.name}</h2>
                 </div>
-            ))}
+            ))} */}
         </div>
      );
 }
