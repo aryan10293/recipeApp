@@ -8,11 +8,13 @@ interface Post extends Document{
     ingridentList:string[],
     levelOfMeal: string,
     prepTime: number,
-    likes:string[]
-    bookmarks: string[]
+    likes:string[],
+    bookmarks: string[],
+    nameOfDish:string,
 }
 const postSchema = new Schema<Post>({
     timeOfPost:{type:String, default: Date.now()},
+    nameOfDish:{type:String, required: true},
     userWhoPostId: {type: String, required: true},
     image:{type: String, required: true},
     ingridentList:{type: Array, required: true},

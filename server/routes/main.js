@@ -12,4 +12,7 @@ router.post('/login', auth_1.default.postLogin);
 router.post('/createrecipe', feed_1.default.createRecipe);
 router.post('/createcomment', feed_1.default.commentRecipe);
 router.get('/getuser/:id', auth_1.default.checkUser);
+router.get('/getallpost', feed_1.default.getAllPost);
+router.get('/getpost/:id', feed_1.default.getPost);
+router.get('/getcommentsfrompost/:id', feed_1.default.getComments);
 exports.default = router;
