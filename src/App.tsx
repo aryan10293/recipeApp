@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.css'
 import '../src/pages/AuthLayout/Login.css'
 import '../src/pages/AuthLayout/Register.css'
 import '../src/pages/feed/Feed.css'
@@ -9,7 +9,7 @@ import './assets/CreateRecipe.css'
 import AuthLayout from './pages/AuthLayout/AuthLayout';
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
-import Home from './pages/home/Home';
+// import Home from './pages/home/Home';
 import Feed from './pages/feed/Feed';
 
 import { Routes, Route, Navigate , Router} from 'react-router-dom'
