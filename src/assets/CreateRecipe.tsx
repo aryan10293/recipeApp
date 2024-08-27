@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import {encode as base64_encode} from "base-64";
 
 const CreateRecipe = () => {
 
@@ -14,17 +15,21 @@ const CreateRecipe = () => {
         nameOfDish:string,
     }
 
+
+
+
+
     const postRecipe = function(e:React.SyntheticEvent){
         e.preventDefault()
         const newRecipe:recipe= {
             timeOfPost:new Date().toISOString(),
-            id: "21v",
-            image:"2vad",
+            id: "21",
+            image:convertedImage,
             ingridentList:ingredients,
             levelOfMeal: recipeSkill,
             prepTime: recipeTime,
-            likes:[],
-            bookmarks:[],
+            likes:[""],
+            bookmarks:[""],
             nameOfDish:recipeName,
         }
 
@@ -58,6 +63,9 @@ const CreateRecipe = () => {
     const [recipeSteps,setRecipeSteps] = useState<string>("")
     const [recipeSkill,setRecipeSkill] = useState<string>("")
 
+    const [uploadedImage,setUploadedImage] = useState<File | undefined>()
+    const [convertedImage,setconvertedImage] = useState<string>("")
+
     const [ingredients,setIngredients] = useState<string[]>([])
     const [newIngredient,setNewIngredient] = useState<string>("")
 
@@ -66,23 +74,45 @@ const CreateRecipe = () => {
         e.preventDefault()
         console.log("Adding ingredient: " + newIngredient)
         setIngredients([...ingredients,newIngredient])
-        
-
+        setNewIngredient("")
+              
     }
 
     useEffect(()=>{
-        console.log(ingredients)
-        
-        
+        // console.log(ingredients)        
     },[ingredients])
+    useEffect(()=>{
+        // console.log(convertedImage)
+        // console.log(uploadedImage)
+    },[convertedImage])
+
+
+    const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
+        if(e.target.files && e.target.files.length !== 0){
+            const file = e.target.files[0]
+            setUploadedImage(file)
+            const base64Image = await base64_encode(file)
+            setconvertedImage(base64Image)
+        }
+    }
+    const base64_encode = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = (error) => reject(error);
+        });
+    };
 
 
 
     return ( 
-        <form className="create-recipe-box">
+        <div className="create-recipe-box">
             <div className="top">
 
             <div className="top-left">
+                {/* <img className="upload-img" src="https://www.vitacost.com/blog/wp-content/uploads/2024/02/How-to-Make-Homemade-Dog-Food.jpg" alt="" /> */}
+                {convertedImage && <img src={convertedImage}  />}
 
             </div>
 
@@ -107,7 +137,11 @@ const CreateRecipe = () => {
                     <input className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
                     <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>
                 </div>
-                
+
+                <div className="img-upload-box">
+                    <input className="img-upload" accept="*" onChange={handleImageUpload} type="file" />
+
+                </div>
             </div>
 
             </div>
@@ -126,10 +160,8 @@ const CreateRecipe = () => {
             <textarea onChange={(e)=>{setRecipeSteps(e.target.value)}} className="recipe-steps" placeholder="Recipe Steps" name="" id=""></textarea>     
             <button onClick={(e)=>postRecipe(e)} className="create-recipe-btn">Create Recipe</button>
             
-            </div>
-
-
-        </form>
+            </div>     
+        </div>
      );
 }
  

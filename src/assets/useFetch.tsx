@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { json } from "react-router-dom"
 
-const [data,setData] = useState()
 
-const useFetch = <T, >(url:string)=>{
+
+const useFetch = (url:string)=>{
+    const [data,setData] = useState<any>()
     useEffect(()=>{
         fetch(url)
             .then((res)=>{

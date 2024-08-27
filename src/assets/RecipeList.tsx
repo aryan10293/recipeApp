@@ -1,23 +1,45 @@
+import { useEffect } from "react";
 import useFetch from "./useFetch";
+import RecipeCard from "./RecipeCard";
 
 const RecipeList = () => {
 
-    type Recipe = {
-        name:string;
-        id:number;
+    interface Recipe{
+        timeOfPost:string,
+        nameOfDish:string,
+        _id:string
+        prepTime:number,
+        image:string,
+        ingridentList:string[]
+        
+
     }
 
-    const {data:recipes} = useFetch<Recipe[]>('http://localhost:2020/')
+    const {data:recipes} = useFetch('http://localhost:2030/getallpost')
      
-
 
     return ( 
         <div>
-            {/* {recipes && (recipes as Recipe[]).map((recipe)=>(
-                <div key={recipe.id}>
-                    <h2>{recipe.name}</h2>
+            {
+            recipes && 
+            recipes.post && 
+            recipes.post.length && 
+            recipes.post.map((recipe:Recipe)=>(
+                <div key={recipe._id}>
+                    {<RecipeCard 
+                    recipeName={recipe.nameOfDish}
+                    recipeTime={recipe.prepTime}
+                    recipeImage={recipe.image}
+                    steps={"asdwads"}
+                    ingridientList={recipe.ingridentList}
+                    
+                    timeOfPost={recipe.timeOfPost}
+                    
+                    />}
+                    
                 </div>
-            ))} */}
+            ))
+            }
         </div>
      );
 }
