@@ -1,14 +1,21 @@
 *{
     font-family: Jost;
 }
-body{
+#root{
+    background-color: #f8f5f2;
+    height: 100%;
+}
+html,body, #root {
+    height: 100%;;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction:column;
-    align-items: center;   
-    background-color: #EAD196;
-
+}
+h1,h2,h3,p,select,input,textarea,::placeholder{
+    color:#222525;
+}
+input:focus, textarea:focus{
+    border: none;
+    outline: none;
 }
 
 

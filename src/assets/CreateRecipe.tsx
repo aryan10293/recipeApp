@@ -1,7 +1,46 @@
 import React, { useEffect, useState } from "react";
 import {encode as base64_encode} from "base-64";
 
-const CreateRecipe = () => {
+interface classNameProps{
+    className:string,
+    className2:string,
+    className3:string
+}
+
+
+
+const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}) => {
+
+ 
+
+
+
+
+    const [recipeName,setRecipeName] = useState<string>("")
+    const [recipeTime,setRecipeTime] = useState<number>(0)
+    const [recipeSteps,setRecipeSteps] = useState<string>("")
+    const [recipeSkill,setRecipeSkill] = useState<string>("")
+
+    const [uploadedImage,setUploadedImage] = useState<File | undefined>()
+    const [convertedImage,setconvertedImage] = useState<string>("")
+
+    const [ingredients,setIngredients] = useState<string[]>([])
+    const [newIngredient,setNewIngredient] = useState<string>("")
+
+    const[data,setData] = useState()
+
+    const ingredientClickHandle = function(e:React.MouseEvent<HTMLButtonElement>){
+
+        e.preventDefault()
+        if(newIngredient === ""){
+            console.log('Cannot be empty')
+        }
+        else{
+            console.log("Adding ingredient: " + newIngredient)
+            setIngredients([...ingredients,newIngredient])
+            setNewIngredient("")
+        }   
+    }
 
     interface recipe{
         timeOfPost:string,
@@ -15,9 +54,22 @@ const CreateRecipe = () => {
         nameOfDish:string,
     }
 
-
-
-
+    const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
+        if(e.target.files && e.target.files.length !== 0){
+            const file = e.target.files[0]
+            setUploadedImage(file)
+            const base64Image = await base64_encode(file)
+            setconvertedImage(base64Image)
+        }
+    }
+    const base64_encode = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = (error) => reject(error);
+        });
+    };
 
     const postRecipe = function(e:React.SyntheticEvent){
         e.preventDefault()
@@ -40,6 +92,7 @@ const CreateRecipe = () => {
             },
             body:JSON.stringify(newRecipe)
         })
+ 
         .then((response)=>{
             if(!response.ok){
                 throw Error("Response is not Okay")
@@ -48,7 +101,7 @@ const CreateRecipe = () => {
             return response.json()
         })
         .then((data)=>{
-            
+            setData(data)
             console.log("Success!",data)
         })
         .catch((err)=>{
@@ -56,28 +109,9 @@ const CreateRecipe = () => {
         })
             
     }
-
-
-    const [recipeName,setRecipeName] = useState<string>("")
-    const [recipeTime,setRecipeTime] = useState<number>(0)
-    const [recipeSteps,setRecipeSteps] = useState<string>("")
-    const [recipeSkill,setRecipeSkill] = useState<string>("")
-
-    const [uploadedImage,setUploadedImage] = useState<File | undefined>()
-    const [convertedImage,setconvertedImage] = useState<string>("")
-
-    const [ingredients,setIngredients] = useState<string[]>([])
-    const [newIngredient,setNewIngredient] = useState<string>("")
-
-    const ingredientClickHandle = function(e:React.SyntheticEvent){
-
-        e.preventDefault()
-        console.log("Adding ingredient: " + newIngredient)
-        setIngredients([...ingredients,newIngredient])
-        setNewIngredient("")
-              
-    }
-
+    useEffect(()=>{
+        console.log("data: ",data)
+    },[data])
     useEffect(()=>{
         // console.log(ingredients)        
     },[ingredients])
@@ -86,29 +120,9 @@ const CreateRecipe = () => {
         // console.log(uploadedImage)
     },[convertedImage])
 
-
-    const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
-        if(e.target.files && e.target.files.length !== 0){
-            const file = e.target.files[0]
-            setUploadedImage(file)
-            const base64Image = await base64_encode(file)
-            setconvertedImage(base64Image)
-        }
-    }
-    const base64_encode = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = (error) => reject(error);
-        });
-    };
-
-
-
     return ( 
-        <div className="create-recipe-box">
-            <div className="top">
+        <div className={className}>
+            <div className={className2}>
 
             <div className="top-left">
                 {/* <img className="upload-img" src="https://www.vitacost.com/blog/wp-content/uploads/2024/02/How-to-Make-Homemade-Dog-Food.jpg" alt="" /> */}
@@ -134,7 +148,7 @@ const CreateRecipe = () => {
                 </div>
 
                 <div className="ingredients-input">
-                    <input className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
+                    <input value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
                     <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>
                 </div>
 
@@ -145,7 +159,7 @@ const CreateRecipe = () => {
             </div>
 
             </div>
-            <div className="bottom">
+            <div className={className3}>
 
                 <div className="ingredients">
                     <ul className="ingredients-list">
@@ -158,9 +172,9 @@ const CreateRecipe = () => {
                 </div>
 
             <textarea onChange={(e)=>{setRecipeSteps(e.target.value)}} className="recipe-steps" placeholder="Recipe Steps" name="" id=""></textarea>     
-            <button onClick={(e)=>postRecipe(e)} className="create-recipe-btn">Create Recipe</button>
+            <button onClick={(e)=>postRecipe(e)} className="post-recipe-btn">Post Recipe</button>    
+            </div>  
             
-            </div>     
         </div>
      );
 }

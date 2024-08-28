@@ -10,7 +10,8 @@ const RecipeList = () => {
         _id:string
         prepTime:number,
         image:string,
-        ingridentList:string[]
+        ingridentList:string[],
+        likes:string[]
         
 
     }
@@ -32,7 +33,7 @@ const RecipeList = () => {
                     recipeImage={recipe.image}
                     steps={"asdwads"}
                     ingridientList={recipe.ingridentList}
-                    
+                    likes={recipe.likes}
                     timeOfPost={recipe.timeOfPost}
                     
                     />}
