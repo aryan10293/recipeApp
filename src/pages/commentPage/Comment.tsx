@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { json, useParams } from 'react-router-dom'
 import { Fragment } from 'react'
 import CommentComp from '../../components/CommentComp'
 import CommentItem from '../../components/CommentItem'
@@ -8,6 +8,7 @@ function Comment() {
     const [userId, setUserId] = React.useState<string>('')
     const [postComments, setPostComments] = React.useState<any[]>([])
     const [comment, setComment] = React.useState<string>('')
+    const [name, setName] = React.useState<string>('')
     const params = useParams()
     const id = params.id
     interface CommentInfo{
@@ -19,6 +20,12 @@ function Comment() {
         userId: userId,
         postId: '',
         comment: comment
+    }
+    interface Obj{
+        userId:string,
+    }
+    const likeObj: Obj = {
+        userId : userId
     }
     if(id){
         createComment.postId = id
@@ -81,22 +88,41 @@ function Comment() {
             console.log(error)
         }
     }
-    if (!post || !post.post || post.post.length === 0) {
-        return <p>Loading post data...</p>; // Render this until the data is fetched
+    const handleLike = async (e:any) => {
+        //switch the e to type strictness later drej. im just to lazy to do it know
+        e.preventDefault()
+        let likeUnlike:string = ''
+        console.log(e.target.textContent)
+        if(e.target.textContent === 'Like'){
+            likeUnlike = 'addliketocomment'
+        } else {
+            likeUnlike = 'unlikecomment'
+        }
+        const commentId = e.currentTarget.getAttribute('data-id')
+        const handlelikes = await fetch(`http://localhost:2020/${likeUnlike}/${commentId}`, {
+            method:'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(likeObj)
+        })
+        const handleLikesData = await handlelikes.json()
+        console.log(handleLikesData)
+        getCommentInfo()
     }
-    console.log(postComments)
+    if (!post || !post.post || post.post.length === 0) {
+        return <p>Loading post data...</p>; 
+    }
   return (
     
    
    <>
         <div>
             <CommentComp
-                title={'chicken'}
+                title={post.post[0].nameOfDish}
                 difficulty={post.post[0].levelOfMeal}
                 ingredients={post.post[0].ingridentList}
                 imageUrl={post.post[0].image}
             />
-            <div>
+        <div>
         <textarea 
           value={comment}
           onChange={(e:any) => {setComment(e.target.value)}}
@@ -132,14 +158,64 @@ function Comment() {
 
     
             {postComments.length > 0 ? (
-                postComments.map((x:any, i:any) => {
+                postComments.map( (x:any, i:any) => {
+                    const getNameOfThatCommentedOnPost = async () => {
+
+                        const getCommentorName = await fetch(`http://localhost:2020/getuserbyid/${x.commentorId}`, {
+                        method:'GET',
+                        headers: {'Content-Type': 'application/json'},
+                    })
+                        const name = await getCommentorName.json()
+                        setName(name.user[0].userName)
+                        // this may need more testing  we will find out later
+                    }
+                    getNameOfThatCommentedOnPost()
                     return (
-                        <CommentItem
-                        timeOfPost={x.timeOfPost}
-                        commentorId={'x.commentorId  make a get request to get the user name'}
-                        comment={x.comment}
-                        likes={x.likes.length}
-                        />
+                        <div style={{
+                                border: '1px solid #ddd',
+                                borderRadius: '8px',
+                                padding: '15px',
+                                margin: '10px 0',
+                                fontFamily: 'Arial, sans-serif',
+                                color: '#333',
+                                backgroundColor: '#f9f9f9'
+                            }}>
+                        <div style={{ 
+                            display: 'flex', 
+                            justifyContent: 'space-between', 
+                            marginBottom: '10px' 
+                        }}>
+                            <span style={{ fontWeight: 'bold' }}>Commentor: {name}</span>
+                            <span style={{ fontSize: '0.8em', color: '#777' }}>{new Date('timeOfPost').toLocaleString()}</span>
+                        </div>
+                        <p style={{ marginBottom: '10px' }}>{x.comment}</p>
+                        <div style={{ 
+                            display: 'flex', 
+                            justifyContent: 'space-between', 
+                            alignItems: 'center' 
+                        }}>
+                            <div>
+                            <span style={{ fontSize: '0.9em', marginRight: '10px' }}>Likes: {x.likes.length}</span>
+                            <button 
+                                onClick={handleLike}
+                                data-id={x._id}
+                                style={{
+                                backgroundColor: '#4CAF50', 
+                                color: 'white', 
+                                padding: '5px 10px', 
+                                borderRadius: '5px', 
+                                border: 'none', 
+                                cursor: 'pointer', 
+                                fontSize: '0.9em'
+                                }}
+                                onMouseOver={(e:any) => e.target.style.backgroundColor = '#45a049'}
+                                onMouseOut={(e:any) => e.target.style.backgroundColor = '#4CAF50'}
+                            >
+                                {x.likes.includes(userId) ? 'Unlike' : 'Like'}
+                            </button>
+                            </div>
+                        </div>
+    </div>
                     )
                 })
             ): (

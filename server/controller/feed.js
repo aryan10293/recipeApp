@@ -66,8 +66,36 @@ let feed = {
             console.log(error);
         }
     }),
+    addLikeToPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const postToAddALikeToo = yield post_1.default.findByIdAndUpdate(req.params.id, { $push: { likes: req.body.userId } }, { new: true });
+            console.log(postToAddALikeToo);
+            if (!postToAddALikeToo) {
+                return res.status(400).json({ status: '400', message: "post was not liked, please try again" });
+            }
+            else {
+                return res.status(200).json({ status: '200', message: "post was liked successfully" });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }),
+    unlikePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const unlike = yield post_1.default.findByIdAndUpdate(req.params.id, { $pull: { likes: req.body.userId } }, { new: true });
+            if (!unlike) {
+                res.status(400).json({ status: '400', message: 'there was an issue unliking the post try again later' });
+            }
+            else {
+                res.status(200).json({ status: '200', message: "unliking post was successful" });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }),
     commentRecipe: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log('hey does this comment stuff work');
         try {
             const createComment = {
                 commentorId: req.body.userId,
@@ -94,6 +122,41 @@ let feed = {
         else {
             return res.status(200).json({ status: '200', message: 'loading comments was successful', comments: getPostComment });
         }
-    })
+    }),
+    addLikeToComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const addLike = yield comments_1.default.findByIdAndUpdate(req.params.id, { $push: { likes: req.body.userId } }, { new: true });
+            if (!addLike) {
+                return res.status(400).json({ status: '400', message: 'failed to add like' });
+            }
+            else {
+                return res.status(200).json({ status: '200', message: 'like was successfully added' });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }),
+    unlikeComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const removeLike = yield comments_1.default.findByIdAndUpdate(req.params.id, { $pull: { likes: req.body.userId } }, { new: true });
+            console.log(removeLike);
+            if (!removeLike) {
+                return res.status(400).json({ status: '400', message: 'failed to remove like' });
+            }
+            else {
+                return res.status(200).json({ status: '200', message: 'removing like was successfully added' });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }),
+    bookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log('thanks for liking the post');
+    }),
+    unbookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log('damn bruh why you unlike my comment');
+    }),
 };
 exports.default = feed;
