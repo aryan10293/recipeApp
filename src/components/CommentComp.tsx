@@ -5,6 +5,7 @@ interface IProps {
   title: string;
   imageUrl: string
 }
+// used for to make sure apis where working not the actual ui i want to use
 const CommentComp: React.FC<IProps> = ({ title, difficulty, ingredients, imageUrl }) => {
   const [comment, setComment] = React.useState<string>('')
   return (

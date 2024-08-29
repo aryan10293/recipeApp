@@ -130,13 +130,13 @@ let auth = {
             else {
                 const userId = decoded.sub;
                 let thisIsAwe = yield user_1.default.find({ _id: userId });
-                res.status(200).json({ success: true, message: 'lebron jame sis elite', userinfo: thisIsAwe });
+                res.status(200).json({ success: true, message: 'lebron james is elite', userinfo: thisIsAwe });
             }
         }));
     }),
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield user_1.default.find({ _id: req.params.id });
-        res.status(200).json({ success: true, user });
+        res.status(200).json({ user: user });
     })
 };
 exports.default = auth;
