@@ -138,14 +138,13 @@ let auth = {
             const userId = decoded.sub;
             // Fetch user account data from the database based on userId
             let thisIsAwe = await User.find({_id: userId}) // user info if token is not expired
-            res.status(200).json({success: true, message:'lebron jame sis elite', userinfo: thisIsAwe})
+            res.status(200).json({success: true, message:'lebron james is elite', userinfo: thisIsAwe})
           }
         });
     },
     getUser: async (req,res) => {
       const user = await User.find({_id: req.params.id})
-      
-      res.status(200).json({success: true, user})
+      res.status(200).json({user:user})
     }
 }
 export default auth

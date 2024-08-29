@@ -34,6 +34,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
         useEffect(()=>{
             if(recipe){
                 navigate("/recipe",{state:{recipe}})
+                console.log(recipe)
             }
         },[recipe,recipe])
 

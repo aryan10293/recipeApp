@@ -1,61 +1,31 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 interface IProps {
   ingredients: string[];
   difficulty: string;
   title: string;
-  imageUrl: string
+  imageUrl: string;
+  postId:string;
+  likes: number;
 }
 // used for to make sure apis where working not the actual ui i want to use
-const RecipeItem: React.FC<IProps> = ({ title, difficulty, ingredients, imageUrl }) => {
+
+
+const RecipeItem: React.FC<IProps> = ({ postId, title, difficulty, ingredients, imageUrl }) => {
+    const [userId, setUserId] = React.useState<string>('')
+    React.useEffect(() => {
+        const getUser = async() => {
+            const checkUser = await fetch(`http://localhost:2020/getuser/${localStorage.getItem('token')}`, {
+                method:'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            const userData = await checkUser.json()
+            setUserId(userData.userinfo[0]._id)
+        }
+        getUser()
+    }, [])
   return (
-    <li style={{ 
-      border: '1px solid #ccc', 
-      borderRadius: '5px', 
-      padding: '15px', 
-      margin: '10px 0', 
-      listStyleType: 'none',
-      display: 'flex',
-      alignItems: 'center'
-    }}>
-      <img 
-        src={imageUrl} 
-        alt={title} 
-        style={{ 
-          width: '100px', 
-          height: '100px', 
-          objectFit: 'cover', 
-          borderRadius: '5px', 
-          marginRight: '15px' 
-        }} 
-      />
-      <div>
-        <h3 style={{ 
-          margin: '0 0 10px 0', 
-          fontSize: '1.2em', 
-          color: '#333' 
-        }}>{title}</h3>
-        <p style={{ 
-          margin: '0 0 10px 0', 
-          fontSize: '0.9em', 
-          color: '#777' 
-        }}>Difficulty: {difficulty}</p>
-        <ul style={{ 
-          padding: '0', 
-          margin: '0', 
-          listStyleType: 'disc', 
-          paddingLeft: '20px' 
-        }}>
-          {ingredients.map((ingredient, index) => (
-            <li key={index} style={{ 
-              fontSize: '0.9em', 
-              color: '#555' 
-            }}>
-              {ingredient}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </li>
+    <></>
   )
 }
 

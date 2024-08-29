@@ -14,7 +14,8 @@ const postSchema = new mongoose_2.Schema({
     levelOfMeal: { type: String, required: true },
     prepTime: { type: Number, required: true },
     likes: { type: Array, default: [] },
-    bookmarks: { type: Array, default: [] }
+    bookmarks: { type: Array, default: [] },
+    steps: { type: String, required: true}
 });
 const Post = mongoose_1.default.model('Post', postSchema);
 exports.default = Post;

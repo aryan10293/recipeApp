@@ -18,7 +18,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
     const [recipeName,setRecipeName] = useState<string>("")
     const [recipeTime,setRecipeTime] = useState<number>(0)
-    const [recipeSteps,setRecipeSteps] = useState<string>("")
+    const [steps,setSteps] = useState<string>("")
     const [recipeSkill,setRecipeSkill] = useState<string>("")
 
     const [uploadedImage,setUploadedImage] = useState<File | undefined>()
@@ -52,6 +52,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         likes:string[],
         bookmarks: string[],
         title:string,
+        steps:string
     }
 
     const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
@@ -83,7 +84,9 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             likes:[""],
             bookmarks:[""],
             title:recipeName,
+            steps:steps
         }
+        console.log(newRecipe)
 
         fetch("http://localhost:2030/createrecipe",{
             method:"POST",
@@ -92,12 +95,11 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             },
             body:JSON.stringify(newRecipe)
         })
- 
+        
         .then((response)=>{
             if(!response.ok){
                 throw Error("Response is not Okay")
             }
-            console.log(newRecipe)
             return response.json()
         })
         .then((data)=>{
@@ -141,7 +143,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                     <input value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
                     <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>
                 </div>
-
+                
                 <div className="img-upload-box">
                     <input className="img-upload" accept="*" onChange={handleImageUpload} type="file" />
 
@@ -161,7 +163,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                     </ul>
                 </div>
 
-            <textarea onChange={(e)=>{setRecipeSteps(e.target.value)}} className="recipe-steps" placeholder="Recipe Steps" name="" id=""></textarea>     
+            <textarea onChange={(e)=>setSteps(e.target.value)} className="recipe-steps" placeholder="Recipe Steps" name="" id=""></textarea>     
             <button onClick={(e)=>postRecipe(e)} className="post-recipe-btn">Post Recipe</button>    
             </div>  
             

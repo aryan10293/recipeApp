@@ -1,7 +1,7 @@
 import User from "../model/user";
 import Post from "../model/post"
 import comment from "../model/comments"
-import  { request, Request, response, Response} from "express";
+import  { Request, Response} from "express";
 import uploadImage from "../middleware/cloudinary";
 let feed = {
     createRecipe: async(req: Request, res: Response) => {
@@ -12,7 +12,8 @@ let feed = {
                 ingridentList: req.body.ingridentList,
                 levelOfMeal: req.body.levelOfMeal,
                 prepTime: req.body.prepTime,
-                nameOfDish: req.body.title
+                nameOfDish: req.body.title,
+                steps: req.body.steps
             }
             const createRecipie =  await Post.create(recipeData)
             if (!createRecipie) {
@@ -49,8 +50,38 @@ let feed = {
             console.log(error)
         }
     },
+    addLikeToPost: async(req: Request, res: Response) => {
+        try {
+            const postToAddALikeToo = await Post.findByIdAndUpdate(req.params.id,
+                {$push:{likes: req.body.userId}},
+                {new : true}
+            )
+                console.log(postToAddALikeToo)
+            if(!postToAddALikeToo){
+                return res.status(400).json({status:'400', message:"post was not liked, please try again"})
+            } else {
+                return res.status(200).json({status:'200', message:"post was liked successfully"})
+            }
+        } catch (error) {
+           console.log(error) 
+        }
+    },
+    unlikePost: async(req: Request, res: Response) => {
+        try {
+            const unlike = await Post.findByIdAndUpdate(req.params.id, 
+                {$pull: {likes:req.body.userId}},
+                {new:true}
+            )
+            if(!unlike){
+                res.status(400).json({status:'400', message:'there was an issue unliking the post try again later'})
+            } else {
+                res.status(200).json({status:'200', message:"unliking post was successful"})
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    },
     commentRecipe: async(req: Request, res: Response) => {
-        console.log('hey does this comment stuff work')
         try {
             const createComment = {
                 commentorId: req.body.userId,
@@ -74,6 +105,44 @@ let feed = {
         } else {
             return res.status(200).json({status: '200', message:'loading comments was successful', comments: getPostComment})
         } 
-    }
+    }, 
+    addLikeToComment: async(req: Request, res: Response) => {
+        try {
+            const addLike = await comment.findByIdAndUpdate(req.params.id,
+                {$push:{likes: req.body.userId}},
+                {new : true}
+            )
+            if(!addLike){
+                return res.status(400).json({status:'400', message:'failed to add like'})
+            } else {
+                return res.status(200).json({ status:'200', message:'like was successfully added'});
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    unlikeComment: async(req: Request, res: Response) => {
+        try {
+            const removeLike = await comment.findByIdAndUpdate(req.params.id,
+                {$pull:{likes: req.body.userId}},
+                {new : true}
+            )
+            console.log(removeLike)
+            if(!removeLike){
+                return res.status(400).json({status:'400', message:'failed to remove like'})
+            } else {
+                return res.status(200).json({ status:'200', message:'removing like was successfully added'});
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    bookmark: async(req: Request, res: Response) => {
+        console.log('thanks for liking the post')
+    },
+    unbookmark: async(req: Request, res: Response) => {
+        console.log('damn bruh why you unlike my comment')
+    },
+
 }
 export default feed
