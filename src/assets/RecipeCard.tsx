@@ -1,22 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
 import TimeButton from "./TimeButton";
+import useFetch from "./useFetch";
+import { Link, useNavigate } from "react-router-dom";
 
-interface recipeCardProps{
+
+
+interface RecipeCardProps{
     recipeName:string,
     recipeImage:string,
     recipeTime:number,
     ingridientList:string[],
     steps:string,
     timeOfPost:string,
-    likes:string[]
+    likes:string[],
+    recipeClass:string,
+    _id:string
 }
 
-const RecipeCard:React.FC<recipeCardProps> = ({recipeName,recipeTime,ingridientList,steps,recipeImage,timeOfPost,likes}) => {
+const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,timeOfPost,likes}) => {
+
+        const [url,setUrl] = useState<string>("")
+        const {data:recipe} = useFetch(url)
+        const navigate = useNavigate()
+
+        const handleClick = async function(){
+
+            setUrl(`http://localhost:2030/getpost/${_id}`)
+            
+        }
+
+        useEffect(()=>{
+            if(recipe){
+                navigate("/recipe",{state:{recipe}})
+            }
+        },[recipe,recipe])
+
+
+          
+       
     return ( 
 
-    <button className="recipe-card">
+    <button onClick={handleClick} className={recipeClass}>
         <div className="left-side">
 
             <div className="left-top">
@@ -44,11 +70,11 @@ const RecipeCard:React.FC<recipeCardProps> = ({recipeName,recipeTime,ingridientL
                 </div>
             </div>
             <div className="right-bottom">
-                {/* <h2 className="recipe-steps">{steps}</h2> */}
+                <h2 className="recipe-steps">{steps}</h2>
             
             <div className="interaction-box">
                 <LikeButton/> 
-                <p>20</p>
+                <p>{likes}</p>
                 <BookmarkButton/>
             </div>
             </div>

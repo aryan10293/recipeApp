@@ -45,11 +45,17 @@
 .submit-form .input-fields input{
     font-size: 1rem;
     margin: 10px 0 0 0;
-    background-color: rgba(0,0,0,0.4);
+    background-color: #f8f5f2;
     backdrop-filter: blur(10px) grayscale(200%);
     outline: none;
     border: 1px solid rgba(255,255,255,0.5);
     padding: 5px 10px;
+}
+.submit-form .input-fields input:hover{
+    background-color: #f8f5f2ee;
+}
+.submit-form .input-fields input:focus{
+    background-color: #f8f5f2ee;
 }
 .submit-form button{
     margin: 20px 0 0 0;

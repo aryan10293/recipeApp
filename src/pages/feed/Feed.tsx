@@ -28,7 +28,7 @@ const Feed:React.FC = () => {
 
 
     useEffect(()=>{
-        console.log(recipeVisibility)
+        // console.log(recipeVisibility)
     },[recipeVisibility])
 
     return ( 

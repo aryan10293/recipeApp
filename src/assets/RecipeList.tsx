@@ -26,15 +26,17 @@ const RecipeList = () => {
             recipes.post && 
             recipes.post.length && 
             recipes.post.map((recipe:Recipe)=>(
-                <div key={recipe._id}>
+                <div  className="asd" key={recipe._id}>
                     {<RecipeCard 
+                    _id={recipe._id}
                     recipeName={recipe.nameOfDish}
                     recipeTime={recipe.prepTime}
                     recipeImage={recipe.image}
-                    steps={"asdwads"}
+                    steps={null}
                     ingridientList={recipe.ingridentList}
                     likes={recipe.likes}
                     timeOfPost={recipe.timeOfPost}
+                    recipeClass="recipe-card"
                     
                     />}
                     

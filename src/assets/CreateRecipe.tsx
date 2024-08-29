@@ -44,14 +44,14 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
     interface recipe{
         timeOfPost:string,
-        id: string,
-        image:string,
+        userId: string,
+        pictureOfFood:string,
         ingridentList:string[],
         levelOfMeal: string,
         prepTime: number,
         likes:string[],
         bookmarks: string[],
-        nameOfDish:string,
+        title:string,
     }
 
     const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
@@ -75,14 +75,14 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         e.preventDefault()
         const newRecipe:recipe= {
             timeOfPost:new Date().toISOString(),
-            id: "21",
-            image:convertedImage,
+            userId: "21",
+            pictureOfFood:convertedImage,
             ingridentList:ingredients,
             levelOfMeal: recipeSkill,
             prepTime: recipeTime,
             likes:[""],
             bookmarks:[""],
-            nameOfDish:recipeName,
+            title:recipeName,
         }
 
         fetch("http://localhost:2030/createrecipe",{
@@ -109,16 +109,6 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         })
             
     }
-    useEffect(()=>{
-        console.log("data: ",data)
-    },[data])
-    useEffect(()=>{
-        // console.log(ingredients)        
-    },[ingredients])
-    useEffect(()=>{
-        // console.log(convertedImage)
-        // console.log(uploadedImage)
-    },[convertedImage])
 
     return ( 
         <div className={className}>

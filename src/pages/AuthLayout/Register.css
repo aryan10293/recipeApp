@@ -47,7 +47,7 @@
 .inputs .input-fields input{
     font-size: 1rem;
     margin: 10px 0 0 0;
-    background-color: rgba(0,0,0,0.4);
+    background-color: #f8f5f2;
     backdrop-filter: blur(10px) grayscale(200%);
     outline: none;
     border: 1px solid rgba(255,255,255,0.5);
@@ -56,10 +56,10 @@
     border-radius: 3px;
 }
 .inputs .input-fields input:hover{
-    background-color: rgba(0,0,0,0.7);
+    background-color: #f8f5f2ee;
 }
 .inputs .input-fields input:focus{
-    background-color: rgba(0,0,0,9);
+    background-color: #f8f5f2ee;
 }
 .register-form button{
     margin: 30px 0 0px 0;

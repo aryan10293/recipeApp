@@ -1,67 +1,71 @@
 .feed{
     width: 100%;
     display: flex;
+    align-items: center;
+}
+.single-card-box{
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
-.recipe-card{
+.single-card{
     width: 1000px;
-    height: 200px;
+    height: 1000px;
     padding: 0;
     background-color: transparent;
     border: none;
     margin: 20px 0 0 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center ;
     align-items: center;
     background-color: #078080;
     transition: transform 0.1s ease-in;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
-    border-radius: 10px;
+    border-radius: 10px; 
+    opacity: 0;
+    animation: appear3 0.3s ease-in forwards;
 }
-.asd:nth-of-type(even){
-    animation: appearFromRight 0.3s ease-in forwards, appear3 0.3s ease-in forwards;
 
-}
-.asd:nth-of-type(odd){
-    animation: appearFromLeft 0.3s ease-in forwards, appear3 0.3s ease-in forwards;
-}
-.recipe-card:hover{
-    cursor: pointer;
-    background-color: #078080f2;
-}
-.recipe-card .left-side{
+.single-card .left-side{
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    justify-content: center;
-    width: 350px;
-    height: 100%;
-    margin: 0;
+    width: 800px;
+    height: 600px;
+    margin: 30px 0 0 0;
+    transform: translateY(-1200px);
+    animation: appear2 0.3s ease-in forwards;
+    animation-delay: 0.1s;
 }
-.recipe-card .left-side .left-top{
+.single-card .left-side .left-top{
     display: flex;
-    justify-content: center;
-    margin: 0 auto;
+
     flex-direction: column;
     overflow: hidden;
-    height: 170px;
-    width: 300px;
+    width: 800px;
+    height: 450px;
     margin: 0;
     border-radius: 10px;
+    box-shadow: 0 0px 5px #f8f5f2, 0 10px 10px rgba(0,0,0,0.3);
 }
-.recipe-card .left-side .left-top img{
+.single-card .left-side .left-top img{
     margin: 0 ;
     padding: 0;
-    object-fit:scale-down;
+    object-fit:contain;  
+    border-radius: 10px;  
+    border: 3px solid #f8f5f2 ;
 }
-.recipe-card .right-side{
+.single-card .right-side{
     display: flex;
     flex-direction: column;
-    width: 600px;
+    width: 800px;
     height: 100%;
     margin: 0;
+    transform: translateX(-1400px);
+    animation: appear 0.3s ease-in forwards;
+    animation-delay: 0.1s;
 }
 .right-side .right-top{
     display: flex;
@@ -109,16 +113,25 @@
     box-shadow: 0 10px 10px rgba(0,0,0,0.3);
     text-transform: capitalize;
 }
-.recipe-card .right-bottom{
+.single-card .right-bottom{
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.recipe-card .recipe-steps{
+.single-card .recipe-steps{
+    display: flex;
     font-size: 1rem;
     font-weight: 400;
+    justify-content: center;
+    margin: 25px 0 0 0;
+    height: 300px;
+    padding: 0;
+    text-align: start;
 }
 .interaction-box{
     display: flex;
-    justify-content: center;
+    width: 100px;
+    justify-content: space-around;
     align-items: center;
     flex-direction: row;
     margin: 50px 0 0 0;
@@ -139,32 +152,15 @@
     margin: 0 10px 0 2px;
 }
 
-.recipe-box-appear-btn{
-    margin:10px 0 0 0;
-    background-color:#f45d48;
-    font-size:1.1rem;
-    border-radius:5px;
-    border:none;
-    transition: transform 0.1s ease-in;
-}
-.recipe-box-appear-btn:hover{
-    background-color: #f45c48e7;
-    cursor: pointer;
-}
-
-@keyframes appearFromLeft{
-    from{transform: translateX(-600px);}
+@keyframes appear{
+    from{transform: translateX(-1400px);}
     to{transform: translateX(0px);}
 }
-@keyframes appearFromRight{
-    from{transform: translateX(600px);}
-    to{transform: translateX(0px);}
+@keyframes appear2{
+    from{transform: translateY(-1200px);}
+    to{transform: translateY(0px);}
 }
-
-
-
-
-
-
-
-
+@keyframes appear3{
+    from{opacity: 0%;}
+    to{opacity: 100%;}
+}
