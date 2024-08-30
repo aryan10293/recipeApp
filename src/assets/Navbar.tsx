@@ -2,9 +2,25 @@ import HomeButton from "./HomeButton";
 import SavedRecipesButton from "./SavedRecipesButton";
 import MessageButton from "./MessagesButton";
 import ProfileIcon from "./ProfileIcon";
+import useFetch from "./useFetch";
+import { useEffect } from "react";
 
+
+interface userInfo{
+    userinfo:[]
+}
 
 const Navbar = () => {
+
+    const {data:picture} = useFetch(`http://localhost:2030/getuser/${localStorage.getItem("token")}`)
+    
+
+    useEffect(()=>{
+        if(picture && picture.userinfo[0]){
+            console.log(picture.userinfo[0]);
+        }
+        
+    },[picture])
 
     return ( 
         <div className="navbar">
@@ -15,7 +31,7 @@ const Navbar = () => {
                 <li><MessageButton/></li>
             </ul>
             <ul className="right-side">
-               <ProfileIcon/>
+               <ProfileIcon img={picture && picture.userinfo[0] && picture.userinfo[0].profilePic}/>
             </ul>
         </div>
      );

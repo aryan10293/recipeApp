@@ -48,6 +48,7 @@ let auth = {
             password: req.body.password,
             lastName: req.body.first,
             firstName: req.body.last,
+            skillLevel: req.body.skillLevel
         });
         user_1.default.findOne({ $or: [{ email: req.body.email }, { userName: req.body.userName }] }, (err, existingUser) => {
             if (err) {

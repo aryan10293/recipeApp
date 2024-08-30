@@ -12,8 +12,8 @@ const RecipeList = () => {
         image:string,
         ingridentList:string[],
         likes:string[],
-        levelOfMeal:number
-        
+        levelOfMeal:number,
+        steps:string
 
     }
 

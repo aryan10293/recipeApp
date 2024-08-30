@@ -25,6 +25,7 @@ function Login() {
                 window.location.href = '/feed'
                 window.localStorage.setItem('token', HandleLogin.token)
                 
+                
             } else {
                 console.log(HandleLogin, 'failure')
                 new Error('Cannot login')
