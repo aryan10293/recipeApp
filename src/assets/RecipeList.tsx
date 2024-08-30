@@ -11,7 +11,8 @@ const RecipeList = () => {
         prepTime:number,
         image:string,
         ingridentList:string[],
-        likes:string[]
+        likes:string[],
+        levelOfMeal:number
         
 
     }
@@ -37,6 +38,7 @@ const RecipeList = () => {
                     likes={recipe.likes}
                     timeOfPost={recipe.timeOfPost}
                     recipeClass="recipe-card"
+                    levelOfMeal={recipe.levelOfMeal}
                     
                     />}
                     

@@ -24,7 +24,7 @@ function App() {
   return (
     <>
     
-      <Routes>
+      < Routes>
           {/* More routes can be added here */}
         <Route path="/"element={<AuthLayout />  } />
         <Route path="/savedrecipes"element={<SavedRecipes />  } />

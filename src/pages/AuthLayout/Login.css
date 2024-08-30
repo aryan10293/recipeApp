@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    flex: 1;
 }
 .login-page .hero{
     font-size: 1.7rem;

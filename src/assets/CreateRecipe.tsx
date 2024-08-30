@@ -105,6 +105,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         .then((data)=>{
             setData(data)
             console.log("Success!",data)
+            window.location.reload()
         })
         .catch((err)=>{
             console.log("Failed",err.message)

@@ -35,13 +35,12 @@
     width: 800px;
     height: 600px;
     margin: 30px 0 0 0;
-    transform: translateY(-1200px);
-    animation: appear2 0.3s ease-in forwards;
+    opacity: 0;
+    animation: appear3 0.3s ease-in forwards;
     animation-delay: 0.1s;
 }
 .single-card .left-side .left-top{
     display: flex;
-
     flex-direction: column;
     overflow: hidden;
     width: 800px;
@@ -63,8 +62,8 @@
     width: 800px;
     height: 100%;
     margin: 0;
-    transform: translateX(-1400px);
-    animation: appear 0.3s ease-in forwards;
+    opacity: 0;
+    animation: appear3 0.3s ease-in forwards;
     animation-delay: 0.1s;
 }
 .right-side .right-top{
@@ -127,6 +126,9 @@
     height: 300px;
     padding: 0;
     text-align: start;
+    animation: appear3 0.3s ease-in forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
 }
 .interaction-box{
     display: flex;
@@ -135,6 +137,9 @@
     align-items: center;
     flex-direction: row;
     margin: 50px 0 0 0;
+    opacity: 0;
+    animation: appear3 0.4s ease-in forwards;
+    animation-delay: 0.6s;
 }
 .interaction-box svg{
     font-size: 1.6rem;
@@ -153,11 +158,11 @@
 }
 
 @keyframes appear{
-    from{transform: translateX(-1400px);}
-    to{transform: translateX(0px);}
+    from{transform: translateY(50px);}
+    to{transform: translateY(0px);}
 }
 @keyframes appear2{
-    from{transform: translateY(-1200px);}
+    from{transform: translateY(-50px);}
     to{transform: translateY(0px);}
 }
 @keyframes appear3{

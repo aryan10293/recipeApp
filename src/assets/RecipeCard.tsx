@@ -4,6 +4,8 @@ import BookmarkButton from "./BookmarkButton";
 import TimeButton from "./TimeButton";
 import useFetch from "./useFetch";
 import { Link, useNavigate } from "react-router-dom";
+import DifficultyIcon from "./DifficultyIcon";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
 
 
@@ -16,10 +18,11 @@ interface RecipeCardProps{
     timeOfPost:string,
     likes:string[],
     recipeClass:string,
-    _id:string
+    _id:string,
+    levelOfMeal:number
 }
 
-const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,timeOfPost,likes}) => {
+const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,timeOfPost,likes,levelOfMeal}) => {
 
         const [url,setUrl] = useState<string>("")
         const {data:recipe} = useFetch(url)
@@ -38,7 +41,19 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
             }
         },[recipe,recipe])
 
+        const iconStyle = {
+            margin:'0px',
+            backgroundColor:'transparent',
+            border:'none'
+        }
 
+        const renderIcon = function(){
+            let icons:JSX.Element[] = []
+            for(var i:number = 0;i<levelOfMeal;i++){
+                icons.push(<DifficultyIcon style={iconStyle} key={i}/>)
+            }
+            return icons
+        }
           
        
     return ( 
@@ -61,6 +76,10 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                     <h2 className="recipe-title">{recipeName}</h2>
                     <TimeButton/>
                     <h3 className="recipe-time">{recipeTime}</h3>
+                    <div className="recipe-skill-box">
+                     {renderIcon()}
+                    </div>
+                    
                 </div>
                 <div className="recipe-ingredients">
                     <ul>
