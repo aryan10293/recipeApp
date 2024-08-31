@@ -19,4 +19,6 @@ router.put('/unlikepost/:id', feed.unlikePost)
 router.put('/unlikecomment/:id', feed.unlikeComment)
 router.put('/bookmark/:id', feed.bookmark)
 router.put('/unbookmark/:id', feed.unbookmark)
+
+router.delete('/deletepost/:id', feed.deletePost)
 export default router;

@@ -159,5 +159,19 @@ let feed = {
     unbookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log('damn bruh why you unlike my comment');
     }),
+    deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const deletedPost = yield post_1.default.findByIdAndDelete(req.params.id);
+            if (!deletedPost) {
+                res.status(400).json({ status: '400', message: 'post was not deleted' });
+            }
+            else {
+                res.status(200).json({ status: '200', message: 'post was deleted' });
+            }
+        }
+        catch (error) {
+            console.log('error deleting item', error);
+        }
+    })
 };
 exports.default = feed;

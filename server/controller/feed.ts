@@ -143,6 +143,19 @@ let feed = {
     unbookmark: async(req: Request, res: Response) => {
         console.log('damn bruh why you unlike my comment')
     },
+    deletePost: async(req:Request, res:Response) => {
+        // make sure to delete comments of the post too
+        try {
+            const deletedPost = await Post.findByIdAndDelete(req.params.id)
+            if(!deletedPost){
+                res.status(400).json({status:'400', message:'post was not deleted'})
+            } else {
+                res.status(200).json({status:'200', message:'post was deleted'})
+            }
+        } catch (error) {
+            console.log('error deleting item', error)
+        }
+    }
 
 }
 export default feed

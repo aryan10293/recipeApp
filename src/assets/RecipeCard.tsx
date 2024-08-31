@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
+import DeleteButton from "./DeleteButton"
 import TimeButton from "./TimeButton";
 import useFetch from "./useFetch";
 import { Link, useNavigate } from "react-router-dom";
 import DifficultyIcon from "./DifficultyIcon";
+
 import { icon } from "@fortawesome/fontawesome-svg-core";
 
 
@@ -23,7 +25,7 @@ interface RecipeCardProps{
 }
 
 const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,timeOfPost,likes,levelOfMeal}) => {
-
+        const [userId, setUserId] = useState<string>('')
         const [url,setUrl] = useState<string>("")
         const {data:recipe} = useFetch(url)
         const navigate = useNavigate()
@@ -40,7 +42,17 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                 console.log(recipe)
             }
         },[recipe,recipe])
-
+        useEffect(() => {
+            const getUser = async() => {
+                const checkUser = await fetch(`http://localhost:2030/getuser/${localStorage.getItem('token')}`, {
+                    method:'GET',
+                    headers: {'Content-Type': 'application/json'}
+                })
+                const userData = await checkUser.json()
+                setUserId(userData.userinfo[0]._id)
+            }
+            getUser()
+        }, [])
         const iconStyle = {
             margin:'0px',
             backgroundColor:'transparent',
@@ -54,8 +66,6 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
             }
             return icons
         }
-          
-       
     return ( 
 
     <button onClick={handleClick} className={recipeClass}>
@@ -96,6 +106,8 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                 <LikeButton/> 
                 <p>{likes}</p>
                 <BookmarkButton/>
+                <p>{' '}</p>
+                <DeleteButton postId={_id}/>
             </div>
             </div>
 
