@@ -1,3 +1,11 @@
+.invisible{
+    margin: 0;
+    padding: 0;
+    transform: scale(0);
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
 .feed .comment-container{
     width: 1000px;
     height: 300px;
@@ -12,16 +20,45 @@
     background-color: #078080;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
     border-radius: 10px;
+    animation: commentIn 0.2s ease-in forwards;
 }
-.comment-container .new-comment-container{
+.feed .comment-container-invisible{
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    margin: 0 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #078080;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    animation: commentOut 0.2s ease-in forwards;
+    /* animation-delay: 0.1s; */
+}
+.new-comment-container{
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 25px 0 0 0;
     width: 90%;
     height: 50px;
+    opacity: 100%;
 }
-.new-comment-container .new-comment-input{
+.new-comment-container-invisible{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 25px 0 0 0;
+    width: 90%;
+    height: 50px;
+    opacity: 100%;
+    animation: noOpa 0.1s ease-in forwards;
+}
+.comment-container-invisible hr{
+    animation: noOpa 0.1s ease-in forwards;
+}
+.new-comment-input{
     width: 90%;
     background-color: white;
     resize: none;
@@ -29,7 +66,7 @@
     height: 50px;
     border: none;
 }
-.new-comment-container .send-comment-btn{
+.send-comment-btn{
     height: 70%;
     margin: 0 0 0 25px;
     border-radius: 5px;
@@ -40,41 +77,88 @@
     margin: 0;
     width: 90%;
 }
-.comments-container .comment-username{
+.comments-container-invisible{
+    margin: 0;
+    width: 90%;
+    animation: noOpa 0.1s ease-in forwards;
+}
+.comment-username{
     font-size: 1rem;
     letter-spacing: 1px;
     font-weight: 500;
     margin:0 0 5px 0;
 }
-.comments-container .comment-content{
+.comment-content{
     font-size: 0.9rem;
     font-weight: 400;
     margin:0 0 5px 0;
 }
-
-
-.comment-container .comment-interactions{
+.comment-interactions{
     width: 100%;
     display: flex;
     flex-direction: row;
 }
-.comments-container .comment-time{
+.comment-time{
     font-size: 0.9rem;
     font-weight: 300;
     margin:0 0 5px 0;
     width: 100px;
 }
-.comments-container .comment-like-btn{
+.comment-like-btn{
     font-size: 0.9rem;
     font-weight: 300;
     margin:0 0 5px 0;
     width: 30px;
 }
-.comments-container .comment-like-number{
+.comment-like-number{
     font-size: 0.9rem;
     letter-spacing: 1px;
     font-weight: 300;
     margin:0 0 5px 0;
 }
 
+@keyframes commentIn{
+    from{scale: 0;}
+    to{scale: 100%;}
+    from{opacity: 0;}
+    to{opacity: 100%;}
+    from{height: 0;}
+    to{height: 300px;}
+    /* from{width: 0;}
+    to{width: 1000px;} */
+}
+@keyframes commentOut{
+    from{scale: 100%;}
+    to{scale: 0;}
+    from{opacity: 100%;}
+    to{opacity: 0;}
+    from{height: 300px;}
+    to{height: 0;}
+    /* from{width: 1000px;}
+    to{width: 0px;} */
+}
+@keyframes commentOut2{
+    from{scale: 100%;}
+    to{scale: 0;}
+    from{opacity: 100%;}
+    to{opacity: 0%;}
+    from{height: 90%;}
+    to{height: 0px;}
+    /* from{width: 1000px;}
+    to{width: 0px;} */
+}
+@keyframes commentOut3{
+    from{scale: 100%;}
+    to{scale: 0;}
+    from{opacity: 100%;}
+    to{opacity: 0%;}
+    from{height: 90%;}
+    to{height: 0;}
+    /* from{width: 1000px;}
+    to{width: 0px;} */
+}
+@keyframes noOpa{
+    from{opacity: 100%;}
+    to{opacity: 0%;}
+}
 

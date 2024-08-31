@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DifficultyIcon from "./DifficultyIcon";
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import CommentBox from "../components/CommentBox";
+import CommentButton from "./CommentButton";
 
 
 
@@ -68,17 +69,33 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
 
         const {data:datas} = useFetch(`http://localhost:2030/getcommentsfrompost/${_id}`)
         const [commentsVisbile,setCommentsVisible] = useState<boolean>(false)
-        const [commentClassName,setCommentClassName] = useState<string>("comment-container")
+        const [commentClassName,setCommentClassName] = useState<string>("invisible")
+        const [commentClassName2,setCommentClassName2] = useState<string>("invisible")
+        const [commentClassName3,setCommentClassName3] = useState<string>("invisible")
+        
 
         const handleComments = function(e:React.MouseEvent){
             e.stopPropagation()
             commentsVisbile ? setCommentsVisible(false):setCommentsVisible(true)
+
+            if(commentsVisbile === false){
+                setCommentClassName("comment-container")
+                setCommentClassName2("new-comment-container")
+                setCommentClassName3("comments-container")
+            }
+            else{
+                setCommentClassName("comment-container-invisible")
+                setCommentClassName2("new-comment-container-invisible")
+                setCommentClassName3("comments-container-invisible")
+            }
         }     
 
-        useEffect(()=>{
-            console.log(commentsVisbile)
-            commentsVisbile ? setCommentClassName("comment-container-invisible") : setCommentClassName("comment-container")
-        },[commentsVisbile])
+        // useEffect(()=>{
+        //     console.log(commentsVisbile)
+        //     commentsVisbile ? setCommentClassName("comment-container") : setCommentClassName("comment-container-invisible")
+        //     commentsVisbile ? setCommentClassName2("new-comment-container") : setCommentClassName2("new-comment-container-invisible")
+        //     commentsVisbile ? setCommentClassName3("comments-container") : setCommentClassName3("comments-container-invisible")
+        // },[commentsVisbile])
        
     return ( 
 
@@ -119,9 +136,9 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                         
                 <div className="interaction-box">
                     <LikeButton/> 
-                    <p>{likes}</p>
-                    <BookmarkButton/>
-                    <button onClick={(e)=>handleComments(e)}>Click</button>
+                    <p>{likes.length}</p>
+                    <BookmarkButton />
+                    <CommentButton margin="0 0 0 15px" handle={(e)=>handleComments(e)}/>
                 </div>
                 </div>
             </div>
@@ -129,7 +146,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
         {
         datas &&
         datas.comments[0]&&
-        <CommentBox classs={commentClassName} comment={datas.comments[0].comment}/>
+        <CommentBox timeOfPost={datas.comments[0].timeOfPost} likes={datas.comments[0].likes} classs={commentClassName} classs2={commentClassName2} classs3={commentClassName3} comment={datas.comments[0].comment}/>
         }
 </div>
     
