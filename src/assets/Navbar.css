@@ -1,0 +1,85 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color:  #f45d48;
+    backdrop-filter: blur(1px);
+    height: 40px;
+    margin: 0;
+    padding: 5px 0;
+    width: 100%;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+.navbar li button{
+    background-color: transparent;
+    border: none;
+    color: #078080;
+}
+.navbar .left-side{
+    width: 40%;
+}
+.navbar .middle-side{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+.navbar .middle-side li{
+    list-style: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+li svg{
+    font-size: 1.3rem;
+    transition: transform 0.1s ease-in;
+}
+li svg:hover{
+    color: #219c9c;
+    cursor: pointer;
+    transform: scale(1.2);
+}
+.navbar .right-side{
+    object-fit: contain;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+.profile-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 100px 0 0;
+
+}
+.navbar .profile-icon button{
+    object-fit: cover;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+}
+.profile-icon button img{
+    object-fit: cover;
+    height: 150%;
+    margin: 0;
+}
+#root{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}

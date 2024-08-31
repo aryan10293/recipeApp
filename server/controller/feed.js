@@ -24,7 +24,8 @@ let feed = {
                 ingridentList: req.body.ingridentList,
                 levelOfMeal: req.body.levelOfMeal,
                 prepTime: req.body.prepTime,
-                nameOfDish: req.body.title
+                nameOfDish: req.body.title,
+                steps: req.body.steps
             };
             const createRecipie = yield post_1.default.create(recipeData);
             if (!createRecipie) {

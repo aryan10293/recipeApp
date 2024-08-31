@@ -11,6 +11,7 @@ interface Post extends Document{
     likes:string[],
     bookmarks: string[],
     nameOfDish:string,
+    steps:string,
 }
 const postSchema = new Schema<Post>({
     timeOfPost:{type:String, default: Date.now()},
@@ -21,7 +22,8 @@ const postSchema = new Schema<Post>({
     levelOfMeal: {type: String, required: true},
     prepTime: {type:  Number, required: true},
     likes:{type: Array, default: []},
-    bookmarks: {type: Array, default: []}
+    bookmarks: {type: Array, default: []},
+    steps:{type:String,required:true}
 })
 const Post = mongoose.model<Post>('Post', postSchema);
 export default Post

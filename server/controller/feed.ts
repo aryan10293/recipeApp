@@ -12,7 +12,8 @@ let feed = {
                 ingridentList: req.body.ingridentList,
                 levelOfMeal: req.body.levelOfMeal,
                 prepTime: req.body.prepTime,
-                nameOfDish: req.body.title
+                nameOfDish: req.body.title,
+                steps: req.body.steps
             }
             const createRecipie =  await Post.create(recipeData)
             if (!createRecipie) {

@@ -7,7 +7,7 @@ import Navbar from './Navbar';
 const SavedRecipesButton = () => {
     return ( 
         <div className='nav-btn'>
-            <Navbar/>
+            {/* <Navbar/> */}
             <Link to={"/savedrecipes"}><button><FontAwesomeIcon icon={faBook} /></button></Link>
         </div>
      );

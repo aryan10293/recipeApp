@@ -1,4 +1,5 @@
-import Navbar from "./Navbar";
+import Navbar from "../../assets/Navbar";
+
 
 const Profile = () => {
     return ( 

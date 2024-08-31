@@ -41,6 +41,7 @@ let auth = {
           password: req.body.password,
           lastName: req.body.first,
           firstName: req.body.last,
+          skillLevel: req.body.skillLevel
         });
 
         User.findOne(

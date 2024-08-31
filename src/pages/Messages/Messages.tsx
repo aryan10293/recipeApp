@@ -1,10 +1,11 @@
-import Navbar from "./Navbar";
+import Navbar from "../../assets/Navbar";
+
 
 const Messages = () => {
     return ( 
         <div>
             <Navbar/>
-            <h2>Messages</h2>
+            Messages
         </div>
      );
 }
