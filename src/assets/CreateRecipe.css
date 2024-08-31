@@ -29,16 +29,16 @@
     z-index: 0;
 }
 .top-disappear{
-    animation: disappear 0.4s forwards;
-    transform: scale(0%);
-    opacity: (0%);
+    animation: disappear1 0.4s forwards;
+    transform: scale(100%);
+    opacity: (100%);
     top: -10000px;
     position: relative;
 }
 .bottom-disappear{
-    animation: disappear 0.4s forwards;
-    transform: scale(0%);
-    opacity: (0%);
+    animation: disappear1 0.4s forwards;
+    transform: scale(100%);
+    opacity: (100%);
     position: relative;
     top: -10000px;
 }
@@ -256,6 +256,8 @@
     to{opacity: 0%;}
     from{top:0}
     to{top:-500px}
+    /* from{transform: translateY(0px);}
+    to{transform: translateY(-1000px);} */
 }
 @keyframes appear01 {
     from{opacity: 0% ;}

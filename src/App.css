@@ -11,8 +11,11 @@ html,body, #root {
     padding: 0;
     background-color: #f8f5f2;
 }
-h1,h2,h3,p,select,input,textarea,::placeholder{
+h1,h2,h3,p,select,input,textarea{
     color:#222525;
+}
+::placeholder{
+    color:#22252552;
 }
 input:focus, textarea:focus{
     border: none;

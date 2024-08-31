@@ -20,6 +20,7 @@
     transition: transform 0.1s ease-in;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
     border-radius: 10px;
+    z-index: 0;
 }
 .asd:nth-of-type(even){
     animation: appearFromRight 0.2s ease-in forwards, appear3 0.2s ease-in forwards;
@@ -112,13 +113,20 @@
     margin: 0;
     padding: 0;
 }
-.recipe-ingredients ul li{
+.ingredient-button{
+    border: none;
+    outline: none;
     font-size: 0.8rem;
     padding: 3px 5px;
     background-color: #BF3131;
     margin: 0 10px 0 0;
     box-shadow: 0 10px 10px rgba(0,0,0,0.3);
     text-transform: capitalize;
+    border-radius: 5px; 
+    height: 30px;
+}
+.ingredient-button:hover{
+    cursor: pointer;
 }
 .recipe-card .right-bottom{
     display: flex;
