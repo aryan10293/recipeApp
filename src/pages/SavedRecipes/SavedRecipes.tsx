@@ -14,7 +14,7 @@ const SavedRecipes = () => {
     return ( 
         <div>
             <Navbar/>
-            <Header margin="38px 0 0 0" text="Saved Recipes"/>
+            <Header margin="0px 0 0 0" text="Saved Recipes"/>
             <RecipeList url={`http://localhost:2030/getuser/${localStorage.getItem("token")}`} />
             <button onClick={clickHandle}>asdwadas</button>
         </div>

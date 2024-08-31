@@ -6,6 +6,7 @@ import '../src/pages/feed/Feed.css'
 import './assets/Navbar.css'
 import './assets/CreateRecipe.css'
 import '../src/pages/SingleCard/SingleCard.css'
+import '../src/components/CommentBox.css'
 
 import AuthLayout from './pages/AuthLayout/AuthLayout';
 import Login from './pages/AuthLayout/Login';
