@@ -2,6 +2,7 @@ import Navbar from "../../assets/Navbar";
 import CreateRecipe from "../../assets/CreateRecipe";
 import RecipeList from "../../assets/RecipeList";
 import { useEffect, useState } from "react";
+import Header from "../../assets/Header";
 
 
 const Feed:React.FC = () => {
@@ -11,6 +12,9 @@ const Feed:React.FC = () => {
     const [classState3,setClassState3] = useState<string>('invisible')
     const [recipeVisibility,setRecipeVisibility] = useState<boolean>(false)
 
+    const [buttonText,setButtonText] = useState<string>("Create Recipe")
+
+
     const handleRecipeVisbility = function(){
         recipeVisibility ? setRecipeVisibility(false):setRecipeVisibility(true)
 
@@ -18,11 +22,13 @@ const Feed:React.FC = () => {
             setClassState('create-recipe-box')
             setClassState2('top')
             setClassState3('bottom')
+            setButtonText("Hide Recipe Creation")
         }
         else{
             setClassState('create-recipe-box-disappear')
             setClassState2('top-disappear')
-            setClassState3('bottom-appear')
+            setClassState3('bottom-disappear')
+            setButtonText("Create Recipe")
         }
     }
 
@@ -36,10 +42,12 @@ const Feed:React.FC = () => {
         <div className="feed">
             <Navbar/>
             <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
-            <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>Create Recipe</button>
-            <h2 style={{'fontSize':'2rem','fontWeight':'300','color':'black','letterSpacing':'2px','borderRadius':'5px','margin':'25px'}}>Recipe Posts</h2>
-            <hr style={{'height':'1px','width':'50%','margin':'0px'}} />
-            <RecipeList/>
+            <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
+
+            <Header text="Recipe Posts" margin="0"/>
+            {/* <h2 style={{'fontSize':'2rem','fontWeight':'300','color':'black','letterSpacing':'2px','borderRadius':'5px','margin':'25px'}}>Recipe Posts</h2>
+            <hr style={{'height':'1px','width':'50%','margin':'0px'}} /> */}
+            <RecipeList url='http://localhost:2030/getallpost'/>
         </div>
      );
 }

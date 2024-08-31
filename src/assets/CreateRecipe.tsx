@@ -12,10 +12,6 @@ interface classNameProps{
 const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}) => {
 
  
-
-
-
-
     const [recipeName,setRecipeName] = useState<string>("")
     const [recipeTime,setRecipeTime] = useState<number>(0)
     const [steps,setSteps] = useState<string>("")
@@ -26,6 +22,9 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
     const [ingredients,setIngredients] = useState<string[]>([])
     const [newIngredient,setNewIngredient] = useState<string>("")
+
+    const [isPending,setIsPending] = useState<boolean>(false)
+    const [postButtonText,setPostButtonText] = useState<string>("Post Recipe")
 
     const[data,setData] = useState()
 
@@ -40,6 +39,12 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             setIngredients([...ingredients,newIngredient])
             setNewIngredient("")
         }   
+    }
+
+    const removeIngredientFromList = function(index:number){    
+        setIngredients(ingredients.filter((ingredient,i)=>{
+            return i !== index
+        }))    
     }
 
     interface recipe{
@@ -74,6 +79,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
     const postRecipe = function(e:React.SyntheticEvent){
         e.preventDefault()
+        setIsPending(true);
         const newRecipe:recipe= {
             timeOfPost:new Date().toISOString(),
             userId: "21",
@@ -105,6 +111,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         .then((data)=>{
             setData(data)
             console.log("Success!",data)
+            setIsPending(false);
             window.location.reload()
         })
         .catch((err)=>{
@@ -112,6 +119,10 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         })
             
     }
+
+    useEffect(()=>{
+        isPending ? setPostButtonText('Posting') : setPostButtonText('Post Recipe')
+    },[isPending])
 
     return ( 
         <div className={className}>
@@ -156,16 +167,16 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
                 <div className="ingredients">
                     <ul className="ingredients-list">
-                        {ingredients.map((ingredient)=>(
-                            <li key={ingredient}>
-                                {ingredient}
-                            </li>                                                   
+                        {ingredients.map((ingredient,index)=>(
+                            
+                            <button onClick={(e)=>removeIngredientFromList(index)} key={index} className="ingredient-button">{ingredient}</button>
+                                                                              
                         ))}
                     </ul>
                 </div>
 
-            <textarea onChange={(e)=>setSteps(e.target.value)} className="recipe-steps" placeholder="Recipe Steps" name="" id=""></textarea>     
-            <button onClick={(e)=>postRecipe(e)} className="post-recipe-btn">Post Recipe</button>    
+            <textarea onChange={(e)=>setSteps(e.target.value)} className="recipe-steps" placeholder={`1. Peel veggies ${"\n"}2. Boil water${"\n"}...`} name="" id=""></textarea>     
+            <button onClick={(e)=>postRecipe(e)} className="post-recipe-btn">{postButtonText}</button>    
             </div>  
             
         </div>

@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import useFetch from "./useFetch";
 import RecipeCard from "./RecipeCard";
 
-const RecipeList = () => {
+interface RecipeListProps{
+    url:string
+}
+
+const RecipeList:React.FC<RecipeListProps> = ({url}) => {
 
     interface Recipe{
         timeOfPost:string,
@@ -13,12 +17,11 @@ const RecipeList = () => {
         ingridentList:string[],
         likes:string[],
         levelOfMeal:number,
-        steps:string
+        steps?:string
 
     }
 
-    const {data:recipes} = useFetch('http://localhost:2030/getallpost')
-     
+    const {data:recipes} = useFetch(url) 
 
     return ( 
         <div>
@@ -26,14 +29,13 @@ const RecipeList = () => {
             recipes && 
             recipes.post && 
             recipes.post.length && 
-            recipes.post.map((recipe:Recipe)=>(
+            recipes.post.slice().reverse().map((recipe:Recipe)=>(
                 <div  className="asd" key={recipe._id}>
                     {<RecipeCard 
                     _id={recipe._id}
                     recipeName={recipe.nameOfDish}
                     recipeTime={recipe.prepTime}
-                    recipeImage={recipe.image}
-                    steps={null}
+                    recipeImage={recipe.image}                  
                     ingridientList={recipe.ingridentList}
                     likes={recipe.likes}
                     timeOfPost={recipe.timeOfPost}

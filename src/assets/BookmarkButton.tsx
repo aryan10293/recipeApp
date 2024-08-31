@@ -10,7 +10,7 @@ const BookmarkButton = () => {
 
     return ( 
         <div className='bookmark-button'>
-            <button style={style}><FontAwesomeIcon icon={faBookmark}></FontAwesomeIcon></button>
+            <button onClick={(e)=>{e.stopPropagation()}} style={style}><FontAwesomeIcon icon={faBookmark}></FontAwesomeIcon></button>
         </div>
      );
 }

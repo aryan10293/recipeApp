@@ -14,7 +14,7 @@ interface RecipeCardProps{
     recipeImage:string,
     recipeTime:number,
     ingridientList:string[],
-    steps:string,
+    steps?:string,
     timeOfPost:string,
     likes:string[],
     recipeClass:string,
