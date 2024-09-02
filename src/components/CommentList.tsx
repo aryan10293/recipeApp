@@ -37,7 +37,7 @@ const CommentList:React.FC<CommentsProps> = ({
 
                 <div className="comment-interactions">
                     <h4 className="comment-time">{timeOfPost}</h4>  
-                    <LikeButton/>
+                    {/* <LikeButton/> */}
                     <h4 className="comment-like-number">{likes.length}</h4>
                 </div>
 

@@ -9,6 +9,8 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import CommentBox from "../components/CommentBox";
 import CommentButton from "./CommentButton";
 import CommentList from "../components/CommentList";
+import Login from "../pages/AuthLayout/Login";
+import LikeCommentButton from "./LikeCommentButton";
 
 
 
@@ -108,9 +110,9 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
         },[commentsVisbile])
 
         const renderUserComments = function(){
-           return datas.comments.map((comment:Comments)=>(
+           return datas.comments.map((comment:Comments,index:number)=>(
              <CommentList 
-             key={comment.commentorId} 
+             key={index}
              classs={commentClassName} 
              classs2={commentClassName2} 
              classs3={commentClassName3}  
@@ -120,8 +122,9 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
             ))
         }
 
-       
     return ( 
+
+
 
 <div className="recipe-card-container">
     <button onClick={handleClick} className={recipeClass}>
@@ -130,9 +133,6 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                 <div className="left-top">
                     <img src={recipeImage}/>
                 </div>
-    {/*             <div className="left-bottom">
-                    <LikeButton/>
-                </div> */}
 
             </div>
             <div className="right-side">
@@ -159,7 +159,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                     <h2 className="recipe-steps">{steps}</h2>
                         
                 <div className="interaction-box">
-                    <LikeButton/> 
+                    <LikeButton postId={_id}/> 
                     <p>{likes.length}</p>
                     <BookmarkButton />
                     <CommentButton margin="0 0 0 15px" handle={(e)=>handleComments(e)}/>
@@ -167,7 +167,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                 </div>
             </div>
     </button>
-    {<CommentBox classs4={commentClassName4} classs={commentClassName} classs2={commentClassName2}/>}
+    {<CommentBox postId={_id} classs4={commentClassName4} classs2={commentClassName2} />}
         {
         datas &&
         datas.comments&&

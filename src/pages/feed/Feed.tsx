@@ -4,6 +4,7 @@ import RecipeList from "../../assets/RecipeList";
 import { useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import CommentBox from "../../components/CommentBox";
+import UserNameButton from "../../components/UsernameButton";
 
 
 const Feed:React.FC = () => {
@@ -51,6 +52,7 @@ const Feed:React.FC = () => {
             <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
             <RecipeList url='http://localhost:2030/getallpost'/>
             {/* <CommentBox/> */}   
+            <UserNameButton text="Click me"/>
         </div>
      );
 }
