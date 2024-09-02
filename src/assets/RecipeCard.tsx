@@ -105,7 +105,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
             <div className="interaction-box">
                 <LikeButton/> 
                 <p>{likes}</p>
-                <BookmarkButton/>
+                <BookmarkButton postId={_id} userId={userId}/>
                 <p>{' '}</p>
                 <DeleteButton postId={_id}/>
             </div>

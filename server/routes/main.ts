@@ -17,7 +17,7 @@ router.put('/addliketopost/:id', feed.addLikeToPost)
 router.put('/addliketocomment/:id', feed.addLikeToComment)
 router.put('/unlikepost/:id', feed.unlikePost)
 router.put('/unlikecomment/:id', feed.unlikeComment)
-router.put('/bookmark/:id', feed.bookmark)
+router.put('/addbookmark/:id', feed.bookmark)
 router.put('/unbookmark/:id', feed.unbookmark)
 
 router.delete('/deletepost/:id', feed.deletePost)
