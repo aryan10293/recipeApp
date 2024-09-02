@@ -20,7 +20,7 @@ router.put('/addliketopost/:id', feed_1.default.addLikeToPost);
 router.put('/addliketocomment/:id', feed_1.default.addLikeToComment);
 router.put('/unlikepost/:id', feed_1.default.unlikePost);
 router.put('/unlikecomment/:id', feed_1.default.unlikeComment);
-router.put('/bookmark/:id', feed_1.default.bookmark);
+router.put('/addbookmark/:id', feed_1.default.bookmark);
 router.put('/unbookmark/:id', feed_1.default.unbookmark);
 router.delete('/deletepost/:id', feed_1.default.deletePost);
 exports.default = router;

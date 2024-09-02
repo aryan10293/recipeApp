@@ -27,7 +27,6 @@ const DeleteButton:React.FC<postId> = ({postId})=> {
             window.location.reload()
         }}
     }
-console.log(postId) 
     return ( 
         <div className="delete-button">
             <button onClick={(e)=>{clickHandle(e)}} style={style}><FontAwesomeIcon icon={faTrash} /></button>
