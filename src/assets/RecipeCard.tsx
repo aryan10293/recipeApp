@@ -41,7 +41,7 @@ interface CommentsArray{
     array:Comments[]
 }
 
-const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,timeOfPost,likes,levelOfMeal}) => {
+const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal}) => {
 
         const [url,setUrl] = useState<string>("")
         const {data:recipe} = useFetch(url)
@@ -104,10 +104,10 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
 
         }     
 
-        useEffect(()=>{
-            console.log("commentsVisbile:",commentsVisbile);
+        // useEffect(()=>{
+        //     console.log("commentsVisbile:",commentsVisbile);
             
-        },[commentsVisbile])
+        // },[commentsVisbile])
 
         const renderUserComments = function(){
            return datas.comments.map((comment:Comments,index:number)=>(
@@ -160,7 +160,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                         
                 <div className="interaction-box">
                     <LikeButton postId={_id}/> 
-                    <p>{likes.length}</p>
+                    {/* <p>{likes.length}</p> */}
                     <BookmarkButton />
                     <CommentButton margin="0 0 0 15px" handle={(e)=>handleComments(e)}/>
                 </div>

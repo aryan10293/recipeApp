@@ -12,7 +12,7 @@
     position: relative;
     animation: appear02 0.4s forwards;
     z-index: 0;
-    padding: 30px;
+    padding: 30px;  
 }
 .create-recipe-box-disappear{
     display: flex;
