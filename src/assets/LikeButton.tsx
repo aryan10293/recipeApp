@@ -11,7 +11,8 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId}) => {
     const style = {
         backgroundColor:'transparent',
         border:'none',
-        zIndex:'10'
+        zIndex:'10',
+        color:'#f8f5f2'
     }
 
     
@@ -136,7 +137,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId}) => {
 
     useEffect(()=>{
         likeNumber()
-    },[likeNum])
+    },[])
 
     return ( 
         <div style={{display:'flex',flexDirection:'row'}} className="like-button">

@@ -17,7 +17,8 @@ const RecipeList:React.FC<RecipeListProps> = ({url}) => {
         ingridentList:string[],
         likes:string[],
         levelOfMeal:number,
-        steps?:string
+        steps?:string,
+        postIndex:number
 
     }
 
@@ -41,6 +42,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url}) => {
                     timeOfPost={recipe.timeOfPost}
                     recipeClass="recipe-card"
                     levelOfMeal={recipe.levelOfMeal}
+                    postIndex={index}
                     
                     />}
                     

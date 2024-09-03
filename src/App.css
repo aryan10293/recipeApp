@@ -21,5 +21,8 @@ input:focus, textarea:focus{
     border: none;
     outline: none;
 }
+button:hover{
+    cursor: pointer;
+}
 
 

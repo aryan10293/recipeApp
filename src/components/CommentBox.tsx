@@ -4,7 +4,8 @@ import LikeButton from "../assets/LikeButton";
 interface CommentsProps{
     classs2:string,
     classs4:string
-    postId:string
+    postId:string,
+    handleNewComment:()=>void
 }
 
 interface NewComment{
@@ -20,35 +21,35 @@ const hrStyle = {
     outline:'none'
 }
 
-const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId}) => {
+const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewComment}) => {
 
     const [postContent,setPostContent] = useState<string>("")
     const [userId,getUserId] = useState("")
 
 
-    const getUsersId = async function(){
+    const getUsersId = async (): Promise<string | any> =>{
         try {
-            const token =  await localStorage.getItem("token")
-            const user = await fetch(`http://localhost:2030/getuser/${token}`)
-            const userData = await user.json()
-            getUserId(userData.userinfo[0]._id)   
+            const token = await localStorage.getItem("token")
+            const response = await fetch(`http://localhost:2030/getuser/${token}`)
+            const userData = await response.json()
+            return userData.userinfo[0]._id as string 
         } catch (error) {
             console.log('Could not get userId for comment posting',error)
         }
     }
  
 
-    const postBody:NewComment = {
-        comment:postContent,
-        userId: userId,
-        postId: postId,
-        likes:["wdasd"],
-    }
-
-    const sendPostHandle = async function(){   
+    const sendPostHandle = async():Promise<void>=>{   
         try {
-            getUsersId()
-            console.log(postBody)
+            const id:string  = await getUsersId()
+
+            const postBody:NewComment = {
+                comment:postContent,
+                userId: id,
+                postId: postId,
+                likes:["wdasd"],
+            }
+
             const response = await fetch(`http://localhost:2030/createcomment`,{
                 method:'POST',
                 headers:{
@@ -64,6 +65,7 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId}) => {
 
                 const data = await response.json()
                 console.log('Sucess! Data: ',data,postBody)
+                handleNewComment()
 
         } catch (error) {
             console.log('Issue with creating comment',error)

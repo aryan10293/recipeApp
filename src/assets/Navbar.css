@@ -61,6 +61,7 @@ li svg:hover{
     border-radius: 100%;
     overflow: hidden;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     margin: 0 100px 0 0;
