@@ -15,12 +15,12 @@ const Navbar = () => {
     const {data:picture} = useFetch(`http://localhost:2030/getuser/${localStorage.getItem("token")}`)
     
 
-    useEffect(()=>{
-        if(picture && picture.userinfo[0]){
-            console.log(picture.userinfo[0]);
-        }
+    // useEffect(()=>{
+    //     if(picture && picture.userinfo[0]){
+    //         console.log(picture.userinfo[0]);
+    //     }
         
-    },[picture])
+    // },[picture])
 
     return ( 
         <div className="navbar">

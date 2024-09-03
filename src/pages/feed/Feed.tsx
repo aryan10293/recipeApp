@@ -3,6 +3,8 @@ import CreateRecipe from "../../assets/CreateRecipe";
 import RecipeList from "../../assets/RecipeList";
 import { useEffect, useState } from "react";
 import Header from "../../assets/Header";
+import CommentBox from "../../components/CommentBox";
+import UserNameButton from "../../components/UsernameButton";
 
 
 const Feed:React.FC = () => {
@@ -42,12 +44,15 @@ const Feed:React.FC = () => {
         <div className="feed">
             <Navbar/>
             <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
-            <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
+
 
             <Header text="Recipe Posts" margin="0"/>
             {/* <h2 style={{'fontSize':'2rem','fontWeight':'300','color':'black','letterSpacing':'2px','borderRadius':'5px','margin':'25px'}}>Recipe Posts</h2>
             <hr style={{'height':'1px','width':'50%','margin':'0px'}} /> */}
+            <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
             <RecipeList url='http://localhost:2030/getallpost'/>
+            {/* <CommentBox/> */}   
+            <UserNameButton text="Click me"/>
         </div>
      );
 }

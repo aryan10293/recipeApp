@@ -5,6 +5,10 @@
     align-items: center;
     padding: 0 0 100px 0;
 }
+.recipe-card-container{
+    display: flex;
+    flex-direction: column;
+}
 .recipe-card{
     width: 1000px;
     height: 200px;
@@ -113,6 +117,11 @@
     margin: 0;
     padding: 0;
 }
+.recipe-ingredients ul li{
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+}
 .ingredient-button{
     border: none;
     outline: none;
@@ -130,6 +139,7 @@
 }
 .recipe-card .right-bottom{
     display: flex;
+    width: 100%;
 }
 .recipe-card .recipe-steps{
     font-size: 1rem;
@@ -140,11 +150,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    margin: 50px 0 0 0;
+    margin: 500px 0 0 0;
 }
 .interaction-box svg{
     font-size: 1.6rem;
-    margin: 0;
+    margin: 0 0 0 0px;
 }
 .interaction-box svg:hover{
     transform: scale(1.2);
@@ -157,7 +167,6 @@
     font-size: 1.2rem;
     margin: 0 10px 0 2px;
 }
-
 .recipe-box-appear-btn{
     margin:10px 0 0 0;
     background-color:#f45d48;

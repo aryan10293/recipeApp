@@ -1,3 +1,4 @@
+import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
 
 
@@ -5,7 +6,7 @@ const Profile = () => {
     return ( 
         <div>
             <Navbar/>
-            profile
+            <Header text="Profile" margin="0"/>
         </div>
      );
 }

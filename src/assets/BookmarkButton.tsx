@@ -22,7 +22,8 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
     }
     const style = {
         backgroundColor:'transparent',
-        border:'none'
+        border:'none',
+        margin:'0 0 0 15px'
     }
 
     return ( 

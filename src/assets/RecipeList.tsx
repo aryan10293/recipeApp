@@ -29,8 +29,8 @@ const RecipeList:React.FC<RecipeListProps> = ({url}) => {
             recipes && 
             recipes.post && 
             recipes.post.length && 
-            recipes.post.slice().reverse().map((recipe:Recipe)=>(
-                <div  className="asd" key={recipe._id}>
+            recipes.post.slice().reverse().map((recipe:Recipe,index:number)=>(
+                <div  className="asd" key={index}>
                     {<RecipeCard 
                     _id={recipe._id}
                     recipeName={recipe.nameOfDish}
