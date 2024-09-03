@@ -17,7 +17,8 @@ const RecipeItem: React.FC<IProps> = ({ postId, title, difficulty, ingredients, 
         const getUser = async() => {
             const checkUser = await fetch(`http://localhost:2020/getuser/${localStorage.getItem('token')}`, {
                 method:'GET',
-                headers: {'Content-Type': 'application/json'}
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(obj)
             })
             const userData = await checkUser.json()
             setUserId(userData.userinfo[0]._id)

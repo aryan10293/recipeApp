@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const user_1 = __importDefault(require("../model/user"));
 const post_1 = __importDefault(require("../model/post"));
 const comments_1 = __importDefault(require("../model/comments"));
 const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
@@ -154,10 +155,35 @@ let feed = {
         }
     }),
     bookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log('thanks for liking the post');
+        try {
+            const user = yield user_1.default.findByIdAndUpdate(req.params.id, { $push: { savedRecipes: req.body.id } }, { new: true });
+            if (!user) {
+                res.status(400).json({ status: '400', message: "error was made trying to add bookmark" });
+            }
+            else {
+                res.status(200).json({ status: '200', message: "bookmark was successfully added" });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
     }),
     unbookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log('damn bruh why you unlike my comment');
     }),
+    deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const deletedPost = yield post_1.default.findByIdAndDelete(req.params.id);
+            if (!deletedPost) {
+                res.status(400).json({ status: '400', message: 'post was not deleted' });
+            }
+            else {
+                res.status(200).json({ status: '200', message: 'post was deleted' });
+            }
+        }
+        catch (error) {
+            console.log('error deleting item', error);
+        }
+    })
 };
 exports.default = feed;
