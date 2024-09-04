@@ -1,10 +1,4 @@
 import * as React from 'react'
-<<<<<<< Updated upstream
-
-import React from 'react'
-=======
-import * as React from 'react'
->>>>>>> Stashed changes
 import './App.css'
 import '../src/pages/AuthLayout/Login.css'
 import '../src/pages/AuthLayout/Register.css'
@@ -21,7 +15,6 @@ import Register from './pages/AuthLayout/Register';
 import Feed from './pages/feed/Feed';
 
 
-<<<<<<< Updated upstream
 import { Routes, Route, Navigate , Router} from 'react-router-dom'
 import Messages from './pages/Messages/Messages';
 import Navbar from './assets/Navbar';
@@ -49,13 +42,6 @@ function App() {
       </Routes>
     </>
   );  
-=======
-  return (
-    <div>
-      <p>Hello Drej. Dr.Drej. Tyescript sucks</p>
-    </div>
-  )
->>>>>>> Stashed changes
 }
 
 export default App;
