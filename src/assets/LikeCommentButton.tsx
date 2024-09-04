@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpFromWaterPump, faHeart } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import CommentList from '../components/CommentList';
+import Comment from '../pages/commentPage/Comment';
 
 interface LikeCommentButtonProps{
     commentId:string,
@@ -9,6 +10,9 @@ interface LikeCommentButtonProps{
     postId:string,
     likeLength:number
 }   
+interface Comments{
+    _id:string
+}
 
 const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentId,postIndex,postId}) => {
 
@@ -20,11 +24,45 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
 
     const [commeIsLiked,setCommentIsLiked] = useState<boolean>(false)
     const [likeNum,setLikeNum] = useState<number>(likeLength)
+    const [userID,setUserID] = useState<string>()
 
+    const getUsersId = async function(){
+        try {
+            const token =  await localStorage.getItem("token")
+            const user = await fetch(`http://localhost:2030/getuser/${token}`)
+            const userData = await user.json()
+            const fetchedUserID = await userData.userinfo[0]._id
+            setUserID(fetchedUserID)   
+            return fetchedUserID
+            
+        } catch (error) {
+            console.log('Could not get userId for comment posting',error)
+        }
+    }
+
+    const isCommentLiked = async function(){
+        try {
+            const userId = await getUsersId()
+
+            const response = await fetch(`http://localhost:2030/getcommentsfrompost/${postId}`)
+            const postComments = await response.json()
+            // console.log(postComments)
+            const comment = await postComments.comments.find(c=>c._id === commentId)
+            
+            if(comment && comment.likes.includes(userID)){
+                setCommentIsLiked(true)
+            }
+            setLikeNum(comment.likes.length)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const addLikeToComment = async function(e:React.MouseEvent){
         try {
             e.stopPropagation()
+            await isCommentLiked()
             const token = localStorage.getItem('token')
             if(!token){
                 throw new Error('Token not found')
@@ -112,15 +150,14 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
                 throw Error('Problem with deducting like from comment')
             }
             console.log('Comment like is withdrawn'); 
-            likeNumber() 
             setCommentIsLiked(false)
+            likeNumber() 
             console.log('comment is liked:',commeIsLiked)
             
         } catch (error) {
             console.error(error)
         }           
     }
-
 
     const likeNumber = async function(){
         try {
@@ -136,25 +173,25 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
         }
     }
 
-    useEffect(()=>{
-        likeNumber
-        console.log('comment is liked:',commeIsLiked)
-    },[])
+    useEffect (()=>{
+        isCommentLiked()
+    },)
 
-    const clickHandle =  async function (e:React.MouseEvent){
-        if(commeIsLiked===false){
+    const clickHandle = async function (e:React.MouseEvent){
+        e.stopPropagation()
+        await isCommentLiked()
+        if(!commeIsLiked){
            await addLikeToComment(e)
             
         }
         else{
            await unlikeComment(e)
-            
         }
     }
 
     return ( 
         <div className="comment-like-button">
-            <button onClick={(e)=>{clickHandle(e)}} style={style}><FontAwesomeIcon icon={faHeart} /></button>
+            <button  onClick={(e)=>{clickHandle(e)}} style={style}><FontAwesomeIcon icon={faHeart} /></button>
             {likeNum && <p>{likeNum}</p>}
         </div>
      );

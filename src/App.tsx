@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React from 'react'
 import './App.css'
 import '../src/pages/AuthLayout/Login.css'
 import '../src/pages/AuthLayout/Register.css'
