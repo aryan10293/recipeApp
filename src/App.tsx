@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
 import '../src/pages/AuthLayout/Login.css'
 import '../src/pages/AuthLayout/Register.css'
@@ -22,6 +23,18 @@ import Profile from './pages/Profile/Profile';
 import SavedRecipes from './pages/SavedRecipes/SavedRecipes';
 import SingleCard from './pages/SingleCard/SingleCard';
 function App() {
+  const [userId, setUserId] = useState<any[]>([])
+  useEffect(() => {
+      const getUser = async() => {
+          const checkUser = await fetch(`http://localhost:2030/getuser/${localStorage.getItem('token')}`, {
+              method:'GET',
+              headers: {'Content-Type': 'application/json'}
+          })
+          const userData = await checkUser.json()
+          setUserId(userData.userinfo)
+      }
+      getUser()
+    }, [])
   return (
     <>
     
@@ -35,7 +48,7 @@ function App() {
         <Route path='/home' element={<Feed />} />
         <Route path='/feed' element={<Feed />} />
         <Route path="/messages" element={<Messages />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile user={userId} />} />
         <Route path="/recipe" element={<SingleCard />} />
       </Routes>
     </>
