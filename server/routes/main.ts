@@ -1,6 +1,7 @@
 import express from "express";
 import auth from "../controller/auth"
 import feed from "../controller/feed"
+import profile from "../controller/profile"
 const router = express.Router();
 router.post('/createaccount', auth.postCreateAccount)
 router.post('/login', auth.postLogin)
@@ -19,6 +20,7 @@ router.put('/unlikepost/:id', feed.unlikePost)
 router.put('/unlikecomment/:id', feed.unlikeComment)
 router.put('/addbookmark/:id', feed.bookmark)
 router.put('/unbookmark/:id', feed.unbookmark)
+router.put('/updateprofile/:id', profile.updateProfile)
 
 router.delete('/deletepost/:id', feed.deletePost)
 export default router;

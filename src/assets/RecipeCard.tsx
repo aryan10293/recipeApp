@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
@@ -13,6 +14,7 @@ import CommentButton from "./CommentButton";
 import CommentList from "../components/CommentList";
 import Login from "../pages/AuthLayout/Login";
 import LikeCommentButton from "./LikeCommentButton";
+
 
 
 
@@ -112,7 +114,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                 setCommentClassName4('a-invisible')
             }
 
-
+            console.log('hey does this work')
         }     
 
         // useEffect(()=>{
@@ -131,6 +133,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
              timeOfPost={comment.timeOfPost} 
              comment={comment.comment} />
             ))
+           }
         
     return ( 
 
@@ -171,7 +174,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({_id,recipeClass,recipeName,recipe
                 <div className="interaction-box">
                     <LikeButton postId={_id}/> 
                     {/* <p>{likes.length}</p> */}
-                    <BookmarkButton />
+                    {/* <BookmarkButton /> */}
                     <CommentButton margin="0 0 0 15px" handle={(e)=>handleComments(e)}/>
                 </div>
                 </div>

@@ -169,7 +169,18 @@ let feed = {
         }
     }),
     unbookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log('damn bruh why you unlike my comment');
+        try {
+            const user = yield user_1.default.findByIdAndUpdate(req.params.id, { $pull: { savedRecipes: req.body.id } }, { new: true });
+            if (!user) {
+                res.status(400).json({ status: '400', message: "error was made trying to remove bookmark" });
+            }
+            else {
+                res.status(200).json({ status: '200', message: "bookmark was successfully removed" });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
     }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
