@@ -23,9 +23,9 @@ const RecipeList:React.FC<RecipeListProps> = ({url}) => {
     }
 
     const {data:recipes} = useFetch(url) 
-
+    console.log(recipes)
     return ( 
-        <div>
+        <div className="heydoesthiswork">
             {
             recipes && 
             recipes.post && 

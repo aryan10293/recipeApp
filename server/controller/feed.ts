@@ -138,11 +138,50 @@ let feed = {
         }
     },
     bookmark: async(req: Request, res: Response) => {
-        console.log('thanks for liking the post')
+        try {
+            const user = await User.findByIdAndUpdate(req.params.id,
+                    {$push: {savedRecipes: req.body.id}},
+                    {new:true}
+                )
+                if(!user){
+                    res.status(400).json({status:'400', message:"error was made trying to add bookmark"})
+                } else {
+                    res.status(200).json({status:'200', message:"bookmark was successfully added"})
+                }
+        } catch (error) {
+            console.log(error)
+        }
     },
     unbookmark: async(req: Request, res: Response) => {
-        console.log('damn bruh why you unlike my comment')
+        try {
+            const user = await User.findByIdAndUpdate(req.params.id,
+                    {$pull: {savedRecipes: req.body.id}},
+                    {new:true}
+                )
+                if(!user){
+                    res.status(400).json({status:'400', message:"error was made trying to remove bookmark"})
+                } else {
+                    res.status(200).json({status:'200', message:"bookmark was successfully removed"})
+                }
+        } catch (error) {
+            console.log(error)
+        }
     },
+    deletePost: async(req:Request, res:Response) => {
+        // make sure to delete comments of the post too
+        // make sure to delete the post from users book marks
+        
+        try {
+            const deletedPost = await Post.findByIdAndDelete(req.params.id)
+            if(!deletedPost){
+                res.status(400).json({status:'400', message:'post was not deleted'})
+            } else {
+                res.status(200).json({status:'200', message:'post was deleted'})
+            }
+        } catch (error) {
+            console.log('error deleting item', error)
+        }
+    }
 
 }
 export default feed
