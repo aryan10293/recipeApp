@@ -30,6 +30,7 @@ function App() {
       < Routes>
           {/* More routes can be added here */}
         {/* <Route path="/"element={<AuthLayout />  } /> */}
+        
         <Route path="/"element={<Login />  } />
         <Route path="/savedrecipes"element={<SavedRecipes />  } />
         <Route path="/login" element={<Login />} />

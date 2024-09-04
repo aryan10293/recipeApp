@@ -3,15 +3,19 @@ import SavedRecipesButton from "./SavedRecipesButton";
 import MessageButton from "./MessagesButton";
 import ProfileIcon from "./ProfileIcon";
 import useFetch from "./useFetch";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
 interface userInfo{
     userinfo:[]
 }
+interface NavbarProps{
+    userName:string | null, 
+    userProfilePicture:string | null
+}
 
-const Navbar = () => {
+const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture}) => {
 
     const {data:picture} = useFetch(`http://localhost:2030/getuser/${localStorage.getItem("token")}`)
     
@@ -29,7 +33,7 @@ const Navbar = () => {
                         {picture && picture.userinfo[0].userName}                  
                 </button>
             </Link>
-               < ProfileIcon userName={picture && picture.userinfo[0].userName} img={picture && picture.userinfo[0] && picture.userinfo[0].profilePic}/>
+               < ProfileIcon img={userProfilePicture}/>
                
             </ul>
         </div>

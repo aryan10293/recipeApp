@@ -30,6 +30,7 @@ interface RecipeCardProps{
     _id:string,
     levelOfMeal:number,
     postIndex:number
+    userID:string | null
 }
 
 interface Comments{
@@ -46,7 +47,7 @@ interface CommentsArray{
     array:Comments[]
 }
 
-const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal}) => {
+const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal,userID}) => {
 
         const [url,setUrl] = useState<string>("")
         const {data:recipe} = useFetch(url)
@@ -64,17 +65,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                 console.log(recipe)
             }
         },[recipe,recipe])
-        useEffect(() => {
-            const getUser = async() => {
-                const checkUser = await fetch(`http://localhost:2030/getuser/${localStorage.getItem('token')}`, {
-                    method:'GET',
-                    headers: {'Content-Type': 'application/json'}
-                })
-                const userData = await checkUser.json()
-                setUserId(userData.userinfo[0]._id)
-            }
-            getUser()
-        }, [])
+
         const iconStyle = {
             margin:'0px',
             backgroundColor:'transparent',
@@ -205,21 +196,21 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                     <h2 className="recipe-steps">{steps}</h2>
                         
                 <div className="interaction-box">
-                    <LikeButton postId={_id}/> 
+                    {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
                     {/* <p>{likes.length}</p> */}
-                    <CommentButton numberOfComments={comments.length} margin="0 0 0 15px" handle={(e)=>handleComments(e)}/>
-                    <BookmarkButton postId={_id}/>
+                    {/* <CommentButton numberOfComments={comments.length} margin="0 0 0 15px" handle={(e)=>handleComments(e)}/> */}
+                    {/* <BookmarkButton postId={_id}/> */}
                 </div>
                 </div>
             </div>
     </button>
     {<CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} />}
-        {
+        {/* {
         datas &&
         datas.comments&&
         datas.comments[0]&&
         renderUserComments()
-        }
+        } */}
 </div>
     
      );

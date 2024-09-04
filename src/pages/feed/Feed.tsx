@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import CommentBox from "../../components/CommentBox";
 import UserNameButton from "../../components/UsernameButton";
+import useUserId from "../../Utils/useGetUserId";
 
 
 const Feed:React.FC = () => {
@@ -13,9 +14,7 @@ const Feed:React.FC = () => {
     const [classState2,setClassState2] = useState<string>('invisible')
     const [classState3,setClassState3] = useState<string>('invisible')
     const [recipeVisibility,setRecipeVisibility] = useState<boolean>(false)
-
     const [buttonText,setButtonText] = useState<string>("Create Recipe")
-
 
     const handleRecipeVisbility = function(){
         recipeVisibility ? setRecipeVisibility(false):setRecipeVisibility(true)
@@ -35,25 +34,35 @@ const Feed:React.FC = () => {
     }
 
 
+
+
+    const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture} = useUserId()
+
     useEffect(()=>{
-        // console.log(recipeVisibility)
-    },[recipeVisibility])
+        console.log('ID :',ID)
+    },[ID])
 
     return ( 
      
-        <div className="feed">
-            <Navbar/>
-            <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
+        // <div className="feed">       
+        //     <Navbar/>
+        //     <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
+        //     <Header text="Recipe Posts" margin="0"/>
+        //     {/* <h2 style={{'fontSize':'2rem','fontWeight':'300','color':'black','letterSpacing':'2px','borderRadius':'5px','margin':'25px'}}>Recipe Posts</h2>
+        //     <hr style={{'height':'1px','width':'50%','margin':'0px'}} /> */}
+        //     <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
+        //     <RecipeList url='http://localhost:2030/getallpost'/>
+        //     {/* <CommentBox/> */}   
+        //     <UserNameButton text="Click me"/>
+        // </div>
+            <div className="feed">       
+                {userName && userProfilePicture && <Navbar userName={userName} userProfilePicture={userProfilePicture}/>}
+                <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
+                {<Header text={'Recipe Posts'} margin="0"/>}
+                <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
 
-
-            <Header text="Recipe Posts" margin="0"/>
-            {/* <h2 style={{'fontSize':'2rem','fontWeight':'300','color':'black','letterSpacing':'2px','borderRadius':'5px','margin':'25px'}}>Recipe Posts</h2>
-            <hr style={{'height':'1px','width':'50%','margin':'0px'}} /> */}
-            <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
-            <RecipeList url='http://localhost:2030/getallpost'/>
-            {/* <CommentBox/> */}   
-            <UserNameButton text="Click me"/>
-        </div>
+                {ID && <RecipeList userId={ID} url='http://localhost:2030/getallpost'/>} 
+            </div>
      );
 }
 

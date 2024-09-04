@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface ProfileIconProps{
-    img:string,
-    userName:string
+    img:string | null,
 }
 
-const ProfileIcon:React.FC<ProfileIconProps> = ({img,userName}) => {
+const ProfileIcon:React.FC<ProfileIconProps> = ({img}) => {
     
 
     return ( 
@@ -14,7 +13,7 @@ const ProfileIcon:React.FC<ProfileIconProps> = ({img,userName}) => {
             <Link to={"/profile"}>
                 <button>
                 < img src={img} alt="" />    
-                </button>   
+                </button> 
             </Link>
         </div>
      );
