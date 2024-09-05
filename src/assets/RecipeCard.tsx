@@ -134,26 +134,16 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
             
         }     
 
-        const renderPostComments = function(e:React.MouseEvent){
-            e.stopPropagation()
-            return comments.map((comment:Comments)=>(
-                <div style={{height:'1000px',width:'1000px'}}>
-                    <p style={{fontSize:'10rem'}}>{comment.comment}</p>
-                </div>
-            ))
-        }
-
         const handleCommentButtonClick =  function (e:React.MouseEvent){
             e.stopPropagation()
-            renderAllUserComments()
+            // renderAllUserComments()
             handleCommentVisibility(e)
-            renderAllUserComments()
-            
+            // renderAllUserComments()
         }
 
-        const handleNewComment = () => {
+        const handleNewComment = async () => {
             fetchComments();
-            // renderAllUserComments()
+            renderAllUserComments()
           };
 
           const renderAllUserComments = function(){
@@ -214,7 +204,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                         
                 <div className="interaction-box">
                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
-                    {comments && commentNum && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
+                    {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
                     {/* <BookmarkButton postId={_id}/> */}
                 </div>
                 </div>

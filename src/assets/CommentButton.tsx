@@ -5,7 +5,7 @@ import React from 'react';
     interface CommentButtonProps{
         handle:(e:React.MouseEvent<HTMLButtonElement>)=>void;
         margin:string,
-        numberOfComments:number
+        numberOfComments:number | undefined
         
     }
 
@@ -19,9 +19,21 @@ const CommentButton:React.FC<CommentButtonProps> = ({handle,margin,numberOfComme
         color:'#f8f5f2'
     }
 
+
+    const clickHandle = function(e:React.MouseEvent){
+        e.stopPropagation()
+        handle(e)
+        let allCommentsNum = numberOfComments
+        if(numberOfComments === undefined ||numberOfComments === 0){
+            allCommentsNum = 0
+        }
+        
+
+    }
+
     return ( 
     <div className="like-button" style={{display:'flex',flexDirection:'row'}}>
-        {handle && numberOfComments && <button onClick={handle} style={style}><FontAwesomeIcon icon={faComment} /></button>}
+        {<button onClick={(e)=>handle(e)} style={style}><FontAwesomeIcon icon={faComment} /></button>}
         <p>{numberOfComments}</p>
     </div>
      );
