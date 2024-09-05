@@ -5,13 +5,14 @@ interface CommentsProps{
     classs2:string,
     classs4:string
     postId:string,
-    handleNewComment:()=>void
+    handleNewComment:()=>void,
+    userId:string | undefined
+
 }
 
 interface NewComment{
-    userId: string,
+    userId: string | undefined,
     postId: String,
-    likes:string[],
     comment: String,
 }
 
@@ -21,33 +22,20 @@ const hrStyle = {
     outline:'none'
 }
 
-const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewComment}) => {
+const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewComment,userId}) => {
 
     const [postContent,setPostContent] = useState<string>("")
-    const [userId,getUserId] = useState("")
 
-
-    const getUsersId = async (): Promise<string | any> =>{
-        try {
-            const token = await localStorage.getItem("token")
-            const response = await fetch(`http://localhost:2030/getuser/${token}`)
-            const userData = await response.json()
-            return userData.userinfo[0]._id as string 
-        } catch (error) {
-            console.log('Could not get userId for comment posting',error)
-        }
-    }
  
 
     const sendPostHandle = async():Promise<void>=>{   
         try {
-            const id:string  = await getUsersId()
 
             const postBody:NewComment = {
                 comment:postContent,
-                userId: id,
+                userId: userId,
                 postId: postId,
-                likes:["wdasd"],
+                
             }
 
             const response = await fetch(`http://localhost:2030/createcomment`,{

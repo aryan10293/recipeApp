@@ -21,7 +21,7 @@ const CommentButton:React.FC<CommentButtonProps> = ({handle,margin,numberOfComme
 
     return ( 
     <div className="like-button" style={{display:'flex',flexDirection:'row'}}>
-        <button onClick={(e)=>handle(e)} style={style}><FontAwesomeIcon icon={faComment} /></button>
+        {handle && numberOfComments && <button onClick={handle} style={style}><FontAwesomeIcon icon={faComment} /></button>}
         <p>{numberOfComments}</p>
     </div>
      );

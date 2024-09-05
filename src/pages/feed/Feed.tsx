@@ -38,9 +38,6 @@ const Feed:React.FC = () => {
 
     const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture} = useUserId()
 
-    useEffect(()=>{
-        console.log('ID :',ID)
-    },[ID])
 
     return ( 
      

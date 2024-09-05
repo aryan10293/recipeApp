@@ -23,7 +23,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,userId}) => {
     }
 
     const {data:recipes} = useFetch(url) 
-    console.log(recipes)
+    // console.log(recipes)
     return ( 
         <div>
             {userId &&

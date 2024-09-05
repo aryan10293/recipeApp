@@ -147,7 +147,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
 
     useEffect(()=>{
         likeNumber()
-        console.log(postId);
+        // console.log(postId);
         
     },[])
 

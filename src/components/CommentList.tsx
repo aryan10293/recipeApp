@@ -4,7 +4,7 @@ import LikeCommentButton from "../assets/LikeCommentButton";
 
 interface CommentsProps{
     timeOfPost:string,
-    commentorId: string,
+    commentorId: string | undefined
     postId: string,
     likes:string[],
     comment: String,
@@ -76,7 +76,7 @@ const CommentList:React.FC<CommentsProps> = ({
 
             <div className={classs3}>
                 <h4 className="comment-username">{commentorId && currentUserName}</h4>    
-                <h4 className="comment-content">{comment}</h4>
+                <h4 className="comment-content">{comment && comment}</h4>
 
                 <div className="comment-interactions">
                 <LikeCommentButton likeLength={likes.length} postIndex={postIndex} commentId={commentId} postId={postId}/>

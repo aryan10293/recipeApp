@@ -30,7 +30,7 @@ interface RecipeCardProps{
     _id:string,
     levelOfMeal:number,
     postIndex:number
-    userID:string | null
+    userID:string | undefined
 }
 
 interface Comments{
@@ -74,7 +74,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         }
 
         //Meal difficulty Icon rendering
-        const renderIcon = function(){
+        const renderDifficultyIcon = function(){
             let icons:JSX.Element[] = []
             for(var i:number = 0;i<levelOfMeal;i++){
                 icons.push(<DifficultyIcon style={iconStyle} key={i}/>)
@@ -91,58 +91,75 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         const [commentClassName3,setCommentClassName3] = useState<string>("invisible")
         const [commentClassName4,setCommentClassName4] = useState<string>("invisible")
         const [comments, setComments] = useState<Comments[]>([]);
+        const [commentNum,setCommentNum] = useState<number>()
         const [likeNums,setLikeNums] = useState<number>();
         
         const fetchComments = async():Promise<any> => {
             try {
-                const response = await fetch(`http://localhost:2030/getcommentsfrompost/${_id}`);
-                if(!response.ok){
-                    throw new Error('Failed to fetch comments')
-                }
-                const data = await response.json();
-                setComments(data.comments || []);
+                const data = await datas
+                const commentNum = data.comments.length
+                const commentComments = data.comments
+                setComments(commentComments);
+                setCommentNum(commentNum)
             } catch (error) {
                 console.log(error)
             }
           };
         
-          const updateLikeNums = async function(num:number):Promise<void>{
-            await fetchComments()
-            setLikeNums(comments[num].likes.length)
-          }
-          useEffect(() => {
-            fetchComments();
-            console.log();
-            
-          }, []);
+          useEffect(()=>{
+                fetchComments()
+          },)
 
 
-        const handleComments = function(e:React.MouseEvent){
+        const handleCommentVisibility = function(e:React.MouseEvent){
             e.stopPropagation()
             commentsVisbile ? setCommentsVisible(false):setCommentsVisible(true)
 
             if(commentsVisbile === false){
+                
                 setCommentClassName("comment-container")
                 setCommentClassName2("new-comment-container")
                 setCommentClassName3("comments-container")
                 setCommentClassName4('a')
+                
+                
             }
             else{
                 setCommentClassName("comment-container-invisible")
                 setCommentClassName2("new-comment-container-invisible")
                 setCommentClassName3("comments-container-invisible")
                 setCommentClassName4('a-invisible')
+                renderAllUserComments()
             }
+            
         }     
 
+        const renderPostComments = function(e:React.MouseEvent){
+            e.stopPropagation()
+            return comments.map((comment:Comments)=>(
+                <div style={{height:'1000px',width:'1000px'}}>
+                    <p style={{fontSize:'10rem'}}>{comment.comment}</p>
+                </div>
+            ))
+        }
+
+        const handleCommentButtonClick =  function (e:React.MouseEvent){
+            e.stopPropagation()
+            renderAllUserComments()
+            handleCommentVisibility(e)
+            renderAllUserComments()
+            
+        }
 
         const handleNewComment = () => {
-            fetchComments(); // Fetch new comments
-            renderUserComments()
+            fetchComments();
+            // renderAllUserComments()
           };
 
-          const renderUserComments = function(){
+          const renderAllUserComments = function(){
+            console.log(comments)
             return comments.map((comment:Comments,index:number)=>(
+                
               <CommentList 
               key={comment._id}
               classs={commentClassName} 
@@ -180,7 +197,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                         <TimeButton/>
                         <h3 className="recipe-time">{recipeTime}</h3>
                         <div className="recipe-skill-box">
-                         {renderIcon()}
+                         {renderDifficultyIcon()}
                         </div>
 
                     </div>
@@ -197,20 +214,14 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                         
                 <div className="interaction-box">
                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
-                    {/* <p>{likes.length}</p> */}
-                    {/* <CommentButton numberOfComments={comments.length} margin="0 0 0 15px" handle={(e)=>handleComments(e)}/> */}
+                    {comments && commentNum && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
                     {/* <BookmarkButton postId={_id}/> */}
                 </div>
                 </div>
             </div>
     </button>
-    {<CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} />}
-        {/* {
-        datas &&
-        datas.comments&&
-        datas.comments[0]&&
-        renderUserComments()
-        } */}
+    {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
+    {commentsVisbile && renderAllUserComments()}
 </div>
     
      );
