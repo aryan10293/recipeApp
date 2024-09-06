@@ -106,6 +106,7 @@ const SingleCard:React.FC<RecipeCardProps> = () => {
             {
             recipe &&
             datas &&
+            userID && 
             <RecipeCard  
             levelOfMeal={recipe.post[0].levelOfMeal}
             likes={recipe.post[0].likes}

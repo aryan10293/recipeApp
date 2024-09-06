@@ -15,7 +15,9 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
         backgroundColor:'transparent',
         border:'none',
         zIndex:'10',
-        color:'#ff2929'
+        color:'#BF3131',
+        
+        
     }
     const style2 = {
         backgroundColor:'transparent',

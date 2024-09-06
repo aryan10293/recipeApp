@@ -3,20 +3,47 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect, BlockquoteHTMLAttributes } from 'react';
 import useUserId from '../Utils/useGetUserId';
 import RecipeCard from './RecipeCard';
+import { UNSAFE_FetchersContext } from 'react-router-dom';
 interface PostId{
     postId: string
     userId: string | undefined,
 }
 const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
 
-    const style = {
+    const style1 = {
         backgroundColor:'transparent',
         border:'none',
         margin:'0 0 0 15px',
         color:'#f8f5f2'
     }
+    const style2 = {
+        backgroundColor:'transparent',
+        border:'none',
+        margin:'0 0 0 15px',
+        color:'#BF3131'
+    }
 
-    const {userBookmarks:userBookmarks} = useUserId()
+    const intitialize = async function (){
+       
+    }
+
+    useEffect(()=>{
+        fetchBookmarks()
+    },[])
+
+    // const {userBookmarks:userBookmarks} = useUserId()
+    const [bookmarks,setBookmarks] = useState<string[]>([])
+    const [isRecipeSaved,setIsRecipeSaved] = useState<boolean>(false)
+
+    const fetchBookmarks = async function(){
+        const response = await fetch(`http://localhost:2030/getuserbyid/${userId}`)
+        const data = await response.json()
+        const userBookmarks = await data.user[0].savedRecipes
+
+        const isSaved = userBookmarks.includes(postId)
+        setIsRecipeSaved(isSaved)
+        setBookmarks(userBookmarks)
+    }
 
     const bookmarkRecipe = async () => {
         try {
@@ -31,6 +58,8 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
             }
             
             console.log('Success!',response, 'User ID: ',userId);
+            alert('Recipe saved')
+            await fetchBookmarks()
              
         } catch (error) {
             console.log(error)
@@ -53,6 +82,8 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
             }
             
             console.log('Success! Recipe is unbookmarked',response, 'User ID: ',userId);
+            alert('Recipe unsaved')
+            await fetchBookmarks()
            
         } catch (error) {
             console.log(error)
@@ -60,10 +91,11 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
     }
 
     const checkIfRecipeIsBookmarked = async function(){
-        const bookmarks:string[] | undefined= await userBookmarks
-        const contains = bookmarks?.includes(postId)    
+        const contains = bookmarks?.includes(postId)
+        setIsRecipeSaved(contains)    
         return contains
     }
+
 
     const handleBookmark = async function(e:React.MouseEvent){
         e.stopPropagation()
@@ -72,18 +104,18 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
         
         if(!bookmarked){
             bookmarkRecipe()
+            setIsRecipeSaved(true)
         }
         else{  
             unBookmarkRecipe()
+            setIsRecipeSaved(false)
         }  
     }
 
 
-
     return ( 
         <div className='bookmark-button'>
-            {/* <button onClick={(e)=>{handleClick(e)}} style={style}><FontAwesomeIcon icon={faBookmark}></FontAwesomeIcon></button> */}
-            <button onClick={(e)=>handleBookmark(e)} style={style}><FontAwesomeIcon icon={faBookmark}></FontAwesomeIcon></button>
+            {bookmarks && <button onClick={(e)=>handleBookmark(e)} style={isRecipeSaved ? style2:style1}><FontAwesomeIcon icon={faBookmark}></FontAwesomeIcon></button>}
         </div>
      );
 }
