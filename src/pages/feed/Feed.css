@@ -1,0 +1,203 @@
+.feed{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 100px 0;
+}
+.recipe-card-container{
+    display: flex;
+    flex-direction: column;
+}
+.recipe-card{
+    width: 1000px;
+    height: 200px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    margin: 20px 0 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center ;
+    align-items: center;
+    background-color: #078080;
+    transition: transform 0.1s ease-in;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    z-index: 0;
+}
+.asd:nth-of-type(even){
+    animation: appearFromRight 0.2s ease-in forwards, appear3 0.2s ease-in forwards;
+    transform: translateX(600px);
+    opacity: 0;
+}
+.asd:nth-of-type(odd){
+    animation: appearFromLeft 0.2s ease-in forwards, appear3 0.2s ease-in forwards;
+    transform: translateX(-600px);
+    opacity: 0;
+}
+.recipe-card:hover{
+    cursor: pointer;
+    background-color: #078080f2;
+}
+.recipe-card .left-side{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 350px;
+    height: 100%;
+    margin: 0;
+}
+.recipe-card .left-side .left-top{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    flex-direction: column;
+    overflow: hidden;
+    height: 170px;
+    width: 300px;
+    margin: 0;
+    border-radius: 10px;
+}
+.recipe-card .left-side .left-top img{
+    margin: 0 ;
+    padding: 0;
+    object-fit:scale-down;
+}
+.recipe-card .right-side{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 100%;
+    margin: 0;
+}
+.right-side .right-top{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0 0 0;
+}
+.right-top .recipe-title{
+    margin: 0 20px 0 0;
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: capitalize;
+}
+.right-top .top-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 0 0 0;
+    padding: 0;
+    width: 100%;
+}
+.right-top .top-box .recipe-time{
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 20px 0 0;
+}
+.right-top .top-box .recipe-skill-box{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: flex-end;
+}
+.top-box svg{
+    font-size: 1.2rem;
+    margin: 0 7px 0 0 ;
+}
+.right-top .recipe-ingredients{
+    margin: 10px 0 0 0;
+}
+.recipe-ingredients ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+.recipe-ingredients ul li{
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+}
+.ingredient-button{
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+    padding: 3px 5px;
+    background-color: #BF3131;
+    margin: 0 10px 0 0;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.3);
+    text-transform: capitalize;
+    border-radius: 5px; 
+    height: 30px;
+}
+.ingredient-button:hover{
+    cursor: pointer;
+}
+.recipe-card .right-bottom{
+    display: flex;
+    width: 100%;
+}
+.recipe-card .recipe-steps{
+    font-size: 1rem;
+    font-weight: 400;
+}
+.interaction-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 500px 0 0 0;
+}
+.interaction-box svg{
+    font-size: 1.6rem;
+    margin: 0 0 0 0px;
+}
+.interaction-box svg:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.interaction-box svg:active{
+    transform: scale(0.9);
+}
+.interaction-box p{
+    font-size: 1.2rem;
+    margin: 0 10px 0 2px;
+}
+.recipe-box-appear-btn{
+    margin:10px 0 0 0;
+    background-color:#f45d48;
+    font-size:1.1rem;
+    border-radius:5px;
+    border:none;
+    transition: transform 0.1s ease-in;
+}
+.recipe-box-appear-btn:hover{
+    background-color: #f45c48e7;
+    cursor: pointer;
+}
+.heydoesthiswork{
+    height: 75vh;
+    overflow: auto;
+}
+@keyframes appearFromLeft{
+    from{transform: translateX(-400px);}
+    to{transform: translateX(0px);}
+
+}
+@keyframes appearFromRight{
+    from{transform: translateX(400px);}
+    to{transform: translateX(0px);}
+
+}
+
+
+
+
+
+
+
+

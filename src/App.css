@@ -1,0 +1,25 @@
+*{
+    font-family: Jost;
+}
+#root{
+    background-color: #f8f5f2;
+    min-height: 100vh;
+}
+html,body, #root {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f5f2;
+}
+h1,h2,h3,p,select,input,textarea{
+    color:#222525;
+}
+::placeholder{
+    color:#22252552;
+}
+input:focus, textarea:focus{
+    border: none;
+    outline: none;
+}
+
+
