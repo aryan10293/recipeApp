@@ -5,7 +5,8 @@ const TimeButton = () => {
 
     const style = {
         backgroundColor:'transparent',
-        border:'none'
+        border:'none',
+        color:'#f8f5f2'
     }
 
     return ( 

@@ -4,13 +4,15 @@ import LikeButton from "../assets/LikeButton";
 interface CommentsProps{
     classs2:string,
     classs4:string
-    postId:string
+    postId:string,
+    handleNewComment:()=>void,
+    userId:string | undefined
+
 }
 
 interface NewComment{
-    userId: string,
+    userId: string | undefined,
     postId: String,
-    likes:string[],
     comment: String,
 }
 
@@ -20,35 +22,22 @@ const hrStyle = {
     outline:'none'
 }
 
-const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId}) => {
+const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewComment,userId}) => {
 
     const [postContent,setPostContent] = useState<string>("")
-    const [userId,getUserId] = useState("")
 
-
-    const getUsersId = async function(){
-        try {
-            const token =  await localStorage.getItem("token")
-            const user = await fetch(`http://localhost:2030/getuser/${token}`)
-            const userData = await user.json()
-            getUserId(userData.userinfo[0]._id)   
-        } catch (error) {
-            console.log('Could not get userId for comment posting',error)
-        }
-    }
  
 
-    const postBody:NewComment = {
-        comment:postContent,
-        userId: userId,
-        postId: postId,
-        likes:["wdasd"],
-    }
-
-    const sendPostHandle = async function(){   
+    const sendCommentHandle = async():Promise<void>=>{   
         try {
-            getUsersId()
-            console.log(postBody)
+
+            const postBody:NewComment = {
+                comment:postContent,
+                userId: userId,
+                postId: postId,
+                
+            }
+
             const response = await fetch(`http://localhost:2030/createcomment`,{
                 method:'POST',
                 headers:{
@@ -64,23 +53,28 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId}) => {
 
                 const data = await response.json()
                 console.log('Sucess! Data: ',data,postBody)
+                handleNewComment()
+                
 
         } catch (error) {
             console.log('Issue with creating comment',error)
         }
     }
 
-    // useEffect(()=>{
-    //     console.log(postContent);
-        
-    // },[postContent])
+    const clickHandle = async function(){
+        try {
+            sendCommentHandle()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return ( 
         <div className={classs4}>
             <div className={classs2}>
                 <textarea onChange={(e)=>setPostContent(e.target.value)} className="new-comment-input" placeholder="Your comment..." name="" id=""></textarea>
-                <button onClick={sendPostHandle} className="send-comment-btn">Send</button>
+                <button onClick={clickHandle} className="send-comment-btn">Send</button>
             </div>
         </div>
      );

@@ -1,22 +1,96 @@
+import React, { useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
 import RecipeList from "../../assets/RecipeList";
 import useFetch from "../../assets/useFetch";
+import useUserId from "../../Utils/useGetUserId";
+import RecipeCard from "../../assets/RecipeCard";
+import LikeButton from "../../assets/LikeButton";
+
+interface RecipeCardProps{
+    recipeName:string,
+    recipeImage:string,
+    recipeTime:number,
+    ingridientList:string[],
+    steps?:string,
+    timeOfPost:string,
+    likes:string[],
+    recipeClass:string,
+    _id:string,
+    levelOfMeal:number,
+    postIndex:number
+    userID:string | undefined
+}
+interface Recipe{
+    timeOfPost:string,
+    nameOfDish:string,
+    _id:string
+    prepTime:number,
+    image:string,
+    ingridentList:string[],
+    likes:string[],
+    levelOfMeal:number,
+    steps?:string,
+    postIndex:number
+}
 
 const SavedRecipes = () => {
 
-    const {data:data} = useFetch(`http://localhost:2030/getuser/${localStorage.getItem("token")}`)
+    const {userUsername:userName,userProfilePicture:profilePicture,userId:userID,userBookmarks:userBookmarks} = useUserId()
+    const [recipes,setRecipes] = useState<RecipeCardProps[]>([])
 
-    const clickHandle = async function() {
-        console.log(data.userinfo[0].savedRecipes)
+    const getRecipes = async function(id:string){
+        try {
+            const response = await fetch(`http://localhost:2030/getpost/${id}`)
+            const data = await response.json()
+            const recipeInfo = await  data.post[0]
+            return recipeInfo  
+        } catch (error) {
+            console.log(error)
+            return null
+        }
     }
 
+    const createRecipeArray = async function(){
+        try {
+            const recipePromises = userBookmarks?.map(async (recipeId)=>{
+                return await getRecipes(recipeId);     
+            })  
+
+            const recipesArray = await Promise.all(recipePromises || [])
+            setRecipes(recipesArray.filter(recipe=>recipe!==null))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(()=>{
+        createRecipeArray()
+        console.log(recipes);
+        
+    },[userBookmarks])
+    
+
     return ( 
-        <div>
-            <Navbar/>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+            <Navbar userName={userName} userProfilePicture={profilePicture}/>
             <Header margin="0px 0 0 0" text="Saved Recipes"/>
-            <RecipeList url={`http://localhost:2030/getuser/${localStorage.getItem("token")}`} />
-            <button onClick={clickHandle}>asdwadas</button>
+            {userBookmarks && recipes &&
+                recipes.map((recipe,index)=>( 
+                    <RecipeCard 
+                    _id={recipe._id}
+                    recipeName={recipe.nameOfDish}
+                    recipeTime={recipe.prepTime}
+                    recipeImage={recipe.image}                  
+                    ingridientList={recipe.ingridentList}
+                    likes={recipe.likes}
+                    timeOfPost={recipe.timeOfPost}
+                    recipeClass="recipe-card"
+                    levelOfMeal={recipe.levelOfMeal}
+                    postIndex={index}
+                    userID={userID} />
+                ))
+            }
         </div>
      );
 }

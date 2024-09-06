@@ -20,7 +20,7 @@
     background-color: #078080;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
     border-radius: 10px;
-    animation: commentIn 0.1s ease-in forwards;
+    animation: commentIn 0.0s ease-in forwards;
 }
 .a-invisible{
     padding: 0;
@@ -33,10 +33,10 @@
     background-color: #078080;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
     border-radius: 10px;
-    animation: commentOut 0.1s ease-in forwards;
+    animation: commentOut 0.0s ease-in forwards;
     /* animation-delay: 0.1s; */
 }
-.feed .comment-container{
+.comment-container{
     width: 1000px;
     /* height: 300px; */
     padding: 0;
@@ -50,9 +50,9 @@
     background-color: #078080;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
     border-radius: 10px;
-    animation: commentIn 0.1s ease-in forwards;
+    animation: commentIn 0.0s ease-in forwards;
 }
-.feed .comment-container-invisible{
+.comment-container-invisible{
     padding: 0;
     background-color: transparent;
     border: none;
@@ -63,7 +63,7 @@
     background-color: #078080;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
     border-radius: 10px;
-    animation: commentOut 0.1s ease-in forwards;
+    animation: commentOut 0.0s ease-in forwards;
     /* animation-delay: 0.1s; */
 }
 .new-comment-container{
@@ -91,7 +91,7 @@
 .new-comment-input{
     width: 90%;
     padding: 5px;
-    background-color: white;
+    background-color: #f8f5f2;
     resize: none;
     font-size: 1rem;
     height: 50px;
@@ -104,6 +104,9 @@
     border: none;
     background-color: #f45d48;
 }
+.send-comment-btn:hover{
+    background-color: #f45c48e8;
+}
 .comments-container{
     margin: 0;
     width: 90%;
@@ -115,37 +118,53 @@
 }
 .comment-username{
     font-size: 1rem;
-    letter-spacing: 1px;
-    font-weight: 500;
+    font-weight: 700;
     margin:0 0 5px 0;
 }
 .comment-content{
     font-size: 0.9rem;
     font-weight: 400;
     margin:0 0 5px 0;
+    font-style: italic;
 }
 .comment-interactions{
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 .comment-time{
     font-size: 0.9rem;
     font-weight: 300;
-    margin:0 0 5px 0;
-    width: 100px;
+    margin:0 0 5px 700px;
+    width: 300px;
+    text-align: center;
 }
-.comment-like-btn{
-    font-size: 0.9rem;
+.comment-like-button{
+    display: flex;
+    flex-direction:row ;
+    width: 50px;
+    height: 56px;
+    align-items: center;
+}
+.comment-like-btn svg{
+    font-size: 12rem;
     font-weight: 300;
     margin:0 0 5px 0;
+    position: relative;
     width: 30px;
+    text-align: center;
 }
 .comment-like-number{
     font-size: 0.9rem;
     letter-spacing: 1px;
     font-weight: 300;
     margin:0 0 5px 0;
+    text-align: center;
+    color: #f8f5f2;
+    position: relative;
+    bottom: -3px;
 }
 
 @keyframes commentIn{

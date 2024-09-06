@@ -4,25 +4,26 @@ import React from 'react';
 
     interface CommentButtonProps{
         handle:(e:React.MouseEvent<HTMLButtonElement>)=>void;
-        margin:string
+        margin:string,
+        numberOfComments:number | undefined
         
     }
 
-
-
-
-const CommentButton:React.FC<CommentButtonProps> = ({handle,margin}) => {
+const CommentButton:React.FC<CommentButtonProps> = ({handle,margin,numberOfComments}) => {
 
     const style = {
         backgroundColor:'transparent',
         border:'none',
         zIndex:'10',
-        margin:`${margin}`
+        margin:`${margin}`,
+        color:'#f8f5f2'
     }
 
+
     return ( 
-        <div className="like-button">
-        <button onClick={(e)=>handle(e)} style={style}><FontAwesomeIcon icon={faComment} /></button>
+    <div className="like-button" style={{display:'flex',flexDirection:'row'}}>
+        {<button onClick={(e)=>handle(e)} style={style}><FontAwesomeIcon icon={faComment} /></button>}
+        <p>{numberOfComments}</p>
     </div>
      );
 }

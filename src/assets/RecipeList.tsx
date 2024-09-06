@@ -3,10 +3,11 @@ import useFetch from "./useFetch";
 import RecipeCard from "./RecipeCard";
 
 interface RecipeListProps{
-    url:string
+    url:string,
+    userId:string | null 
 }
 
-const RecipeList:React.FC<RecipeListProps> = ({url}) => {
+const RecipeList:React.FC<RecipeListProps> = ({url,userId}) => {
 
     interface Recipe{
         timeOfPost:string,
@@ -17,15 +18,15 @@ const RecipeList:React.FC<RecipeListProps> = ({url}) => {
         ingridentList:string[],
         likes:string[],
         levelOfMeal:number,
-        steps?:string
-
+        steps?:string,
+        postIndex:number
     }
 
     const {data:recipes} = useFetch(url) 
-    console.log(recipes)
+    // console.log(recipes)
     return ( 
-        <div className="heydoesthiswork">
-            {
+        <div>
+            {userId &&
             recipes && 
             recipes.post && 
             recipes.post.length && 
@@ -41,7 +42,8 @@ const RecipeList:React.FC<RecipeListProps> = ({url}) => {
                     timeOfPost={recipe.timeOfPost}
                     recipeClass="recipe-card"
                     levelOfMeal={recipe.levelOfMeal}
-                    
+                    postIndex={index}
+                    userID={userId}            
                     />}
                     
                 </div>
