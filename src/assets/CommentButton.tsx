@@ -20,17 +20,6 @@ const CommentButton:React.FC<CommentButtonProps> = ({handle,margin,numberOfComme
     }
 
 
-    const clickHandle = function(e:React.MouseEvent){
-        e.stopPropagation()
-        handle(e)
-        let allCommentsNum = numberOfComments
-        if(numberOfComments === undefined ||numberOfComments === 0){
-            allCommentsNum = 0
-        }
-        
-
-    }
-
     return ( 
     <div className="like-button" style={{display:'flex',flexDirection:'row'}}>
         {<button onClick={(e)=>handle(e)} style={style}><FontAwesomeIcon icon={faComment} /></button>}

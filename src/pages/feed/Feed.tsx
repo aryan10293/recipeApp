@@ -36,7 +36,7 @@ const Feed:React.FC = () => {
 
 
 
-    const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture} = useUserId()
+    const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
 
 
     return ( 

@@ -30,7 +30,7 @@ interface RecipeCardProps{
     _id:string,
     levelOfMeal:number,
     postIndex:number
-    userID:string | undefined
+    userID:string | undefined,
 }
 
 interface Comments{
@@ -83,7 +83,6 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         }
           
         // Comment section
-
         const {data:datas} = useFetch(`http://localhost:2030/getcommentsfrompost/${_id}`)
         const [commentsVisbile,setCommentsVisible] = useState<boolean>(false)
         const [commentClassName,setCommentClassName] = useState<string>("invisible")
@@ -93,14 +92,18 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         const [comments, setComments] = useState<Comments[]>([]);
         const [commentNum,setCommentNum] = useState<number>()
         const [likeNums,setLikeNums] = useState<number>();
-        
+
         const fetchComments = async():Promise<any> => {
             try {
-                const data = await datas
-                const commentNum = data.comments.length
-                const commentComments = data.comments
+                // const data = await datas
+                const commentNum = await datas.comments.length
+                const commentComments = await datas.comments
+
                 setComments(commentComments);
                 setCommentNum(commentNum)
+                
+                console.log('Comments are fetched');
+                
             } catch (error) {
                 console.log(error)
             }
@@ -120,9 +123,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                 setCommentClassName("comment-container")
                 setCommentClassName2("new-comment-container")
                 setCommentClassName3("comments-container")
-                setCommentClassName4('a')
-                
-                
+                setCommentClassName4('a')       
             }
             else{
                 setCommentClassName("comment-container-invisible")
@@ -130,24 +131,24 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                 setCommentClassName3("comments-container-invisible")
                 setCommentClassName4('a-invisible')
                 renderAllUserComments()
-            }
-            
+            }    
         }     
 
         const handleCommentButtonClick =  function (e:React.MouseEvent){
             e.stopPropagation()
-            // renderAllUserComments()
             handleCommentVisibility(e)
-            // renderAllUserComments()
         }
 
         const handleNewComment = async () => {
-            fetchComments();
-            renderAllUserComments()
-          };
+            try {
+                await fetchComments()
+            } catch (error) {
+                console.log(error)
+            }
+        };
 
           const renderAllUserComments = function(){
-            console.log(comments)
+            console.log('Comments are rendered')
             return comments.map((comment:Comments,index:number)=>(
                 
               <CommentList 
@@ -162,25 +163,23 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
               postId={_id}
               commentId={datas.comments[index]._id}
               postIndex={index}
+              userID={userID}
                />
              ))
          }
 
     return ( 
  
-
-
 <div className="recipe-card-container">
     <button onClick={handleClick} className={recipeClass}>
-            <div className="left-side">
 
+            <div className="left-side">
                 <div className="left-top">
                     <img src={recipeImage}/>
                 </div>
-
             </div>
-            <div className="right-side">
 
+            <div className="right-side">
                 <div className="right-top">
                     <div className="top-box">
                         <h2 className="recipe-title">{recipeName}</h2>
@@ -205,7 +204,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                 <div className="interaction-box">
                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
                     {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
-                    {/* <BookmarkButton postId={_id}/> */}
+                    <BookmarkButton userId={userID} postId={_id}/>
                 </div>
                 </div>
             </div>

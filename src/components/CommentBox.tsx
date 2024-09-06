@@ -28,7 +28,7 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
 
  
 
-    const sendPostHandle = async():Promise<void>=>{   
+    const sendCommentHandle = async():Promise<void>=>{   
         try {
 
             const postBody:NewComment = {
@@ -54,23 +54,27 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
                 const data = await response.json()
                 console.log('Sucess! Data: ',data,postBody)
                 handleNewComment()
+                
 
         } catch (error) {
             console.log('Issue with creating comment',error)
         }
     }
 
-    // useEffect(()=>{
-    //     console.log(postContent);
-        
-    // },[postContent])
+    const clickHandle = async function(){
+        try {
+            sendCommentHandle()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return ( 
         <div className={classs4}>
             <div className={classs2}>
                 <textarea onChange={(e)=>setPostContent(e.target.value)} className="new-comment-input" placeholder="Your comment..." name="" id=""></textarea>
-                <button onClick={sendPostHandle} className="send-comment-btn">Send</button>
+                <button onClick={clickHandle} className="send-comment-btn">Send</button>
             </div>
         </div>
      );

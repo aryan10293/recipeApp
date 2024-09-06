@@ -12,7 +12,8 @@ interface CommentsProps{
     classs2:string,
     classs3:string,
     commentId:string,
-    postIndex:number
+    postIndex:number,
+    userID:string | undefined
 }
 
 const hrStyle = {
@@ -32,7 +33,8 @@ const CommentList:React.FC<CommentsProps> = ({
     commentorId,
     commentId,
     postIndex,
-    postId
+    postId,
+    userID
 }) => {
 
     const [currentUserName,setCurrentUserName] = useState<string>("")
@@ -79,7 +81,7 @@ const CommentList:React.FC<CommentsProps> = ({
                 <h4 className="comment-content">{comment && comment}</h4>
 
                 <div className="comment-interactions">
-                <LikeCommentButton likeLength={likes.length} postIndex={postIndex} commentId={commentId} postId={postId}/>
+                <LikeCommentButton userId={userID} likeLength={likes.length} postIndex={postIndex} commentId={commentId} postId={postId}/>
                 {/* <h4 className="comment-like-number">{likes.length}</h4> */}
                 <h4 className="comment-time">{formatTime()}</h4>  
 

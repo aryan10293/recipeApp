@@ -9,47 +9,37 @@ interface LikeCommentButtonProps{
     postIndex:number,
     postId:string,
     likeLength:number
+    userId:string | undefined
 }   
 interface Comments{
     _id:string
 }
 
-const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentId,postIndex,postId}) => {
+const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentId,postIndex,postId,userId}) => {
 
     const style = {
         backgroundColor:'transparent',
         border:'none',
-        zIndex:'10'
+        zIndex:'10',
+        color:'white',
     }
-
+    const style2 = {
+        backgroundColor:'transparent',
+        border:'none',
+        zIndex:'10',
+        color:'red',
+    }
     const [commeIsLiked,setCommentIsLiked] = useState<boolean>(false)
     const [likeNum,setLikeNum] = useState<number>(likeLength)
-    const [userID,setUserID] = useState<string>()
-
-    const getUsersId = async function(){
-        try {
-            const token =  await localStorage.getItem("token")
-            const user = await fetch(`http://localhost:2030/getuser/${token}`)
-            const userData = await user.json()
-            const fetchedUserID = await userData.userinfo[0]._id
-            setUserID(fetchedUserID)   
-            return fetchedUserID
-            
-        } catch (error) {
-            console.log('Could not get userId for comment posting',error)
-        }
-    }
 
     const isCommentLiked = async function(){
         try {
-            const userId = await getUsersId()
-
             const response = await fetch(`http://localhost:2030/getcommentsfrompost/${postId}`)
             const postComments = await response.json()
-            // console.log(postComments)
-            const comment = await postComments.comments.find(c=>c._id === commentId)
+
+            const comment = await postComments.comments.find((c:Comments)=>c._id === commentId)
             
-            if(comment && comment.likes.includes(userID)){
+            if(comment && comment.likes.includes(userId)){
                 setCommentIsLiked(true)
             }
             setLikeNum(comment.likes.length)
@@ -62,25 +52,9 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
     const addLikeToComment = async function(e:React.MouseEvent){
         try {
             e.stopPropagation()
-            await isCommentLiked()
-            const token = localStorage.getItem('token')
-            if(!token){
-                throw new Error('Token not found')
-            }
-
-            const response = await fetch(`http://localhost:2030/getuser/${token}`)
-            if(!response.ok){
-                throw new Error('Failed to fetch user data')
-            }
-
-            const userData = await response.json()
-            const currentUserID = userData.userinfo[0]._id
-            if(!currentUserID){
-                throw new Error('User ID is not found in response')
-            }
-
+ 
             const payload = {
-                userId: currentUserID
+                userId: userId
             }
 
             if(typeof commentId === 'undefined'){
@@ -112,24 +86,9 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
     const unlikeComment = async function(e:React.MouseEvent){
         try {
             e.stopPropagation()
-            const token = localStorage.getItem('token')
-            if(!token){
-                throw new Error('Token not found')
-            }
-
-            const response = await fetch(`http://localhost:2030/getuser/${token}`)
-            if(!response.ok){
-                throw new Error('Failed to fetch user data')
-            }
-
-            const userData = await response.json()
-            const currentUserID = userData.userinfo[0]._id
-            if(!currentUserID){
-                throw new Error('User ID is not found in response')
-            }
-
+ 
             const payload = {
-                userId: currentUserID
+                userId: userId
             }
 
             if(typeof commentId === 'undefined'){
@@ -191,8 +150,8 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
 
     return ( 
         <div className="comment-like-button">
-            <button  onClick={(e)=>{clickHandle(e)}} style={style}><FontAwesomeIcon icon={faHeart} /></button>
-            {likeNum && <p>{likeNum}</p>}
+            <button  onClick={(e)=>{clickHandle(e)}} style={commeIsLiked ? style2:style}><FontAwesomeIcon icon={faHeart} /></button>
+            {<p className='comment-like-number'>{likeNum}</p>}
         </div>
      );
 }

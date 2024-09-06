@@ -5,6 +5,7 @@ const useUserId = () => {
     const [userId,setUserId] = useState<string | null>(null)
     const [userUsername,setUserUsername] = useState<string | null>(null)
     const [userProfilePicture,setUserProfilePicture] = useState<string | null>(null)
+    const [userBookmarks,setUserBookmarks] = useState<[]>()
    
     useEffect(()=>{
         const getUserId = async function() {
@@ -25,9 +26,12 @@ const useUserId = () => {
                 const userID = await data.userinfo[0]._id
                 const userName = await data.userinfo[0].userName
                 const userPic = await data.userinfo[0].profilePic
+                const userBookmarks = await data.userinfo[0].savedRecipes
                 setUserUsername(userName)
                 setUserId(userID)
                 setUserProfilePicture(userPic)
+                setUserBookmarks(userBookmarks)
+
                 
 
             } catch (error) {
@@ -38,7 +42,7 @@ const useUserId = () => {
         getUserId()
     },[])
 
-    return {userId,userUsername,userProfilePicture}
+    return {userId,userUsername,userProfilePicture,userBookmarks}
 }
  
 export default useUserId;

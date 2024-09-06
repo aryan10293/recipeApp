@@ -10,7 +10,14 @@ interface PostLikeButtonProps{
 
 const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => {
 
+
     const style = {
+        backgroundColor:'transparent',
+        border:'none',
+        zIndex:'10',
+        color:'#ff2929'
+    }
+    const style2 = {
         backgroundColor:'transparent',
         border:'none',
         zIndex:'10',
@@ -19,6 +26,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
 
 
     const [likeNum,setLikeNum] = useState<number>()
+    const [postIsLiked,setPostIsLiked] = useState<boolean>()
       
     const likeNumber = async function(){
         try {
@@ -81,6 +89,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
 
             const data = await response.json()
             console.log('Success!',data)
+            setPostIsLiked(true)
             likeNumber()
         } catch (error) {
             console.log('Failed!',error)
@@ -116,7 +125,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
             const data = await response.json()
 
             console.log('Success!',data)
-            
+            setPostIsLiked(false)
             likeNumber()
         } catch (error) {
             console.log('Failed!',error)
@@ -127,38 +136,51 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
 
         e.stopPropagation()
         
-        const liked = likes.includes(userId)
+        const liked = likes?.includes(userId)
+
         return liked;
     }
-
+    
     const clickHandle = async function(e:React.MouseEvent){
         e.stopPropagation()
         const likeArray:string[]|undefined = await getCurrentLikes()
-        const liked:boolean = isPostLiked(e,likeArray)
+        const liked:boolean | undefined = isPostLiked(e,likeArray)
+        
         if(!liked){
             likePost(e)
-            likeNumber()
+            likeNumber()   
+            setPostIsLiked(false)
         }
         else{
             unLikePost(e)
             likeNumber() 
+            setPostIsLiked(true)
         }
     }
 
-    useEffect(()=>{
-        likeNumber()
-        // console.log(postId);
-        
-    },[])
+    const checkIfPostIsLiked = async () => {
+        try {
+            const response = await fetch(`http://localhost:2030/getpost/${postId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch post data');
+            }
+            const post = await response.json();
+            const likes: string[] = post.post[0].likes;
 
-    // useEffect(()=>{
-    //     console.log(postIsLiked);
-        
-    // },[postIsLiked])
+            // Check if the current user's ID is in the list of likes
+            setPostIsLiked(likes.includes(userId));
+        } catch (error) {
+            console.log('Error checking if post is liked:', error);
+        }
+    };
+    useEffect(()=>{
+        likeNumber()  
+        checkIfPostIsLiked()
+    },[])
 
     return ( 
         <div style={{display:'flex',flexDirection:'row'}} className="like-button">
-            {postLikes && <button onClick={(e)=>{clickHandle(e)}}  style={style}><FontAwesomeIcon icon={faHeart} /></button>}
+            {postLikes && <button onClick={(e)=>{clickHandle(e)}} style={postIsLiked ? style:style2}><FontAwesomeIcon icon={faHeart} /></button>}
             <p>{likeNum}</p>         
         </div>
      );
