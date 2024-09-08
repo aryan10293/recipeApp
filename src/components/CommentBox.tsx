@@ -4,9 +4,9 @@ import LikeButton from "../assets/LikeButton";
 interface CommentsProps{
     classs2:string,
     classs4:string
-    postId:string,
+    postId:string | null,
     handleNewComment:()=>void,
-    userId:string | undefined
+    userId:string | null
 
 }
 

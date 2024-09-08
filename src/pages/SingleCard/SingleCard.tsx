@@ -11,15 +11,15 @@ import CommentButton from "../../assets/CommentButton";
 import useUserId from "../../Utils/useGetUserId";
 
 interface RecipeCardProps{
-    recipeName:string,
-    recipeImage:string,
-    recipeTime:number,
-    ingridientList:string[],
-    steps:string,
-    timeOfPost:string,
-    likes:string[],
-    recipeClass:string,
-    _id:string
+    recipeName?:string,
+    recipeImage?:string,
+    recipeTime?:number,
+    ingridientList?:string[],
+    steps?:string,
+    timeOfPost?:string,
+    likes?:string[],
+    recipeClass?:string,
+    _id?:string
 }
 
 interface Comments{
@@ -46,7 +46,6 @@ const SingleCard:React.FC<RecipeCardProps> = () => {
     },[recipe])
 
     const {data:datas} = useFetch(`http://localhost:2030/getcommentsfrompost/${recipe.post[0]._id}`)
-    const likeLength = 10;
     const {userUsername:userName,userProfilePicture:profilePicture,userId:userID} = useUserId()
     const [commentsVisbile,setCommentsVisible] = useState<boolean>(false)
     const [commentClassName,setCommentClassName] = useState<string>("invisible")

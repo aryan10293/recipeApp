@@ -7,6 +7,7 @@ import './assets/Navbar.css'
 import './assets/CreateRecipe.css'
 import '../src/pages/SingleCard/SingleCard.css'
 import '../src/components/CommentBox.css'
+import '../src/components/ProfileCard.css'
 
 import AuthLayout from './pages/AuthLayout/AuthLayout';
 import Login from './pages/AuthLayout/Login';
@@ -21,6 +22,8 @@ import Navbar from './assets/Navbar';
 import Profile from './pages/Profile/Profile';
 import SavedRecipes from './pages/SavedRecipes/SavedRecipes';
 import SingleCard from './pages/SingleCard/SingleCard';
+import ProfilePage from './pages/Profile/ProfilePage'
+import EditProfile from './pages/EditProfilePage/EditProfile'
 function App() {
 
 
@@ -38,7 +41,8 @@ function App() {
         <Route path='/home' element={<Feed />} />
         <Route path='/feed' element={<Feed />} />
         <Route path="/messages" element={<Messages />} />
-        {/* <Route path="/profile" element={<Profile user={userId} />} /> */}
+        <Route path="/profile" element={<ProfilePage/>} />
+        <Route path='/userprofile' element={<EditProfile/>} />
         <Route path="/recipe" element={<SingleCard />} />
       </Routes>
     </>

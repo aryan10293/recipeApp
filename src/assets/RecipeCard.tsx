@@ -14,6 +14,8 @@ import CommentButton from "./CommentButton";
 import CommentList from "../components/CommentList";
 import Login from "../pages/AuthLayout/Login";
 import LikeCommentButton from "./LikeCommentButton";
+import UserNameButton from "../components/UsernameButton";
+import UserNameProfileButton from "../components/UserNameProfileButton";
 
 
 
@@ -26,13 +28,13 @@ interface RecipeCardProps{
     recipeTime:number,
     ingridientList:string[],
     steps?:string,
-    timeOfPost:string,
-    likes:string[],
+    timeOfPost?:string,
+    likes?:string[],
     recipeClass:string,
     _id:string,
     levelOfMeal:number,
-    postIndex:number
-    userID:string | undefined,
+    postIndex?:number
+    userID?:string | undefined,
 }
 
 interface Comments{
@@ -91,19 +93,18 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         const [commentClassName2,setCommentClassName2] = useState<string>("invisible")
         const [commentClassName3,setCommentClassName3] = useState<string>("invisible")
         const [commentClassName4,setCommentClassName4] = useState<string>("invisible")
-        const [comments, setComments] = useState<Comments[]>([]);
-        const [commentNum,setCommentNum] = useState<number>()
-        const [likeNums,setLikeNums] = useState<number>();
+        const [comments, setComments] = useState<Comments[] | null>([]);
+        const [commentNum,setCommentNum] = useState<number | null>(null)
 
         const fetchComments = async():Promise<any> => {
             try {
-                // const data = await datas
                 const commentNum = await datas.comments.length
                 const commentComments = await datas.comments
-
-                setComments(commentComments);
-                setCommentNum(commentNum)
                 
+                console.log(commentNum,commentComments);
+                
+                    setCommentNum(commentNum)
+                    setComments(commentComments);
                 console.log('Comments are fetched');
                 
             } catch (error) {
@@ -151,7 +152,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
 
           const renderAllUserComments = function(){
             console.log('Comments are rendered')
-            return comments.map((comment:Comments,index:number)=>(
+            return comments?.map((comment:Comments,index:number)=>(
                 
               <CommentList 
               key={comment._id}
@@ -170,6 +171,29 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
              ))
          }
 
+         const deletePost= async function(e:React.MouseEvent){
+            try {
+                e.stopPropagation()
+                const response = await fetch(`http://localhost:2030/deletepost/${_id}`,{
+                    method:"DELETE",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                })
+                if(!response){
+                    throw new Error('Failed to fetch delete API. Response is not ok')
+                }
+                const data = await response.json()
+                if(!data){
+                    throw new Error('Failed to fetch delete API. Response data is not ok')
+                }
+                console.log(data);
+            } catch (error) {
+                console.log(error);
+                
+            }
+
+         }
     return ( 
  
 <div className="recipe-card-container">
@@ -177,7 +201,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
 
             <div className="left-side">
                 <div className="left-top">
-                    <img src={recipeImage}/>
+                    {recipeImage && <img src={recipeImage}/>}
                 </div>
             </div>
 
@@ -186,7 +210,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                     <div className="top-box">
                         <h2 className="recipe-title">{recipeName}</h2>
                         <TimeButton/>
-                        <h3 className="recipe-time">{recipeTime}</h3>
+                        {recipeTime &&  <h3 className="recipe-time">{recipeTime}</h3>}
                         <div className="recipe-skill-box">
                          {renderDifficultyIcon()}
                         </div>
@@ -194,7 +218,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                     </div>
                     <div className="recipe-ingredients">
                         <ul>
-                            {ingridientList.map((ingredient,index)=>(
+                            {ingridientList && ingridientList.map((ingredient,index)=>(
                                 <li key={index}>{ingredient}</li>
                             ))}
                         </ul>
@@ -207,7 +231,10 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
                     {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
                     <BookmarkButton userId={userID} postId={_id}/>
+                    <UserNameProfileButton postsId={_id}/>
+                    {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
                 </div>
+                
                 </div>
             </div>
     </button>

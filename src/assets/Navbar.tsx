@@ -12,7 +12,7 @@ interface userInfo{
 }
 interface NavbarProps{
     userName:string | null, 
-    userProfilePicture:string | null
+    userProfilePicture?:string | null 
 }
 
 const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture}) => {
@@ -28,7 +28,7 @@ const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture}) => {
                 <li><MessageButton/></li>
             </ul>
             <ul className="right-side">
-            <Link style={{textDecoration:'none'}} to={"/profile"}>
+            <Link style={{textDecoration:'none'}} to={"/userprofile"}>
                 <button style={{backgroundColor:'transparent',border:'none',margin:'auto 10px', fontWeight:'400',fontSize:'1rem',height:'100%'}}>       
                         {picture && picture.userinfo[0].userName}                  
                 </button>

@@ -10,7 +10,7 @@ const ProfileIcon:React.FC<ProfileIconProps> = ({img}) => {
 
     return ( 
         <div className="profile-icon">
-            <Link to={"/profile"}>
+            <Link to={"/userprofile"}>
                 <button>
                 < img src={img} alt="" />    
                 </button> 

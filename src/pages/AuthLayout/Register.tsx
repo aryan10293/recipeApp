@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function Register() {
@@ -11,6 +11,8 @@ function Register() {
     const [country, setCountry] = React.useState<string>('')
     const [dob, setDob] = React.useState<string>('')
     const [skillLevel, setSkillLevel] = React.useState<string>('')
+    const [cookingStyle, setCookingStyle] = React.useState<string>('')
+    const [bio,setBio] = useState<string>("")
 
     interface RegisterInfo{
         username:string,
@@ -21,6 +23,10 @@ function Register() {
         confirmPassword:string,
         country:string,
         skillLevel:string,
+        cookingStyle: string,
+        dob:string,
+        bio:string
+
     }
     const registerInfo: RegisterInfo = {
         username:username,
@@ -31,6 +37,9 @@ function Register() {
         confirmPassword:confirmPassword,
         country:country,
         skillLevel:skillLevel,  
+        cookingStyle: cookingStyle,
+        dob:dob,
+        bio:bio
     }
     const handleSubmit = async (e:React.FormEvent<HTMLElement>) => {
         e.preventDefault()
@@ -43,21 +52,24 @@ function Register() {
 
         const createUserRequestInfo = await createUser.json()
         if(createUserRequestInfo.status === '200'){
+            alert('Succesful registration!')
             console.log(createUserRequestInfo)
             console.log(createUser)
         } else {
             alert('there was an error')
         }
-
-        console.log(createUserRequestInfo)
+        console.log('Sent registration data: ',registerInfo);
+        console.log('Created user data: ',createUserRequestInfo)
+        
+        
         } catch (error) {
             console.log(error)
         }
 
         useEffect(()=>{
-            console.log(skillLevel,username,registerInfo);
+            console.log(username);
             
-        },[skillLevel,username,registerInfo])
+        },[username])
        
     }
   return (
@@ -65,29 +77,28 @@ function Register() {
       <form onSubmit={handleSubmit} className='register-form' action="">
         <h2 className='hero'>Register</h2>
         <div className="inputs">
-{/*             <div className='input-titles'>
-                <label htmlFor="firstname">First Name</label>
-                <label htmlFor="lastname">Last Name</label>
-                <label htmlFor="username">Username</label>
-                <label htmlFor="country">Country</label>
-                <label htmlFor="skilllevel">Skill Level</label>
-                <label htmlFor="email">Email</label>
-                <label htmlFor="password">Password</label>
-                <label htmlFor="confirmpassword">Confirm Password</label>      
-            </div> */}
             <div className='input-fields'>     
                 <input placeholder='First Name' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirst(e.target.value)} type="text" />
                 <input placeholder='Last Name' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setLast(e.target.value)} type="text" />
                 <input placeholder='Username' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} type="text" />
                 <input placeholder='Country' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCountry(e.target.value)} type="text" />
-                {/* <input placeholder='Skill Level' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setSkillLevel(e.target.value)} type="text" /> */}
-                <select  name="" id="" onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setSkillLevel(e.target.value)}>
+                <input type="date" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setDob(e.target.value)}/>
+                <select  name="SkillLevel" id="SkillLevel" onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setSkillLevel(e.target.value)}>
+                    <option value="None">Cooking Skill</option>
                     <option value="Kitchen god">Kitchen god</option>
                     <option value="Everyday cook">Everyday cook</option>
                     <option value="Weekend cook">Weekend cook</option>
                     <option value="Lazy cook">Lazy cook</option>
                     <option value="Cooked once">Cooked once</option>
                     <option value="Me no cook">Me no cook</option>
+                </select>
+                <select name="CookingStyle" id="CookingStyle" onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setCookingStyle(e.target.value)}>
+                    <option value="None">Cooking Style</option>
+                    <option value="Grill Master">Grill Master</option>
+                    <option value="Baker">Baker</option>
+                    <option value="One pot wonder">One pot wonder</option>
+                    <option value="Pasta Masta">Pasta Masta</option>
+                    <option value="Wok tosser">Wok tosser</option>
                 </select>
                 <input placeholder='E-mail adress' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} type="email" />
                 <input placeholder='Password' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} type="password" />
@@ -100,5 +111,8 @@ function Register() {
     </div>
   )
 }
+
+
+// ADD bio,cookingStyle,dob
 
 export default Register

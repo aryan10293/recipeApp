@@ -41,7 +41,10 @@ let auth = {
           password: req.body.password,
           lastName: req.body.first,
           firstName: req.body.last,
-          skillLevel: req.body.skillLevel
+          skillLevel: req.body.skillLevel,
+          cookingStyle: req.body.cookingStyle,
+          dob: req.body.dob,
+          country: req.body.country
         });
 
         User.findOne(

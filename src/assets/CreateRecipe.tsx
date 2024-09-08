@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {encode as base64_encode} from "base-64";
+import useUserId from "../Utils/useGetUserId";
 
 interface classNameProps{
     className:string,
@@ -27,6 +28,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
     const [postButtonText,setPostButtonText] = useState<string>("Post Recipe")
 
     const[data,setData] = useState()
+    const {userId:userId} = useUserId()
 
     const ingredientClickHandle = function(e:React.MouseEvent<HTMLButtonElement>){
 
@@ -57,7 +59,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         likes:string[],
         bookmarks: string[],
         title:string,
-        steps:string
+        steps:string,
     }
 
     const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
@@ -82,7 +84,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         setIsPending(true);
         const newRecipe:recipe= {
             timeOfPost:new Date().toISOString(),
-            userId: "21",
+            userId: userId,
             pictureOfFood:convertedImage,
             ingridentList:ingredients,
             levelOfMeal: recipeSkill,
@@ -90,7 +92,8 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             likes:[""],
             bookmarks:[""],
             title:recipeName,
-            steps:steps
+            steps:steps,
+            
         }
         console.log(newRecipe)
 

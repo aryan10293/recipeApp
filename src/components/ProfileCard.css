@@ -1,0 +1,193 @@
+.profile-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 50px auto;
+    width: 1400px;
+    height: 1000px;
+    padding: 50px;
+    justify-content: space-between;
+    /* box-shadow: 5px 0 30px rgba(0,0,0,0.3); */
+}
+.profile-card .left{
+    width: 30%;
+    padding: 50px 0;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #078080;
+    box-shadow: 5px 0 30px rgba(0,0,0,0.3);
+    animation: twister 0.3s ease-in forwards, opaappear 0.2s ease-in forwards;
+    position: relative;
+    animation-delay: 0s;
+    opacity: 0;
+    transform: rotateX(90deg);
+    border: 3px solid rgba(0, 0, 0, 0.5);
+}
+
+.left .image{
+    overflow: hidden;
+    height: 400px;
+    width: 400px;
+    border-radius: 100%;
+    border: 3px solid rgba(0, 0, 0, 1);
+}
+.profile-card  .left .image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+.profile-card .left .info{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0 0 0;
+    justify-content: flex-start;
+    width: 300px;
+    border-radius: 5px;
+
+}
+.info h3{
+    margin: 1px 0 0 0;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+.info .username{
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+.info .cooking-skill{
+    text-align: center;
+}
+.info .cooking-style{
+    margin: 40px 0 0 0;
+}
+.follow-data{
+    margin: 80px 0 0 0;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    justify-content: space-around;
+}
+.follow-data h4{
+    color: black;
+}
+.profile-card .right{
+    width: 60%;
+    height: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.right .bio{
+    height: 45%;
+    width: 100%;
+    padding: 30px;
+    border-radius: 5px;
+    background-color: #078080;
+    box-shadow: 5px 0 30px rgba(0,0,0,0.3);
+    box-sizing:border-box;
+    animation: twister 0.3s ease-in forwards, opaappear 0.2s ease-in forwards;
+    position: relative;
+    animation-delay: 0.2s;
+    opacity: 0;
+    transform: rotateX(90deg);
+    border: 3px solid rgba(0, 0, 0, 0.5);
+}
+
+.bio h3{
+    margin: 0;
+    font-size: 1.5rem;
+}
+.bio p{
+    font-size: 1.2rem;
+}
+.right hr{
+    border: 1px solid black;
+    margin: 15px 0 30px 0;
+}
+.right .recipes{
+    height: 45%;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #078080;
+    box-shadow: 5px 0 30px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+    padding: 30px;
+    animation: twister 0.3s ease-in forwards, opaappear 0.2s ease-in forwards;
+    position: relative;
+    animation-delay: 0.4s;
+    opacity: 0;
+    transform: rotateX(90deg);
+    border: 3px solid rgba(0, 0, 0, 0.5);
+}
+.right .recipes h3{
+    margin: 0;
+    font-size: 1.5rem;
+}
+.user-recipe-list-container{
+    margin: 0 0 10px 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: transparent;
+    border: 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+.user-recipe-list-container:hover{
+    background-color: #ffffff0f;
+}
+.user-recipe-list-container .left{
+    width: 20%; 
+    overflow: hidden; 
+    height: 100%;
+    padding: 0;
+}
+.user-recipe-list-container .left img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.user-recipe-list-container .right{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    height: 80px;
+    justify-content: start;
+}
+.user-recipe-list-container .right h3{
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+.user-recipe-list-container .right .name-of-dish{
+    margin: 0 150px 0 0;
+    width: 150px;
+    text-align: start;
+}
+.user-recipe-list-container .right .time-img{
+    margin: 0 5px 0 0;
+}
+.user-recipe-list-container .right .prep-time{
+    margin: 0 50px 0 0;
+}
+
+@keyframes opaappear{
+    from{opacity: 0%;}
+    to{opacity: 100%;}
+}
+@keyframes twister{
+    from{transform: rotateX(90deg);}
+    to{transform: rotateX(0deg);}
+}
+
+
+
