@@ -1,6 +1,6 @@
 import { faTextHeight } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "../assets/RecipeCard";
 import TimeButton from "../assets/TimeButton";
 import DifficultyIcon from "../assets/DifficultyIcon";
@@ -16,7 +16,8 @@ interface ProfileCardProps{
     userLastName:string | undefined,
     cookingStyle:string | undefined,
     dob:string | undefined,
-    accountAge: string | undefined
+    accountAge: string | undefined,
+    bio: string | undefined
 }
 
 interface RecipeCard{
@@ -46,7 +47,8 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     cookingStyle,
     accountAge,
     dob,
-    userID
+    userID,
+    bio
 }) => {
 
     const location = useLocation()
@@ -92,6 +94,22 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         return icons
     }
 
+    const navigate = useNavigate()
+
+    const handleClick = async function(id:string){
+        try {
+            const response = await fetch(`http://localhost:2030/getpost/${id}`)
+            const data = await response.json()
+            console.log('data: ',data.post[0]);
+            const recipe = data
+            
+            navigate('/recipe',{state:{recipe:recipe}})
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
     const printUsersRecipes = function(recipeArray: RecipeCard[]) {
         if (!recipeArray.length) {
             return <p>No recipes found.</p>;
@@ -101,8 +119,8 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
             <div className="recipe-list-container">
                 
                 {recipeArray.map((recipe)=>(
-                    <button className="user-recipe-list-container" key={recipe._id}>
-                        <hr />
+                    <button onClick={(e)=> handleClick(recipe._id)} className="user-recipe-list-container" key={recipe._id}>
+                        <hr />  
                         <div className="left">
                             <img src={recipe.image} alt="" />
                         </div>
@@ -137,18 +155,19 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                     <h3 className="cooking-style">{cookingStyle}</h3>
                     <h3 className="country">{userCountry}</h3>
                     <h3 className="dob">1995-04-03</h3>
-                    <h3 className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3>
+                    
                 </div>
                 <div className="follow-data">
-                    <h4 className="following">20</h4>
-                    <h4 className="followers">45</h4>
+                    <h4 style={{fontWeight:'400'}} className="following">Followers: 20</h4>
+                    <h4 style={{fontWeight:'400'}} className="followers">Following: 45</h4>
                 </div>
+                {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
             </div>
             <div className="right">
-                <div className="bio">
+                <div style={{overflow:'auto'}} className="bio" >
                     <h3 style={{fontWeight:'500'}}>{userName + `'s bio`}</h3>
                     <hr />
-                    <p>"Hey, I’m Alex, the founder of Spark Innovations. I started this company to create smart home devices that make life easier and more enjoyable. With a background in engineering and a passion for tech, I love turning innovative ideas into reality. When I’m not working, you can find me exploring the outdoors or experimenting with new recipes in the kitchen."</p>
+                    <p>{bio}</p>
                 </div>
                 <div className="recipes">   
                     <h3 style={{fontWeight:'500'}}>{userName}'s posted recipes({usersRecipes.length})</h3>

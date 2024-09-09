@@ -24,5 +24,10 @@ input:focus, textarea:focus{
 button:hover{
     cursor: pointer;
 }
+button{
+    background-color: #BF3131;
+    border: none;
+    border-radius: 5px;
+}
 
 

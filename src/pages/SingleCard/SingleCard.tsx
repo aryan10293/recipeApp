@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DifficultyIcon from "../../assets/DifficultyIcon";
 import Navbar from "../../assets/Navbar";
 import RecipeCard from "../../assets/RecipeCard";
@@ -35,6 +35,15 @@ interface Comments{
 
 
 const SingleCard:React.FC<RecipeCardProps> = () => {
+
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(!localStorage.getItem('token')){
+            navigate('/login')
+        }
+    },[])
 
     const location = useLocation()
     const {recipe} = location.state || {};

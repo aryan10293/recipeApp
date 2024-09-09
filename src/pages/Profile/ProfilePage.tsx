@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../assets/Navbar";
 import ProfileCard from "../../components/ProfileCard";
 import useUserId from "../../Utils/useGetUserId";
@@ -20,13 +20,22 @@ interface ProfileCardProps{
 
 const ProfilePage = () => {
 
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(!localStorage.getItem('token')){
+            navigate('/login')
+        }
+    },[])
+
     const location = useLocation()
     const {userID} = location.state || {} 
     const {userUsername:userUsername,userProfilePicture:userProfilePicture}=useUserId()
-    const {userAccountAge:userAccountAge,userDob:userDob,userCookingStyle:userCookingStyle,userProfilePicture:profilePicture,userUsername:userName,userFirstName:firstName,userLastName:lastName,userEmail:email,userCountry:country,userCookingSkill:cookingSkill} = useGetUserDataFromId(userID)
+    const {userBio:userBio,userAccountAge:userAccountAge,userDob:userDob,userCookingStyle:userCookingStyle,userProfilePicture:profilePicture,userUsername:userName,userFirstName:firstName,userLastName:lastName,userEmail:email,userCountry:country,userCookingSkill:cookingSkill} = useGetUserDataFromId(userID)
     
     useEffect(()=>{
-        console.log(userDob,userName);
+        console.log(userDob,userName,userID);
         
     },[])
 
@@ -34,7 +43,7 @@ const ProfilePage = () => {
 
          <div>
             <Navbar userName={userUsername} userProfilePicture={userProfilePicture}/>
-            <ProfileCard userID={userID} dob={userDob} cookingStyle={userCookingStyle} accountAge={userAccountAge} cookingSkill={cookingSkill} profilePicture={profilePicture} userName={userName} userFirstName={firstName} userLastName={lastName} userEmail={email} userCountry={country} />
+            <ProfileCard bio={userBio} userID={userID} dob={userDob} cookingStyle={userCookingStyle} accountAge={userAccountAge} cookingSkill={cookingSkill} profilePicture={profilePicture} userName={userName} userFirstName={firstName} userLastName={lastName} userEmail={email} userCountry={country} />
         </div>
 
      );

@@ -66,7 +66,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         useEffect(()=>{
             if(recipe){
                 navigate("/recipe",{state:{recipe}})
-                console.log(recipe)
+                // console.log(recipe)
             }
         },[recipe,recipe])
 
@@ -101,11 +101,11 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                 const commentNum = await datas.comments.length
                 const commentComments = await datas.comments
                 
-                console.log(commentNum,commentComments);
+                // console.log(commentNum,commentComments);
                 
                     setCommentNum(commentNum)
                     setComments(commentComments);
-                console.log('Comments are fetched');
+                // console.log('Comments are fetched');
                 
             } catch (error) {
                 console.log(error)

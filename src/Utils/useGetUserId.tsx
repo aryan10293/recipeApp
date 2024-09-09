@@ -14,6 +14,7 @@ const useUserId = () => {
     const [userEmail,setUserEmail] = useState<string>()
     const [userCountry,setUserCountry] = useState<string>()
     const [userCookingStyle,setUserCookingStyle] = useState<string>()
+    const [userBio,setUserBio] = useState<string>("")
 
    
     useEffect(()=>{
@@ -43,6 +44,7 @@ const useUserId = () => {
                 const country = await data.userinfo[0].country
                 const dob = await data.userinfo[0].dob
                 const cookingStyle = await data.userinfo[0].cookingStyle
+                const bio = await data.userinfo[0].bio
 
                 setUserUsername(userName)
                 setUserId(userID)
@@ -55,6 +57,7 @@ const useUserId = () => {
                 setUserCountry(country)
                 setUserDob(dob)
                 setUserCookingStyle(cookingStyle)
+                setUserBio(bio)
 
             } catch (error) {
                 console.log(error)   
@@ -75,7 +78,8 @@ const useUserId = () => {
         userFirstName,
         userLastName,
         userDob,
-        userCookingStyle
+        userCookingStyle,
+        userBio
 
     }
 }

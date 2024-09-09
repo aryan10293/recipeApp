@@ -20,7 +20,15 @@
     color: #078080;
 }
 .navbar .left-side{
+    display: flex;
+    align-items: center;
     width: 40%;
+    list-style: none;
+}
+.navbar .left-side li svg{
+    color: #219c9c;
+    font-size: 1.3rem;
+    transition: transform 0.1s ease-in;
 }
 .navbar .middle-side{
     display: flex;

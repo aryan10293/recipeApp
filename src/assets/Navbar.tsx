@@ -5,6 +5,7 @@ import ProfileIcon from "./ProfileIcon";
 import useFetch from "./useFetch";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SignOutButton from "./SignOutButton";
 
 
 interface userInfo{
@@ -21,7 +22,10 @@ const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture}) => {
     
     return ( 
         <div className="navbar">
-            <ul className="left-side"></ul>
+            <ul className="left-side">
+                <li><SignOutButton margin="0"/></li>
+            </ul>
+            
             <ul className="middle-side">
                 <li><HomeButton/></li>
                 <li><SavedRecipesButton/></li>

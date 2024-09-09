@@ -189,6 +189,7 @@
     object-position:right;
     display: flex;
     justify-content: flex-end;
+    text-align: end;
     align-items: center;
     position: relative;
     top: 10px;

@@ -6,6 +6,7 @@ import useFetch from "../../assets/useFetch";
 import useUserId from "../../Utils/useGetUserId";
 import RecipeCard from "../../assets/RecipeCard";
 import LikeButton from "../../assets/LikeButton";
+import { useNavigate } from "react-router-dom";
 
 interface RecipeCardProps{
     recipeName:string,
@@ -35,6 +36,15 @@ interface Recipe{
 }
 
 const SavedRecipes = () => {
+
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(!localStorage.getItem('token')){
+            navigate('/login')
+        }
+    },[])
 
     const {userUsername:userName,userProfilePicture:profilePicture,userId:userID,userBookmarks:userBookmarks} = useUserId()
     const [recipes,setRecipes] = useState<RecipeCardProps[]>([])

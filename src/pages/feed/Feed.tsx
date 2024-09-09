@@ -6,6 +6,7 @@ import Header from "../../assets/Header";
 import CommentBox from "../../components/CommentBox";
 import UserNameButton from "../../components/UsernameButton";
 import useUserId from "../../Utils/useGetUserId";
+import { useNavigate } from "react-router-dom";
 
 
 const Feed:React.FC = () => {
@@ -15,6 +16,10 @@ const Feed:React.FC = () => {
     const [classState3,setClassState3] = useState<string>('invisible')
     const [recipeVisibility,setRecipeVisibility] = useState<boolean>(false)
     const [buttonText,setButtonText] = useState<string>("Create Recipe")
+
+    const navigate = useNavigate()
+
+
 
     const handleRecipeVisbility = function(){
         recipeVisibility ? setRecipeVisibility(false):setRecipeVisibility(true)
@@ -33,11 +38,17 @@ const Feed:React.FC = () => {
         }
     }
 
-
+    
 
 
     const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
 
+
+    useEffect(()=>{
+        if(!localStorage.getItem('token')){
+            navigate('/login')
+        }
+    },[])
 
     return ( 
      
