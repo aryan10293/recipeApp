@@ -19,7 +19,8 @@ const RecipeList:React.FC<RecipeListProps> = ({url,userId}) => {
         likes:string[],
         levelOfMeal:number,
         steps?:string,
-        postIndex:number
+        postIndex:number,
+        userWhoPostId:string
     }
 
     const {data:recipes} = useFetch(url) 
@@ -43,7 +44,8 @@ const RecipeList:React.FC<RecipeListProps> = ({url,userId}) => {
                     recipeClass="recipe-card"
                     levelOfMeal={recipe.levelOfMeal}
                     postIndex={index}
-                    userID={userId}            
+                    userID={userId} 
+                    userWhoPostId={recipe.userWhoPostId}           
                     />}
                     
                 </div>

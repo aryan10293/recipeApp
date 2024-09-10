@@ -5,36 +5,28 @@ import UserNameButton from "../../components/UsernameButton";
 import useUserId from "../../Utils/useGetUserId";
 import { useLocation, useNavigate } from "react-router-dom";
 import EditProfileCard from "../../components/EditProfileCard";
+import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 
 
 const EditProfile = () => {
-
-
-    const navigate = useNavigate()
-
-    useEffect(()=>{
-        if(!localStorage.getItem('token')){
-            navigate('/login')
-        }
-    },[])
-
+    
     const {
         userUsername:userName,
         userProfilePicture:userProfilePicture,
         userCookingSkill:userCookingSkill,
-        // userId:userID,
+        userId:userID,
         userCountry:userCountry,
         userEmail:userEmail,
         userFirstName:userFirstName,
         userLastName:userLastName,
         userBio:userBio
-    
-    } = useUserId()
-    
+     
+    } = useUserId() 
+    // const {userId:userID} = useUserId()
+    // const {userCookingSkill:userCookingSkill,userBio:userBio,userCountry:userCountry,userLastName:userLastName,userFirstName:userFirstName,userEmail:userEmail,userProfilePicture:userProfilePicture,userUsername:userName} = useGetUserDataFromId(ID)
 
     const location = useLocation()
     const {userId} = location.state || {}
-
 
 
     return ( 

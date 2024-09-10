@@ -17,7 +17,7 @@ const Feed:React.FC = () => {
     const [recipeVisibility,setRecipeVisibility] = useState<boolean>(false)
     const [buttonText,setButtonText] = useState<string>("Create Recipe")
 
-    const navigate = useNavigate()
+
 
 
 
@@ -44,12 +44,6 @@ const Feed:React.FC = () => {
     const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
 
 
-    useEffect(()=>{
-        if(!localStorage.getItem('token')){
-            navigate('/login')
-        }
-    },[])
-
     return ( 
      
         // <div className="feed">       
@@ -64,7 +58,7 @@ const Feed:React.FC = () => {
         //     <UserNameButton text="Click me"/>
         // </div>
             <div className="feed">       
-                {userName && userProfilePicture && <Navbar userName={userName} userProfilePicture={userProfilePicture}/>}
+                {userName && userProfilePicture && <Navbar userId={ID} userName={userName} userProfilePicture={userProfilePicture}/>}
                 <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
                 {<Header text={'Recipe Posts'} margin="0"/>}
                 <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>

@@ -37,15 +37,6 @@ interface Recipe{
 
 const SavedRecipes = () => {
 
-
-    const navigate = useNavigate()
-
-    useEffect(()=>{
-        if(!localStorage.getItem('token')){
-            navigate('/login')
-        }
-    },[])
-
     const {userUsername:userName,userProfilePicture:profilePicture,userId:userID,userBookmarks:userBookmarks} = useUserId()
     const [recipes,setRecipes] = useState<RecipeCardProps[]>([])
 

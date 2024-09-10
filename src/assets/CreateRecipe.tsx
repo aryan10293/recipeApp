@@ -161,7 +161,6 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                 
                 <div className="img-upload-box">
                     <input className="img-upload" accept="*" onChange={handleImageUpload} type="file" />
-
                 </div>
             </div>
 

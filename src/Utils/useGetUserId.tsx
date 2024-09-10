@@ -33,18 +33,18 @@ const useUserId = () => {
         
                 const data = await response.json()
 
-                const userID = await data.userinfo[0]._id
-                const userName = await data.userinfo[0].userName
-                const userPic = await data.userinfo[0].profilePic
-                const userBookmarks = await data.userinfo[0].savedRecipes
-                const userSkill = await data.userinfo[0].skillLevel
-                const firstName = await data.userinfo[0].firstName
-                const lastName = await data.userinfo[0].lastName
-                const email = await data.userinfo[0].email
-                const country = await data.userinfo[0].country
-                const dob = await data.userinfo[0].dob
-                const cookingStyle = await data.userinfo[0].cookingStyle
-                const bio = await data.userinfo[0].bio
+                const userID = data.userinfo[0]._id
+                const userName = data.userinfo[0].userName
+                const userPic = data.userinfo[0].profilePic
+                const userBookmarks = data.userinfo[0].savedRecipes
+                const userSkill = data.userinfo[0].skillLevel
+                const firstName = data.userinfo[0].firstName
+                const lastName = data.userinfo[0].lastName
+                const email = data.userinfo[0].email
+                const country = data.userinfo[0].country
+                const dob = data.userinfo[0].dob
+                const cookingStyle = data.userinfo[0].cookingStyle
+                const bio = data.userinfo[0].bio
 
                 setUserUsername(userName)
                 setUserId(userID)

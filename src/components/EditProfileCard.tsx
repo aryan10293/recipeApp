@@ -53,12 +53,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
 
 }) => {
 
+    //User Recipe settings
     const location = useLocation()
     const {userId} = location.state || {}
 
     const [usersRecipes,setUsersRecipes] = useState<RecipeCard[]>([])
-    const [isEditingDetails,setIsEditingDetails] = useState<boolean>(false)
-    const [isEditingBio,setIseditingBio] = useState<boolean>(false)
  
     const getUsersRecipes = async function(){
         try {
@@ -114,7 +113,6 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         } 
     }
 
-
     const printUsersRecipes = function(recipeArray: RecipeCard[]) {
         if (!recipeArray.length) {
             return <p>No recipes found.</p>;
@@ -141,38 +139,105 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             </div>
         );
      };
-
     
     useEffect(()=>{
+        console.log('ID',userID,'Id',userId);
+        
         getUsersRecipes()
     },[])
 
-    const setIsEditClick = function(){
-        isEditingDetails ?  setIsEditingDetails(false) : setIsEditingDetails(true)
+    // Profile details settings
+    const [isEditingDetails,setIsEditingDetails] = useState<boolean>(false)
+
+    const [uploadedImage,setUploadedImage] = useState<File | undefined>()
+    const [convertedImage,setconvertedImage] = useState<string>(profilePicture)
+
+    const [newUserName,setNewUsername] = useState<string>(userName)
+    const [newCountry,setNewCountry] = useState<string>(userCountry)
+    const [newSkillLevel,setNewSkillLevel] = useState<string>(cookingSkill)
+    const [newCookingStyle,setNewCookingStyle] = useState<string>("")
+    const [newDob,setNewDob] = useState<string>('dob')
+
+    useEffect(()=>{
+        fetchCardDetails()
+    },[])
+
+    const detailData = {
+        bio:bio,
+        skillLevel:newSkillLevel,
+        cooking:newCookingStyle,
+        dob:newDob,
+        profilePic:convertedImage,
+        userName:newUserName
     }
-    const setIsEditingBioClick = async function(){
-        if(!isEditingBio){
-            setNewBio(bio)
-            setIseditingBio(true)
+    const fetchCardDetails = async function(){
+        try {
+            const response = await fetch (`http://localhost:2030/getuserbyid/${userID}`)
+            const data = await response.json()
+    
+            setNewCookingStyle(data.user[0].cookingStyle)
+            setNewCountry(data.user[0].country)
+            setNewDob(data.user[0].dob)
+            setNewSkillLevel(data.user[0].skillLevel)
+            setconvertedImage(data.user[0].profilePic)
+            console.log('Data is fetched and set');
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+
+    const setIsEditClick = async function(){
+        if(!isEditingDetails){
+            setIsEditingDetails(true)
+            console.log(newUserName,newCountry,
+                newSkillLevel,
+                newCookingStyle,
+                newDob);
+            
         }
         else{
-            await handleBioSave()
-            // await fetchBio()
-            setIseditingBio(false)
+            await handleDetailsUpload()
+            setIsEditingDetails(false)
+            window.location.reload()
+        }      
+    }
+
+    const handleDetailsUpload = async function(){
+        try {
+            const response = await fetch(`http://localhost:2030/updateprofile/${userID}`,{
+                method:'PUT',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(detailData)
+            })
+            if(!response.ok){
+                throw new Error('Error while saving details data')
+            }
+            const data = await response.json()
+            console.log('Success! Details are updated',data);
+            console.log(detailData);
+            await fetchCardDetails()
+            
+            
+        } catch (error) {
+            console.log(error);  
         }
+    
     }
 
     const renderEditCard = function():JSX.Element{
         return(
             <div className="left">
                 <div className="image">
-                    <img src={profilePicture} alt="" />
+                    <img src={convertedImage} alt="" />
                 </div>
                 <div className="info">
-                    <h2 className="username">{userName}</h2>
-                    <h3 className="cooking-skill">{cookingSkill}</h3>                    
-                    <h3 className="cooking-style">{cookingStyle}</h3>
-                    <h3 className="country">{userCountry}</h3>
+                    <h2 className="username">{newUserName}</h2>
+                    <h3 className="cooking-skill">{newSkillLevel}</h3>                    
+                    <h3 className="cooking-style">{newCookingStyle}</h3>
+                    <h3 className="country">{newCountry}</h3>
                     <h3 className="dob">1995-04-03</h3>
                 </div>
                 <div className="follow-data">
@@ -185,44 +250,17 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         )
     }
 
-    const editStyle = {
-        backgroundColor:'white',
-        border:'none',
-        margin:'10px 0 10px 0',
-        padding:'5px',
-        fontSize:'1rem',
-        textAlign:'start',
-        borderRadius:'5px'
-    }
-
-    const [newUserName,setNewUsername] = useState<string>("")
-    const [newCountry,setNewCountry] = useState<string>("")
-    const [newSkillLevel,setNewSkillLevel] = useState<string>("")
-    const [newCookingStyle,setNewCookingStyle] = useState<string>("")
-    const [newDob,setNewDob] = useState<string>("")
-
-    const [bijo,setBijo] = useState<string | undefined>(bio)
-    const [newBio,setNewBio] = useState<string | undefined>(bijo)
-
-    const fetchBio = async function(){
-        const response = await fetch(`http://localhost:2030/getuserbyid/${userID}`)
-        const data = await response.json()
-        const userBio = data.user[0].bio
-        setBijo(userBio)
-        setNewBio(userBio)
-    }
-
-
     const renderBaseCard = function():JSX.Element{
         return(
             <div className="left">
                 <div className="image">
-                    <img src={profilePicture} alt="" />
+                    <img src={convertedImage} alt="" />
                 </div>
+                <input type="file" onChange={handleImageUpload}/>
                 <div className="info">
-                    <input value={userName} style={editStyle} placeholder='Username' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setNewUsername(e.target.value)} type="text" />
+                    <input value={newUserName} style={editStyle} placeholder='Username' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setNewUsername(e.target.value)} type="text" />
 
-                <select value={cookingSkill} style={editStyle} name="SkillLevel" id="SkillLevel" onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setNewSkillLevel(e.target.value)}>
+                <select value={newSkillLevel} style={editStyle} name="SkillLevel" id="SkillLevel" onChange={(e:React.ChangeEvent<HTMLSelectElement>) => setNewSkillLevel(e.target.value)}>
                     <option value="None">Cooking Skill</option>
                     <option value="Kitchen god">Kitchen god</option>
                     <option value="Everyday cook">Everyday cook</option>
@@ -240,7 +278,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <option value="Pasta Masta">Pasta Masta</option>
                     <option value="Wok tosser">Wok tosser</option>
                 </select>
-                    <input value={userCountry} style={editStyle} placeholder='Country' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setNewCountry(e.target.value)} type="text" />
+                    <input value={newCountry} style={editStyle} placeholder='Country' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setNewCountry(e.target.value)} type="text" />
                     <input style={editStyle} type="date" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setNewDob(e.target.value)}/>
 
                     {/* <h3 className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
@@ -249,6 +287,59 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                 <button onClick={setIsEditClick}>Save Changes</button>
             </div>
         )
+    }
+    // Image upload logic
+    const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
+        if(e.target.files && e.target.files.length !== 0){
+            const file = e.target.files[0]
+            setUploadedImage(file)
+            const base64Image = await base64_encode(file)
+            setconvertedImage(base64Image)
+        }
+    }
+    const base64_encode = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = (error) => reject(error);
+        });
+    }
+
+    const editStyle = {
+        backgroundColor:'white',
+        border:'none',
+        margin:'10px 0 10px 0',
+        padding:'5px',
+        fontSize:'1rem',
+        textAlign:'start',
+        borderRadius:'5px'
+    }
+
+    //Profile Bio settings
+    const [isEditingBio,setIseditingBio] = useState<boolean>(false)
+
+    const [bijo,setBijo] = useState<string | undefined>(bio)
+    const [newBio,setNewBio] = useState<string | undefined>(bijo)
+
+    // const fetchBio = async function(){
+    //     const response = await fetch(`http://localhost:2030/getuserbyid/${userID}`)
+    //     const data = await response.json()
+    //     const userBio = data.user[0].bio
+    //     setBijo(userBio)
+    //     setNewBio(userBio)
+    // }
+
+    const setIsEditingBioClick = async function(){
+        if(!isEditingBio){
+            setNewBio(bio)
+            setIseditingBio(true)
+        }
+        else{
+            await handleBioSave()
+            // await fetchBio()
+            setIseditingBio(false)
+        }
     }
 
     const handleBioSave = async function(){
@@ -276,8 +367,6 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             console.log(error);  
         }
     }
-
-
 
     const renderEditBioCard = function():JSX.Element{
         return (

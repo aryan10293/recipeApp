@@ -21,14 +21,6 @@ interface ProfileCardProps{
 const ProfilePage = () => {
 
 
-    const navigate = useNavigate()
-
-    useEffect(()=>{
-        if(!localStorage.getItem('token')){
-            navigate('/login')
-        }
-    },[])
-
     const location = useLocation()
     const {userID} = location.state || {} 
     const {userUsername:userUsername,userProfilePicture:userProfilePicture}=useUserId()

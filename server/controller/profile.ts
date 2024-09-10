@@ -11,9 +11,11 @@ let profile = {
                     {_id: req.params.id}, 
                     { 
                         $set: { 
-                            bio: req.body.bio, userName: req.body.userName, 
+                            bio: req.body.bio,
+                            userName: req.body.userName, 
                             skillLevel:req.body.skillLevel, 
-                            cooking:req.body.cookingStyle
+                            cooking:req.body.cookingStyle,
+                            
                         }
                     }
                 )
@@ -28,7 +30,8 @@ let profile = {
                     { 
                         $set: { 
                             img: await uploadImage(req.body.profilePic), 
-                            bio: req.body.bio, userName: req.body.userName, 
+                            bio: req.body.bio,
+                            userName: req.body.userName, 
                             skillLevel:req.body.skillLevel, 
                             cooking:req.body.cookingStyle
                         }

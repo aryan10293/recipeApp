@@ -21,9 +21,11 @@ let profile = {
             if (req.body.profiePic === undefined) {
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
-                        bio: req.body.bio, userName: req.body.userName,
+                        bio: req.body.bio,
+                        userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
-                        cooking: req.body.cookingStyle
+                        cooking: req.body.cookingStyle,
+                        
                     }
                 });
                 if (!getUserAndUpdate) {
@@ -37,7 +39,8 @@ let profile = {
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
                         img: yield (0, cloudinary_1.default)(req.body.profilePic),
-                        bio: req.body.bio, userName: req.body.userName,
+                        bio: req.body.bio,
+                        userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
                         cooking: req.body.cookingStyle
                     }

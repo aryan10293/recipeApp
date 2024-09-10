@@ -35,6 +35,7 @@ interface RecipeCardProps{
     levelOfMeal:number,
     postIndex?:number
     userID?:string | undefined,
+    userWhoPostId:string
 }
 
 interface Comments{
@@ -44,14 +45,15 @@ interface Comments{
     likes:string[],
     comment: String,
     _id:string,
-    postIndex:number
+
+
 }
 
 interface CommentsArray{
     array:Comments[]
 }
 
-const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal,userID}) => {
+const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal,userID,userWhoPostId}) => {
 
         const [url,setUrl] = useState<string>("")
         const {data:recipe} = useFetch(url)
@@ -98,8 +100,8 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
 
         const fetchComments = async():Promise<any> => {
             try {
-                const commentNum = await datas.comments.length
-                const commentComments = await datas.comments
+                const commentNum =  datas.comments.length
+                const commentComments =  datas.comments
                 
                 // console.log(commentNum,commentComments);
                 

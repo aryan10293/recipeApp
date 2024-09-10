@@ -37,13 +37,6 @@ interface Comments{
 const SingleCard:React.FC<RecipeCardProps> = () => {
 
 
-    const navigate = useNavigate()
-
-    useEffect(()=>{
-        if(!localStorage.getItem('token')){
-            navigate('/login')
-        }
-    },[])
 
     const location = useLocation()
     const {recipe} = location.state || {};

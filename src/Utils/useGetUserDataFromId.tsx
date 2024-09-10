@@ -30,19 +30,19 @@ const useGetUserDataFromId = (id:string) => {
                 const data = await response.json()
                 
 
-                const userID = await data.user[0]._id
-                const userName = await data.user[0].userName
-                const userPic = await data.user[0].profilePic
-                const userBookmarks = await data.user[0].savedRecipes
-                const userSkill = await data.user[0].skillLevel
-                const firstName = await data.user[0].firstName
-                const lastName = await data.user[0].lastName
-                const email = await data.user[0].email
-                const country = await data.user[0].country
-                const dob = await data.user[0].dob
-                const accountAge = await data.user[0].accountAge
-                const cookingStyle = await data.user[0].cookingStyle
-                const bio = await data.user[0].bio
+                const userID =  data.user[0]._id
+                const userName = data.user[0].userName
+                const userPic =  data.user[0].profilePic
+                const userBookmarks =  data.user[0].savedRecipes
+                const userSkill =  data.user[0].skillLevel
+                const firstName =  data.user[0].firstName
+                const lastName =  data.user[0].lastName
+                const email =  data.user[0].email
+                const country =  data.user[0].country
+                const dob =  data.user[0].dob
+                const accountAge =  data.user[0].accountAge
+                const cookingStyle =  data.user[0].cookingStyle
+                const bio =  data.user[0].bio
 
 
                 setUserUsername(userName)
@@ -68,7 +68,7 @@ const useGetUserDataFromId = (id:string) => {
         }
 
         getUserId()
-    },[])
+    },[id])
 
     return {
         userId,

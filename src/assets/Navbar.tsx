@@ -4,7 +4,7 @@ import MessageButton from "./MessagesButton";
 import ProfileIcon from "./ProfileIcon";
 import useFetch from "./useFetch";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignOutButton from "./SignOutButton";
 
 
@@ -14,11 +14,18 @@ interface userInfo{
 interface NavbarProps{
     userName:string | null, 
     userProfilePicture?:string | null 
+    userId?:string
 }
 
-const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture}) => {
+const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture,userId}) => {
 
-    const {data:picture} = useFetch(`http://localhost:2030/getuser/${localStorage.getItem("token")}`)
+    // const {data:picture} = useFetch(`http://localhost:2030/getuser/${localStorage.getItem("token")}`)
+
+    const navigate = useNavigate()
+    
+    const handleClick = function(){
+        navigate('/userprofile',{state:{userId:userId}})
+    }
     
     return ( 
         <div className="navbar">
@@ -32,13 +39,13 @@ const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture}) => {
                 <li><MessageButton/></li>
             </ul>
             <ul className="right-side">
-            <Link style={{textDecoration:'none'}} to={"/userprofile"}>
-                <button style={{backgroundColor:'transparent',border:'none',margin:'auto 10px', fontWeight:'400',fontSize:'1rem',height:'100%'}}>       
-                        {picture && picture.userinfo[0].userName}                  
+            
+                <button onClick={handleClick} style={{backgroundColor:'transparent',border:'none',margin:'auto 10px', fontWeight:'400',fontSize:'1rem',height:'100%'}}>       
+                        {/* {picture && picture.userinfo[0].userName}                   */}
+                        {userName}
                 </button>
-            </Link>
-               < ProfileIcon img={userProfilePicture}/>
-               
+            
+               < ProfileIcon userId={userId} img={userProfilePicture}/>
             </ul>
         </div>
      );
