@@ -131,10 +131,11 @@
     animation: appear3 0.3s ease-in forwards;
     animation-delay: 0.4s;
     opacity: 0;
+    white-space: pre-wrap;
 }
 .interaction-box{
     display: flex;
-    width: 100px;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
@@ -158,6 +159,10 @@
 .interaction-box p{
     font-size: 1.2rem;
     margin: 0 10px 0 2px;
+}
+.single-card .interaction-box .username-btn{
+    position: relative;
+    left: 540px;
 }
 
 @keyframes appear{

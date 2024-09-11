@@ -1,12 +1,14 @@
 import Navbar from "../../assets/Navbar";
 import CreateRecipe from "../../assets/CreateRecipe";
 import RecipeList from "../../assets/RecipeList";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import CommentBox from "../../components/CommentBox";
 import UserNameButton from "../../components/UsernameButton";
 import useUserId from "../../Utils/useGetUserId";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
+import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 
 
 const Feed:React.FC = () => {
@@ -37,12 +39,14 @@ const Feed:React.FC = () => {
             setButtonText("Create Recipe")
         }
     }
+    const userId = useContext(UserContext)
+    // const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
+    const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useGetUserDataFromId(userId)
 
-    
-
-
-    const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
-
+    useEffect(()=>{
+        console.log('Context ID: ',userId);
+        
+    },[])
 
     return ( 
      

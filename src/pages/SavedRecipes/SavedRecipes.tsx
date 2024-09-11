@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
 import RecipeList from "../../assets/RecipeList";
@@ -7,6 +7,7 @@ import useUserId from "../../Utils/useGetUserId";
 import RecipeCard from "../../assets/RecipeCard";
 import LikeButton from "../../assets/LikeButton";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 
 interface RecipeCardProps{
     recipeName:string,
@@ -36,8 +37,8 @@ interface Recipe{
 }
 
 const SavedRecipes = () => {
-
-    const {userUsername:userName,userProfilePicture:profilePicture,userId:userID,userBookmarks:userBookmarks} = useUserId()
+    const userID = useContext(UserContext)
+    const {userUsername:userName,userProfilePicture:profilePicture,userBookmarks:userBookmarks} = useUserId()
     const [recipes,setRecipes] = useState<RecipeCardProps[]>([])
 
     const getRecipes = async function(id:string){

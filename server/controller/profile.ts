@@ -6,7 +6,7 @@ import uploadImage from "../middleware/cloudinary";
 let profile = {
     updateProfile: async(req: Request, res: Response) => {
         try {
-            if(req.body.profiePic === undefined){
+            if(req.body.profilePic === undefined){
                     const getUserAndUpdate = await User.findOneAndUpdate(
                     {_id: req.params.id}, 
                     { 
@@ -15,14 +15,15 @@ let profile = {
                             userName: req.body.userName, 
                             skillLevel:req.body.skillLevel, 
                             cooking:req.body.cookingStyle,
-                            
+                            dob:req.body.dob,
+                            country:req.body.country
                         }
                     }
                 )
                 if(!getUserAndUpdate){
-                    res.status(400).json({status:'400', message:'profile was not updated'})
+                    res.status(400).json({status:'400', message:'profile without image was not updated'})
                 } else {
-                    res.status(200).json({status:'200', message:'profile was updated'})
+                    res.status(200).json({status:'200', message:'profile without image was updated'})
                 }
             } else {
                 const getUserAndUpdate = await User.findOneAndUpdate(
@@ -33,14 +34,16 @@ let profile = {
                             bio: req.body.bio,
                             userName: req.body.userName, 
                             skillLevel:req.body.skillLevel, 
-                            cooking:req.body.cookingStyle
+                            cooking:req.body.cookingStyle,
+                            dob:req.body.dob,
+                            country:req.body.country
                         }
                     }
                 )
                 if(!getUserAndUpdate){
-                    res.status(400).json({status:'400', message:'profile was not updated'})
+                    res.status(400).json({status:'400', message:'profile with image was not updated'})
                 } else {
-                    res.status(200).json({status:'200', message:'profile was updated'})
+                    res.status(200).json({status:'200', message:'profile with image was updated'})
                 }
             }
             
@@ -117,6 +120,5 @@ let profile = {
             console.log(error)
         }
     }
-
 }
 export default profile

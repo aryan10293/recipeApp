@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import useFetch from "./useFetch";
 import RecipeCard from "./RecipeCard";
+import UserContext from "../contexts/UserContext";
 
 interface RecipeListProps{
     url:string,
@@ -22,12 +23,13 @@ const RecipeList:React.FC<RecipeListProps> = ({url,userId}) => {
         postIndex:number,
         userWhoPostId:string
     }
+    const userID = useContext(UserContext)
 
     const {data:recipes} = useFetch(url) 
     // console.log(recipes)
     return ( 
         <div>
-            {userId &&
+            {userID &&
             recipes && 
             recipes.post && 
             recipes.post.length && 
@@ -44,7 +46,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,userId}) => {
                     recipeClass="recipe-card"
                     levelOfMeal={recipe.levelOfMeal}
                     postIndex={index}
-                    userID={userId} 
+                    userID={userID} 
                     userWhoPostId={recipe.userWhoPostId}           
                     />}
                     

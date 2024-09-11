@@ -27,12 +27,12 @@
     z-index: 0;
 }
 .asd:nth-of-type(even){
-    animation: appearFromRight 0.2s ease-in forwards, appear3 0.2s ease-in forwards;
+    animation: appearFromRight 0.3s ease-in forwards, appear3 0.1s ease-in forwards,twister 0.2s ease-in forwards;
     transform: translateX(600px);
     opacity: 0;
 }
 .asd:nth-of-type(odd){
-    animation: appearFromLeft 0.2s ease-in forwards, appear3 0.2s ease-in forwards;
+    animation: appearFromLeft 0.3s ease-in forwards, appear3 0.1s ease-in forwards,twister 0.2s ease-in forwards;
     transform: translateX(-600px);
     opacity: 0;
 }
@@ -144,6 +144,7 @@
 .recipe-card .recipe-steps{
     font-size: 1rem;
     font-weight: 400;
+    white-space: pre-wrap;
 }
 .right-bottom .interaction-box{
     display: flex;

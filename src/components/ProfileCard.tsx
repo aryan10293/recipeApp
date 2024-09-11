@@ -51,9 +51,6 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     bio
 }) => {
 
-    const location = useLocation()
-    const {userId} = location.state || {}
-
     const [usersRecipes,setUsersRecipes] = useState<RecipeCard[]>([])
  
     const getUsersRecipes = async function(){
@@ -120,7 +117,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                 
                 {recipeArray.map((recipe)=>(
                     <button onClick={(e)=> handleClick(recipe._id)} className="user-recipe-list-container" key={recipe._id}>
-                        <hr />  
+                        <hr style={{height:'25%',width:'0px', border:'1px solid #f45d48 ',position:'relative',bottom:'-25px',left:'10px'}}/>  
                         <div className="left">
                             <img src={recipe.image} alt="" />
                         </div>

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {encode as base64_encode} from "base-64";
 import useUserId from "../Utils/useGetUserId";
+import UserContext from "../contexts/UserContext";
 
 interface classNameProps{
     className:string,
@@ -28,7 +29,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
     const [postButtonText,setPostButtonText] = useState<string>("Post Recipe")
 
     const[data,setData] = useState()
-    const {userId:userId} = useUserId()
+    const userId = useContext(UserContext)
 
     const ingredientClickHandle = function(e:React.MouseEvent<HTMLButtonElement>){
 
@@ -132,7 +133,6 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             <div className={className2}>
 
             <div className="top-left">
-                {/* <img className="upload-img" src="https://www.vitacost.com/blog/wp-content/uploads/2024/02/How-to-Make-Homemade-Dog-Food.jpg" alt="" /> */}
                 {convertedImage && <img src={convertedImage}  />}
 
             </div>

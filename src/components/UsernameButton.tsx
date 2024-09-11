@@ -1,5 +1,6 @@
 interface UserNameButtonProps{
     text:string,
+
 }
 
 const UserNameButton:React.FC<UserNameButtonProps> = ({text}) => {
@@ -11,7 +12,7 @@ const UserNameButton:React.FC<UserNameButtonProps> = ({text}) => {
             const userData = await user.json()
             const userId = userData.userinfo[0]._id    
         } catch (error) {
-            
+            console.log(error)
         }
     }
 

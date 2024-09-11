@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 interface UserNameButtonProps{
     postsId:string,
+    className?:string
 }
 
 
-const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId}) => {
+const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className}) => {
     
     useEffect(()=>{
         findRecipeOwner()    
