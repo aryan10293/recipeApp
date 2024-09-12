@@ -39,11 +39,12 @@ let profile = {
             else {
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
-                        img: yield (0, cloudinary_1.default)(req.body.profilePic),
+                        // profilePic: yield (0, cloudinary_1.default)(req.body.profilePic),
+                        profilePic: req.body.profilePic,
                         bio: req.body.bio,
                         userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
-                        cooking: req.body.cookingStyle,
+                        cookingStyle: req.body.cookingStyle,
                         dob:req.body.dob,
                         country:req.body.country
                     }

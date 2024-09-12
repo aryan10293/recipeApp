@@ -99,16 +99,12 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         const [commentNum,setCommentNum] = useState<number | null>(null)
 
         const fetchComments = async():Promise<any> => {
-            try {
-                const commentNum =  datas.comments.length
-                const commentComments =  datas.comments
-                
-                // console.log(commentNum,commentComments);
-                
-                    setCommentNum(commentNum)
-                    setComments(commentComments);
-                // console.log('Comments are fetched');
-                
+            try {   
+                    const comms = await fetch(`http://localhost:2030/getcommentsfrompost/${_id}`)
+                    const comms2 = await comms.json()
+                    const commentses = comms2.comments
+                    setCommentNum(commentses.length)
+                    setComments(commentses);
             } catch (error) {
                 console.log(error)
             }
@@ -116,7 +112,11 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         
           useEffect(()=>{
                 fetchComments()
-          },)
+          },[])
+
+    //       useEffect(()=>{
+    //         fetchComments()
+    //   },[_id])
 
 
         const handleCommentVisibility = function(e:React.MouseEvent){
@@ -124,7 +124,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
             commentsVisbile ? setCommentsVisible(false):setCommentsVisible(true)
 
             if(commentsVisbile === false){
-                
+                fetchComments()
                 setCommentClassName("comment-container")
                 setCommentClassName2("new-comment-container")
                 setCommentClassName3("comments-container")
@@ -147,6 +147,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
         const handleNewComment = async () => {
             try {
                 await fetchComments()
+                
             } catch (error) {
                 console.log(error)
             }
@@ -166,7 +167,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
               comment={comment.comment}
               commentorId={comment.commentorId}
               postId={_id}
-              commentId={datas.comments[index]._id}
+              commentId={comment._id}
               postIndex={index}
               userID={userID}
                />
@@ -214,7 +215,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                         <TimeButton/>
                         {recipeTime &&  <h3 className="recipe-time">{recipeTime}</h3>}
                         <div className="recipe-skill-box">
-                         {renderDifficultyIcon()}
+                         {comments && renderDifficultyIcon()}
                         </div>
 
                     </div>
@@ -240,7 +241,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                 </div>
             </div>
     </button>
-    {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
+    {datas && datas.comments && comments && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
     {commentsVisbile && renderAllUserComments()}
 </div>
     

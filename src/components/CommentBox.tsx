@@ -4,7 +4,7 @@ import LikeButton from "../assets/LikeButton";
 interface CommentsProps{
     classs2:string,
     classs4:string
-    postId:string | null,
+    postId:string | undefined,
     handleNewComment:()=>void,
     userId:string | null
 
@@ -16,26 +16,16 @@ interface NewComment{
     comment: String,
 }
 
-const hrStyle = {
-    width:'1000px',
-    border:'1px solid #f8f5f2',
-    outline:'none'
-}
-
 const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewComment,userId}) => {
 
-    const [postContent,setPostContent] = useState<string>("")
-
- 
+    const [postContent,setPostContent] = useState<string | null>("")
 
     const sendCommentHandle = async():Promise<void>=>{   
         try {
-
             const postBody:NewComment = {
                 comment:postContent,
                 userId: userId,
-                postId: postId,
-                
+                postId: postId,     
             }
 
             const response = await fetch(`http://localhost:2030/createcomment`,{
@@ -48,12 +38,13 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
                 })
                 
                 if(!response.ok){
-                    throw Error('Problem with fetching createcomment and posting comment')
+                    throw Error('Problem with creating and posting comment and getting the response')
                 }
 
                 const data = await response.json()
                 console.log('Sucess! Data: ',data,postBody)
-                handleNewComment()
+                setPostContent("")
+                await handleNewComment()
                 
 
         } catch (error) {
@@ -63,7 +54,7 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
 
     const clickHandle = async function(){
         try {
-            sendCommentHandle()
+            await sendCommentHandle()
         } catch (error) {
             console.log(error)
         }
@@ -73,7 +64,7 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
     return ( 
         <div className={classs4}>
             <div className={classs2}>
-                <textarea onChange={(e)=>setPostContent(e.target.value)} className="new-comment-input" placeholder="Your comment..." name="" id=""></textarea>
+                {<textarea value={postContent} onChange={(e)=>setPostContent(e.target.value)} className="new-comment-input" placeholder="Your comment..." name="" id=""></textarea>}
                 <button onClick={clickHandle} className="send-comment-btn">Send</button>
             </div>
         </div>

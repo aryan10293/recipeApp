@@ -10,8 +10,6 @@ interface ProfileIconProps{
 const ProfileIcon:React.FC<ProfileIconProps> = ({img,userId}) => {
     
     const navigate = useNavigate()
-
-    // const {userId:userId} = useUserId()
     
     const handleClick = function(){
         navigate('/userprofile',{state:{userId:userId}})

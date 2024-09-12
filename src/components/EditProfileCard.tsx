@@ -167,7 +167,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
     const detailData = {
         bio:bio,
         skillLevel:newSkillLevel,
-        cooking:newCookingStyle,
+        cookingStyle:newCookingStyle,
         dob:newDob,
         profilePic:convertedImage,
         userName:newUserName, 
@@ -345,7 +345,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         setNewBio(userBio)
     }
 
-    // Viev toggle between edit/view profile
+    // View toggle between edit/view profile
     const setIsEditingBioClick = async function(){
         if(!isEditingBio){
             await fetchBio()
