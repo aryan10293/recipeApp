@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LikeButton from "../assets/LikeButton";
 import LikeCommentButton from "../assets/LikeCommentButton";
+import UserNameProfileButton from "./UserNameProfileButton";
 
 interface CommentsProps{
     timeOfPost:string,
@@ -77,7 +78,8 @@ const CommentList:React.FC<CommentsProps> = ({
         <div className={classs}>
 
             <div className={classs3}>
-                <h4 className="comment-username">{commentorId && currentUserName}</h4>    
+                {/* <h4 className="comment-username">{commentorId && currentUserName}</h4>     */}
+                <UserNameProfileButton  postsId={postId}/>
                 <h4 className="comment-content">{comment && comment}</h4>
 
                 <div className="comment-interactions">

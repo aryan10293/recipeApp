@@ -1,11 +1,14 @@
 import Navbar from "../../assets/Navbar";
 import CreateRecipe from "../../assets/CreateRecipe";
 import RecipeList from "../../assets/RecipeList";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import CommentBox from "../../components/CommentBox";
 import UserNameButton from "../../components/UsernameButton";
 import useUserId from "../../Utils/useGetUserId";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
+import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 
 
 const Feed:React.FC = () => {
@@ -15,6 +18,10 @@ const Feed:React.FC = () => {
     const [classState3,setClassState3] = useState<string>('invisible')
     const [recipeVisibility,setRecipeVisibility] = useState<boolean>(false)
     const [buttonText,setButtonText] = useState<string>("Create Recipe")
+
+
+
+
 
     const handleRecipeVisbility = function(){
         recipeVisibility ? setRecipeVisibility(false):setRecipeVisibility(true)
@@ -32,12 +39,14 @@ const Feed:React.FC = () => {
             setButtonText("Create Recipe")
         }
     }
+    const userId = useContext(UserContext)
+    // const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
+    const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useGetUserDataFromId(userId)
 
-
-
-
-    const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
-
+    useEffect(()=>{
+        console.log('Context ID: ',userId);
+        
+    },[])
 
     return ( 
      
@@ -53,7 +62,7 @@ const Feed:React.FC = () => {
         //     <UserNameButton text="Click me"/>
         // </div>
             <div className="feed">       
-                {userName && userProfilePicture && <Navbar userName={userName} userProfilePicture={userProfilePicture}/>}
+                {userName && userProfilePicture && <Navbar userId={ID} userName={userName} userProfilePicture={userProfilePicture}/>}
                 <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
                 {<Header text={'Recipe Posts'} margin="0"/>}
                 <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
