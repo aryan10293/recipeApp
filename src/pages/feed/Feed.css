@@ -121,6 +121,7 @@
     border-radius: 5px;
     border: 0;
     outline: 0;
+    width: auto;
 }
 .ingredient-button{
     border: none;
@@ -179,10 +180,6 @@
 .recipe-box-appear-btn:hover{
     background-color: #f45c48e7;
     cursor: pointer;
-}
-.heydoesthiswork{
-    height: 75vh;
-    overflow: auto;
 }
 .username-btn{
     background-color: transparent;

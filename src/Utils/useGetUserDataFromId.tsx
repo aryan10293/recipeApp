@@ -15,6 +15,8 @@ const useGetUserDataFromId = (id:string) => {
     const [userCountry,setUserCountry] = useState<string>()
     const [userCookingStyle,setUserCookingStyle] = useState<string>() 
     const [userBio,setUserBio] = useState<string>("")
+    const [userFollowerNum,setUserFollowerNum] = useState<[]>()
+    const [userFollowingNum,setUserFollowingNum] = useState<[]>()
 
    
     useEffect(()=>{
@@ -43,7 +45,8 @@ const useGetUserDataFromId = (id:string) => {
                 const accountAge =  data.user[0].accountAge
                 const cookingStyle =  data.user[0].cookingStyle
                 const bio =  data.user[0].bio
-
+                const followerNum = data.user[0].followers
+                const followingNum = data.user[0].followings
 
                 setUserUsername(userName)
                 setUserId(userID)
@@ -58,8 +61,10 @@ const useGetUserDataFromId = (id:string) => {
                 setUserAccountAge(accountAge)
                 setUserCookingStyle(cookingStyle)
                 setUserBio(bio)
+                setUserFollowerNum(followerNum)
+                setUserFollowingNum(followingNum)
 
-                console.log(dob,cookingStyle);
+                console.log(followerNum,followingNum);
                 
 
             } catch (error) {
@@ -83,7 +88,9 @@ const useGetUserDataFromId = (id:string) => {
         userAccountAge,
         userDob,
         userCookingStyle,
-        userBio
+        userBio,
+        userFollowerNum,
+        userFollowingNum
         
     }
 }

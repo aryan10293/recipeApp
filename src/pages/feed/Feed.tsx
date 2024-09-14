@@ -67,7 +67,7 @@ const Feed:React.FC = () => {
                 {<Header text={'Recipe Posts'} margin="0"/>}
                 <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
 
-                {ID && <RecipeList userId={ID} url='http://localhost:2030/getallpost'/>} 
+                {ID && <RecipeList userId={ID} url='http://localhost:2030/getallpost'/> ? <RecipeList userId={ID} url='http://localhost:2030/getallpost'/> : <p className="pending-msg">Loading...</p>} 
             </div>
      );
 }

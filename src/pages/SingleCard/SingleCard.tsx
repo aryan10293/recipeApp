@@ -120,6 +120,7 @@ const SingleCard:React.FC<RecipeCardProps> = () => {
             ingridientList={recipe.post[0].ingridentList} 
             recipeImage={recipe.post[0].image}
             userID={userID || undefined}
+            userWhoPostId={recipe.post[0].userWhoPostId}
             />
             }
 

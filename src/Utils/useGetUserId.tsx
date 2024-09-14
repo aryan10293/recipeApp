@@ -16,6 +16,7 @@ const useUserId = () => {
     const [userCookingStyle,setUserCookingStyle] = useState<string>()
     const [userBio,setUserBio] = useState<string>("")
 
+
    
     useEffect(()=>{
         const getUserId = async function() {
@@ -46,6 +47,7 @@ const useUserId = () => {
                 const cookingStyle = data.userinfo[0].cookingStyle
                 const bio = data.userinfo[0].bio
 
+
                 setUserUsername(userName)
                 setUserId(userID)
                 setUserProfilePicture(userPic)
@@ -58,6 +60,7 @@ const useUserId = () => {
                 setUserDob(dob)
                 setUserCookingStyle(cookingStyle)
                 setUserBio(bio)
+
 
             } catch (error) {
                 console.log(error)   

@@ -29,5 +29,36 @@ button{
     border: none;
     border-radius: 5px;
 }
+.pending-msg{
+    font-size: 0.8rem;
+    font-weight: 300;
+    font-style: italic;
+    position: relative;
+    animation: pendingAnimation 0.5s infinite;
+}
+
+@keyframes pendingAnimation {
+    0%{
+        transform: translateX(0) translateY(0);
+        opacity: 100%;
+    }
+    25%{
+        transform: translateX(-1px) translateY(-0px);
+        opacity: 90%;
+    }
+    50%{
+        transform: translateX(-2px) translateY(-0px);
+        opacity: 80%;
+    }
+    75%{
+        transform: translateX(-1px) translateY(-0px);
+        opacity: 90%;
+    }
+    100%{
+        transform: translateX(0) translateY(0);
+        opacity: 100%;
+    }
+}
+
 
 

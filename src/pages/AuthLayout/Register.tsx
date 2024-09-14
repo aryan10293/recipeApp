@@ -55,6 +55,7 @@ function Register() {
             alert('Succesful registration!')
             console.log(createUserRequestInfo)
             console.log(createUser)
+            window.location.href = '/login'
         } else {
             alert('there was an error')
         }

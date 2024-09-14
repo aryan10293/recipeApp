@@ -15,7 +15,8 @@ interface ProfileCardProps{
     userLastName:string | undefined,
     cookingStyle:string | undefined,
     dob:string | undefined,
-    accountAge: string | undefined
+    accountAge: string | undefined,
+    userFollowerNum: []
 }
 
 const ProfilePage = () => {
@@ -24,7 +25,7 @@ const ProfilePage = () => {
     const location = useLocation()
     const {userID} = location.state || {} 
     const {userUsername:userUsername,userProfilePicture:userProfilePicture}=useUserId()
-    const {userBio:userBio,userAccountAge:userAccountAge,userDob:userDob,userCookingStyle:userCookingStyle,userProfilePicture:profilePicture,userUsername:userName,userFirstName:firstName,userLastName:lastName,userEmail:email,userCountry:country,userCookingSkill:cookingSkill} = useGetUserDataFromId(userID)
+    const {userBio:userBio,userAccountAge:userAccountAge,userDob:userDob,userCookingStyle:userCookingStyle,userProfilePicture:profilePicture,userUsername:userName,userFirstName:firstName,userLastName:lastName,userEmail:email,userCountry:country,userCookingSkill:cookingSkill,userFollowerNum:userFollowerNum,userFollowingNum:userFollowingNum} = useGetUserDataFromId(userID)
     
     useEffect(()=>{
         console.log(userDob,userName,userID);
@@ -33,9 +34,9 @@ const ProfilePage = () => {
 
     return ( 
 
-         <div>
+         <div>  
             <Navbar userName={userUsername} userProfilePicture={userProfilePicture}/>
-            <ProfileCard bio={userBio} userID={userID} dob={userDob} cookingStyle={userCookingStyle} accountAge={userAccountAge} cookingSkill={cookingSkill} profilePicture={profilePicture} userName={userName} userFirstName={firstName} userLastName={lastName} userEmail={email} userCountry={country} />
+            <ProfileCard userFollowingNum={userFollowingNum} userFollowerNum={userFollowerNum} bio={userBio} userID={userID} dob={userDob} cookingStyle={userCookingStyle} accountAge={userAccountAge} cookingSkill={cookingSkill} profilePicture={profilePicture} userName={userName} userFirstName={firstName} userLastName={lastName} userEmail={email} userCountry={country} />
         </div>
 
      );
