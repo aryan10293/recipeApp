@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../model/user"));
 const post_1 = __importDefault(require("../model/post"));
-const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
 let profile = {
     updateProfile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -25,8 +24,8 @@ let profile = {
                         userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
                         cooking: req.body.cookingStyle,
-                        dob:req.body.dob,
-                        country:req.body.country
+                        dob: req.body.dob,
+                        country: req.body.country
                     }
                 });
                 if (!getUserAndUpdate) {
@@ -39,14 +38,13 @@ let profile = {
             else {
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
-                        // profilePic: yield (0, cloudinary_1.default)(req.body.profilePic),
                         profilePic: req.body.profilePic,
                         bio: req.body.bio,
                         userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
                         cookingStyle: req.body.cookingStyle,
-                        dob:req.body.dob,
-                        country:req.body.country
+                        dob: req.body.dob,
+                        country: req.body.country
                     }
                 });
                 if (!getUserAndUpdate) {
