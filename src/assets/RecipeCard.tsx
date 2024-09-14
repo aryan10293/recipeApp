@@ -16,6 +16,7 @@ import Login from "../pages/AuthLayout/Login";
 import LikeCommentButton from "./LikeCommentButton";
 import UserNameButton from "../components/UsernameButton";
 import UserNameProfileButton from "../components/UserNameProfileButton";
+import FollowUserButton from "../components/FollowUserButton";
 
 
 
@@ -234,14 +235,15 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
                     {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
                     <BookmarkButton userId={userID} postId={_id}/>
-                    <UserNameProfileButton postsId={_id}/>
+                    {<UserNameProfileButton className="username-btn" postsId={_id}/>}
+                    <FollowUserButton personToFollow={userWhoPostId}/>
                     {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
                 </div>
                 
                 </div>
             </div>
     </button>
-    {datas && datas.comments && comments && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
+    {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
     {commentsVisbile && renderAllUserComments()}
 </div>
     

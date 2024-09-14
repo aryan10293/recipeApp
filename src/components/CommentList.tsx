@@ -79,7 +79,7 @@ const CommentList:React.FC<CommentsProps> = ({
 
             <div className={classs3}>
                 {/* <h4 className="comment-username">{commentorId && currentUserName}</h4>     */}
-                <UserNameProfileButton  postsId={postId}/>
+                <UserNameProfileButton className="comment-username"  postsId={postId}/>
                 <h4 className="comment-content">{comment && comment}</h4>
 
                 <div className="comment-interactions">

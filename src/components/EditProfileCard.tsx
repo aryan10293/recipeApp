@@ -157,7 +157,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
     const [newCountry,setNewCountry] = useState<string>(userCountry)
     const [newSkillLevel,setNewSkillLevel] = useState<string>(cookingSkill)
     const [newCookingStyle,setNewCookingStyle] = useState<string>(cookingStyle)
-    const [newDob,setNewDob] = useState<string>('dob')
+    const [newDob,setNewDob] = useState<string>(dob)
 
     useEffect(()=>{
         fetchCardDetails()
@@ -237,6 +237,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         }
     }
 
+    const pendingMessage = function(){
+        return (
+            <p className="pending-msg">Loading data...</p>
+        )
+    }
     // Rendering the user profile view 
     const renderEditCard = function():JSX.Element{
         return(
@@ -245,11 +250,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <img src={profilePicture} alt="" />
                 </div>
                 <div className="info">
-                    <h2 className="username">{newUserName}</h2>
-                    <h3 className="cooking-skill">{newSkillLevel}</h3>                    
-                    <h3 className="cooking-style">{newCookingStyle}</h3>
-                    <h3 className="country">{newCountry}</h3>
-                    <h3 className="dob">{newDob}</h3>
+                    <h2 className="username">{newUserName ? newUserName : pendingMessage()}</h2>
+                    <h3 className="cooking-skill">{newSkillLevel ? newSkillLevel : pendingMessage()} </h3>           
+                    <h3 className="cooking-style">{newCookingStyle ? newCookingStyle : pendingMessage()}</h3>
+                    <h3 className="country">{newCountry ? newCountry : pendingMessage()}</h3>
+                    <h3 className="dob">{newDob ? newDob : pendingMessage()}</h3>
                 </div>
                 <div className="follow-data">
                     <h4 style={{fontWeight:'400'}} className="following">Followers: 20</h4>
@@ -395,7 +400,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             <div style={{overflow:'auto'}} className="bio">
                     <h3 style={{fontWeight:'400'}}>{userName + `'s bio`}</h3>
                     <hr/>
-                    <p>{newBio}</p>
+                    <p>{newBio ? newBio : 'Loading bio...'}</p>
                     <button onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Edit Bio</button>
                 </div>
         )

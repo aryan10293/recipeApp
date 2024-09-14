@@ -36,16 +36,22 @@ interface Recipe{
     postIndex:number
 }
 
+// useEffect(()=>{
+
+// },[])
+
 const SavedRecipes = () => {
     const userID = useContext(UserContext)
     const {userUsername:userName,userProfilePicture:profilePicture,userBookmarks:userBookmarks} = useUserId()
     const [recipes,setRecipes] = useState<RecipeCardProps[]>([])
 
+    // Getting recipes from db
     const getRecipes = async function(id:string){
         try {
             const response = await fetch(`http://localhost:2030/getpost/${id}`)
             const data = await response.json()
-            const recipeInfo = await  data.post[0]
+            const recipeInfo = await data.post[0]
+            console.log(recipeInfo)
             return recipeInfo  
         } catch (error) {
             console.log(error)
@@ -53,6 +59,7 @@ const SavedRecipes = () => {
         }
     }
 
+    // Creating the array of saved recipes 
     const createRecipeArray = async function(){
         try {
             const recipePromises = userBookmarks?.map(async (recipeId)=>{

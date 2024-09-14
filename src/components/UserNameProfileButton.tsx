@@ -16,6 +16,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className}
     const navigate = useNavigate()
     const [posterUsername,setPosterUsername] = useState<string>()
     const [posterId,setPosterId] = useState<string>()
+    const [pending,setPending] = useState<boolean>()
     
 
     const handleClick = async function(e:React.MouseEvent){
@@ -30,6 +31,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className}
 
     const findRecipeOwner = async function(){
         try {
+            setPending(true)
             const response = await fetch(`http://localhost:2030/getpost/${postsId}`)
             if(!response.ok){
                 throw new Error('Failed to fetch user data')
@@ -54,6 +56,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className}
             const recipeOwnerUsername = recipeOwnerData.user[0].userName
 
             setPosterUsername(recipeOwnerUsername)
+            setPending(false)
             
         } catch (error) {
             console.log(error)
@@ -62,8 +65,8 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className}
 
 
     return ( 
-           <button className="username-btn" style={{fontSize:'1rem'}} onClick={(e)=>handleClick(e)}>
-                {posterUsername}
+           < button className={className} style={{fontSize:'1rem'}} onClick={(e)=>handleClick(e)}>
+                {pending ? <p className="pending-msg">Loading..</p> : posterUsername}
             </button>
         
      );

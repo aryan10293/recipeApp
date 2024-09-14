@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "../assets/RecipeCard";
 import TimeButton from "../assets/TimeButton";
 import DifficultyIcon from "../assets/DifficultyIcon";
+import FollowUserButton from "./FollowUserButton";
 
 interface ProfileCardProps{
     userName:string | null,
@@ -17,7 +18,9 @@ interface ProfileCardProps{
     cookingStyle:string | undefined,
     dob:string | undefined,
     accountAge: string | undefined,
-    bio: string | undefined
+    bio: string | undefined,
+    userFollowerNum:[] | undefined,
+    userFollowingNum:[] | undefined
 }
 
 interface RecipeCard{
@@ -48,13 +51,16 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     accountAge,
     dob,
     userID,
-    bio
+    bio,
+    userFollowerNum,
+    userFollowingNum
 }) => {
 
     const [usersRecipes,setUsersRecipes] = useState<RecipeCard[]>([])
- 
+    const [recipePending,isRecipePending] = useState<boolean>()
     const getUsersRecipes = async function(){
         try {
+            isRecipePending(true)
             const recipeResponse = await fetch('http://localhost:2030/getallpost')
             if(!recipeResponse.ok){
                 throw new Error('Response is not okay')
@@ -67,6 +73,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
             })
 
             setUsersRecipes(usersRecipesArray)
+            isRecipePending(false)
             console.log(usersRecipesArray);
             
         } catch (error) {
@@ -108,8 +115,9 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     }
 
     const printUsersRecipes = function(recipeArray: RecipeCard[]) {
+        
         if (!recipeArray.length) {
-            return <p>No recipes found.</p>;
+            return <p>This user has not posted recipes yet</p>;
         }
 
         return (
@@ -137,6 +145,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     
     useEffect(()=>{
         getUsersRecipes()
+        console.log("Followers: ",userFollowerNum)
     },[])
 
     return (
@@ -147,29 +156,31 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                     <img src={profilePicture} alt="" />
                 </div>
                 <div className="info">
-                    <h2 className="username">{userName}</h2>
-                    <h3 className="cooking-skill">{cookingSkill}</h3>                    
-                    <h3 className="cooking-style">{cookingStyle}</h3>
-                    <h3 className="country">{userCountry}</h3>
-                    <h3 className="dob">1995-04-03</h3>
+                    <h2 className="username">{userName ?  userName : <p className="pending-msg">Loading</p>}</h2>
+                    <h3 className="cooking-skill">{cookingSkill ? cookingSkill : <p className="pending-msg">Loading...</p>  }</h3>                    
+                    <h3 className="cooking-style">{cookingStyle ? cookingStyle : <p className="pending-msg">Loading...</p>  }</h3>
+                    <h3 className="country">{userCountry ? userCountry : <p className="pending-msg">Loading...</p>}</h3>
+                    <h3 className="dob">{dob ? dob : <p className="pending-msg">Loading...</p>}</h3>
                     
                 </div>
                 <div className="follow-data">
-                    <h4 style={{fontWeight:'400'}} className="following">Followers: 20</h4>
-                    <h4 style={{fontWeight:'400'}} className="followers">Following: 45</h4>
+                    <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : <p className="pending-msg">Loading...</p>}</h4>
+                    <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4>
+                    {userID && <FollowUserButton personToFollow={userID}/>}
                 </div>
+                
                 {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
             </div>
             <div className="right">
                 <div style={{overflow:'auto'}} className="bio" >
-                    <h3 style={{fontWeight:'500'}}>{userName + `'s bio`}</h3>
+                    <h3 style={{fontWeight:'500'}}>{userName ? userName+ `'s bio` : <p>Loading</p>}</h3>
                     <hr />
-                    <p>{bio}</p>
+                    <p>{bio ? bio : <p>Loading...</p>}</p>
                 </div>
                 <div className="recipes">   
                     <h3 style={{fontWeight:'500'}}>{userName}'s posted recipes({usersRecipes.length})</h3>
                     <hr />
-                    {printUsersRecipes(usersRecipes)}
+                    {recipePending ? <p>Loading...</p> : printUsersRecipes(usersRecipes)}
   
                     
                 </div>
