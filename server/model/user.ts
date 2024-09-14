@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import { Schema, Document } from "mongoose";
 
 interface UserI extends Document{
+    bookmarks: any;
     userName: string
     firstName: string,
     lastName: string

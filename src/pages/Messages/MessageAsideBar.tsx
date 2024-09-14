@@ -1,6 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
- const MessageAsideBar: React.FC = () =>  {
+import { Link } from 'react-router-dom';
+import MessgagesDisplay from './MessgagesDisplay';
+interface UserId{
+    userId:string
+}
+ const MessageAsideBar: React.FC<UserId> = ({userId}) => {
     // this is going to generate people that the login user has a chat history with 
     // im generating all for texting purposes 
     // you can chnage this UI model if you dont want to follow it 
@@ -13,12 +18,10 @@ import { useState, useEffect } from 'react';
                 headers: {'Content-Type': 'application/json'}
             })
             const idkwhattocallthis = await getUsers.json()
-            console.log(idkwhattocallthis)
             setUsers(idkwhattocallthis.users)
         }
         generateUser()
     }, [])
-    console.log(users)
     const styles = {
         sidebar: {
             width: '25%',
@@ -36,15 +39,22 @@ import { useState, useEffect } from 'react';
         },
     };
     return (
-    <div style={styles.sidebar}>
-      <h2>Users</h2>
-      <ul style={styles.userList}>
-        {users.map(user => (
-          <li key={user._id} style={styles.userItem}>
-            {user.userName}
-          </li>
-        ))}
-      </ul>
+    <div style={{display:'flex'}}>
+        <div style={styles.sidebar}>
+            <h2>Users</h2>
+            <ul style={styles.userList}>
+                {users.map(user => (
+                <Link to={`/messages/${user._id}`}>
+                    <li key={user._id} style={styles.userItem}>
+                        {user.userName}
+                    </li>
+                </Link>
+                ))}
+            </ul>
+        </div>
+        
+            <MessgagesDisplay userId={userId}/>
+        
     </div>
   );
 }

@@ -18,7 +18,7 @@ const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
 let profile = {
     updateProfile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            if (req.body.profiePic === undefined) {
+            if (req.body.profilePic === undefined) {
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
                         bio: req.body.bio, userName: req.body.userName,
@@ -34,9 +34,12 @@ let profile = {
                 }
             }
             else {
+                const profilePic = yield (0, cloudinary_1.default)(req.body.profilePic);
+                console.log(req.body.profilePic);
+                console.log(req.body);
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
-                        img: yield (0, cloudinary_1.default)(req.body.profilePic),
+                        profilePic: profilePic,
                         bio: req.body.bio, userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
                         cooking: req.body.cookingStyle

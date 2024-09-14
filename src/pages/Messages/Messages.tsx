@@ -1,13 +1,15 @@
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
 import MessageAsideBar from "./MessageAsideBar";
-
-const Messages = () => {
+interface UserId{
+    userId:string
+}
+ const Messages: React.FC<UserId> = ({userId})  => {
     return ( 
         <div>
             <Navbar/>
             <Header text="Messages" margin="0 0 0 0"/>
-            <MessageAsideBar/>
+            <MessageAsideBar userId={userId}/>
         </div>
      );
 }

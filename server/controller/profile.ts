@@ -3,10 +3,11 @@ import Post from "../model/post"
 import  Message  from "../model/messages";
 import  { Request, Response} from "express";
 import uploadImage from "../middleware/cloudinary";
+import { AnyError } from "mongodb";
 let profile = {
     updateProfile: async(req: Request, res: Response) => {
         try {
-            if(req.body.profiePic === undefined){
+            if(req.body.profilePic === undefined){
                     const getUserAndUpdate = await User.findOneAndUpdate(
                     {_id: req.params.id}, 
                     { 
@@ -23,11 +24,14 @@ let profile = {
                     res.status(200).json({status:'200', message:'profile was updated'})
                 }
             } else {
+                const profilePic:any = await uploadImage(req.body.profilePic)
+                console.log(req.body.profilePic)
+                console.log(req.body)
                 const getUserAndUpdate = await User.findOneAndUpdate(
                     {_id: req.params.id}, 
                     { 
                         $set: { 
-                            img: await uploadImage(req.body.profilePic), 
+                            profilePic: profilePic, 
                             bio: req.body.bio, userName: req.body.userName, 
                             skillLevel:req.body.skillLevel, 
                             cooking:req.body.cookingStyle

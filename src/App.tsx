@@ -22,8 +22,20 @@ import Profile from './pages/Profile/Profile';
 import SavedRecipes from './pages/SavedRecipes/SavedRecipes';
 import SingleCard from './pages/SingleCard/SingleCard';
 function App() {
-
-
+  const [userId, setUserId] = React.useState<string>('')
+  const [userInfo, setUserInfo] = React.useState<any[]>([])
+  React.useEffect(() => {
+          const getUser = async() => {
+              const checkUser = await fetch(`http://localhost:2030/getuser/${localStorage.getItem('token')}`, {
+                  method:'GET',
+                  headers: {'Content-Type': 'application/json'}
+              })
+              const userData = await checkUser.json()
+              setUserId(userData.userinfo[0]._id)
+              setUserInfo(userData.userinfo)
+          }
+          getUser()
+      }, [])
   return (
     <>
     
@@ -37,8 +49,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path='/home' element={<Feed />} />
         <Route path='/feed' element={<Feed />} />
-        <Route path="/messages" element={<Messages />} />
-        {/* <Route path="/profile" element={<Profile user={userId} />} /> */}
+        <Route path="/messages" element={<Messages userId={userId}/>} />
+        <Route path="/messages/:id" element={<Messages userId={userId}/>} />
+        <Route path="/profile" element={<Profile user={userInfo} />} />
         <Route path="/recipe" element={<SingleCard />} />
       </Routes>
     </>

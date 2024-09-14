@@ -11,6 +11,8 @@ import cookieParser from "cookie-parser";
 import configurePassport from "./config/passport.js";
 import dotenv from "dotenv";
 import * as bodyParser from 'body-parser';
+import WebSocket, { WebSocketServer } from 'ws';
+const wss = new WebSocketServer({ port: 2040 });
 const app = express();
 const server = http.createServer(app);
 const MongoStore = connectMongo(session);
@@ -18,35 +20,25 @@ const MongoStore = connectMongo(session);
 let router: Router = express.Router();
 router.use(bodyParser.text());
 
-// Your application logic goes here...
-
-// Import other modules (CommonJS syntax)
 import connectDB from "./config/database";
 import mainRoutes from "./routes/main";
 
-//Use .env file in config folder
 dotenv.config({ path: "./config/.env" });
 
-// Passport config
-
-//Connect To Database
 connectDB();
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 //Body Parsing
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json({limit: '50mb'}));
 
-//Logging
+
 app.use(logger("dev"));
 
-// Setup Sessions - stored in MongoDB
 app.use(
   session({
     secret: "keyboard cat",
@@ -56,14 +48,80 @@ app.use(
   })
 );
 app.use(cookieParser("keyboard cat"));
-// Passport middleware
+
 app.use(passport.initialize());
 app.use(passport.session());
 configurePassport(passport);
-//Use flash messages for errors, info, ect...
+
 app.use(flash());
 
 app.use("/", mainRoutes);
+
+type Room = any
+const rooms: { [key: string]: { [userId: string]: Room } } = {}
+
+
+const broadcastMessage = (roomId: string,userId:string, message: string) => {
+  const clients = rooms[roomId][userId];
+  if (clients) {
+    clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(message); 
+      }
+    });
+  }
+}
+
+function isUserInRoom(roomId: string, userId: string): boolean {
+  return rooms[roomId] && rooms[roomId][userId] !== undefined;
+}
+
+function addUserToRoom(roomId: string, userId: string, ws: WebSocket) {
+  if (!rooms[roomId]) {
+    rooms[roomId] = {};
+  }
+  rooms[roomId][userId].push(ws); ;
+  broadcastMessage(roomId,userId, `${userId} joined the room.`);
+}
+
+wss.on('connection', (ws) => {
+  let roomId: string  = ''
+
+
+  ws.on('message', (message:string) => {
+    const messageString = message.toString();
+    const parsedMessage = JSON.parse(messageString)
+
+    if(parsedMessage.type === 'join' && parsedMessage.chatRoomId.length === 8){
+
+      roomId = parsedMessage.chatRoomId
+
+      if (!rooms[roomId]) {
+        rooms[roomId] = {};
+      }
+
+      if (isUserInRoom(roomId, parsedMessage.userId)) {
+        console.log('preventing user from joining rooom again works')
+        return;
+      }
+      
+      rooms[roomId][parsedMessage.userId] = ws;
+      console.log(Object.keys(rooms[roomId]).length)
+      broadcastMessage(roomId,parsedMessage, `${parsedMessage.userId} joined the room.`);
+    }
+
+    //ws.send(`Server received your message: ${parsedMessage.message}`);
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+
+  ws.on('error', (error) => {
+    console.error('WebSocket error:', error);
+  });
+});
+
 
 app.listen(process.env.PORT, () => {
   console.log("Server is running, you better catch it! on " + process.env.PORT);
