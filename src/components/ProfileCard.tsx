@@ -5,6 +5,7 @@ import RecipeCard from "../assets/RecipeCard";
 import TimeButton from "../assets/TimeButton";
 import DifficultyIcon from "../assets/DifficultyIcon";
 import FollowUserButton from "./FollowUserButton";
+import PendingMessage from "./PendingMessage";
 
 interface ProfileCardProps{
     userName:string | null,
@@ -19,8 +20,8 @@ interface ProfileCardProps{
     dob:string | undefined,
     accountAge: string | undefined,
     bio: string | undefined,
-    userFollowerNum:[] | undefined,
-    userFollowingNum:[] | undefined
+    userFollowerNum:[]
+    userFollowingNum:[]
 }
 
 interface RecipeCard{
@@ -80,7 +81,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const iconStyle = {
         margin:'0px',
@@ -88,7 +89,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         border:'none',
         color:'#f8f5f2',
         fontSize:'1.5rem'
-    }
+    };
 
     const renderDifficultyIcon = function(levelNum:number){
         let icons:JSX.Element[] = []
@@ -97,7 +98,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
             icons.push(<DifficultyIcon style={iconStyle} key={i}/>)
         }
         return icons
-    }
+    };
 
     const navigate = useNavigate()
 
@@ -113,8 +114,9 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
+    // Printing data 
     const printUsersRecipes = function(recipeArray: RecipeCard[]) {
         
         if (!recipeArray.length) {
@@ -141,9 +143,23 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                 ))}
             </div>
         );
-     };
+    };
+    const printFollowings = function(followingArray: string[]){
+        if(followingArray?.length <= 0){
+            return <p>0</p>
+        }else{
+            return <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : <p className="pending-msg">Loading...</p>}</h4>
+        }
+    };
+    const printFollowers = function(followerArray: string[]){
+        if(followerArray?.length <= 0){
+            return <p>0</p>
+        }
+        else{
+            return <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4> 
+        }
+    };
 
-    
     useEffect(()=>{
         getUsersRecipes()
         console.log("Followers: ",userFollowerNum)
@@ -153,7 +169,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         backgroundColor:'transparent',
         position:'relative',
         transform:'scale(1.1)'
-    } 
+    };
 
     return (
         
@@ -163,30 +179,32 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                     <img src={profilePicture} alt="" />
                 </div>
                 <div className="info">
-                    <h2 className="username">{userName ?  userName : <p className="pending-msg">Loading</p>}</h2>
-                    <h3 className="cooking-skill">{cookingSkill ? cookingSkill : <p className="pending-msg">Loading...</p>  }</h3>                    
-                    <h3 className="cooking-style">{cookingStyle ? cookingStyle : <p className="pending-msg">Loading...</p>  }</h3>
-                    <h3 className="country">{userCountry ? userCountry : <p className="pending-msg">Loading...</p>}</h3>
-                    <h3 className="dob">{dob ? dob : <p className="pending-msg">Loading...</p>}</h3>
+                    <h2 className="username">{userName ?  userName : <PendingMessage/>}</h2>
+                    <h3 className="cooking-skill">{cookingSkill ? cookingSkill : <PendingMessage/>  }</h3>                    
+                    <h3 className="cooking-style">{cookingStyle ? cookingStyle : <PendingMessage/>  }</h3>
+                    <h3 className="country">{userCountry ? userCountry : <PendingMessage/>}</h3>
+                    <h3 className="dob">{dob ? dob : <PendingMessage/>}</h3>
                     
                 </div>
                 <div className="follow-data">
-                    <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : <p className="pending-msg">Loading...</p>}</h4>
-                    <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4> 
+                    {/* <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : <p className="pending-msg">Loading...</p>}</h4> */}
+                    {printFollowings(userFollowingNum)}
+                    {printFollowers(userFollowerNum)}
+                    {/* <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4>  */}
                 </div>
                 {userID && <FollowUserButton followClass="follow-btn" personToFollow={userID}/>}
                 {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
             </div>
             <div className="right">
                 <div style={{overflow:'auto'}} className="bio" >
-                    <h3 style={{fontWeight:'500'}}>{userName ? userName+ `'s bio` : <p>Loading</p>}</h3>
+                    <h3 style={{fontWeight:'500'}}>{userName ? userName+ `'s bio` : <PendingMessage/>}</h3>
                     <hr />
-                    <p>{bio ? bio : <p>Loading...</p>}</p>
+                    <p>{bio ? bio : <PendingMessage/>}</p>
                 </div>
                 <div className="recipes">   
                     <h3 style={{fontWeight:'500'}}>{userName}'s posted recipes({usersRecipes.length})</h3>
                     <hr />
-                    {recipePending ? <p>Loading...</p> : printUsersRecipes(usersRecipes)}
+                    {recipePending ? <PendingMessage/>: printUsersRecipes(usersRecipes)}
   
                     
                 </div>

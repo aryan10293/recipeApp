@@ -5,6 +5,7 @@ import RecipeCard from "../assets/RecipeCard";
 import TimeButton from "../assets/TimeButton";
 import DifficultyIcon from "../assets/DifficultyIcon";
 import UserContext from "../contexts/UserContext";
+import PendingMessage from "./PendingMessage";
 
 interface ProfileCardProps{
     userName:string | null,
@@ -243,11 +244,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         }
     }
 
-    const pendingMessage = function(){
-        return (
-            <p className="pending-msg">Loading data...</p>
-        )
-    }
+
     // Rendering the user profile view 
     const renderEditCard = function():JSX.Element{
         return(
@@ -256,11 +253,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <img src={profilePicture} alt="" />
                 </div>
                 <div className="info">
-                    <h2 className="username">{newUserName ? newUserName : pendingMessage()}</h2>
-                    <h3 className="cooking-skill">{newSkillLevel ? newSkillLevel : pendingMessage()} </h3>           
-                    <h3 className="cooking-style">{newCookingStyle ? newCookingStyle : pendingMessage()}</h3>
-                    <h3 className="country">{newCountry ? newCountry : pendingMessage()}</h3>
-                    <h3 className="dob">{newDob ? newDob : pendingMessage()}</h3>
+                    <h2 className="username">{newUserName ? newUserName : <PendingMessage/>}</h2>
+                    <h3 className="cooking-skill">{newSkillLevel ? newSkillLevel : <PendingMessage/>} </h3>           
+                    <h3 className="cooking-style">{newCookingStyle ? newCookingStyle : <PendingMessage/>}</h3>
+                    <h3 className="country">{newCountry ? newCountry : <PendingMessage/>}</h3>
+                    <h3 className="dob">{newDob ? newDob : <PendingMessage/>}</h3>
                 </div>
                 <div className="follow-data">
                     <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowers?.length ? userFollowers?.length : <p className="pending-msg">Loading...</p>}</h4>

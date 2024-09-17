@@ -1,6 +1,7 @@
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PendingMessage from "./PendingMessage";
 
 interface UserNameButtonProps{
     postsId:string,
@@ -14,11 +15,12 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
     const navigate = useNavigate()
     const [posterUsername,setPosterUsername] = useState<string>()
     const [posterId,setPosterId] = useState<string>()
-    const [pending,setPending] = useState<boolean>()
+    const [pending,setPending] = useState<boolean>(true)
 
     // Getting the username from commentor ID
     const findCommentOwner = async function(id:string){
         try {
+            setPending(true)
             const response = await fetch(`http://localhost:2030/getuserbyid/${id}`)
             const user = await response.json()
             if(!response.ok){
@@ -32,14 +34,17 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
             // console.log('Username is: ',userName)
             setPosterId(id)
             setPosterUsername(userName)
+            setPending(false)
         } catch (error) {
             console.log('Error while fetching the user/username',error)
+            setPending(false)
         }
     }
 
     // Finding the recipe owner if no commentorId is present
     const findRecipeOwner = async function(){
         try {
+            setPending(true)
             const response = await fetch(`http://localhost:2030/getpost/${postsId}`)
             if(!response.ok){
                 throw new Error('Failed to fetch user data')
@@ -64,9 +69,10 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
             const recipeOwnerUsername = recipeOwnerData.user[0].userName
 
             setPosterUsername(recipeOwnerUsername)
-            
+            setPending(false)
         } catch (error) {
             console.log(error)
+            setPending(false)
         }
     }
 
@@ -76,14 +82,13 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
             setPending(true)
             if(commentorId){
                 await findCommentOwner(commentorId)
-                setPending(false)
             }
             else{
                 findRecipeOwner()
-                setPending(false)
             }
         } catch (error) {
             console.log(error)
+            setPending(false)
         }
     }
 
@@ -100,15 +105,10 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
         }
     }
 
-    
-
-
-
     return ( 
            < button className={className} style={{fontSize:'1rem'}} onClick={(e)=>handleClick(e)}>
-                {pending ? <p className="pending-msg">Loading..</p> : posterUsername}
+                {pending ? <PendingMessage/> : posterUsername}
             </button>
-        
      );
 }
  

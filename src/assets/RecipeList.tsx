@@ -51,55 +51,62 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
     useEffect(()=>{
         setFollowedArray()
         
-    },[showAllPosts])
-
-
-    
+    },[showAllPosts,recipeNumber])
+ 
     //Creating user's followed users recipe array
     const [renderedFollowedArray,setRenderedFollowedArray] = useState<Recipe[]>()
 
-    const setFollowedArray = function() {
-        let array: Recipe[] = recipes?.post || [];
-        console.log('Followings:', followings);
+    const setFollowedArray = async function() {
+        try {
+            let array: Recipe[] = recipes?.post || [];
+            console.log('Followings:', followings);
+        
+            const arr = array.filter((recipe: Recipe) => {
+                const id:string = recipe.userWhoPostId
+                const isFollowed = followings?.includes(id); 
+                console.log('Is Followed:', isFollowed);
+                return isFollowed;
+            });
     
-        const arr = array.filter((recipe: Recipe) => {
-            const isFollowed = followings?.includes(recipe.userWhoPostId); // Directly check if the recipe user ID is in the followings array
-            console.log('Is Followed:', isFollowed);
-            return isFollowed;
-        });
-
-        if(arr){
-            const arrLength = arr.length
-            if(arr.length-arrLength<=0){
-                let array:Recipe[] = arr.slice(0,arrLength)
-                setRenderedFollowedArray(array)
+            if(arr){
+                console.log(arr.length);
+                console.log(recipeNumber);
+                
+                if(arr?.length-recipeNumber<=0){
+                    let array:Recipe[] = arr.slice(0,arr?.length)
+                    setRenderedFollowedArray(array)
+                }
+                else{
+                    let array:Recipe[] = arr?.slice(arr?.length-recipeNumber,arr?.length)
+                    console.log(array);
+                    
+                    setRenderedFollowedArray(array)
+                }
             }
-            else{
-                let array:Recipe[] = arr.slice(arrLength-recipeNumber,arrLength)
-                setRenderedFollowedArray(array)
-            }
+        } catch (error) {
+            console.log(error)
         }
-        const arrNumbered = arr.slice()
-    
-        ;
     }
     
-
     // Setting the first recipes' array to be rendered
     const [renderedArray,setRenderedArray] = useState<Recipe[]>()
 
     const setArray = async function(){
-        if(recipes?.post){
-            const recipesLength = await recipes?.post.length
-        if(recipesLength - recipeNumber<=0){
-            let array:Recipe[] = await recipes?.post.slice(0,recipesLength)
-            setRenderedArray(array)
+        try {
+            if(recipes?.post){
+                const recipesLength = await recipes?.post.length
+            if(recipesLength - recipeNumber<=0){
+                let array:Recipe[] = await recipes?.post.slice(0,recipesLength)
+                setRenderedArray(array)
+            }
+            else{
+                let array:Recipe[] = await recipes?.post.slice(recipesLength-recipeNumber,recipesLength)
+                setRenderedArray(array)
+            }  
+            }  
+        } catch (error) {
+            console.log(error)
         }
-        else{
-            let array:Recipe[] = await recipes?.post.slice(recipesLength-recipeNumber,recipesLength)
-            setRenderedArray(array)
-        }  
-        }   
       }
 
       useEffect(()=>{
@@ -169,9 +176,17 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                 )
         }
 
+        const decider = function(){
+            if(showAllPosts){
+               return  renderedArray ? renderAllPosts() : <p>Loading...</p>
+            }
+            else{
+               return renderedFollowedArray ? renderFollowedPosts() : <p>Loading...</p>
+            }
+        }
 
     return ( 
-        showAllPosts ? renderAllPosts() : renderFollowedPosts()
+        decider()
      );
 }
  

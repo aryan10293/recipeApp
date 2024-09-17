@@ -38,35 +38,6 @@ const CommentList:React.FC<CommentsProps> = ({
     userID
 }) => {
 
-    // const [currentUserName,setCurrentUserName] = useState<string>("")
-
-    // const getUserById = async function(id:string){
-    //     try {
-    //         const response = await fetch(`http://localhost:2030/getuserbyid/${id}`)
-    //         const user = await response.json()
-    //         if(!response.ok){
-    //             throw new Error('Response is not okay. Could not fetch user.')
-    //         }
-    //         const userName = await user.user[0].userName
-           
-    //         if(!userName){
-    //             throw new Error('userName could not be destructed')
-    //         }
-    //         // console.log('Username is: ',userName)
-
-    //         setCurrentUserName(userName)
-    //     } catch (error) {
-    //         console.log('Error while fetching the user/username',error)
-    //     }
-    // }
-
-    // useEffect(()=>{
-    //     if(commentorId){
-    //         getUserById(commentorId)
-            
-    //     }
-    // },[commentorId])
-
     const formatTime = function(){
         const timeCode =  parseInt(timeOfPost)
         const date = new Date(timeCode)
@@ -78,13 +49,11 @@ const CommentList:React.FC<CommentsProps> = ({
         <div className={classs}>
 
             <div className={classs3}>
-                {/* <h4 className="comment-username">{commentorId && currentUserName}</h4>     */}
                 <UserNameProfileButton className="comment-username" commentorId={commentorId}  postsId={postId}/>
                 <h4 className="comment-content">{comment && comment}</h4>
 
                 <div className="comment-interactions">
                 <LikeCommentButton userId={userID} likeLength={likes.length} postIndex={postIndex} commentId={commentId} postId={postId}/>
-                {/* <h4 className="comment-like-number">{likes.length}</h4> */}
                 <h4 className="comment-time">{formatTime()}</h4>  
 
                 </div>

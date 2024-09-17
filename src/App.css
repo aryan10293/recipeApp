@@ -30,7 +30,6 @@ button{
     border-radius: 5px;
 }
 .pending-msg{
-    font-size: 0.8rem;
     font-weight: 300;
     font-style: italic;
     position: relative;

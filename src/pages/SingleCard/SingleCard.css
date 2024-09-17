@@ -53,7 +53,9 @@
 .single-card .left-side .left-top img{
     margin: 0 ;
     padding: 0;
-    object-fit:contain;  
+    height: 100%;
+    width: 100%;
+    object-fit:cover;  
     border-radius: 10px;  
     border: 3px solid #f8f5f2 ;
 }

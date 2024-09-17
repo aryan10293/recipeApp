@@ -136,7 +136,7 @@ const Feed:React.FC = () => {
                 <div className="post-toggle-box">
                     <p style={textStyle}>{showAllPosts ?  'Show My Feed' : 'Show All Posts'}</p>
                     <button className="all-post-toggle" style={buttonStyle} onClick={handleViewToggleClick}></button>
-                </div>
+                </div> 
                 {ID && <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> ? <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> : <p className="pending-msg">Loading...</p>} 
                 <button className="more-recipe-btn" onClick={handleRecipeNumberButton}>More</button>
             </div>
