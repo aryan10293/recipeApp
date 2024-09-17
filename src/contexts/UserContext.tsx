@@ -22,7 +22,7 @@ export const UserProvider = ({children}) =>{
                 } 
                 const data = await response.json()
                 setUser(data.userinfo[0]._id)
-                console.log(data.userinfo[0]._id);
+                console.log('Logged In User ID: ',data.userinfo[0]._id);
                 
             } catch (error) {
                 console.error('Error with fetching the user/token',error);

@@ -235,8 +235,10 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
                     {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
                     <BookmarkButton userId={userID} postId={_id}/>
-                    {<UserNameProfileButton className="username-btn" postsId={_id}/>}
-                    <FollowUserButton personToFollow={userWhoPostId}/>
+                    <div className="name-n-follow-box">
+                        {<UserNameProfileButton className="username-btn" postsId={_id}/>}
+                        <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
+                    </div>
                     {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
                 </div>
                 

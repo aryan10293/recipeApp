@@ -80,6 +80,12 @@
 .follow-data h4{
     color: black;
 }
+.follow-btn{
+    transform: scale(1.2);
+}
+.follow-btn:hover{
+    transform: scale(1.3);
+}
 .profile-card .right{
     width: 60%;
     height: 900px;

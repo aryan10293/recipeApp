@@ -160,9 +160,24 @@
     font-size: 1.2rem;
     margin: 0 10px 0 2px;
 }
-.single-card .interaction-box .username-btn{
+.single-card .name-n-follow-box{
     position: relative;
-    left: 540px;
+    margin: 0 0 0 480px;
+}
+.single-card-box .recipe-card:hover{
+    cursor:cell ;
+}
+.single-card .card-follow-btn{
+    position: relative;
+    left: 0;
+    transform: scale(0.8);
+    padding: 5px;
+}
+.single-card .card-follow-btn svg{
+    font-size: 1.2rem;
+}
+.single-card .card-follow-btn:hover{
+    transform: scale(0.9);
 }
 
 @keyframes appear{

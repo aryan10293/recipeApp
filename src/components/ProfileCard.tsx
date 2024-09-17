@@ -58,6 +58,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
 
     const [usersRecipes,setUsersRecipes] = useState<RecipeCard[]>([])
     const [recipePending,isRecipePending] = useState<boolean>()
+
     const getUsersRecipes = async function(){
         try {
             isRecipePending(true)
@@ -100,6 +101,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
 
     const navigate = useNavigate()
 
+    // Navigating to recipe 
     const handleClick = async function(id:string){
         try {
             const response = await fetch(`http://localhost:2030/getpost/${id}`)
@@ -110,7 +112,6 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
             navigate('/recipe',{state:{recipe:recipe}})
         } catch (error) {
             console.log(error);
-            
         }
     }
 
@@ -148,6 +149,12 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         console.log("Followers: ",userFollowerNum)
     },[])
 
+    const followUserButtonStyle:React.CSSProperties = {
+        backgroundColor:'transparent',
+        position:'relative',
+        transform:'scale(1.1)'
+    } 
+
     return (
         
         <div className="profile-card">
@@ -165,10 +172,9 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                 </div>
                 <div className="follow-data">
                     <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : <p className="pending-msg">Loading...</p>}</h4>
-                    <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4>
-                    {userID && <FollowUserButton personToFollow={userID}/>}
+                    <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4> 
                 </div>
-                
+                {userID && <FollowUserButton followClass="follow-btn" personToFollow={userID}/>}
                 {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
             </div>
             <div className="right">

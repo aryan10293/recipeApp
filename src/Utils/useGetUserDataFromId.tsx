@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const useGetUserDataFromId = (id:string) => {
+const useGetUserDataFromId = (id:string | null) => {
     
     const [userId,setUserId] = useState<string | null>(null)
     const [userUsername,setUserUsername] = useState<string | null>(null)
@@ -64,7 +64,7 @@ const useGetUserDataFromId = (id:string) => {
                 setUserFollowerNum(followerNum)
                 setUserFollowingNum(followingNum)
 
-                console.log(followerNum,followingNum);
+                // console.log(followerNum,followingNum);
                 
 
             } catch (error) {

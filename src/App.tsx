@@ -23,6 +23,7 @@ import SingleCard from './pages/SingleCard/SingleCard';
 import ProfilePage from './pages/Profile/ProfilePage'
 import EditProfile from './pages/EditProfilePage/EditProfile'
 import PrivateRoute from './Routes/PrivateRoute'
+import ScrollToTop from './Utils/ScrollToTop'
 function App() {
 
 
@@ -30,6 +31,7 @@ function App() {
     
       <>
       <UserProvider>
+        <ScrollToTop/>
         <Routes>       
           {/* public routes */}
           <Route path="/login" element={<Login />} />

@@ -18,7 +18,9 @@ interface ProfileCardProps{
     cookingStyle:string | undefined,
     dob:string | undefined,
     accountAge: string | undefined
-    bio:string | undefined
+    bio:string | undefined,
+    userFollowings: string[] | undefined,
+    userFollowers : string[] | undefined
 }
 
 interface RecipeCard{
@@ -33,7 +35,8 @@ interface RecipeCard{
     _id:string,
     levelOfMeal:number,
     postIndex:number
-    bio:string
+    bio:string,
+
 }
 
 const EditProfileCard:React.FC<ProfileCardProps> = ({
@@ -48,7 +51,10 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
     cookingStyle,
     accountAge,
     dob,
-    bio
+    bio,
+    userFollowings,
+    userFollowers
+    
 
 }) => {
 
@@ -257,8 +263,8 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <h3 className="dob">{newDob ? newDob : pendingMessage()}</h3>
                 </div>
                 <div className="follow-data">
-                    <h4 style={{fontWeight:'400'}} className="following">Followers: 20</h4>
-                    <h4 style={{fontWeight:'400'}} className="followers">Following: 45</h4>
+                    <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowers?.length ? userFollowers?.length : <p className="pending-msg">Loading...</p>}</h4>
+                    <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowings?.length ? userFollowings?.length : <p className="pending-msg">Loading...</p>}</h4> 
                 </div>
                 <button onClick={setIsEditClick}>Edit Info</button>
                 {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}

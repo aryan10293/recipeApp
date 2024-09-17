@@ -187,6 +187,6 @@ let feed = {
             console.log('error deleting item', error)
         }
     }
-
+    
 }
 export default feed

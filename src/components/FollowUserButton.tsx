@@ -4,15 +4,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../contexts/UserContext';
 
 interface followUserButtonProps{
-    personToFollow: string 
+    personToFollow: string,
+    followClass?:string
 }
 
-const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow}) => {
+const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,followClass}) => {
 
     const followUserButtonStyle:React.CSSProperties = {
         backgroundColor:'transparent',
         position:'relative',
-        left:'260px'
+        transform:'scale(1.1)'
     } 
 
     const [pending,setPending] = useState<boolean>()
@@ -119,18 +120,17 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow}) => {
             await followUser()
             setIsFollowed(true)
             // console.log("Following User");
-
         }
     }
 
     const renderIcon = function(){
         return (
-            isFollowed ?  <FontAwesomeIcon icon={faPersonWalkingArrowLoopLeft}></FontAwesomeIcon> : <FontAwesomeIcon icon={faPersonWalking}></FontAwesomeIcon>
+            isFollowed ?  <><FontAwesomeIcon style={followUserButtonStyle} icon={faPersonWalkingArrowLoopLeft}></FontAwesomeIcon> <p style={{margin:0,fontSize:'0.6rem',textTransform:'uppercase',color:'white',fontWeight:'500'}}>Unfollow</p></> : <><FontAwesomeIcon style={followUserButtonStyle} icon={faPersonWalking}></FontAwesomeIcon><p style={{margin:0,fontSize:'0.5rem',textTransform:'uppercase',color:'white',fontWeight:'500'}}>Follow</p></> 
         )
     } 
 
     return ( 
-        <button style={followUserButtonStyle} onClick={(e)=>handleClick(e)}>
+        <button className={followClass} onClick={(e)=>handleClick(e)}>
             {/* {pending ? <p>Loading</p> : <FontAwesomeIcon icon={faPersonWalking}></FontAwesomeIcon>} */}
             {pending ? <p className='pending-msg'>Loading...</p> : renderIcon()}
         </button>
