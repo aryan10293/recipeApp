@@ -6,22 +6,28 @@ interface UserId{
  const MessgagesDisplay: React.FC<UserId> = ({userId}) =>  {
     const { id } = useParams();
     const [roomId, setRoomId] = useState<string | string[]>(``)
+    const [messageToSend, setMessageToSend] = useState<string>('')
     const [messageHistory, setMessageHistory] = useState<any>([])
-    // if(id !== undefined){
-    //   setRoomId(`${userId.slice(-4)}${id.slice(-4)}`) 
-    // }
    
+    const getMessageHistory = async () => {
+        const getMessages = await fetch(`http://localhost:2030/getchatroommessages/${roomId}`, {
+          method:'GET',
+          headers: {'Content-Type': 'application/json'},
+        })
+
+        const messageHistory = await getMessages.json()
+        
+        setMessageHistory(messageHistory.messages)
+      }
+
     useEffect(() => {
       const ws = new WebSocket('ws://localhost:2040');
-    // Create a new WebSocket connection
-    if(id !== undefined){
-      setRoomId(`${userId.slice(-4)}${id.slice(-4)}`.split('').sort().join(''))
-    }
+      if(id !== undefined){
+        setRoomId(`${userId.slice(-4)}${id.slice(-4)}`.split('').sort().join(''))
+      }
 
-    // Handle the 'open' event 
-       ws.onopen = () => {
-        console.log('Connected to WebSocket server');
-        console.log('roomId:', roomId)
+  
+       ws.onopen = (event) => {
         ws.send(JSON.stringify({
           content: `user ${userId} joined the chat room ${roomId}`,
           chatRoomId: roomId,
@@ -30,8 +36,8 @@ interface UserId{
         }));
       }; 
     ws.onmessage = (event) => {
-      console.log(event)
       console.log(`Message from server: ${event.data}`);
+      getMessageHistory()
     };
 
     ws.onclose = () => {
@@ -42,29 +48,64 @@ interface UserId{
       console.error('WebSocket error:', error);
     };
 
+      getMessageHistory()
+
 }, [id, userId, roomId])
 const sendMessage = async () => {
-  alert('w jfhbkr')
 const ws = new WebSocket('ws://localhost:2040');
-  ws.onopen = () => {
-    const message = {
-      message:'hey does this work',
-      to:'lebron',
-      from:'james'
-    }
-    ws.send(JSON.stringify(message))
+console.log(ws)
+  ws.onopen = async () => {
+      const message = {
+        type:'message',
+        message:messageToSend,
+        senderId:userId,
+        recieverId:id,
+        chatRoomId: roomId,
+      }
+
+      const sendMessagetoDatabase = await fetch(`http://localhost:2030/createmessage`,{
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(message)
+      })
+
+      const messageFromDatabase = await sendMessagetoDatabase.json()
+
+      if(messageFromDatabase.status === '200'){
+        ws.send(JSON.stringify(message))
+        // below i might be able to add the recently sent message to the
+        getMessageHistory() 
+      } else {
+        console.log(messageFromDatabase.message)
+      }
+
     };
+
   ws.onmessage = (event) => {
-      console.log(event)
-      console.log(`Message from server: ${event.data}`);
+      console.log(`Message from server:`, event.data);
     };
 }
 
   return (
     <div style={{color:'black'}}>
         {id === undefined ? 'open a message to the left' : `${userId} and ${id}`}
-
+        <textarea  onChange={(e:any) => setMessageToSend(e.target.value)} />
         <button onClick={sendMessage}>send message</button>
+
+        <div>
+          this is where message will go
+          <ul>
+              {
+                messageHistory.map((x:any) => {
+                 return  x.senderId === id ?  (
+                      <li>this message will be on the left side {x.message}</li>
+                  ) :  (
+                     <li>this message will be on the right side {x.message}</li>
+                  )
+                })
+              }
+          </ul>
+        </div>
     </div>
   ) 
 }

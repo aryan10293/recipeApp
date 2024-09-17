@@ -71,26 +71,18 @@ app.use(passport_1.default.session());
 app.use((0, express_flash_1.default)());
 app.use("/", main_1.default);
 const rooms = {};
-const broadcastMessage = (roomId, userId, message) => {
-    const clients = rooms[roomId][userId];
+const broadcastMessage = (roomId, message) => {
+    const clients = rooms[roomId];
     if (clients) {
-        clients.forEach(client => {
-            if (client.readyState === ws_1.default.OPEN) {
-                client.send(message);
+        for (let client in clients) {
+            if (clients[client].readyState === ws_1.default.OPEN) {
+                clients[client].send(message);
             }
-        });
+        }
     }
 };
 function isUserInRoom(roomId, userId) {
     return rooms[roomId] && rooms[roomId][userId] !== undefined;
-}
-function addUserToRoom(roomId, userId, ws) {
-    if (!rooms[roomId]) {
-        rooms[roomId] = {};
-    }
-    rooms[roomId][userId].push(ws);
-    ;
-    broadcastMessage(roomId, userId, `${userId} joined the room.`);
 }
 wss.on('connection', (ws) => {
     let roomId = '';
@@ -102,13 +94,14 @@ wss.on('connection', (ws) => {
             if (!rooms[roomId]) {
                 rooms[roomId] = {};
             }
-            if (isUserInRoom(roomId, parsedMessage.userId)) {
-                console.log('preventing user from joining rooom again works');
-                return;
-            }
             rooms[roomId][parsedMessage.userId] = ws;
             console.log(Object.keys(rooms[roomId]).length);
-            broadcastMessage(roomId, parsedMessage, `${parsedMessage.userId} joined the room.`);
+            broadcastMessage(roomId, `${parsedMessage.userId} joined the room.`);
+        }
+        if (parsedMessage.type === 'message') {
+            roomId = parsedMessage.chatRoomId;
+            console.log(parsedMessage);
+            broadcastMessage(roomId, parsedMessage.message);
         }
     });
     ws.on('close', () => {

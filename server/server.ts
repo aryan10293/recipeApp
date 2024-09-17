@@ -61,28 +61,21 @@ type Room = any
 const rooms: { [key: string]: { [userId: string]: Room } } = {}
 
 
-const broadcastMessage = (roomId: string,userId:string, message: string) => {
-  const clients = rooms[roomId][userId];
-  if (clients) {
-    clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(message); 
+const broadcastMessage = (roomId: string, message: string) => {
+  const clients = rooms[roomId];
+  if(clients){
+    for(let client in clients){
+      if(clients[client].readyState === WebSocket.OPEN){
+        clients[client].send(message)
       }
-    });
+    }
   }
 }
 
-function isUserInRoom(roomId: string, userId: string): boolean {
+function isUserInRoom  (roomId: string, userId: string): boolean {
   return rooms[roomId] && rooms[roomId][userId] !== undefined;
 }
 
-function addUserToRoom(roomId: string, userId: string, ws: WebSocket) {
-  if (!rooms[roomId]) {
-    rooms[roomId] = {};
-  }
-  rooms[roomId][userId].push(ws); ;
-  broadcastMessage(roomId,userId, `${userId} joined the room.`);
-}
 
 wss.on('connection', (ws) => {
   let roomId: string  = ''
@@ -91,7 +84,6 @@ wss.on('connection', (ws) => {
   ws.on('message', (message:string) => {
     const messageString = message.toString();
     const parsedMessage = JSON.parse(messageString)
-
     if(parsedMessage.type === 'join' && parsedMessage.chatRoomId.length === 8){
 
       roomId = parsedMessage.chatRoomId
@@ -100,17 +92,22 @@ wss.on('connection', (ws) => {
         rooms[roomId] = {};
       }
 
-      if (isUserInRoom(roomId, parsedMessage.userId)) {
-        console.log('preventing user from joining rooom again works')
-        return;
-      }
+      // if (isUserInRoom(roomId, parsedMessage.userId)) {
+      //   console.log('preventing user from joining rooom again works')
+      //   return;
+      // }
       
       rooms[roomId][parsedMessage.userId] = ws;
       console.log(Object.keys(rooms[roomId]).length)
-      broadcastMessage(roomId,parsedMessage, `${parsedMessage.userId} joined the room.`);
+
+      broadcastMessage(roomId, `${parsedMessage.userId} joined the room.`);
     }
 
-    //ws.send(`Server received your message: ${parsedMessage.message}`);
+    if(parsedMessage.type === 'message'){
+      roomId = parsedMessage.chatRoomId
+      broadcastMessage(roomId, parsedMessage.message)
+    }
+
   });
 
   ws.on('close', () => {
