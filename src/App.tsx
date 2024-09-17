@@ -8,14 +8,10 @@ import './assets/CreateRecipe.css'
 import '../src/pages/SingleCard/SingleCard.css'
 import '../src/components/CommentBox.css'
 import '../src/components/ProfileCard.css'
-
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
-// import Home from './pages/home/Home';
 import Feed from './pages/feed/Feed';
-
 import UserContext, { UserProvider } from './contexts/UserContext'
-
 import { Routes, Route, Navigate , Router, BrowserRouter} from 'react-router-dom'
 import Messages from './pages/Messages/Messages';
 import SavedRecipes from './pages/SavedRecipes/SavedRecipes';
@@ -24,6 +20,7 @@ import ProfilePage from './pages/Profile/ProfilePage'
 import EditProfile from './pages/EditProfilePage/EditProfile'
 import PrivateRoute from './Routes/PrivateRoute'
 import ScrollToTop from './Utils/ScrollToTop'
+import Profile from './pages/Profile/Profile'
 function App() {
   const [userId, setUserId] = React.useState<string>('')
   const [userInfo, setUserInfo] = React.useState<any[]>([])
@@ -40,10 +37,6 @@ function App() {
           getUser()
       }, [])
   return (
-    <>
-
-
-  return (   
     
       <>
       <UserProvider>
@@ -64,6 +57,7 @@ function App() {
         <Route path="/profile" element={<Profile user={userInfo} />} />
         <Route path="/recipe" element={<SingleCard />} />
       </Routes>
+      </UserProvider>
     </>
   );
 }

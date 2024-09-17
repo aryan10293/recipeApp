@@ -2,14 +2,11 @@ import { useEffect } from "react";
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
 import MessageAsideBar from "./MessageAsideBar";
+import { useNavigate } from "react-router-dom";
 interface UserId{
     userId:string
 }
  const Messages: React.FC<UserId> = ({userId})  => {
-import { useNavigate } from "react-router-dom";
-
-
-const Messages = () => {
 
     const navigate = useNavigate()
 
