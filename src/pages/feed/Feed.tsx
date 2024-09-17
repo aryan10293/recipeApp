@@ -101,7 +101,7 @@ const Feed:React.FC = () => {
 
 
 
-    const handleViewToggleClick = function(){
+    const handleViewTogglelick = function(){
         if(showAllPosts){
             setShowAllPosts(false)
             setButtonStyle(buttonStyle2)
@@ -115,7 +115,7 @@ const Feed:React.FC = () => {
         setRecipeNum(5)   
     }
 
-    return ( 
+    return (
      
         // <div className="feed">       
         //     <Navbar/>
