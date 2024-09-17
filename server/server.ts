@@ -72,9 +72,6 @@ const broadcastMessage = (roomId: string, message: string) => {
   }
 }
 
-function isUserInRoom  (roomId: string, userId: string): boolean {
-  return rooms[roomId] && rooms[roomId][userId] !== undefined;
-}
 
 
 wss.on('connection', (ws) => {
@@ -92,10 +89,6 @@ wss.on('connection', (ws) => {
         rooms[roomId] = {};
       }
 
-      // if (isUserInRoom(roomId, parsedMessage.userId)) {
-      //   console.log('preventing user from joining rooom again works')
-      //   return;
-      // }
       
       rooms[roomId][parsedMessage.userId] = ws;
       console.log(Object.keys(rooms[roomId]).length)

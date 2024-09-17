@@ -73,7 +73,6 @@ console.log(ws)
 
       if(messageFromDatabase.status === '200'){
         ws.send(JSON.stringify(message))
-        // below i might be able to add the recently sent message to the
         getMessageHistory() 
       } else {
         console.log(messageFromDatabase.message)
@@ -82,6 +81,7 @@ console.log(ws)
     };
 
   ws.onmessage = (event) => {
+    // i dont think this does anything
       console.log(`Message from server:`, event.data);
     };
 }
@@ -111,15 +111,3 @@ console.log(ws)
 }
 
 export default MessgagesDisplay
-
-// const addToMessages = async(e:any) => {
-//         try {
-//              await fetch(`https://lockerroom2-0.onrender.com/addtomessages/${id}`, {
-//             method: 'PUT',
-//             headers: {'Content-Type': 'application/json'},
-//             body: JSON.stringify({id: user?._id, userName: user?.userName, messagingName: profile?.userName,roomId: messagingId+userMessagingId})
-//             });
-//         } catch (error) {
-//             console.error(error)
-//         }
-//     }
