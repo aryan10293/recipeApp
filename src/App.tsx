@@ -25,6 +25,22 @@ import EditProfile from './pages/EditProfilePage/EditProfile'
 import PrivateRoute from './Routes/PrivateRoute'
 import ScrollToTop from './Utils/ScrollToTop'
 function App() {
+  const [userId, setUserId] = React.useState<string>('')
+  const [userInfo, setUserInfo] = React.useState<any[]>([])
+  React.useEffect(() => {
+          const getUser = async() => {
+              const checkUser = await fetch(`http://localhost:2030/getuser/${localStorage.getItem('token')}`, {
+                  method:'GET',
+                  headers: {'Content-Type': 'application/json'}
+              })
+              const userData = await checkUser.json()
+              setUserId(userData.userinfo[0]._id)
+              setUserInfo(userData.userinfo)
+          }
+          getUser()
+      }, [])
+  return (
+    <>
 
 
   return (   
@@ -36,24 +52,19 @@ function App() {
           {/* public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/"element={<Login />  } /> 
-        
-        
-        
-          
-          {/* private routes */}
-          <Route path="/savedrecipes"element={<PrivateRoute><SavedRecipes /></PrivateRoute>  } />
-          <Route path='/home' element={<PrivateRoute><Feed /></PrivateRoute>} />
-          <Route path='/feed' element={<PrivateRoute><Feed /></PrivateRoute>} />
-          <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><ProfilePage/></PrivateRoute>} />
-          <Route path='/userprofile' element={<PrivateRoute><EditProfile/></PrivateRoute>} />
-          <Route path="/recipe" element={<PrivateRoute><SingleCard /></PrivateRoute>} />
-          
-        </Routes>
-        </UserProvider>
-        </>
-    
+          <Route path="/"element={<Login />  } />
+        <Route path="/"element={<Login />  } />
+        <Route path="/savedrecipes"element={<SavedRecipes />  } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path='/home' element={<Feed />} />
+        <Route path='/feed' element={<Feed />} />
+        <Route path="/messages" element={<Messages userId={userId}/>} />
+        <Route path="/messages/:id" element={<Messages userId={userId}/>} />
+        <Route path="/profile" element={<Profile user={userInfo} />} />
+        <Route path="/recipe" element={<SingleCard />} />
+      </Routes>
+    </>
   );
 }
 

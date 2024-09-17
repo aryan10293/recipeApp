@@ -7,6 +7,7 @@ interface UserId{
 
 
 const Profile:React.FC<UserId> = ({user}) => {
+    console.log(user)
     const [userId, setUserId] =  useState<string>(user[0]._id)
     const [bio, setBio] = useState<string>(user[0].bio)
     const [cookingStyle, setCookingStyle] = useState<string>(user[0].cookingStyle)
@@ -45,22 +46,28 @@ const Profile:React.FC<UserId> = ({user}) => {
         }
       });
     };
+    // add this function to the input element for the file as a onchange function
+    const handleProfilePic = async (e:any) => {
+        console.log(e.currentTarget.files[0])
+        const img:any = await convertBase64(e.currentTarget.files[0])
+        setProfilePic(img)
+    }
     const handleProfileChanges = async(e:any) => {
         e.preventDefault()
-        let img = e.currentTarget.childNodes[4].childNodes[1].files[0]
-        if(img == undefined){
-            setProfilePic(undefined)
-        } else {
-            img = await convertBase64(img)
-            setProfilePic(img)
-        }
+        // let img = e.currentTarget.childNodes[4].childNodes[1].files[0]
+        // if(img === undefined){
+        //     setProfilePic(undefined)
+        // } else {
+        //     img = await convertBase64(img)
+        //     setProfilePic(img)
+        // }
         const updatingProfile = await fetch(`http://localhost:2030/updateprofile/${userId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(profileUpdate)
         })
-        const lmao = await updatingProfile.json()
-         console.log(profileUpdate,lmao)
+         const lmao = await updatingProfile.json()
+         console.log(profileUpdate)
     }
     return ( 
         <div>
@@ -86,7 +93,7 @@ const Profile:React.FC<UserId> = ({user}) => {
                     </div>
                     <div>
                         <label htmlFor=""style={{ color: 'black' }}>Profile Picture</label>
-                         <input type="file" style={{ backgroundColor: 'white', outline: '2px solid black' }} />
+                         <input onChange={handleProfilePic} type="file" style={{ backgroundColor: 'white', outline: '2px solid black' }} />
                     </div>
                     <button>Save Chanes</button>
                 </form>

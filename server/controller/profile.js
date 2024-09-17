@@ -36,6 +36,9 @@ let profile = {
                 }
             }
             else {
+                const profilePic = yield (0, cloudinary_1.default)(req.body.profilePic);
+                console.log(req.body.profilePic);
+                console.log(req.body);
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
                         profilePic: req.body.profilePic,

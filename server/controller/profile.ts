@@ -3,6 +3,7 @@ import Post from "../model/post"
 import  Message  from "../model/messages";
 import  { Request, Response} from "express";
 import uploadImage from "../middleware/cloudinary";
+import { AnyError } from "mongodb";
 let profile = {
     updateProfile: async(req: Request, res: Response) => {
         try {
@@ -26,10 +27,14 @@ let profile = {
                     res.status(200).json({status:'200', message:'profile without image was updated'})
                 }
             } else {
+                const profilePic:any = await uploadImage(req.body.profilePic)
+                console.log(req.body.profilePic)
+                console.log(req.body)
                 const getUserAndUpdate = await User.findOneAndUpdate(
                     {_id: req.params.id}, 
                     { 
                         $set: { 
+
                             // profilePic: await uploadImage(req.body.profilePic), 
                             profilePic: req.body.profilePic, 
                             bio: req.body.bio,
