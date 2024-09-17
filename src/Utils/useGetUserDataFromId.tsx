@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const useUserId = () => {
+const useGetUserDataFromId = (id:string | null) => {
     
     const [userId,setUserId] = useState<string | null>(null)
     const [userUsername,setUserUsername] = useState<string | null>(null)
@@ -10,43 +10,43 @@ const useUserId = () => {
     const [userFirstName,setUserFirstName] = useState<string>()
     const [userLastName,setUserLastName] = useState<string>()
     const [userDob,setUserDob] = useState<string>()
-    const [userDateOfRegistry,setUserDateOfRegistry] = useState<string>()
+    const [userAccountAge,setUserAccountAge] = useState<string>()
     const [userEmail,setUserEmail] = useState<string>()
     const [userCountry,setUserCountry] = useState<string>()
-    const [userCookingStyle,setUserCookingStyle] = useState<string>()
+    const [userCookingStyle,setUserCookingStyle] = useState<string>() 
     const [userBio,setUserBio] = useState<string>("")
-
+    const [userFollowerNum,setUserFollowerNum] = useState<[]>()
+    const [userFollowingNum,setUserFollowingNum] = useState<[]>()
 
    
     useEffect(()=>{
         const getUserId = async function() {
 
             try {
-                const token = localStorage.getItem('token')
-                if(!token){
-                    throw new Error('Token is not found')
-                }
                 
-                const response = await fetch(`http://localhost:2030/getuser/${token}`)
+                const response = await fetch(`http://localhost:2030/getuserbyid/${id}`)
                 if(!response.ok){
                     throw new Error('Issue with fetchin user data')
                 }
-        
+                
                 const data = await response.json()
+                
 
-                const userID = data.userinfo[0]._id
-                const userName = data.userinfo[0].userName
-                const userPic = data.userinfo[0].profilePic
-                const userBookmarks = data.userinfo[0].savedRecipes
-                const userSkill = data.userinfo[0].skillLevel
-                const firstName = data.userinfo[0].firstName
-                const lastName = data.userinfo[0].lastName
-                const email = data.userinfo[0].email
-                const country = data.userinfo[0].country
-                const dob = data.userinfo[0].dob
-                const cookingStyle = data.userinfo[0].cookingStyle
-                const bio = data.userinfo[0].bio
-
+                const userID =  data.user[0]._id
+                const userName = data.user[0].userName
+                const userPic =  data.user[0].profilePic
+                const userBookmarks =  data.user[0].savedRecipes
+                const userSkill =  data.user[0].skillLevel
+                const firstName =  data.user[0].firstName
+                const lastName =  data.user[0].lastName
+                const email =  data.user[0].email
+                const country =  data.user[0].country
+                const dob =  data.user[0].dob
+                const accountAge =  data.user[0].accountAge
+                const cookingStyle =  data.user[0].cookingStyle
+                const bio =  data.user[0].bio
+                const followerNum = data.user[0].followers
+                const followingNum = data.user[0].followings
 
                 setUserUsername(userName)
                 setUserId(userID)
@@ -58,9 +58,14 @@ const useUserId = () => {
                 setUserEmail(email)
                 setUserCountry(country)
                 setUserDob(dob)
+                setUserAccountAge(accountAge)
                 setUserCookingStyle(cookingStyle)
                 setUserBio(bio)
+                setUserFollowerNum(followerNum)
+                setUserFollowingNum(followingNum)
 
+                // console.log(followerNum,followingNum);
+                
 
             } catch (error) {
                 console.log(error)   
@@ -68,7 +73,7 @@ const useUserId = () => {
         }
 
         getUserId()
-    },[])
+    },[id])
 
     return {
         userId,
@@ -80,11 +85,14 @@ const useUserId = () => {
         userCountry,
         userFirstName,
         userLastName,
+        userAccountAge,
         userDob,
         userCookingStyle,
-        userBio
-
+        userBio,
+        userFollowerNum,
+        userFollowingNum
+        
     }
 }
  
-export default useUserId;
+export default useGetUserDataFromId;

@@ -14,23 +14,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../model/user"));
 const post_1 = __importDefault(require("../model/post"));
-const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
 let profile = {
     updateProfile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             if (req.body.profilePic === undefined) {
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
-                        bio: req.body.bio, userName: req.body.userName,
+                        bio: req.body.bio,
+                        userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
-                        cooking: req.body.cookingStyle
+                        cooking: req.body.cookingStyle,
+                        dob: req.body.dob,
+                        country: req.body.country
                     }
                 });
                 if (!getUserAndUpdate) {
-                    res.status(400).json({ status: '400', message: 'profile was not updated' });
+                    res.status(400).json({ status: '400', message: 'profile without image was not updated' });
                 }
                 else {
-                    res.status(200).json({ status: '200', message: 'profile was updated' });
+                    res.status(200).json({ status: '200', message: 'profile without image was updated' });
                 }
             }
             else {
@@ -39,17 +41,20 @@ let profile = {
                 console.log(req.body);
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
-                        profilePic: profilePic,
-                        bio: req.body.bio, userName: req.body.userName,
+                        profilePic: req.body.profilePic,
+                        bio: req.body.bio,
+                        userName: req.body.userName,
                         skillLevel: req.body.skillLevel,
-                        cooking: req.body.cookingStyle
+                        cookingStyle: req.body.cookingStyle,
+                        dob: req.body.dob,
+                        country: req.body.country
                     }
                 });
                 if (!getUserAndUpdate) {
-                    res.status(400).json({ status: '400', message: 'profile was not updated' });
+                    res.status(400).json({ status: '400', message: 'profile with image was not updated' });
                 }
                 else {
-                    res.status(200).json({ status: '200', message: 'profile was updated' });
+                    res.status(200).json({ status: '200', message: 'profile with image was updated' });
                 }
             }
         }

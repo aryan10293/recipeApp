@@ -27,12 +27,12 @@
     z-index: 0;
 }
 .asd:nth-of-type(even){
-    animation: appearFromRight 0.2s ease-in forwards, appear3 0.2s ease-in forwards;
+    animation: appearFromRight 0.3s ease-in forwards, appear3 0.1s ease-in forwards,twister 0.2s ease-in forwards;
     transform: translateX(600px);
     opacity: 0;
 }
 .asd:nth-of-type(odd){
-    animation: appearFromLeft 0.2s ease-in forwards, appear3 0.2s ease-in forwards;
+    animation: appearFromLeft 0.3s ease-in forwards, appear3 0.1s ease-in forwards,twister 0.2s ease-in forwards;
     transform: translateX(-600px);
     opacity: 0;
 }
@@ -40,6 +40,7 @@
     cursor: pointer;
     background-color: #078080f2;
 }
+
 .recipe-card .left-side{
     display: flex;
     flex-direction: column;
@@ -121,6 +122,7 @@
     border-radius: 5px;
     border: 0;
     outline: 0;
+    /* width: 100px; */
 }
 .ingredient-button{
     border: none;
@@ -144,13 +146,14 @@
 .recipe-card .recipe-steps{
     font-size: 1rem;
     font-weight: 400;
+    white-space: pre-wrap;
 }
-.interaction-box{
+.right-bottom .interaction-box{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: row;
-    margin: 500px 0 0 0;
+    width: 100%;
 }
 .interaction-box svg{
     font-size: 1.6rem;
@@ -178,11 +181,62 @@
 .recipe-box-appear-btn:hover{
     background-color: #f45c48e7;
     cursor: pointer;
+} 
+.name-n-follow-box{
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    justify-content: space-around;
+    margin: 0 0 0 250px ;
 }
-.heydoesthiswork{
-    height: 75vh;
-    overflow: auto;
+.username-btn{
+    background-color: transparent;
+    border: none;
+    object-position:right;
+    display: flex;
+    justify-content: flex-end;
+    text-align: end;
+    align-items: center;
+    position: relative;
+    top: 6px;
+    /* left: 250px; */
+    font-style: italic;
+    color: rgba(0,0,0,0.5);
 }
+.username-btn:hover{
+    color: rgba(0,0,0,1);
+}
+.card-follow-btn{
+    position: relative;
+    left: 2000px;
+}
+.more-recipe-btn{
+    margin: 20px 0 0 0;
+    padding: 5px 5px;
+    width: 50px;
+    transition: color 0.2s ease-in, transform 0.1s ease-in;
+}
+.more-recipe-btn:hover{
+    transform: scale(1.1);
+}
+.post-toggle-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 100px;
+    border: 2px solid black;
+    margin: 10px 0 0 0;
+    border-radius: 20px;
+    background-color: #078080;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.3);
+}
+.post-toggle-box:hover{
+    background-color: #078080f1;
+}
+
+
 @keyframes appearFromLeft{
     from{transform: translateX(-400px);}
     to{transform: translateX(0px);}

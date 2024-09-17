@@ -185,6 +185,7 @@ let feed = {
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const deletedPost = yield post_1.default.findByIdAndDelete(req.params.id);
+            const getUser = yield user_1.default.updateMany({}, { $pull: { savedRecipes: req.params.id } }, { upsert: false });
             if (!deletedPost) {
                 res.status(400).json({ status: '400', message: 'post was not deleted' });
             }

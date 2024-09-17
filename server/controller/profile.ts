@@ -12,16 +12,19 @@ let profile = {
                     {_id: req.params.id}, 
                     { 
                         $set: { 
-                            bio: req.body.bio, userName: req.body.userName, 
+                            bio: req.body.bio,
+                            userName: req.body.userName, 
                             skillLevel:req.body.skillLevel, 
-                            cooking:req.body.cookingStyle
+                            cooking:req.body.cookingStyle,
+                            dob:req.body.dob,
+                            country:req.body.country
                         }
                     }
                 )
                 if(!getUserAndUpdate){
-                    res.status(400).json({status:'400', message:'profile was not updated'})
+                    res.status(400).json({status:'400', message:'profile without image was not updated'})
                 } else {
-                    res.status(200).json({status:'200', message:'profile was updated'})
+                    res.status(200).json({status:'200', message:'profile without image was updated'})
                 }
             } else {
                 const profilePic:any = await uploadImage(req.body.profilePic)
@@ -31,17 +34,22 @@ let profile = {
                     {_id: req.params.id}, 
                     { 
                         $set: { 
-                            profilePic: profilePic, 
-                            bio: req.body.bio, userName: req.body.userName, 
+
+                            // profilePic: await uploadImage(req.body.profilePic), 
+                            profilePic: req.body.profilePic, 
+                            bio: req.body.bio,
+                            userName: req.body.userName, 
                             skillLevel:req.body.skillLevel, 
-                            cooking:req.body.cookingStyle
+                            cookingStyle:req.body.cookingStyle,
+                            dob:req.body.dob,
+                            country:req.body.country
                         }
                     }
                 )
                 if(!getUserAndUpdate){
-                    res.status(400).json({status:'400', message:'profile was not updated'})
+                    res.status(400).json({status:'400', message:'profile with image was not updated'})
                 } else {
-                    res.status(200).json({status:'200', message:'profile was updated'})
+                    res.status(200).json({status:'200', message:'profile with image was updated'})
                 }
             }
             
@@ -118,6 +126,5 @@ let profile = {
             console.log(error)
         }
     }
-
 }
 export default profile

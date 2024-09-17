@@ -173,8 +173,13 @@ let feed = {
         
         try {
             const deletedPost = await Post.findByIdAndDelete(req.params.id)
-            if(!deletedPost){
-                res.status(400).json({status:'400', message:'post was not deleted'})
+            const getUser = await User.updateMany({},
+                 {$pull:{savedRecipes: req.params.id}},
+                 {upsert:false}
+            )
+        
+            if(!deletedPost || !getUser){
+                res.status(400).json({status:'400', message:'post was not deleted or error with bookmarks'})
             } else {
                 res.status(200).json({status:'200', message:'post was deleted'})
             }
@@ -182,6 +187,6 @@ let feed = {
             console.log('error deleting item', error)
         }
     }
-
+    
 }
 export default feed

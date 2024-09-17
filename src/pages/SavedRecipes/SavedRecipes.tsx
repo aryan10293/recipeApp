@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
 import RecipeList from "../../assets/RecipeList";
@@ -6,6 +6,8 @@ import useFetch from "../../assets/useFetch";
 import useUserId from "../../Utils/useGetUserId";
 import RecipeCard from "../../assets/RecipeCard";
 import LikeButton from "../../assets/LikeButton";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 
 interface RecipeCardProps{
     recipeName:string,
@@ -34,16 +36,22 @@ interface Recipe{
     postIndex:number
 }
 
-const SavedRecipes = () => {
+// useEffect(()=>{
 
-    const {userUsername:userName,userProfilePicture:profilePicture,userId:userID,userBookmarks:userBookmarks} = useUserId()
+// },[])
+
+const SavedRecipes = () => {
+    const userID = useContext(UserContext)
+    const {userUsername:userName,userProfilePicture:profilePicture,userBookmarks:userBookmarks} = useUserId()
     const [recipes,setRecipes] = useState<RecipeCardProps[]>([])
 
+    // Getting recipes from db
     const getRecipes = async function(id:string){
         try {
             const response = await fetch(`http://localhost:2030/getpost/${id}`)
             const data = await response.json()
-            const recipeInfo = await  data.post[0]
+            const recipeInfo = await data.post[0]
+            console.log(recipeInfo)
             return recipeInfo  
         } catch (error) {
             console.log(error)
@@ -51,6 +59,7 @@ const SavedRecipes = () => {
         }
     }
 
+    // Creating the array of saved recipes 
     const createRecipeArray = async function(){
         try {
             const recipePromises = userBookmarks?.map(async (recipeId)=>{

@@ -5,7 +5,7 @@ import React from 'react';
     interface CommentButtonProps{
         handle:(e:React.MouseEvent<HTMLButtonElement>)=>void;
         margin:string,
-        numberOfComments:number | undefined
+        numberOfComments:number | undefined | null
         
     }
 

@@ -22,17 +22,17 @@ function Login() {
             })
             const HandleLogin = await handleLoggingInUser.json()
             if(HandleLogin.status === '200'){
+                window.localStorage.setItem('token', HandleLogin.token) 
                 window.location.href = '/feed'
-                window.localStorage.setItem('token', HandleLogin.token)
-                
-                
             } else {
                 console.log(HandleLogin, 'failure')
                 new Error('Cannot login')
+                
             }
 
         } catch (error) {
             console.log(error)
+            alert('Issue with credentials!')
         }
     }
 

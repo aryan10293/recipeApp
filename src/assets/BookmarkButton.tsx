@@ -31,7 +31,6 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
         fetchBookmarks()
     },[])
 
-    // const {userBookmarks:userBookmarks} = useUserId()
     const [bookmarks,setBookmarks] = useState<string[]>([])
     const [isRecipeSaved,setIsRecipeSaved] = useState<boolean>(false)
 

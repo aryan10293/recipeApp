@@ -11,7 +11,7 @@
 }
 .single-card{
     width: 1000px;
-    height: 1000px;
+    min-height: 1000px;
     padding: 0;
     background-color: transparent;
     border: none;
@@ -34,7 +34,7 @@
     justify-content: flex-start;
     align-items: center;
     width: 800px;
-    height: 600px;
+    height: 500px;
     margin: 30px 0 0 0;
     opacity: 0;
     animation: appear3 0.3s ease-in forwards;
@@ -53,7 +53,9 @@
 .single-card .left-side .left-top img{
     margin: 0 ;
     padding: 0;
-    object-fit:contain;  
+    height: 100%;
+    width: 100%;
+    object-fit:cover;  
     border-radius: 10px;  
     border: 3px solid #f8f5f2 ;
 }
@@ -62,6 +64,7 @@
     flex-direction: column;
     width: 800px;
     height: 100%;
+    /* min-height:600px; */
     margin: 0;
     opacity: 0;
     animation: appear3 0.3s ease-in forwards;
@@ -124,16 +127,17 @@
     font-weight: 400;
     justify-content: center;
     margin: 25px 0 0 0;
-    height: 300px;
+    min-height: 300px;
     padding: 0;
     text-align: start;
     animation: appear3 0.3s ease-in forwards;
     animation-delay: 0.4s;
     opacity: 0;
+    white-space: pre-wrap;
 }
 .interaction-box{
     display: flex;
-    width: 100px;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
@@ -141,6 +145,7 @@
     opacity: 0;
     animation: appear3 0.4s ease-in forwards;
     animation-delay: 0.6s;
+    padding: 0 0 30px 0;
 }
 .interaction-box svg{
     font-size: 1.6rem;
@@ -156,6 +161,25 @@
 .interaction-box p{
     font-size: 1.2rem;
     margin: 0 10px 0 2px;
+}
+.single-card .name-n-follow-box{
+    position: relative;
+    margin: 0 0 0 480px;
+}
+.single-card-box .recipe-card:hover{
+    cursor:cell ;
+}
+.single-card .card-follow-btn{
+    position: relative;
+    left: 0;
+    transform: scale(0.8);
+    padding: 5px;
+}
+.single-card .card-follow-btn svg{
+    font-size: 1.2rem;
+}
+.single-card .card-follow-btn:hover{
+    transform: scale(0.9);
 }
 
 @keyframes appear{

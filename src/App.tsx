@@ -7,20 +7,23 @@ import './assets/Navbar.css'
 import './assets/CreateRecipe.css'
 import '../src/pages/SingleCard/SingleCard.css'
 import '../src/components/CommentBox.css'
+import '../src/components/ProfileCard.css'
 
-import AuthLayout from './pages/AuthLayout/AuthLayout';
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
 // import Home from './pages/home/Home';
 import Feed from './pages/feed/Feed';
 
+import UserContext, { UserProvider } from './contexts/UserContext'
 
-import { Routes, Route, Navigate , Router} from 'react-router-dom'
+import { Routes, Route, Navigate , Router, BrowserRouter} from 'react-router-dom'
 import Messages from './pages/Messages/Messages';
-import Navbar from './assets/Navbar';
-import Profile from './pages/Profile/Profile';
 import SavedRecipes from './pages/SavedRecipes/SavedRecipes';
 import SingleCard from './pages/SingleCard/SingleCard';
+import ProfilePage from './pages/Profile/ProfilePage'
+import EditProfile from './pages/EditProfilePage/EditProfile'
+import PrivateRoute from './Routes/PrivateRoute'
+import ScrollToTop from './Utils/ScrollToTop'
 function App() {
   const [userId, setUserId] = React.useState<string>('')
   const [userInfo, setUserInfo] = React.useState<any[]>([])
@@ -38,11 +41,18 @@ function App() {
       }, [])
   return (
     <>
+
+
+  return (   
     
-      < Routes>
-          {/* More routes can be added here */}
-        {/* <Route path="/"element={<AuthLayout />  } /> */}
-        
+      <>
+      <UserProvider>
+        <ScrollToTop/>
+        <Routes>       
+          {/* public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/"element={<Login />  } />
         <Route path="/"element={<Login />  } />
         <Route path="/savedrecipes"element={<SavedRecipes />  } />
         <Route path="/login" element={<Login />} />
