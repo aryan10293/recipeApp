@@ -8,6 +8,8 @@ import './assets/CreateRecipe.css'
 import '../src/pages/SingleCard/SingleCard.css'
 import '../src/components/CommentBox.css'
 import '../src/components/ProfileCard.css'
+import './components/slidingButton.css';
+
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
 import Feed from './pages/feed/Feed';

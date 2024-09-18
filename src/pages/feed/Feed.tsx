@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import { faL, faSearch } from "@fortawesome/free-solid-svg-icons";
+import SlidingButton from "../../components/SlidingButton";
 
 
 const Feed:React.FC = () => {
@@ -98,7 +99,7 @@ const Feed:React.FC = () => {
     const [showAllPosts,setShowAllPosts] = useState<boolean>(true)
     const [buttonStyle,setButtonStyle] = useState<React.CSSProperties>(buttonStyle1)
     const [textStyle,setTextStyle] = useState<React.CSSProperties>(textStyle2)
-
+    const [isBtnOnTheLeft,setIsBtnOnTheLeft] = useState<boolean>(true)
 
 
     const handleViewTogglelCick = function(){
@@ -106,11 +107,13 @@ const Feed:React.FC = () => {
             setShowAllPosts(false)
             setButtonStyle(buttonStyle2)
             setTextStyle(textStyle1)
+            setIsBtnOnTheLeft(true)
         }
         else{
             setShowAllPosts(true)
             setButtonStyle(buttonStyle1)
             setTextStyle(textStyle2)
+            setIsBtnOnTheLeft(false)
         }
         setRecipeNum(5)   
     }
@@ -133,10 +136,11 @@ const Feed:React.FC = () => {
                 <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
                 {<Header text={'Recipe Posts'} margin="0"/>}
                 <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
-                <div className="post-toggle-box">
-                    <p style={textStyle}>{showAllPosts ?  'Show My Feed' : 'Show All Posts'}</p>
-                    <button className="all-post-toggle" style={buttonStyle} onClick={handleViewTogglelCick}></button>
-                </div> 
+                {/* <div className="post-toggle-box"> */}
+                    {/* <p style={textStyle}>{showAllPosts ?  'My Feed' : 'All Posts'}</p>
+                    <button className="all-post-toggle" style={buttonStyle} onClick={handleViewTogglelCick}></button> */}
+                    {<SlidingButton btnClickHandle={handleViewTogglelCick} btnTextOnTheLeft="My Feed" btnTextOnTheRight="All Posts" isBtnOnTheLeft={isBtnOnTheLeft}/>}
+                {/* </div>  */}
                 {ID && <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> ? <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> : <p className="pending-msg">Loading...</p>} 
                 <button className="more-recipe-btn" onClick={handleRecipeNumberButton}>More</button>
             </div>

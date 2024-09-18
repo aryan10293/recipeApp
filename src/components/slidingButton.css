@@ -1,0 +1,75 @@
+
+.slide-btn-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0 0;
+}
+.button-container{
+    width:100px;
+    height: 30px;
+    border: 2px solid #078080;
+    background-color: #f8f5f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+}
+.slide-btn{
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 50px;
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color:  #f45d48;
+}
+.slide-state-01{
+    left: -30px;
+    animation: buttonSlideToRight 0.2s forwards;
+}
+.slide-state-02{
+    left: 30px;
+    animation: buttonSlideToLeft 0.2s forwards;
+}
+.slide-btn-txt{
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 42px;
+}
+
+.slide-btn-txt-state-01{
+    left: 15px;
+    animation: btnAppear2 ease-in 0.3s forwards;
+    opacity: 0;
+}
+.slide-btn-txt-state-02{
+    left: -15px;
+    opacity: 0;
+    animation: btnAppear ease-in 0.3s forwards;
+}
+
+@keyframes buttonSlideToLeft{
+    from{left: -30px;}
+    to{left:30px}
+}
+@keyframes buttonSlideToRight{
+    from{left: 30px;}
+    to{left:-30px}
+}
+
+@keyframes btnAppear{
+    from{opacity: 0;}
+    to{opacity: 100%;}
+    from{transform: rotateY(90deg);}
+    to{transform: rotateY(0);}
+}
+@keyframes btnAppear2{
+    from{opacity: 0;}
+    to{opacity: 100%;}
+    from{transform: rotateY(90deg);}
+    to{transform: rotateY(0);}
+}
