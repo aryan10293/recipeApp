@@ -421,7 +421,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         )
     }
 
-    return (
+    return ( 
         <div className="profile-card">
             {isEditingDetails ? renderBaseCard() : renderEditCard()}
             

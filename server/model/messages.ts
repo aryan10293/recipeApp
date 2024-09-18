@@ -12,6 +12,7 @@ interface Message extends Document{
     deleted: boolean,
     imgstring:string,
 }
+
 const messageSchema = new Schema<Message>({
     time:{type:String, default: Date.now()},
     message:{type:String, required: true},
@@ -23,5 +24,6 @@ const messageSchema = new Schema<Message>({
     deleted: {type: Boolean, default: false},
     imgstring: {type: String, required: false}
 })
+
 const Message = mongoose.model<Message>('Message', messageSchema);
 export default Message
