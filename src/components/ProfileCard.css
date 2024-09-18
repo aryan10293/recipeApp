@@ -179,22 +179,27 @@
     flex-direction: row;
     width: 70%;
     height: 80px;
-    justify-content: start;
+    justify-content: space-around;
 }
 .user-recipe-list-container .right h3{
     font-size: 1.2rem;
     font-weight: 400;
 }
 .user-recipe-list-container .right .name-of-dish{
-    margin: 0 150px 0 0;
-    width: 150px;
+    margin: 0 100px 0 0;
+    width: 160px;
     text-align: start;
 }
 .user-recipe-list-container .right .time-img{
+    flex: 1;
     margin: 0 5px 0 0;
 }
 .user-recipe-list-container .right .prep-time{
     margin: 0 50px 0 0;
+}
+.diff-icons{
+    width: 165px;
+    display: flex;
 }
 .user-recipe-list-container hr{
     height: 25%;
