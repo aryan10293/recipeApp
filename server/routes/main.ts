@@ -29,6 +29,7 @@ router.put('/unbookmark/:id', feed.unbookmark)
 router.put('/updateprofile/:id', profile.updateProfile)
 router.put('/follow/:id', profile.follow)
 router.put('/unfollow/:id', profile.unfollow)
+router.put('/likemessage/:messageId', messages.likeMessage)
 
 router.delete('/deletepost/:id', feed.deletePost)
 export default router;
