@@ -37,7 +37,7 @@ const SlidingButton:React.FC<SlidingButtonProps> = ({btnClickHandle,btnTextOnThe
             <div className="button-container">
                 <button onClick={btnClickHandle} className={btnClassName}></button>
             </div> 
-            <div>
+            <div style={{height:'0'}}>
                 <p className={btnTextClassName} >{btnText}</p>
             </div>
         </div>

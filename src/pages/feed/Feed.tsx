@@ -54,66 +54,21 @@ const Feed:React.FC = () => {
         
     // },[])
 
-    const buttonStyle1:React.CSSProperties = {
-        margin:'0 0 0 0',
-        backgroundColor: '#f45d48',  
-        width:'20px',
-        height:'20px',
-        borderRadius:'100%',
-        position:'relative',
-        left:'5px',
-        padding: '0',
-        border:'1px solid black '
-    }
-    const buttonStyle2:React.CSSProperties = {
-        margin:'0 0 0 0',
-        backgroundColor: '#f45d48',  
-        width:'20px',
-        height:'20px',
-        borderRadius:'100%',
-        position:'relative',
-        left:'-60px',
-        padding: '0',
-        border:'1px solid black '
-    }
-    const textStyle1:React.CSSProperties = {
-        fontSize:'0.6rem',
-        color:'black',
-        fontWeight:'300',
-        fontStyle:'italic',
-        position:'relative',
-        // bottom:'-25px',
-        left:'20px'
-
-    }
-    const textStyle2:React.CSSProperties = {
-        fontSize:'0.6rem',
-        color:'black',
-        fontWeight:'300',
-        fontStyle:'italic',
-        position:'relative',
-        // bottom:'25px',
-        left:'-5px'
-    }
-
     const [showAllPosts,setShowAllPosts] = useState<boolean>(true)
-    const [buttonStyle,setButtonStyle] = useState<React.CSSProperties>(buttonStyle1)
-    const [textStyle,setTextStyle] = useState<React.CSSProperties>(textStyle2)
     const [isBtnOnTheLeft,setIsBtnOnTheLeft] = useState<boolean>(true)
+    const [headerText,setHeaderText] = useState<string>('All Recipe Posts')
 
 
     const handleViewTogglelCick = function(){
         if(showAllPosts){
             setShowAllPosts(false)
-            setButtonStyle(buttonStyle2)
-            setTextStyle(textStyle1)
-            setIsBtnOnTheLeft(true)
+            setIsBtnOnTheLeft(false)
+            setHeaderText('My Feed')
         }
         else{
             setShowAllPosts(true)
-            setButtonStyle(buttonStyle1)
-            setTextStyle(textStyle2)
-            setIsBtnOnTheLeft(false)
+            setIsBtnOnTheLeft(true)
+            setHeaderText('Discover Recipes')
         }
         setRecipeNum(5)   
     }
@@ -134,13 +89,9 @@ const Feed:React.FC = () => {
             <div className="feed">       
                 {userName && userProfilePicture && <Navbar userId={ID} userName={userName} userProfilePicture={userProfilePicture}/>}
                 <CreateRecipe className={classState} className2={classState2} className3={classState3}/>
-                {<Header text={'Recipe Posts'} margin="0"/>}
+                {<Header text={headerText} margin="0"/>}
                 <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
-                {/* <div className="post-toggle-box"> */}
-                    {/* <p style={textStyle}>{showAllPosts ?  'My Feed' : 'All Posts'}</p>
-                    <button className="all-post-toggle" style={buttonStyle} onClick={handleViewTogglelCick}></button> */}
                     {<SlidingButton btnClickHandle={handleViewTogglelCick} btnTextOnTheLeft="My Feed" btnTextOnTheRight="All Posts" isBtnOnTheLeft={isBtnOnTheLeft}/>}
-                {/* </div>  */}
                 {ID && <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> ? <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> : <p className="pending-msg">Loading...</p>} 
                 <button className="more-recipe-btn" onClick={handleRecipeNumberButton}>More</button>
             </div>

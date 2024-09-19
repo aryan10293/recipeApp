@@ -5,10 +5,10 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 10px 0 0;
+    margin: 20px 0 0 0;
 }
 .button-container{
-    width:100px;
+    width: 90px;
     height: 30px;
     border: 2px solid #078080;
     background-color: #f8f5f2;
@@ -18,47 +18,47 @@
     border-radius: 40px;
 }
 .slide-btn{
-    border: 2px solid rgba(255, 255, 255, 1);
+    border: 2px solid #f45d48;
     border-radius: 50px;
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     margin: 0;
     padding: 0;
     position: relative;
     background-color:  #f45d48;
 }
 .slide-state-01{
-    left: -30px;
+    left: -26px;
     animation: buttonSlideToRight 0.2s forwards;
 }
 .slide-state-02{
-    left: 30px;
+    left: 26px;
     animation: buttonSlideToLeft 0.2s forwards;
 }
 .slide-btn-txt{
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     position: relative;
-    bottom: 42px;
+    bottom: 39px;
 }
 
 .slide-btn-txt-state-01{
-    left: 15px;
+    left: 13px;
     animation: btnAppear2 ease-in 0.3s forwards;
     opacity: 0;
 }
 .slide-btn-txt-state-02{
-    left: -15px;
+    left: -13px;
     opacity: 0;
     animation: btnAppear ease-in 0.3s forwards;
 }
 
 @keyframes buttonSlideToLeft{
-    from{left: -30px;}
-    to{left:30px}
+    from{left: -26px;}
+    to{left:26px}
 }
 @keyframes buttonSlideToRight{
-    from{left: 30px;}
-    to{left:-30px}
+    from{left: 26px;}
+    to{left:-26px}
 }
 
 @keyframes btnAppear{
