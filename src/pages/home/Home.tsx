@@ -79,24 +79,24 @@
 //     }
 
 //     // adds images, sends to backend and uploads to cloudinary
-//     const convertBase64 = (file: any) => {
-//       return new Promise(async (resolve, reject) => {
-//         try {
-//           const fileReader = new FileReader();
-//           fileReader.readAsDataURL(file);
+    // const convertBase64 = (file: any) => {
+    //   return new Promise(async (resolve, reject) => {
+    //     try {
+    //       const fileReader = new FileReader();
+    //       fileReader.readAsDataURL(file);
 
-//           fileReader.onload = () => {
-//             resolve(fileReader.result);
-//           };
+    //       fileReader.onload = () => {
+    //         resolve(fileReader.result);
+    //       };
 
-//           fileReader.onerror = (error) => {
-//             reject(error);
-//           };
-//         } catch (error) {
-//           reject(error);
-//         }
-//       });
-//     };
+    //       fileReader.onerror = (error) => {
+    //         reject(error);
+    //       };
+    //     } catch (error) {
+    //       reject(error);
+    //     }
+    //   });
+    // };
 //   return (
 //     <div>
 //       <form onSubmit={handleSumbit}>

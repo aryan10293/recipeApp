@@ -12,17 +12,30 @@ let messages = {
         }
     },
     createMessage: async (req:Request, res:Response) => {
+        let img:string | unknown;
+        
+        if(req.body.imgString === ''){
+            img = ''
+        } else {
+            try {
+                img = await uploadImage(req.body.imgString as string)
+            } catch (error) {
+                console.log(error)
+            }
+        }
         interface Message{
             message:string,
             senderId: string,
-            recieverId: string
+            recieverId: string,
             chatId:string,
+            imgString: string | unknown,
         }
         const createMessage:Message = {
             message:req.body.message,
             senderId: req.body.senderId,
             recieverId: req.body.recieverId,
             chatId:req.body.chatRoomId,
+            imgString: img
         }
 
         const addMessageToDatabase = await message.create(createMessage)

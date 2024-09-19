@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../model/user"));
 const messages_1 = __importDefault(require("../model/messages"));
+const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
 let messages = {
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const getUser = yield user_1.default.find();
@@ -25,11 +26,24 @@ let messages = {
         }
     }),
     createMessage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        let img;
+        if (req.body.imgString === '') {
+            img = '';
+        }
+        else {
+            try {
+                img = yield (0, cloudinary_1.default)(req.body.imgString);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
         const createMessage = {
             message: req.body.message,
             senderId: req.body.senderId,
             recieverId: req.body.recieverId,
             chatId: req.body.chatRoomId,
+            imgString: img
         };
         const addMessageToDatabase = yield messages_1.default.create(createMessage);
         if (!addMessageToDatabase) {

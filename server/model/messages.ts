@@ -21,7 +21,7 @@ const messageSchema = new Schema<Message>({
     edited: {type: Boolean, default: false},
     liked: {type:  Boolean, default:false},
     deleted: {type: Boolean, default: false},
-    imgstring: {type: String, required: false}
+    imgString: {type: String, required: false}
 })
 const Message = mongoose.model<Message>('Message', messageSchema);
 export default Message
