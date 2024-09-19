@@ -28,14 +28,10 @@ let profile = {
                 }
             } else {
                 const profilePic:any = await uploadImage(req.body.profilePic)
-                console.log(req.body.profilePic)
-                console.log(req.body)
                 const getUserAndUpdate = await User.findOneAndUpdate(
                     {_id: req.params.id}, 
                     { 
                         $set: { 
-
-                            // profilePic: await uploadImage(req.body.profilePic), 
                             profilePic: req.body.profilePic, 
                             bio: req.body.bio,
                             userName: req.body.userName, 
@@ -63,12 +59,6 @@ let profile = {
             if(!getUserBookmarks){
                 res.status(400).json({status:'400', message:'error getting your bookmarked post'})
             } else {
-                // this should return the id of the post probably would have to run another api to get the post
-                // or i can loop through and return an array and get all the post info to send to the frontend 
-                // this is a problem for later though
-
-                // get bookmarks should only return the user for now 
-                // i have to figure out the error tmr morning when i have more brain power
                 res.status(200).json({status:'200', message:'sucess', bookmarks:getUserBookmarks})
             }
         } catch (error) {

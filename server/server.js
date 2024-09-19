@@ -81,9 +81,6 @@ const broadcastMessage = (roomId, message) => {
         }
     }
 };
-function isUserInRoom(roomId, userId) {
-    return rooms[roomId] && rooms[roomId][userId] !== undefined;
-}
 wss.on('connection', (ws) => {
     let roomId = '';
     ws.on('message', (message) => {
@@ -100,7 +97,6 @@ wss.on('connection', (ws) => {
         }
         if (parsedMessage.type === 'message') {
             roomId = parsedMessage.chatRoomId;
-            console.log(parsedMessage);
             broadcastMessage(roomId, parsedMessage.message);
         }
     });
