@@ -56,7 +56,7 @@ let messages = {
         try {
             const getMessage = await message.findByIdAndUpdate(req.params.messageId, {liked: true})
             if(!getMessage){
-                res.status(400).json({status:'400', message:'failjure to like message'})
+                res.status(400).json({status:'400', message:'failure to like message'})
             } else {
                 res.status(200).json({status:'200', message:'success liking the message'})
             }
