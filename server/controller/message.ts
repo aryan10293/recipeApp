@@ -54,7 +54,7 @@ let messages = {
         }
     }, likeMessage: async (req:Request, res:Response) => {
         try {
-            const getMessage = await message.findByIdAndUpdate(req.params.messageId, {liked: true})
+            const getMessage = await message.findByIdAndUpdate(req.params.messageId, {[req.params.apicall]: true})
             if(!getMessage){
                 res.status(400).json({status:'400', message:'failure to like message'})
             } else {

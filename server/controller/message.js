@@ -61,6 +61,19 @@ let messages = {
         else {
             res.status(200).json({ status: '200', message: 'sucess loading message', messages: getMessages, wfrwc: req.params.chatRoomId });
         }
+    }), likeMessage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const getMessage = yield messages_1.default.findByIdAndUpdate(req.params.messageId, { [req.params.apicall]: true });
+            if (!getMessage) {
+                res.status(400).json({ status: '400', message: 'failure to like message' });
+            }
+            else {
+                res.status(200).json({ status: '200', message: 'success liking the message' });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
     })
 };
 exports.default = messages;
