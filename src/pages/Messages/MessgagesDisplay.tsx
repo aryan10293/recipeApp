@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { json, useParams } from 'react-router-dom'
+import LikeMessage from './messageButtons/LikeMessage'
 import convertBase64 from '../../drejfunctionhekeepsresuing/covertImage'
 interface UserId{
     userId:string
@@ -106,7 +107,7 @@ const sendMessage = async (e:any) => {
               {
                 messageHistory.map((x:any) => {
                  return  x.senderId === id ?  (
-                      <li>this message will be on the left side {x.message}</li>
+                      <li>this message will be on the left side {x.message} <LikeMessage apiCall='like' text='like' id={x._id}/> <LikeMessage text='heart' apiCall="heart" id={x._id} /><LikeMessage apiCall='dislike' text='dislike' id={x._id}/> <LikeMessage text='!!' apiCall='emphasize' id={x._id}/> <LikeMessage apiCall='question' text='?' id={x._id}/> <LikeMessage text='laugh' apiCall='laugh' id={x._id}/></li>
                   ) :  (
                      <li>this message will be on the right side {x.message}</li>
                   )

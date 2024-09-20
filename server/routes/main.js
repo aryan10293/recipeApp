@@ -32,5 +32,6 @@ router.put('/unbookmark/:id', feed_1.default.unbookmark);
 router.put('/updateprofile/:id', profile_1.default.updateProfile);
 router.put('/follow/:id', profile_1.default.follow);
 router.put('/unfollow/:id', profile_1.default.unfollow);
+router.put('/:apicall/:messageId', message_1.default.likeMessage);
 router.delete('/deletepost/:id', feed_1.default.deletePost);
 exports.default = router;

@@ -13,7 +13,7 @@ let messages = {
     },
     createMessage: async (req:Request, res:Response) => {
         let img:string | unknown;
-        
+
         if(req.body.imgString === ''){
             img = ''
         } else {
@@ -51,6 +51,17 @@ let messages = {
             res.status(400).json({status:'400', message:'error loaidng message'})
         } else {
             res.status(200).json({status:'200', message:'sucess loading message', messages: getMessages, wfrwc:req.params.chatRoomId})
+        }
+    }, likeMessage: async (req:Request, res:Response) => {
+        try {
+            const getMessage = await message.findByIdAndUpdate(req.params.messageId, {[req.params.apicall]: true})
+            if(!getMessage){
+                res.status(400).json({status:'400', message:'failure to like message'})
+            } else {
+                res.status(200).json({status:'200', message:'success liking the message'})
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
