@@ -62,8 +62,14 @@ let messages = {
             res.status(200).json({ status: '200', message: 'sucess loading message', messages: getMessages, wfrwc: req.params.chatRoomId });
         }
     }), likeMessage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const fieldsToUpDateAndTurnFalse = ['laugh', 'emphasize', 'like', 'dislike', 'heart', 'question'].filter((x) => req.params.apicall !== x ? x : null);
+        const updateData = {};
+        fieldsToUpDateAndTurnFalse.map((x) => {
+            updateData[x] = false;
+        });
+        updateData[req.params.apicall] = true;
         try {
-            const getMessage = yield messages_1.default.findByIdAndUpdate(req.params.messageId, { [req.params.apicall]: true });
+            const getMessage = yield messages_1.default.findByIdAndUpdate(req.params.messageId, updateData);
             if (!getMessage) {
                 res.status(400).json({ status: '400', message: 'failure to like message' });
             }
