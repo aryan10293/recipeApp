@@ -18,6 +18,8 @@ let feed = {
                 carbs: req.body.carbs,
                 protein: req.body.protein,
                 calories: req.body.calories,
+                perServingMacros: req.body.perServingMacros,
+                servings:req.body.servings
             }
             const createRecipie =  await Post.create(recipeData)
             if (!createRecipie) {

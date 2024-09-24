@@ -30,6 +30,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
     const [carbs, setCarbs] = useState<number>(0)
     const [protein, setProtein] = useState<number>(0)
     const [calories, setCalories] = useState<number>(0)
+    const [servings, setServings] = useState<number>(1)
     // using a object because it was easier for me to keep track of ingredient data than with an array
     const [ingredientListToTrackMacros, setIngredientListToTrackMacros] = useState<any>({})
     const [isPending,setIsPending] = useState<boolean>(false)
@@ -83,7 +84,12 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         // that deletes the clicked on item
         setIngredientListToTrackMacros(dupOfIngredientListToTrackMacros)
     }
-
+    interface PerServingMacros{
+        fats:number,
+        carbs:number,
+        protein:number,
+        calories:number,
+    }
     interface recipe{
         timeOfPost:string,
         userId: string,
@@ -99,6 +105,8 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         carbs:number,
         protein:number,
         calories:number,
+        servings:number,
+        perServingMacros:PerServingMacros
     }
 
     const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
@@ -109,6 +117,11 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             setconvertedImage(base64Image)
         }
     }
+    // this condiional is so users cant set servings below 1
+    if(servings < 1 ){
+            setServings(1)
+    }
+    //
     const base64_encode = (file: File): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -147,6 +160,12 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         ...newIngredientInfo
        })
     }
+    const perServingMacros:PerServingMacros ={
+        fats:Math.ceil(fats/servings),
+        carbs:Math.ceil(carbs/servings),
+        protein:Math.ceil(protein/servings),
+        calories:Math.ceil(calories/servings),
+    }
     const postRecipe = function(e:React.SyntheticEvent){
         e.preventDefault()
         setIsPending(true);
@@ -162,10 +181,12 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             title:recipeName,
             steps:steps,
             // added the macros to send to the backend
-            fats:fats,
-            carbs:carbs,
-            protein:protein,
-            calories:calories
+            fats:Math.ceil(fats),
+            carbs:Math.ceil(carbs),
+            protein:Math.ceil(protein),
+            calories:Math.ceil(calories),
+            servings:servings,
+            perServingMacros: perServingMacros
         }
         console.log(newRecipe)
 
@@ -227,6 +248,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                 
 
                 <div className="ingredients-input">
+                    <input value={servings} className="ingredient" onChange={((e:any)=>setServings(e.target.value))} placeholder="servings size?" type="number" />
                     <input value={newMeasurement} className="ingredient" onChange={((e)=>setNewMeasurement(e.target.value))} placeholder="1cup" type="text" />
                     <input value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
                     <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>

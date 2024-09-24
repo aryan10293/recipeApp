@@ -1,6 +1,11 @@
 import mongoose from "mongoose"
 import { Schema, Document } from "mongoose";
-
+interface PerServingMacros{
+    fats:number,
+    carbs:number,
+    protein:number,
+    calories:number,
+}
 interface Post extends Document{
     timeOfPost:String,
     id: string,
@@ -16,6 +21,8 @@ interface Post extends Document{
     carbs:number,
     protein:number,
     calories:number,
+    servings:number,
+    perServingMAcros: PerServingMacros
 }
 const postSchema = new Schema<Post>({
     timeOfPost:{type:String, default: Date.now()},
@@ -31,7 +38,9 @@ const postSchema = new Schema<Post>({
     fats:{type:Number, required:true},
     carbs:{type:Number, required:true},
     protein:{type:Number, required:true},
-    calories:{type:Number, required:true}
+    servings:{type:Number, required:true},
+    calories:{type:Number, required:true},
+    perServingMacros: {type:Object, required:true}
 })
 const Post = mongoose.model<Post>('Post', postSchema);
 export default Post
