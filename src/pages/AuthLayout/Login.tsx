@@ -13,7 +13,6 @@ function Login() {
     }
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(loginInfo)
         try {
             const handleLoggingInUser = await fetch('http://localhost:2030/login', {
                 method: "POST",
