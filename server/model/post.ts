@@ -12,6 +12,10 @@ interface Post extends Document{
     bookmarks: string[],
     nameOfDish:string,
     steps:string,
+    fats:number,
+    carbs:number,
+    protein:number,
+    calories:number,
 }
 const postSchema = new Schema<Post>({
     timeOfPost:{type:String, default: Date.now()},
@@ -23,7 +27,11 @@ const postSchema = new Schema<Post>({
     prepTime: {type:  Number, required: true},
     likes:{type: Array, default: []},
     bookmarks: {type: Array, default: []},
-    steps:{type:String,required:true}
+    steps:{type:String,required:true},
+    fats:{type:Number, required:true},
+    carbs:{type:Number, required:true},
+    protein:{type:Number, required:true},
+    calories:{type:Number, required:true}
 })
 const Post = mongoose.model<Post>('Post', postSchema);
 export default Post

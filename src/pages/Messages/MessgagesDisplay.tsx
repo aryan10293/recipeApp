@@ -10,6 +10,8 @@ interface UserId{
     const [roomId, setRoomId] = useState<string | string[]>(``)
     const [messageToSend, setMessageToSend] = useState<string>('')
     const [messageHistory, setMessageHistory] = useState<any>([])
+    const [measurement, setMeasurement] = useState<string>('')
+    const [ingrident, setIngrident] = useState<string>('')
    
     const getMessageHistory = async () => {
         const getMessages = await fetch(`http://localhost:2030/getchatroommessages/${roomId}`, {
@@ -91,8 +93,8 @@ const sendMessage = async (e:any) => {
     // i dont think this does anything
       console.log(`Message from server:`, event.data);
     }
-    
 }
+
   return (
     <div style={{color:'black'}}>
         {id === undefined ? 'open a message to the left' : `${userId} and ${id}`}

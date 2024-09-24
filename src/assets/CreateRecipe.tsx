@@ -23,8 +23,15 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
     const [convertedImage,setconvertedImage] = useState<string>("")
 
     const [ingredients,setIngredients] = useState<string[]>([])
+    // added measurements and macros gto our state management
     const [newIngredient,setNewIngredient] = useState<string>("")
-
+    const [newMeasurement, setNewMeasurement] = useState<string>("")
+    const [fats, setFats] = useState<number>(0)
+    const [carbs, setCarbs] = useState<number>(0)
+    const [protein, setProtein] = useState<number>(0)
+    const [calories, setCalories] = useState<number>(0)
+    // using a object because it was easier for me to keep track of ingredient data than with an array
+    const [ingredientListToTrackMacros, setIngredientListToTrackMacros] = useState<any>({})
     const [isPending,setIsPending] = useState<boolean>(false)
     const [postButtonText,setPostButtonText] = useState<string>("Post Recipe")
 
@@ -38,16 +45,43 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             console.log('Cannot be empty')
         }
         else{
-            console.log("Adding ingredient: " + newIngredient)
+            getItemFromNutritionApi()
+            console.log("Adding ingredient: " + newIngredient + newMeasurement)
             setIngredients([...ingredients,newIngredient])
             setNewIngredient("")
         }   
     }
 
-    const removeIngredientFromList = function(index:number){    
+    const removeIngredientFromList = function(index:number){ 
+        // i put the ingredient in a array because to loop thropugh the array and delete the key from the object
+        const ingredientToDelete:string[] = [ingredients[index]]
+
+        // idk why i do the below after reviewing the code but it works and doesnt mess uo state management
+        let dupOfIngredientListToTrackMacros:any = ingredientListToTrackMacros
+
+        // made this conditonal because of a werid bug when some macros would go below 0 when deleteing last ingredient
+        if(Object.keys(dupOfIngredientListToTrackMacros).length === 1){
+            setFats(0)
+            setCarbs(0)
+            setProtein(0) 
+            setCalories(0) 
+        } else {
+            setFats(fats - dupOfIngredientListToTrackMacros[ingredients[index]].fats)
+            setCarbs(carbs - dupOfIngredientListToTrackMacros[ingredients[index]].carbs)
+            setProtein(protein - dupOfIngredientListToTrackMacros[ingredients[index]].protein) 
+            setCalories(calories - dupOfIngredientListToTrackMacros[ingredients[index]].calories) 
+        }
+
+        ingredientToDelete.forEach(Reflect.deleteProperty.bind(null, dupOfIngredientListToTrackMacros));
+        console.log(`deleted ${ingredients[index]}`, dupOfIngredientListToTrackMacros)
+
         setIngredients(ingredients.filter((ingredient,i)=>{
             return i !== index
-        }))    
+        })) 
+
+        // now im setting our obj on the ingredient macros to equal the new object i made inside this function 
+        // that deletes the clicked on item
+        setIngredientListToTrackMacros(dupOfIngredientListToTrackMacros)
     }
 
     interface recipe{
@@ -61,6 +95,10 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         bookmarks: string[],
         title:string,
         steps:string,
+        fats:number,
+        carbs:number,
+        protein:number,
+        calories:number,
     }
 
     const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
@@ -80,6 +118,35 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         });
     };
 
+    const getItemFromNutritionApi = async () => {
+      const ingredientsNutionalValue = await fetch(`https://api.api-ninjas.com/v1/nutrition?query=${newMeasurement.trim()} ${newIngredient.trim()}`, {
+        method: 'GET', 
+        headers: {'Content-Type': 'application/json', 'X-Api-Key': '8pLrOYMK4igtQtUKLWk8OQ==IVs7lNVLdtSfiuDs'},
+      })
+
+      const ingredientInfo = await ingredientsNutionalValue.json()
+      const newIngredientInfo:any = {}
+ 
+      // creating a object to hold info to add to the state management ingredientListToTrackMacros obj
+      newIngredientInfo[newIngredient.trim()] = {
+        fats: ingredientInfo[0].fat_total_g,
+        carbs: ingredientInfo[0].carbohydrates_total_g,
+        protein: ingredientInfo[0].protein_g,
+        calories: ingredientInfo[0].calories
+      }
+
+      // adding to the macros
+      setFats(fats + ingredientInfo[0].fat_total_g)
+      setCarbs(carbs + ingredientInfo[0].carbohydrates_total_g)
+      setProtein(protein + ingredientInfo[0].protein_g)
+      setCalories(calories + ingredientInfo[0].calories)
+
+      // adding the obj created eariler in function to state
+      setIngredientListToTrackMacros({
+        ...ingredientListToTrackMacros,
+        ...newIngredientInfo
+       })
+    }
     const postRecipe = function(e:React.SyntheticEvent){
         e.preventDefault()
         setIsPending(true);
@@ -87,14 +154,18 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             timeOfPost:new Date().toISOString(),
             userId: userId,
             pictureOfFood:convertedImage,
-            ingridentList:ingredients,
+            ingridentList:Object.keys(ingredientListToTrackMacros),
             levelOfMeal: recipeSkill,
             prepTime: recipeTime,
             likes:[""],
             bookmarks:[""],
             title:recipeName,
             steps:steps,
-            
+            // added the macros to send to the backend
+            fats:fats,
+            carbs:carbs,
+            protein:protein,
+            calories:calories
         }
         console.log(newRecipe)
 
@@ -153,8 +224,10 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                         <option value="5">5</option>
                     </select>
                 </div>
+                
 
                 <div className="ingredients-input">
+                    <input value={newMeasurement} className="ingredient" onChange={((e)=>setNewMeasurement(e.target.value))} placeholder="1cup" type="text" />
                     <input value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
                     <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>
                 </div>
@@ -169,7 +242,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
                 <div className="ingredients">
                     <ul className="ingredients-list">
-                        {ingredients.map((ingredient,index)=>(
+                        {Object.keys(ingredientListToTrackMacros).map((ingredient,index)=>(
                             
                             <button onClick={(e)=>removeIngredientFromList(index)} key={index} className="ingredient-button">{ingredient}</button>
                                                                               

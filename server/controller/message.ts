@@ -52,7 +52,8 @@ let messages = {
         } else {
             res.status(200).json({status:'200', message:'sucess loading message', messages: getMessages, wfrwc:req.params.chatRoomId})
         }
-    }, likeMessage: async (req:Request, res:Response) => {
+    }, 
+    likeMessage: async (req:Request, res:Response) => {
         const fieldsToUpDateAndTurnFalse:string[] = ['laugh', 'emphasize', 'like', 'dislike', 'heart', 'question'].filter((x:string) => req.params.apicall !== x ? x : null)
         const updateData = {}
         fieldsToUpDateAndTurnFalse.map((x:string) => {
