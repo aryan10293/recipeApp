@@ -72,8 +72,6 @@ const broadcastMessage = (roomId: string, message: string) => {
   }
 }
 
-
-
 wss.on('connection', (ws) => {
   let roomId: string  = ''
 

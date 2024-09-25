@@ -25,7 +25,6 @@ interface UserId{
       if(id !== undefined){
         setRoomId(`${userId.slice(-4)}${id.slice(-4)}`.split('').sort().join(''))
       }
-
   
        ws.onopen = (event) => {
         ws.send(JSON.stringify({
@@ -35,6 +34,7 @@ interface UserId{
           userId: userId
         }));
       }; 
+      
     ws.onmessage = (event) => {
       console.log(`Message from server: ${event.data}`);
       getMessageHistory()
@@ -51,10 +51,12 @@ interface UserId{
       getMessageHistory()
 
 }, [id, userId, roomId])
+
 const sendMessage = async () => {
 const ws = new WebSocket('ws://localhost:2040');
 console.log(ws)
   ws.onopen = async () => {
+
       const message = {
         type:'message',
         message:messageToSend,

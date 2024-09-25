@@ -1,8 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 const UserContext = createContext(null)
+interface UserContextProps{
+    children: ReactNode
+}
 
-export const UserProvider = ({children}) =>{
+export const UserProvider:React.FC<UserContextProps> = ({children}) =>{
     const [user,setUser] = useState(null)
     const [loading,setLoading] = useState<boolean>(true)
 

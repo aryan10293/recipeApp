@@ -43,5 +43,5 @@ const SlidingButton:React.FC<SlidingButtonProps> = ({btnClickHandle,btnTextOnThe
         </div>
      );
 }
-
+ 
 export default SlidingButton;

@@ -13,8 +13,8 @@ interface userInfo{
 }
 interface NavbarProps{
     userName:string | null, 
-    userProfilePicture?:string 
-    userId?:string 
+    userProfilePicture?:string | undefined
+    userId?:string | undefined
 }
 
 const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture,userId}) => {
