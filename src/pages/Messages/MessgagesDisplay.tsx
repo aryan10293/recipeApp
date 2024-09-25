@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { json, useParams } from 'react-router-dom'
+import LikeMessage from './messageButtons/LikeMessage'
+import convertBase64 from '../../drejfunctionhekeepsresuing/covertImage'
 interface UserId{
     userId:string
 }
@@ -8,6 +10,8 @@ interface UserId{
     const [roomId, setRoomId] = useState<string | string[]>(``)
     const [messageToSend, setMessageToSend] = useState<string>('')
     const [messageHistory, setMessageHistory] = useState<any>([])
+    const [measurement, setMeasurement] = useState<string>('')
+    const [ingrident, setIngrident] = useState<string>('')
    
     const getMessageHistory = async () => {
         const getMessages = await fetch(`http://localhost:2030/getchatroommessages/${roomId}`, {
@@ -21,40 +25,43 @@ interface UserId{
       }
 
     useEffect(() => {
-      const ws = new WebSocket('ws://localhost:2040');
-      if(id !== undefined){
-        setRoomId(`${userId.slice(-4)}${id.slice(-4)}`.split('').sort().join(''))
-      }
+        const ws = new WebSocket('ws://localhost:2040');
+        if(id !== undefined){
+          setRoomId(`${userId.slice(-4)}${id.slice(-4)}`.split('').sort().join(''))
+        }
+
   
-       ws.onopen = (event) => {
-        ws.send(JSON.stringify({
-          content: `user ${userId} joined the chat room ${roomId}`,
-          chatRoomId: roomId,
-          type:'join',
-          userId: userId
-        }));
-      }; 
-      
-    ws.onmessage = (event) => {
-      console.log(`Message from server: ${event.data}`);
-      getMessageHistory()
-    };
+        ws.onopen = (event) => {
+          ws.send(JSON.stringify({
+            content: `user ${userId} joined the chat room ${roomId}`,
+            chatRoomId: roomId,
+            type:'join',
+            userId: userId
+          }));
+        }; 
+        ws.onmessage = (event) => {
+          console.log(`Message from server: ${event.data}`);
+          getMessageHistory()
+        };
 
-    ws.onclose = () => {
-      console.log('WebSocket connection closed');
-    };
+        ws.onclose = () => {
+          console.log('WebSocket connection closed');
+        };
 
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
+        ws.onerror = (error) => {
+          console.error('WebSocket error:', error);
+        };
 
-      getMessageHistory()
+        getMessageHistory()
 
-}, [id, userId, roomId])
-
-const sendMessage = async () => {
-const ws = new WebSocket('ws://localhost:2040');
-console.log(ws)
+    }, [id, userId, roomId])
+const sendMessage = async (e:any) => {
+  let img = e.currentTarget.previousSibling.files[0]
+  let base64:any = ''
+  if(img !== undefined){
+       base64 = await convertBase64(img)
+  }
+  const ws = new WebSocket('ws://localhost:2040');
   ws.onopen = async () => {
 
       const message = {
@@ -63,6 +70,7 @@ console.log(ws)
         senderId:userId,
         recieverId:id,
         chatRoomId: roomId,
+        imgString: base64
       }
 
       const sendMessagetoDatabase = await fetch(`http://localhost:2030/createmessage`,{
@@ -85,13 +93,15 @@ console.log(ws)
   ws.onmessage = (event) => {
     // i dont think this does anything
       console.log(`Message from server:`, event.data);
-    };
+    }
 }
 
   return (
     <div style={{color:'black'}}>
         {id === undefined ? 'open a message to the left' : `${userId} and ${id}`}
         <textarea  onChange={(e:any) => setMessageToSend(e.target.value)} />
+        <span>add a image</span>
+        <input type="file" />
         <button onClick={sendMessage}>send message</button>
 
         <div>
@@ -100,7 +110,7 @@ console.log(ws)
               {
                 messageHistory.map((x:any) => {
                  return  x.senderId === id ?  (
-                      <li>this message will be on the left side {x.message}</li>
+                      <li>this message will be on the left side {x.message} <LikeMessage apiCall='like' text='like' id={x._id}/> <LikeMessage text='heart' apiCall="heart" id={x._id} /><LikeMessage apiCall='dislike' text='dislike' id={x._id}/> <LikeMessage text='!!' apiCall='emphasize' id={x._id}/> <LikeMessage apiCall='question' text='?' id={x._id}/> <LikeMessage text='laugh' apiCall='laugh' id={x._id}/></li>
                   ) :  (
                      <li>this message will be on the right side {x.message}</li>
                   )

@@ -26,7 +26,13 @@ let feed = {
                 levelOfMeal: req.body.levelOfMeal,
                 prepTime: req.body.prepTime,
                 nameOfDish: req.body.title,
-                steps: req.body.steps
+                steps: req.body.steps,
+                fats: req.body.fats,
+                carbs: req.body.carbs,
+                protein: req.body.protein,
+                calories: req.body.calories,
+                perServingMacros: req.body.perServingMacros,
+                servings: req.body.servings
             };
             const createRecipie = yield post_1.default.create(recipeData);
             if (!createRecipie) {
@@ -186,8 +192,8 @@ let feed = {
         try {
             const deletedPost = yield post_1.default.findByIdAndDelete(req.params.id);
             const getUser = yield user_1.default.updateMany({}, { $pull: { savedRecipes: req.params.id } }, { upsert: false });
-            if (!deletedPost) {
-                res.status(400).json({ status: '400', message: 'post was not deleted' });
+            if (!deletedPost || !getUser) {
+                res.status(400).json({ status: '400', message: 'post was not deleted or error with bookmarks' });
             }
             else {
                 res.status(200).json({ status: '200', message: 'post was deleted' });

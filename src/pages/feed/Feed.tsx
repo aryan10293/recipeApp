@@ -73,6 +73,7 @@ const Feed:React.FC = () => {
         setRecipeNum(5)   
     }
 
+<<<<<<< Updated upstream
     return (
      
         // <div className="feed">       
@@ -86,6 +87,9 @@ const Feed:React.FC = () => {
         //     {/* <CommentBox/> */}   
         //     <UserNameButton text="Click me"/>
         // </div>
+=======
+    return ( 
+>>>>>>> Stashed changes
             <div className="feed">       
                 {userName && userProfilePicture && <Navbar userId={ID} userName={userName} userProfilePicture={userProfilePicture}/>}
                 <CreateRecipe className={classState} className2={classState2} className3={classState3}/>

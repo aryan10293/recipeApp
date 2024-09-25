@@ -20,9 +20,14 @@ const messageSchema = new Schema<Message>({
     recieverId:{type: String, required: true},
     chatId:{type: String, required: true},
     edited: {type: Boolean, default: false},
-    liked: {type:  Boolean, default:false},
+    heart: {type:  Boolean, default:false},
+    like: {type:  Boolean, default:false},
+    dislike: {type:  Boolean, default:false},
+    emphasize: {type:  Boolean, default:false},
+    laugh: {type:  Boolean, default:false},
+    question: {type:  Boolean, default:false},
     deleted: {type: Boolean, default: false},
-    imgstring: {type: String, required: false}
+    imgString: {type: String, required: false}
 })
 
 const Message = mongoose.model<Message>('Message', messageSchema);

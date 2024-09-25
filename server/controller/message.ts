@@ -12,17 +12,30 @@ let messages = {
         }
     },
     createMessage: async (req:Request, res:Response) => {
+        let img:string | unknown;
+
+        if(req.body.imgString === ''){
+            img = ''
+        } else {
+            try {
+                img = await uploadImage(req.body.imgString as string)
+            } catch (error) {
+                console.log(error)
+            }
+        }
         interface Message{
             message:string,
             senderId: string,
-            recieverId: string
+            recieverId: string,
             chatId:string,
+            imgString: string | unknown,
         }
         const createMessage:Message = {
             message:req.body.message,
             senderId: req.body.senderId,
             recieverId: req.body.recieverId,
             chatId:req.body.chatRoomId,
+            imgString: img
         }
 
         const addMessageToDatabase = await message.create(createMessage)
@@ -38,6 +51,24 @@ let messages = {
             res.status(400).json({status:'400', message:'error loaidng message'})
         } else {
             res.status(200).json({status:'200', message:'sucess loading message', messages: getMessages, wfrwc:req.params.chatRoomId})
+        }
+    }, 
+    likeMessage: async (req:Request, res:Response) => {
+        const fieldsToUpDateAndTurnFalse:string[] = ['laugh', 'emphasize', 'like', 'dislike', 'heart', 'question'].filter((x:string) => req.params.apicall !== x ? x : null)
+        const updateData = {}
+        fieldsToUpDateAndTurnFalse.map((x:string) => {
+            updateData[x] = false
+        })
+        updateData[req.params.apicall] = true
+        try {
+            const getMessage = await message.findByIdAndUpdate(req.params.messageId, updateData)
+            if(!getMessage){
+                res.status(400).json({status:'400', message:'failure to like message'})
+            } else {
+                res.status(200).json({status:'200', message:'success liking the message'})
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 

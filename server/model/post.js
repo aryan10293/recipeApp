@@ -15,7 +15,13 @@ const postSchema = new mongoose_2.Schema({
     prepTime: { type: Number, required: true },
     likes: { type: Array, default: [] },
     bookmarks: { type: Array, default: [] },
-    steps: { type: String, required: true }
+    steps: { type: String, required: true },
+    fats: { type: Number, required: true },
+    carbs: { type: Number, required: true },
+    protein: { type: Number, required: true },
+    servings: { type: Number, required: true },
+    calories: { type: Number, required: true },
+    perServingMacros: { type: Object, required: true }
 });
 const Post = mongoose_1.default.model('Post', postSchema);
 exports.default = Post;

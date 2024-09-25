@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../model/user"));
 const post_1 = __importDefault(require("../model/post"));
+const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
 let profile = {
     updateProfile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -37,8 +38,6 @@ let profile = {
             }
             else {
                 const profilePic = yield (0, cloudinary_1.default)(req.body.profilePic);
-                console.log(req.body.profilePic);
-                console.log(req.body);
                 const getUserAndUpdate = yield user_1.default.findOneAndUpdate({ _id: req.params.id }, {
                     $set: {
                         profilePic: req.body.profilePic,
