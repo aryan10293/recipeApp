@@ -12,8 +12,14 @@ let messages = {
         //    res.status(200).json({status:'200', message:'sucess', users:getUser}) 
         // }
         try {
-            console.log(req.body.search)
-            res.status(200).json({status:'200'})
+            const getUser = await User.find({
+
+                "$or": [
+                    // use userName if you want to see older users
+                    {usernameSearch:{$regex:req.body.search.toLowerCase()}}
+                ]
+            })
+            res.status(200).json({status:'200', data:getUser})
         } catch (error:any) {
             console.error('Error fetching user:', error);
             return res.status(500).json({ status: '500', message: 'Server error', error: error.message });

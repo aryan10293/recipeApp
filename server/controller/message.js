@@ -12,13 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const user_1 = __importDefault(require("../model/user"));
 const messages_1 = __importDefault(require("../model/messages"));
 const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
 let messages = {
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            console.log(req.body.search);
-            res.status(200).json({ status: '200' });
+            const getUser = yield user_1.default.find({
+                "$or": [
+                    { usernameSearch: { $regex: req.body.search.toLowerCase() } }
+                ]
+            });
+            res.status(200).json({ status: '200', data: getUser });
         }
         catch (error) {
             console.error('Error fetching user:', error);

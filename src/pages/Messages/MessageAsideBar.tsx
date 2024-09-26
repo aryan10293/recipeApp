@@ -15,6 +15,7 @@ interface UserId{
     let doneTypingInterval = 1000;  
     const testing = (e:any) => {
         clearTimeout(timeout)
+        console.log(e.target.value.trim().length)
          const generateUser = async () => {
             const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
                 method:'POST',
@@ -22,12 +23,12 @@ interface UserId{
                 body: JSON.stringify({search: e.target.value})
             })
             const searchedUsers = await getUsers.json()
-            setUsers(searchedUsers)
+            console.log(searchedUsers)
+            setUsers(searchedUsers.data)
         }
         //console.log(e.target.textContent)
         timeout = setTimeout(async() => {
              generateUser()
-            
         }, doneTypingInterval)
        
     
@@ -65,7 +66,7 @@ interface UserId{
             <h2>search for cooks to message</h2>
             <input type="text" style={{backgroundColor: 'white'}} onKeyUp={testing} />
         <button onClick={testing}>button</button>
-            {/* <ul style={styles.userList}>
+            <ul style={styles.userList}>
                 {users.map(user => (
                 <Link to={`/messages/${user._id}`}>
                     <li key={user._id} style={styles.userItem}>
@@ -73,7 +74,7 @@ interface UserId{
                     </li>
                 </Link>
                 ))}
-            </ul> */}
+            </ul>
         </div>
         
             <MessgagesDisplay userId={userId}/>
