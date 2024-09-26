@@ -7,6 +7,7 @@ import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import MessagesWindow from "./MessagesContainer";
 import MessagesContainer from "./MessagesContainer";
+import MessageContainer2 from "./MessageContainer2";
 
  const Messages = ()  => {
 
@@ -18,6 +19,7 @@ import MessagesContainer from "./MessagesContainer";
             <Navbar userName={userName} userProfilePicture={userProfilePicture}/>
             <Header text="Messages" margin="0 0 0 0"/>
             <MessagesContainer/>
+            {/* <MessageContainer2/> */}
         </div>
      );
 }

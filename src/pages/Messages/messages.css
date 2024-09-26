@@ -134,12 +134,25 @@
     margin: 0;
     padding: 0;
 }
-.messages-current-chat-chatter-message-card p{
+.messages-current-chat-chatter-message-card .received{
     padding: 3px 10px;
     background-color: #f45d48;
-    display: inline-block;
     margin-top: 0;
     border-radius: 5px;
     color: #f8f5f2;
+    float: left;
+    list-style: none;
+    margin: 5px 0 0 0;
 }
+.messages-current-chat-chatter-message-card .sent{
+    padding: 3px 10px;
+    background-color: #f45d48;
+    margin-top: 0;
+    border-radius: 5px;
+    color: #f8f5f2;
+    float: right;
+    list-style: none;
+    margin: 5px 0 0 0;
+}
+
 

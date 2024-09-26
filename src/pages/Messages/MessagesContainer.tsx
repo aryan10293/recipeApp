@@ -17,7 +17,8 @@ interface Message{
     senderId: string | null,
     recieverId: string | undefined
     chatRoomId:string,
-    type:string
+    type:string,
+    imgString:string
 }
 
 const MessagesContainer = () => {
@@ -29,6 +30,7 @@ const MessagesContainer = () => {
     const [users,setUsers] = useState([])
     const [messageToSend,setMessage] = useState<string>("")
     const [wss,setWss] = useState<WebSocket>()
+    const [isConnected,setIsConnected] = useState<boolean>(false)
     
 
     // Socket Handling    
@@ -38,40 +40,51 @@ const MessagesContainer = () => {
         const ws = new WebSocket('ws://localhost:2040')
         setWss(ws)
 
-        ws.onopen = ()=>{
+        ws.onopen = (event)=>{
             console.log('Socket is open')
-            getMessageHistory(roomId)
-            ws.send(JSON.stringify({type:'connect',message:'Hello server'}))
+            const message = JSON.stringify({type:'connect',message:'Hello server',roomId:roomId})
+            console.log('Sending message to the websocket server: ',message)
+            ws.send(JSON.stringify({
+                content: `user ${userId} joined the chat room ${roomId}`,
+                chatRoomId: roomId,
+                type:'join',
+                userId: userId
+              }));
+              setIsConnected(true)
+              getMessageHistory(roomId)
         }
 
-        ws.onmessage = (event)=>{
-            const receivedMessage = JSON.parse(event.data)
-            console.log('Received message: ',receivedMessage);
+        ws.onmessage = async (event) => {
+            const message = event.data
+            setChatHistory((prevChatHistory) => [...prevChatHistory, message]);
+            console.log('New message received: ',message);
             
-            // setChatHistory((prevChatHistory)=>[...prevChatHistory,receivedMessage])
-            setChatHistory(prevChatHistory => [...prevChatHistory, receivedMessage]);
-
-        }
+            await getMessageHistory(roomId)
+        };
 
         ws.onerror = (error)=>{
             console.log('Websocket error ',error);
         }
 
+
         ws.onclose = ()=>{
             console.log('Connection is closed');    
         }
-        }     
-        socketHandle()
         return ()=>{
-            if(wss){
-                wss?.close()  
+            if(ws){
+                ws.close()  
             }
+        }        
     }
-
-    }, [])
+    socketHandle()
+    }, [partnerId,userId,roomId])
     
+    // const roomIdRef = useRef(roomId)
     useEffect(()=>{
-        getMessageHistory(roomId)
+        // if(roomIdRef.current !== roomId){
+        //     getMessageHistory(roomId)
+        //     roomIdRef.current = roomId
+        // }
         generateUser()
     },[roomId])
     
@@ -124,7 +137,10 @@ const MessagesContainer = () => {
     // Getting message history
     const getMessageHistory = async function(chatRoomId:string){
         try {
-            const response = await fetch(`http://localhost:2030/getchatroommessages/${chatRoomId}`)
+            const response = await fetch(`http://localhost:2030/getchatroommessages/${chatRoomId}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
             
             if(!response.ok){
                 throw Error('Error while fetching chat history')
@@ -143,57 +159,62 @@ const MessagesContainer = () => {
     // Printing Message History
     const printMessageHistory = function(){
        
-           return (
-                chatHistory.map((message:Message,index)=>(
-                    <div className="message-card" key={index}>
-                        <p>{message.message}</p>
-                    </div>
+        return (
+                roomId && chatHistory && chatHistory.map((message,index)=>(
+                    <ul className="message-card" key={index}>
+                        {message.senderId === userId ? <li className="sent">{message.message}</li> : <li className="received">{message.message}</li>}
+                    </ul>
                 ))
-            )
+        )
     }
-
+ 
 
     // Clicking Send Button Logic
-    const handleSendMessageClick = async function(){
-        if(!messageToSend.trim()) return;
-        const payload:Message = {
-            type:'message',
-            message:messageToSend,
+    const handleSendMessageClick = async () => {
+        console.log('handleSendMessageClick called');
+        console.log('wss:', wss);   
+
+        if(!wss || wss.readyState !== WebSocket.OPEN){
+            console.log('wss is not yet set or not open')
+            return;
+        }
+
+        if (!messageToSend.trim()) return; 
+    
+        const payload: Message = {
+            type: 'message',
+            message: messageToSend,
             senderId: userId,
             recieverId: partnerId,
-            chatRoomId:roomId,
-            }
-             
-            console.log('wss',wss)  
-            
-            if(wss && wss.readyState === WebSocket.OPEN){
-                wss.send(JSON.stringify(payload))
-                console.log('Message is sent via websocket',payload);     
- 
-            }
-            else{
-                console.error('Websocket is not open')
-            }
-            // getMessageHistory(roomId)
-            setMessage("")
+            chatRoomId: roomId,
+            imgString: '',
+        };
+    
         try {
-           const response = await fetch(`http://localhost:2030/createmessage`,{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(payload)
-           })
-           if(!response.ok){
-            throw Error('Error while sending message')
-           }
-
-           const serverJson = response.json()
-           console.log(serverJson);
+    
+            const response = await fetch(`http://localhost:2030/createmessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Error while sending message');
+            }
+            if (isConnected && wss && wss.readyState === WebSocket.OPEN) {
+                console.log('Sending message:', payload);
+                wss.send(JSON.stringify(payload));
+                console.log('wss:', wss,'Sent');    
+            }
+            const jsonResponse = await response.json()
+            setMessage('');
+            // console.log('response: ',jsonResponse);
+            
+            await getMessageHistory(roomId)
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
-    }
+    };
 
     return ( 
         <div className="messages-container">
@@ -207,16 +228,17 @@ const MessagesContainer = () => {
                 </div>
                 <div className="messages-current-chat-chatter">
                     <div className="messages-current-chat-chatter-message-card">
-                        { chatHistory && chatHistory.map((message,index)=>(
-                            <div className="message-card" key={index}>
-                                <p>{message.message}</p>
-                            </div>
-                        ))}
+                        {/* {roomId && chatHistory && chatHistory.map((message,index)=>(
+                            <ul className="message-card" key={index}>
+                                {message.senderId === userId ? <li className="sent">{message.message}</li> : <li className="received">{message.message}</li>}
+                            </ul>
+                        ))} */}
+                        {chatHistory &&  printMessageHistory()}
                     </div>
                 </div>
                 <div className="message-input">
                         <textarea value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
-                        <button  onClick={(e)=>handleSendMessageClick()}>Send</button>
+                        <button onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
                 </div>
 
             </div>
