@@ -3,26 +3,28 @@ import mongoose from "mongoose"
 import { Schema, Document } from "mongoose";
 
 interface UserI extends Document{
-    bookmarks: any;
-    userName: string
+    bookmarks: any,
+    userName: string,
+    usernameSearch:string,
     firstName: string,
-    lastName: string
-    email: string
-    password: string
-    bio: string
-    profilePic: string
-    savedRecipes: string[]
-    skillLevel: string
-    followers: string[]
-    followings: string[]
-    dob: string
-    pinnedPost: string[]
-    cookingStyle: string
-    country: string
-    accountAge: string
+    lastName: string,
+    email: string,
+    password: string,
+    bio: string,
+    profilePic: string,
+    savedRecipes: string[],
+    skillLevel: string,
+    followers: string[],
+    followings: string[],
+    dob: string,
+    pinnedPost: string[],
+    cookingStyle: string,
+    country: string,
+    accountAge: string,
 }
 const UserSchema = new Schema<UserI>({
   userName: { type: String, unique: true , required: true},
+  usernameSearch: { type: String, required: true},
   firstName: { type: String, required: true},
   lastName: { type: String, required: true},
   email: { type: String, unique: true },

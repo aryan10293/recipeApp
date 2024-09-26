@@ -17,12 +17,17 @@ const messages_1 = __importDefault(require("../model/messages"));
 const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
 let messages = {
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const getUser = yield user_1.default.find();
-        if (!getUser) {
-            res.status(400).json({ status: '400', message: 'couldnt get users' });
+        try {
+            const getUser = yield user_1.default.find({
+                "$or": [
+                    { usernameSearch: { $regex: req.body.search.toLowerCase() } }
+                ]
+            });
+            res.status(200).json({ status: '200', data: getUser });
         }
-        else {
-            res.status(200).json({ status: '200', message: 'sucess', users: getUser });
+        catch (error) {
+            console.error('Error fetching user:', error);
+            return res.status(500).json({ status: '500', message: 'Server error', error: error.message });
         }
     }),
     createMessage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
