@@ -4,13 +4,6 @@ import  { Request, Response} from "express";
 import uploadImage from "../middleware/cloudinary";
 let messages = {
     getUser: async(req:Request, res:Response) => {
-        
-        // const getUser = await User.find()
-        // if(!getUser){
-        //     res.status(400).json({status:'400', message:'couldnt get users'})
-        // } else {
-        //    res.status(200).json({status:'200', message:'sucess', users:getUser}) 
-        // }
         try {
             const getUser = await User.find({
 
@@ -23,6 +16,47 @@ let messages = {
         } catch (error:any) {
             console.error('Error fetching user:', error);
             return res.status(500).json({ status: '500', message: 'Server error', error: error.message });
+        }
+    },
+    //testing below
+    getAllUsers: async (req:Request, res:Response) => {
+        const user = await User.find()
+        res.json(user)
+    },
+    //testing above
+    getMessageHistory: async (req:Request, res:Response) => {
+        try {
+            let checkkForDupObj = {}
+
+            const queryDataBase = async (id:string) => {
+                return await User.find({_id: id})
+            }
+
+            const getUsersYouChatedWith = await message.find({
+                "$or": [
+                    {recieverId:req.body.id},
+                    {senderId:req.body.id}
+                ]
+            })
+            getUsersYouChatedWith.forEach((x:any) => {
+                if(x.senderId !== req.body.id){
+                    if(!checkkForDupObj[x.senderId]){
+                        checkkForDupObj[x.senderId] = x.senderId
+                    }
+                } else {
+                    if(!checkkForDupObj[x.recieverId]){
+                        checkkForDupObj[x.recieverId] = x.recieverId
+                    }
+                }
+            })
+            const getTheUserDocumentsYouChatedWith = await Promise.all(Object.keys(checkkForDupObj).map(async (id:any, i:number) => {
+                return queryDataBase(id)
+            }))
+            
+            res.status(200).json(getTheUserDocumentsYouChatedWith)
+        } catch (error:any) {
+            console.log(error)
+            res.status(500).json({ status: '500', message: 'Server error', error: error.message });
         }
     },
     createMessage: async (req:Request, res:Response) => {

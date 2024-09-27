@@ -30,6 +30,44 @@ let messages = {
             return res.status(500).json({ status: '500', message: 'Server error', error: error.message });
         }
     }),
+    getAllUsers: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const user = yield user_1.default.find();
+        res.json(user);
+    }),
+    getMessageHistory: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            let checkkForDupObj = {};
+            const queryDataBase = (id) => __awaiter(void 0, void 0, void 0, function* () {
+                return yield user_1.default.find({ _id: id });
+            });
+            const getUsersYouChatedWith = yield messages_1.default.find({
+                "$or": [
+                    { recieverId: req.body.id },
+                    { senderId: req.body.id }
+                ]
+            });
+            getUsersYouChatedWith.forEach((x) => {
+                if (x.senderId !== req.body.id) {
+                    if (!checkkForDupObj[x.senderId]) {
+                        checkkForDupObj[x.senderId] = x.senderId;
+                    }
+                }
+                else {
+                    if (!checkkForDupObj[x.recieverId]) {
+                        checkkForDupObj[x.recieverId] = x.recieverId;
+                    }
+                }
+            });
+            const getTheUserDocumentsYouChatedWith = yield Promise.all(Object.keys(checkkForDupObj).map((id, i) => __awaiter(void 0, void 0, void 0, function* () {
+                return queryDataBase(id);
+            })));
+            res.status(200).json(getTheUserDocumentsYouChatedWith);
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ status: '500', message: 'Server error', error: error.message });
+        }
+    }),
     createMessage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let img;
         if (req.body.imgString === '') {
