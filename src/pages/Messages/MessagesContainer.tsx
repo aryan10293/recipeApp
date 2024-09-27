@@ -20,21 +20,30 @@ interface Message{
     type:string,
     imgString:string
 }
+interface Props{
+
+}
 
 const MessagesContainer = () => {
-    const {userUsername:userUserName,userProfilePicture:userProfilePicture} = useGetUserDataFromId('66c9d11243289e296cd8d128')
+
     const userId = useContext(UserContext) as string | null
     const [chatHistory,setChatHistory] = useState<Message[]>([])
     const [partnerId,setPartnerId] = useState<string>("")
+    const {userUsername:userUserName,userProfilePicture:userProfilePicture} = useGetUserDataFromId(partnerId)
+
     const [roomId,setRoomId] = useState<string>("")
     const [users,setUsers] = useState([])
     const [messageToSend,setMessage] = useState<string>("")
     const [wss,setWss] = useState<WebSocket>()
     const [isConnected,setIsConnected] = useState<boolean>(false)
     
+    const chatBoxRef:any = useRef(null)
 
     // Socket Handling    
     useEffect(() => {
+        if(chatBoxRef.current){
+            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
+        }
         const socketHandle = function(){
         
         const ws = new WebSocket('ws://localhost:2040')
@@ -159,12 +168,12 @@ const MessagesContainer = () => {
     // Printing Message History
     const printMessageHistory = function(){
        
-        return (
+        return ( chatHistory !== null ? 
                 roomId && chatHistory && chatHistory.map((message,index)=>(
                     <ul className="message-card" key={index}>
                         {message.senderId === userId ? <li className="sent">{message.message}</li> : <li className="received">{message.message}</li>}
                     </ul>
-                ))
+                )) : <p className="pending-msg">Loading...</p>
         )
     }
  
@@ -208,13 +217,20 @@ const MessagesContainer = () => {
             }
             const jsonResponse = await response.json()
             setMessage('');
-            // console.log('response: ',jsonResponse);
             
             await getMessageHistory(roomId)
         } catch (error) {
             console.error(error);
         }
     };
+
+    const chatContainerRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+      }, [chatHistory]); 
 
     return ( 
         <div className="messages-container">
@@ -224,9 +240,9 @@ const MessagesContainer = () => {
             <div className="messages-current-chat">
 
                 <div className="messages-current-chat-header">
-                    <UserIcons userName={userUserName} userProfilePic={userProfilePicture} />
+                    <UserIcons userName={userUserName ? userUserName : 'No chat is selected'} userProfilePic={userProfilePicture ? userProfilePicture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZpUJhFwB85GyHaxths8hBLh6L9kSmttcgOQ&s'} />
                 </div>
-                <div className="messages-current-chat-chatter">
+                <div ref={chatContainerRef} className="messages-current-chat-chatter">
                     <div className="messages-current-chat-chatter-message-card">
                         {/* {roomId && chatHistory && chatHistory.map((message,index)=>(
                             <ul className="message-card" key={index}>
