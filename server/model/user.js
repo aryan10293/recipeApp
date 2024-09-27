@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
 const UserSchema = new mongoose_2.Schema({
     userName: { type: String, unique: true, required: true },
+    usernameSearch: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, unique: true },

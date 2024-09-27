@@ -37,6 +37,7 @@ let auth = {
         });
         const user = new User({
           userName: req.body.username,
+          usernameSearch: req.body.username.toLowerCase(),
           email: req.body.email,
           password: req.body.password,
           lastName: req.body.first,
