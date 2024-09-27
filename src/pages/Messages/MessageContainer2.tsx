@@ -135,7 +135,6 @@ const MessageContainer2 = () => {
             console.log('Websocket error ',error);      
         }
 
-
         wss.onmessage = async (event) => {
             try {
                 const message = event.data
