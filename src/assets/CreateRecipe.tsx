@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { KeyboardEventHandler, useContext, useEffect, useState } from "react";
 import {encode as base64_encode} from "base-64";
 import useUserId from "../Utils/useGetUserId";
 import UserContext from "../contexts/UserContext";
@@ -41,7 +41,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
     const ingredientClickHandle = function(e:React.MouseEvent<HTMLButtonElement>){
 
-        e.preventDefault()
+        // e.preventDefault()
         if(newIngredient === ""){
             console.log('Cannot be empty')
         }
@@ -109,7 +109,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         perServingMacros:PerServingMacros
     }
 
-    const handleImageUpload = async function(e:React.ChangeEvent<HTMLInputElement>){
+    const handleImageUpload = async function(){
         if(e.target.files && e.target.files.length !== 0){
             const file = e.target.files[0]
             setUploadedImage(file)
@@ -215,6 +215,11 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         })
             
     }
+    const enterPress = function(event:KeyboardEventHandler<HTMLInputElement>){
+        if(event.key === 'Enter'){
+            ingredientClickHandle()
+        }     
+    }
 
     useEffect(()=>{
         isPending ? setPostButtonText('Posting') : setPostButtonText('Post Recipe')
@@ -248,10 +253,9 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                 
 
                 <div className="ingredients-input">
-                    <input value={servings} className="ingredient" onChange={((e:any)=>setServings(e.target.value))} placeholder="servings size?" type="number" />
-                    <input value={newMeasurement} className="ingredient" onChange={((e)=>setNewMeasurement(e.target.value))} placeholder="1cup" type="text" />
-                    <input value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
+                    <input onKeyDown={enterPress} id="ing" value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
                     <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>
+                    {/* <button onClick={(e)=>ingredientClickHandle(e)} type="submit" form="ing" className="ingredient-btn">Add Ingredient</button> */}
                 </div>
                 
                 <div className="img-upload-box">

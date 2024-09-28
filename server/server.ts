@@ -72,11 +72,10 @@ const broadcastMessage = (roomId: string, message: string) => {
   }
 }
 
-
-
 wss.on('connection', (ws) => {
   let roomId: string  = ''
-
+  console.log('Connection is ready');
+  
 
   ws.on('message', (message:string) => {
     const messageString = message.toString();
@@ -92,7 +91,7 @@ wss.on('connection', (ws) => {
       
       rooms[roomId][parsedMessage.userId] = ws;
       console.log(Object.keys(rooms[roomId]).length)
-
+      
       broadcastMessage(roomId, `${parsedMessage.userId} joined the room.`);
     }
 

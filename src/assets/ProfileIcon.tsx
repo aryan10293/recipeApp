@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useUserId from "../Utils/useGetUserId";
 
 interface ProfileIconProps{
-    img:string | null,
+    img:string | undefined,
     userId:string | undefined
 }
 
@@ -17,12 +17,6 @@ const ProfileIcon:React.FC<ProfileIconProps> = ({img,userId}) => {
 
     return ( 
         <div className="profile-icon">
-            {/* <Link to={"/userprofile"}>
-                <button>
-                < img src={img} alt="" />    
-                </button> 
-            </Link> */}
-                
                 <button onClick={handleClick}>
                 < img src={img} alt="" />    
                 </button> 

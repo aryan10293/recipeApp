@@ -139,7 +139,9 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                             <h3 className="name-of-dish">{recipe.nameOfDish}</h3>
                             <h3 className="time-img" ><TimeButton/></h3>
                             <h3  className="prep-time">{recipe.prepTime}</h3>
-                            {renderDifficultyIcon(recipe.levelOfMeal)}
+                            <div className="diff-icons">
+                                {renderDifficultyIcon(recipe.levelOfMeal)}
+                            </div>
                         </div>
                         
                     </button>
@@ -421,7 +423,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         )
     }
 
-    return (
+    return ( 
         <div className="profile-card">
             {isEditingDetails ? renderBaseCard() : renderEditCard()}
             

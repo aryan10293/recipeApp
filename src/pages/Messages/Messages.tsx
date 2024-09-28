@@ -1,25 +1,27 @@
-import { useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
 import MessageAsideBar from "./MessageAsideBar";
 import { useNavigate } from "react-router-dom";
-interface UserId{
-    userId:string
-}
- const Messages: React.FC<UserId> = ({userId})  => {
+import UserContext from "../../contexts/UserContext";
+import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
+import MessagesWindow from "./MessagesContainer";
+import MessagesContainer from "./MessagesContainer";
+import MessageContainer2 from "./MessageContainer2";
 
-    const navigate = useNavigate()
+ const Messages = ()  => {
 
-    useEffect(()=>{
-        if(!localStorage.getItem('token')){
-            navigate('/login')
-        }
-    },[])
+    const userID = useContext(UserContext)
+    const {userProfilePicture:userProfilePicture,userUsername:userName} = useGetUserDataFromId(userID)
+
+
+
     return ( 
-        <div>
-            <Navbar/>
+        <div className="messages-page">
+            <Navbar userName={userName} userProfilePicture={userProfilePicture}/>
             <Header text="Messages" margin="0 0 0 0"/>
-            <MessageAsideBar userId={userId}/>
+            <MessagesContainer/>
+            {/* <MessageContainer2/> */}
         </div>
      );
 }

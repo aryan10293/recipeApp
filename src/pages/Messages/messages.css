@@ -1,0 +1,187 @@
+.messages-page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+.messages-container{
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0 0 0;
+    width: 1400px;
+    height: 900px;
+    /* border: 1px solid black; */
+    padding: 20px;  
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+    background-color: #078080;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+.messages-users-list-container{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    width: 20%;
+    box-sizing: content-box;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    overflow: auto;
+    scrollbar-width:thin;
+}
+
+.messages-users-list-container .user-icon{
+    margin: 0 0 0 10px;
+    width: 100%;
+}
+.messages-users-list-container .user-icon h2{
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+.messages-users-list-container .user-icon .picture{
+    transform: scale(0.8);
+}
+.user-msg-btn{
+    padding: 0;
+    background-color: transparent;
+    width: 95%;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+    /* box-shadow: 0px 5px 10px #f45d48; */
+}
+.user-msg-btn:hover{
+    background-color: rgba(255,255,255,0.1);
+}
+.messages-user-card{
+    display: flex;
+    flex-direction: row;
+}
+.messages-current-chat{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    box-sizing: content-box;
+    width: 75%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    padding: 30px;
+}
+.messages-current-chat-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 10px;
+    border-radius: 0px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    margin: 0 0 15px 0;
+}
+.messages-current-chat-header .user-icon{
+    display: flex;
+    flex-direction: row;
+    height:100%;
+    width: 100%;
+    margin: 0 0 0 10px;
+}
+.user-icon{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.messages-current-chat-header .user-icon .picture{
+    scale: 1.2;
+}
+.user-icon .picture{
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 100%;
+    margin: 0 15px 0 0;
+    border: 2px solid #f45d48;
+}
+.user-icon .picture img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.messages-current-chat-chatter{
+    display: flex;
+    flex-direction: column;
+    box-sizing:border-box;
+    padding: 15px;
+    width: 100%;
+    height: 70%;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    overflow: auto;
+    scrollbar-width: none;
+}
+.messages-current-chat-header .user-icon h2{
+    font-size: 1.5rem;
+    font-weight: 500;
+    position: relative;
+    bottom: -5px;
+}
+.messages-current-chat .message-input{
+    width: 100%;
+    height: 20%;
+    margin: 15px 0 0 0;
+    box-sizing: border-box;
+    padding: 15px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+.message-input textarea{
+    resize: none;
+    width: 900px;
+    height: 100px;
+    background-color: #f8f5f2;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 10px 15px;
+}
+.message-input button{
+    padding: 5px 15px;
+    height: 30px;
+    position: relative;
+    bottom: -50px;
+    left: -10px;
+}
+.messages-current-chat-chatter-message-card{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.messages-current-chat-chatter-message-card .message-card{
+    margin: 0;
+    padding: 0;
+}
+.messages-current-chat-chatter-message-card .received{
+    padding: 3px 10px;
+    background-color: #f45d48;
+    margin-top: 0;
+    border-radius: 5px;
+    color: #f8f5f2;
+    float: left;
+    list-style: none;
+    margin: 5px 0 0 0;
+}
+.messages-current-chat-chatter-message-card .sent{
+    padding: 3px 10px;
+    background-color: #f45d48;
+    margin-top: 0;
+    border-radius: 5px;
+    color: #f8f5f2;
+    float: right;
+    list-style: none;
+    margin: 5px 0 0 0;
+}
+
+

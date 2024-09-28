@@ -12,15 +12,15 @@ interface UserId{
     const [messageHistory, setMessageHistory] = useState<any>([])
     const [measurement, setMeasurement] = useState<string>('')
     const [ingrident, setIngrident] = useState<string>('')
-   
-    const getMessageHistory = async () => {
+    
+    // Getting History
+   const getMessageHistory = async () => {
         const getMessages = await fetch(`http://localhost:2030/getchatroommessages/${roomId}`, {
           method:'GET',
           headers: {'Content-Type': 'application/json'},
         })
 
-        const messageHistory = await getMessages.json()
-        
+        const messageHistory = await getMessages.json() 
         setMessageHistory(messageHistory.messages)
       }
 
@@ -30,7 +30,6 @@ interface UserId{
           setRoomId(`${userId.slice(-4)}${id.slice(-4)}`.split('').sort().join(''))
         }
 
-  
         ws.onopen = (event) => {
           ws.send(JSON.stringify({
             content: `user ${userId} joined the chat room ${roomId}`,
@@ -55,6 +54,8 @@ interface UserId{
         getMessageHistory()
 
     }, [id, userId, roomId])
+
+    // Sending the message
 const sendMessage = async (e:any) => {
   let img = e.currentTarget.previousSibling.files[0]
   let base64:any = ''
@@ -63,6 +64,7 @@ const sendMessage = async (e:any) => {
   }
   const ws = new WebSocket('ws://localhost:2040');
   ws.onopen = async () => {
+
       const message = {
         type:'message',
         message:messageToSend,

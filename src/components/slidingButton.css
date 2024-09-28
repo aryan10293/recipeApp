@@ -1,0 +1,75 @@
+
+.slide-btn-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0 0 0;
+}
+.button-container{
+    width: 90px;
+    height: 30px;
+    border: 2px solid #078080;
+    background-color: #f8f5f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+}
+.slide-btn{
+    border: 2px solid #f45d48;
+    border-radius: 50px;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color:  #f45d48;
+}
+.slide-state-01{
+    left: -26px;
+    animation: buttonSlideToRight 0.2s forwards;
+}
+.slide-state-02{
+    left: 26px;
+    animation: buttonSlideToLeft 0.2s forwards;
+}
+.slide-btn-txt{
+    font-size: 0.8rem;
+    position: relative;
+    bottom: 39px;
+}
+
+.slide-btn-txt-state-01{
+    left: 13px;
+    animation: btnAppear2 ease-in 0.3s forwards;
+    opacity: 0;
+}
+.slide-btn-txt-state-02{
+    left: -13px;
+    opacity: 0;
+    animation: btnAppear ease-in 0.3s forwards;
+}
+
+@keyframes buttonSlideToLeft{
+    from{left: -26px;}
+    to{left:26px}
+}
+@keyframes buttonSlideToRight{
+    from{left: 26px;}
+    to{left:-26px}
+}
+
+@keyframes btnAppear{
+    from{opacity: 0;}
+    to{opacity: 100%;}
+    from{transform: rotateY(90deg);}
+    to{transform: rotateY(0);}
+}
+@keyframes btnAppear2{
+    from{opacity: 0;}
+    to{opacity: 100%;}
+    from{transform: rotateY(90deg);}
+    to{transform: rotateY(0);}
+}

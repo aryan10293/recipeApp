@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { JSXElementConstructor, ReactElement, useContext } from "react"
 import UserContext from "../contexts/UserContext"
 import { Navigate, redirectDocument } from "react-router-dom"
 
@@ -11,7 +11,7 @@ const PrivateRoute = ({children}) =>{
         return <Navigate to={'/login'}/>
     }
     console.log('Token found');
-    
+
     return children
 }
 

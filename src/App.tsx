@@ -8,6 +8,9 @@ import './assets/CreateRecipe.css'
 import '../src/pages/SingleCard/SingleCard.css'
 import '../src/components/CommentBox.css'
 import '../src/components/ProfileCard.css'
+import './components/slidingButton.css';
+import './pages/Messages/messages.css'
+
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
 import Feed from './pages/feed/Feed';
@@ -21,6 +24,7 @@ import EditProfile from './pages/EditProfilePage/EditProfile'
 import PrivateRoute from './Routes/PrivateRoute'
 import ScrollToTop from './Utils/ScrollToTop'
 import Profile from './pages/Profile/Profile'
+import EditProfileCard from './components/EditProfileCard'
 function App() {
   const [userId, setUserId] = React.useState<string>('')
   const [userInfo, setUserInfo] = React.useState<any[]>([])
@@ -46,17 +50,19 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/"element={<Login />  } />
-        <Route path="/"element={<Login />  } />
-        <Route path="/savedrecipes"element={<SavedRecipes />  } />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path='/home' element={<Feed />} />
-        <Route path='/feed' element={<Feed />} />
-        <Route path="/messages" element={<Messages userId={userId}/>} />
-        <Route path="/messages/:id" element={<Messages userId={userId}/>} />
-        <Route path="/profile" element={<Profile user={userInfo} />} />
-        <Route path="/recipe" element={<SingleCard />} />
-      </Routes>
+          {/* <PrivateRoute> */}
+            <Route path="/savedrecipes"element={<SavedRecipes />  } />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path='/home' element={<Feed />} />
+            <Route path='/feed' element={<Feed />} />
+            <Route path="/messages" element={<Messages userId={userId}/>} />
+            <Route path='/userprofile' element={<EditProfile/>} />
+            <Route path="/messages/:id" element={<Messages userId={userId}/>} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/recipe" element={<SingleCard />} />
+          {/* </PrivateRoute> */}
+        </Routes>
       </UserProvider>
     </>
   );
