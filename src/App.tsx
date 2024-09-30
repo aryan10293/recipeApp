@@ -10,6 +10,7 @@ import '../src/components/CommentBox.css'
 import '../src/components/ProfileCard.css'
 import './components/slidingButton.css';
 import './pages/Messages/messages.css'
+import './components/NutritionCard.css'
 
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
@@ -49,14 +50,14 @@ function App() {
           {/* public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/"element={<Login />  } />
+          <Route path="/"element={<Login /> } />
           {/* <PrivateRoute> */}
             <Route path="/savedrecipes"element={<SavedRecipes />  } />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path='/home' element={<Feed />} />
             <Route path='/feed' element={<Feed />} />
-            <Route path="/messages" element={<Messages userId={userId}/>} />
+            <Route path="/messages" element={<Messages/>} />
             <Route path='/userprofile' element={<EditProfile/>} />
             <Route path="/messages/:id" element={<Messages userId={userId}/>} />
             <Route path="/profile" element={<ProfilePage />} />

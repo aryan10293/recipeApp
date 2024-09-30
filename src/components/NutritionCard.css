@@ -1,0 +1,94 @@
+.nutrition-container{
+    width: 1000px;
+    height: 200px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    margin: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center ; */
+    align-items: center;
+    background-color: #078080;
+    transition: transform 0.1s ease-in;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    z-index: 0;
+}
+
+.nutrition-container .header{
+    margin: 0;
+    padding: 0;
+}
+.nutrition-container .header h2{
+    margin: 0;
+    padding: 0;
+}
+
+.nutrition-container .bottom{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.nutrition-container .bottom .left{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+}
+.nutrition-container .bottom .right{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+}
+
+.nutrition-container .bottom .left .nutrient{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.nutrition-container .bottom .left .nutrient-value{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.nutrition-container .bottom .right .nutrient{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.nutrition-container .bottom .right .nutrient-value{
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.nutrition-container .bottom .left .nutrient h3{
+    margin: 0;
+    padding: 0;
+}
+
+.nutrition-container .bottom .left .nutrient-value h3{
+    margin: 0;
+    padding: 0;
+}
+
+.nutrition-container .bottom .right .nutrient h3{
+    margin: 0;
+    padding: 0;
+}
+
+.nutrition-container .bottom .right .nutrient-value h3{
+    margin: 0;
+    padding: 0;
+}

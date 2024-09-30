@@ -18,9 +18,13 @@ const useGetUserDataFromId = (id:string | null) => {
     const [userFollowerNum,setUserFollowerNum] = useState<[]>()
     const [userFollowingNum,setUserFollowingNum] = useState<[]>()
 
+
    
     useEffect(()=>{
+        const controller = new AbortController(); // Move inside useEffect
+        const signal = controller.signal;
         const getUserId = async function() {
+
 
             try {
                 
@@ -66,13 +70,14 @@ const useGetUserDataFromId = (id:string | null) => {
 
                 // console.log(followerNum,followingNum);
                 
-
-            } catch (error) {
-                console.log(error)   
-            }      
+            } catch (error:Error | any) {
+                console.log(error);
+            }
+   
         }
 
         getUserId()
+
     },[id])
 
     return {
