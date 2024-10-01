@@ -17,6 +17,7 @@ import LikeCommentButton from "./LikeCommentButton";
 import UserNameButton from "../components/UsernameButton";
 import UserNameProfileButton from "../components/UserNameProfileButton";
 import FollowUserButton from "../components/FollowUserButton";
+import NutritionCard from "../components/NutritionCard";
 
 
 
@@ -36,7 +37,8 @@ interface RecipeCardProps{
     levelOfMeal:number,
     postIndex?:number
     userID?:string | undefined,
-    userWhoPostId:string
+    userWhoPostId:string,
+    // showNutrition:(e:React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
 interface Comments{
@@ -198,9 +200,17 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
             }
 
          }
-    return ( 
- 
-<div className="recipe-card-container">
+
+         const [showNutritions,setShowNutritions] = useState<boolean>(false)
+
+         const handleCardFace = (e:MouseEvent)=>{
+            e.stopPropagation()
+             showNutritions ? setShowNutritions(false) : setShowNutritions(true)
+         }
+
+         const printRecipeCard = function(){
+            return (
+                <div className="recipe-card-container">
     <button onClick={handleClick} className={recipeClass}>
 
             <div className="left-side">
@@ -240,6 +250,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                         <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
                     </div>
                     {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
+                    <button onClick={(e)=>handleCardFace(e)}>Back side</button>
                 </div>
                 
                 </div>
@@ -248,6 +259,21 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
     {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
     {commentsVisbile && renderAllUserComments()}
 </div>
+            )
+         }
+
+         const printNutritions = function(){
+            return(
+                <button onClick={(e)=>handleCardFace(e)}>Front Side</button>
+
+            )
+         }
+         
+         
+
+    return ( 
+ 
+        showNutritions ? <NutritionCard handle={(e)=>handleCardFace(e)}/> : printRecipeCard()
     
      );
 }

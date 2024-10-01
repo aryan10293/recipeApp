@@ -1,14 +1,14 @@
 .nutrition-container{
     width: 1000px;
     height: 200px;
-    padding: 0;
+    padding: 10px 50px;
+    box-sizing:border-box;
     background-color: transparent;
     border: none;
     margin: 20px 0 0 0;
     display: flex;
     flex-direction: column;
     /* justify-content: center ; */
-    align-items: center;
     background-color: #078080;
     transition: transform 0.1s ease-in;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.3);
@@ -17,21 +17,23 @@
 }
 
 .nutrition-container .header{
-    margin: 0;
-    padding: 0;
+    margin: 0 0 15px 0;
+    padding: 0; 
 }
 .nutrition-container .header h2{
     margin: 0;
     padding: 0;
+    font-size: 2 rem;
+    font-weight: 400;
 }
 
 .nutrition-container .bottom{
     margin: 0;
     padding: 0;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .nutrition-container .bottom .left{
@@ -39,56 +41,68 @@
     padding: 0;
     display: flex;
     flex-direction: row;
-    width: 200px;
+    width: 30%;
+    justify-content:space-between
 }
 .nutrition-container .bottom .right{
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: row;
-    width: 200px;
+    width: 30%;
+    justify-content:space-between
 }
 
 .nutrition-container .bottom .left .nutrient{
     margin: 0;
     padding: 0;
-    border: 1px solid black;
+    width: 45%;
+    /* border: 1px solid black; */
 }
 
 .nutrition-container .bottom .left .nutrient-value{
     margin: 0;
     padding: 0;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .nutrition-container .bottom .right .nutrient{
     margin: 0;
     padding: 0;
-    border: 1px solid black;
+    width: 45%;
+    /* border: 1px solid black; */
 }
 
 .nutrition-container .bottom .right .nutrient-value{
     margin: 0;
     padding: 0;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .nutrition-container .bottom .left .nutrient h3{
-    margin: 0;
+    margin: 0px;
     padding: 0;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .nutrition-container .bottom .left .nutrient-value h3{
-    margin: 0;
+    margin: 0px;
     padding: 0;
+    font-size: 1.2rem;
+    font-weight: 300;
 }
 
 .nutrition-container .bottom .right .nutrient h3{
-    margin: 0;
+    margin: 0px;
     padding: 0;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .nutrition-container .bottom .right .nutrient-value h3{
-    margin: 0;
+    margin: 0px;
     padding: 0;
+    font-size: 1.2rem;
+    font-weight: 300;
 }

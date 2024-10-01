@@ -3,6 +3,7 @@ import useFetch from "./useFetch";
 import RecipeCard from "./RecipeCard";
 import UserContext from "../contexts/UserContext";
 import useGetUserDataFromId from "../Utils/useGetUserDataFromId";
+import NutritionCard from "../components/NutritionCard";
 
 interface RecipeListProps{
     url:string,
@@ -115,7 +116,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
 
     const renderAllPosts = function():JSX.Element{
             return(
-                    <div>
+                    <div> 
                         {
                         userID &&
                         renderedArray && 
@@ -125,7 +126,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                             .reverse()
                             .map((recipe:Recipe,index:number)=>(
                                 <div  className="asd" key={recipe._id}>
-                                    {<RecipeCard 
+                                    {<RecipeCard
                                     _id={recipe._id}
                                     recipeName={recipe.nameOfDish}
                                     recipeTime={recipe.prepTime}
@@ -138,12 +139,17 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                                     postIndex={index}
                                     userID={userID} 
                                     userWhoPostId={recipe.userWhoPostId}           
-                                    />}
+                                    /> 
+                                    }
+
+
                                 </div>))
                         }
                     </div>
                 )
         }
+
+
     const renderFollowedPosts = function():JSX.Element{
             return(
                     <div>
@@ -184,6 +190,9 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                return renderedFollowedArray ? renderFollowedPosts() : <p>Loading...</p>
             }
         }
+
+
+
 
     return ( 
         decider()

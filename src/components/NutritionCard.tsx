@@ -7,7 +7,11 @@ interface Nutrition{
     servings:number,
 }
 
-const NutritionCard = () => {
+interface Nutri{
+    handle:void
+}
+
+const NutritionCard = ({handle}) => {
 
 
     return ( 
@@ -37,6 +41,7 @@ const NutritionCard = () => {
                     </div>
                 </div>
             </div>
+            <button onClick={handle}>Front Side</button>
         </div>
      );
 }
