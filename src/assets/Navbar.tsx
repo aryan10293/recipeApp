@@ -34,6 +34,7 @@ const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture,userId}) => {
             </ul>
             
             <ul className="middle-side">
+                <Link to='/search'><button>search stuff</button></Link>      
                 <li><HomeButton/></li>
                 <li><SavedRecipesButton/></li>
                 <li><MessageButton/></li>
