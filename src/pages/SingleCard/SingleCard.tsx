@@ -97,8 +97,11 @@ const SingleCard:React.FC<RecipeCardProps> = () => {
      }
     useEffect(()=>{
         console.log(recipe.likes);
-        
     },)
+    useEffect(()=>{
+        console.log(recipe.post[0]._id);
+        
+    },[recipe.post[0]._id])
     return ( 
         
         <div className="single-card-box">

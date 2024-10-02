@@ -109,7 +109,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         perServingMacros:PerServingMacros
     }
 
-    const handleImageUpload = async function(){
+    const handleImageUpload = async function(e:any){
         if(e.target.files && e.target.files.length !== 0){
             const file = e.target.files[0]
             setUploadedImage(file)

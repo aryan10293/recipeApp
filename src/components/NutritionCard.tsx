@@ -8,10 +8,14 @@ interface Nutrition{
 }
 
 interface Nutri{
-    handle:void
+    handle:void,
+    calories:string,
+    protein: string,
+    carbs: string,
+    fats: string
 }
 
-const NutritionCard = ({handle}) => {
+const NutritionCard:React.FC<Nutri> = ({fats,protein,carbs,handle,calories}) => {
 
 
     return ( 
@@ -19,6 +23,7 @@ const NutritionCard = ({handle}) => {
             <div className="header">
                 <h2>Nutritions</h2>
             </div>
+            <hr />
             <div className="bottom">
                 <div className="left">
                     <div className="nutrient">
@@ -26,8 +31,8 @@ const NutritionCard = ({handle}) => {
                         <h3>Fats</h3>
                     </div>
                     <div className="nutrient-value">
-                        <h3>120g</h3>
-                        <h3>12g</h3>
+                        <h3>{calories}</h3>
+                        <h3>{fats}</h3>
                     </div>
                 </div>
                 <div className="right">
@@ -36,12 +41,15 @@ const NutritionCard = ({handle}) => {
                         <h3>Carbs</h3>
                     </div>
                     <div className="nutrient-value">
-                        <h3>20g</h3>
-                        <h3>40g</h3>
+                        <h3>{protein}</h3>
+                        <h3>{carbs}</h3>
                     </div>
                 </div>
             </div>
-            <button onClick={handle}>Front Side</button>
+            <div className="button-div">
+                <button onClick={handle}>Recipe Card</button>
+            </div>
+
         </div>
      );
 }
