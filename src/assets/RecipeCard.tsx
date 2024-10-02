@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
 import DeleteButton from "./DeleteButton"
@@ -242,7 +242,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
                     <h2 className="recipe-steps">{steps}</h2>
                         
                 <div className="interaction-box">
-                    {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
+                    {userID && <LikeButton userId={userID} postId={_id} postLikes={likes?}/> }
                     {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
                     <BookmarkButton userId={userID} postId={_id}/>
                     <div className="name-n-follow-box">
@@ -273,7 +273,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
 
     return ( 
  
-        showNutritions ? <NutritionCard handle={(e)=>handleCardFace(e)}/> : printRecipeCard()
+        showNutritions ? <NutritionCard handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
     
      );
 }
