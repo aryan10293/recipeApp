@@ -48,6 +48,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         else{
             getItemFromNutritionApi()
             console.log("Adding ingredient: " + newIngredient + newMeasurement)
+            console.log(ingredientListToTrackMacros)
             setIngredients([...ingredients,newIngredient])
             setNewIngredient("")
         }   
@@ -109,7 +110,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         perServingMacros:PerServingMacros
     }
 
-    const handleImageUpload = async function(){
+    const handleImageUpload = async function(e:any){
         if(e.target.files && e.target.files.length !== 0){
             const file = e.target.files[0]
             setUploadedImage(file)
@@ -253,6 +254,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                 
 
                 <div className="ingredients-input">
+                    <input onKeyDown={enterPress} id="ing" value={newMeasurement} className="ingredient" onChange={((e)=>setNewMeasurement(e.target.value))} placeholder="2oz.." type="text" />
                     <input onKeyDown={enterPress} id="ing" value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
                     <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>
                     {/* <button onClick={(e)=>ingredientClickHandle(e)} type="submit" form="ing" className="ingredient-btn">Add Ingredient</button> */}

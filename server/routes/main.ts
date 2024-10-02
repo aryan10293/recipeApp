@@ -10,6 +10,7 @@ router.post('/createrecipe', feed.createRecipe)
 router.post('/createcomment', feed.commentRecipe)
 router.post('/createmessage', messages.createMessage)
 router.post('/searchforusers', messages.getUser)
+router.post('/getuserchathistory', messages.getMessageHistory)
 
 router.get('/getuser/:id', auth.checkUser)
 router.get('/getuserbyid/:id', auth.getUser)

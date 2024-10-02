@@ -15,6 +15,7 @@ router.post('/createrecipe', feed_1.default.createRecipe);
 router.post('/createcomment', feed_1.default.commentRecipe);
 router.post('/createmessage', message_1.default.createMessage);
 router.post('/searchforusers', message_1.default.getUser);
+router.post('/getuserchathistory', message_1.default.getMessageHistory);
 router.get('/getuser/:id', auth_1.default.checkUser);
 router.get('/getuserbyid/:id', auth_1.default.getUser);
 router.get('/getallpost', feed_1.default.getAllPost);
