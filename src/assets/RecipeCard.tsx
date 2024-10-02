@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
 import DeleteButton from "./DeleteButton"
@@ -17,6 +17,7 @@ import LikeCommentButton from "./LikeCommentButton";
 import UserNameButton from "../components/UsernameButton";
 import UserNameProfileButton from "../components/UserNameProfileButton";
 import FollowUserButton from "../components/FollowUserButton";
+import NutritionCard from "../components/NutritionCard";
 
 
 
@@ -36,7 +37,8 @@ interface RecipeCardProps{
     levelOfMeal:number,
     postIndex?:number
     userID?:string | undefined,
-    userWhoPostId:string
+    userWhoPostId:string,
+    // showNutrition:(e:React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
 interface Comments{
@@ -198,56 +200,129 @@ const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeN
             }
 
          }
+
+         const [showNutritions,setShowNutritions] = useState<boolean>(false)
+
+         const handleCardFace = (e:MouseEvent)=>{
+            e.stopPropagation()
+             showNutritions ? setShowNutritions(false) : setShowNutritions(true)
+         }
+
+//          const printRecipeCard = function(){
+//             return (
+//                 <div className="recipe-card-container">
+//                     <button onClick={handleClick} className={recipeClass}>
+
+//                     <div className="left-side">
+//                         <div className="left-top">
+//                             {recipeImage && <img src={recipeImage}/>}
+//                         </div>
+//                     </div>
+
+//             <div className="right-side">
+//                 <div className="right-top">
+//                     <div className="top-box">
+//                         <h2 className="recipe-title">{recipeName}</h2>
+//                         <TimeButton/>
+//                         {recipeTime &&  <h3 className="recipe-time">{recipeTime}</h3>}
+//                         <div className="recipe-skill-box">
+//                          {comments && renderDifficultyIcon()}
+//                         </div>
+
+//                     </div>
+//                     <div className="recipe-ingredients">
+//                         <ul>
+//                             {ingridientList && ingridientList.map((ingredient,index)=>(
+//                                 <li key={index}>{ingredient}</li>
+//                             ))}
+//                         </ul>
+//                     </div>
+//                 </div>
+//                 <div className="right-bottom">
+//                     <h2 className="recipe-steps">{steps}</h2>
+                        
+//                 <div className="interaction-box">
+//                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes?}/> }
+//                     {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
+//                     <BookmarkButton userId={userID} postId={_id}/>
+//                     <div className="name-n-follow-box">
+//                         {<UserNameProfileButton className="username-btn" postsId={_id}/>}
+//                         <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
+//                     </div>
+//                     {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
+//                     <button onClick={(e)=>handleCardFace(e)}>Back side</button>
+//                 </div>
+                
+//                 </div>
+//             </div>
+//     </button>
+//     {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
+//     {commentsVisbile && renderAllUserComments()}
+// </div> )}
+
+const printRecipeCard = function(){
+    return (
+        <div className="recipe-card-container">
+            <button onClick={handleClick} className={recipeClass}>
+                <div className="left-side">
+                    <div className="left-top">
+                        {recipeImage && <img src={recipeImage}/>}
+                    </div>
+                </div>
+
+                <div className="right-side">
+                    <div className="right-top">
+                        <div className="top-box">
+                            <h2 className="recipe-title">{recipeName}</h2>
+                            <TimeButton/>
+                            {recipeTime &&  <h3 className="recipe-time">{recipeTime}</h3>}
+                            <div className="recipe-skill-box">
+                                {comments && renderDifficultyIcon()}
+                            </div>
+                        </div>
+                        <div className="recipe-ingredients">
+                            <ul>
+                                {ingridientList && ingridientList.map((ingredient, index) => (
+                                    <li key={index}>{ingredient}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="right-bottom">
+                        <h2 className="recipe-steps">{steps}</h2>
+                        
+                        <div className="interaction-box">
+                            {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/>}
+                            {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e) => handleCommentButtonClick(e)}/>}
+                            <BookmarkButton userId={userID} postId={_id}/>
+                            <div className="name-n-follow-box">
+                                <UserNameProfileButton className="username-btn" postsId={_id}/>
+                                <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
+                            </div>
+                            {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
+                            <button onClick={(e) => handleCardFace(e)}>Back side</button>
+                        </div>
+                    </div>
+                </div>
+            </button>
+            {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
+            {commentsVisbile && renderAllUserComments()}
+        </div>
+    )
+}
+
+
+     const printNutritions = function(){
+        return(
+            <button onClick={(e)=>handleCardFace(e)}>Front Side</button>
+        )
+     }
+         
+         
+
     return ( 
  
-<div className="recipe-card-container">
-    <button onClick={handleClick} className={recipeClass}>
-
-            <div className="left-side">
-                <div className="left-top">
-                    {recipeImage && <img src={recipeImage}/>}
-                </div>
-            </div>
-
-            <div className="right-side">
-                <div className="right-top">
-                    <div className="top-box">
-                        <h2 className="recipe-title">{recipeName}</h2>
-                        <TimeButton/>
-                        {recipeTime &&  <h3 className="recipe-time">{recipeTime}</h3>}
-                        <div className="recipe-skill-box">
-                         {comments && renderDifficultyIcon()}
-                        </div>
-
-                    </div>
-                    <div className="recipe-ingredients">
-                        <ul>
-                            {ingridientList && ingridientList.map((ingredient,index)=>(
-                                <li key={index}>{ingredient}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-                <div className="right-bottom">
-                    <h2 className="recipe-steps">{steps}</h2>
-                        
-                <div className="interaction-box">
-                    {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/> }
-                    {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
-                    <BookmarkButton userId={userID} postId={_id}/>
-                    <div className="name-n-follow-box">
-                        {<UserNameProfileButton className="username-btn" postsId={_id}/>}
-                        <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
-                    </div>
-                    {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
-                </div>
-                
-                </div>
-            </div>
-    </button>
-    {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
-    {commentsVisbile && renderAllUserComments()}
-</div>
+        showNutritions ? <NutritionCard handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
     
      );
 }

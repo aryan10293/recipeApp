@@ -5,6 +5,8 @@ import convertBase64 from '../../drejfunctionhekeepsresuing/covertImage'
 interface UserId{
     userId:string
 }
+
+
  const MessgagesDisplay: React.FC<UserId> = ({userId}) =>  {
     const { id } = useParams();
     const [roomId, setRoomId] = useState<string | string[]>(``)
@@ -36,7 +38,7 @@ interface UserId{
             chatRoomId: roomId,
             type:'join',
             userId: userId
-          }));
+          }));         
         }; 
         ws.onmessage = (event) => {
           console.log(`Message from server: ${event.data}`);

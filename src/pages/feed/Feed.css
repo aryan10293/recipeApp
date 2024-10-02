@@ -40,7 +40,6 @@
     cursor: pointer;
     background-color: #078080f2;
 }
-
 .recipe-card .left-side{
     display: flex;
     flex-direction: column;

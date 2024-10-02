@@ -11,6 +11,7 @@ import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import { faL, faSearch } from "@fortawesome/free-solid-svg-icons";
 import SlidingButton from "../../components/SlidingButton";
+import NutritionCard from "../../components/NutritionCard";
 
 
 const Feed:React.FC = () => {
@@ -73,6 +74,9 @@ const Feed:React.FC = () => {
         setRecipeNum(5)   
     }
 
+
+
+
     return ( 
             <div className="feed">       
                 {userName && userProfilePicture && <Navbar userId={ID} userName={userName} userProfilePicture={userProfilePicture}/>}
@@ -80,6 +84,7 @@ const Feed:React.FC = () => {
                 {<Header text={headerText} margin="0"/>}
                 <button className="recipe-box-appear-btn" onClick={handleRecipeVisbility}>{buttonText}</button>
                     {<SlidingButton btnClickHandle={handleViewTogglelCick} btnTextOnTheLeft="My Feed" btnTextOnTheRight="All Posts" isBtnOnTheLeft={isBtnOnTheLeft}/>}
+                    
                 {ID && <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> ? <RecipeList showAllPosts={showAllPosts} recipeNumber={recipeNum} userId={ID} url='http://localhost:2030/getallpost'/> : <p className="pending-msg">Loading...</p>} 
                 <button className="more-recipe-btn" onClick={handleRecipeNumberButton}>More</button>
             </div>
