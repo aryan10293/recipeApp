@@ -24,7 +24,6 @@ router.get('/getcommentsfrompost/:id', feed_1.default.getComments);
 router.get('/getuserbookmarks/:id', profile_1.default.getBookmarks);
 router.get('/getuserlikedimages/:id', profile_1.default.getLikes);
 router.get('/getchatroommessages/:chatRoomId', message_1.default.getMessagesFromChatRoom);
-router.get('/testing', message_1.default.getAllUsers);
 router.put('/addliketopost/:id', feed_1.default.addLikeToPost);
 router.put('/addliketocomment/:id', feed_1.default.addLikeToComment);
 router.put('/unlikepost/:id', feed_1.default.unlikePost);

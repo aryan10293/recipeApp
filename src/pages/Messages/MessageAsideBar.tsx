@@ -71,6 +71,7 @@ interface UserId{
             color: 'black'
         },
     };
+    console.log(users)
     return (
     <div style={{display:'flex'}}>
         <div style={styles.sidebar}>

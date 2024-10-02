@@ -39,6 +39,10 @@ const MessagesContainer = () => {
     
     const chatBoxRef:any = useRef(null)
 
+     // variables needed to search for users
+    let timeout: NodeJS.Timeout;             
+    let doneTypingInterval = 1000; 
+
     // Socket Handling    
     useEffect(() => {
         if(chatBoxRef.current){
@@ -94,7 +98,7 @@ const MessagesContainer = () => {
         //     getMessageHistory(roomId)
         //     roomIdRef.current = roomId
         // }
-        generateUser()
+        // generateUser()
     },[roomId])
     
     useEffect(()=>{
@@ -104,15 +108,20 @@ const MessagesContainer = () => {
     },[partnerId,userId,roomId])
 
     // Getting users
-    const generateUser = async () => {
-        const getUsers = await fetch(`http://localhost:2030/getusers`, {
-            method:'GET',
-            headers: {'Content-Type': 'application/json'}
-        })
-        const idkwhattocallthis = await getUsers.json()
-        setUsers(idkwhattocallthis.users)
-        console.log(idkwhattocallthis);    
-    }
+        useEffect(() => {
+            const lol = async () => {
+                const getMessagedUserHistory = await fetch(`http://localhost:2030/getuserchathistory`, {
+                    method:'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({id:userId})
+                })
+                    const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
+                    console.log(jsonGetMessagedUserHistory,'hey does this work')
+                    setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
+                    console.log('hello')
+                }
+            lol()
+        }, [userId])
 
     // Selecting user to chat with
     const clickingUserCard = function(usersId:string){
@@ -121,7 +130,7 @@ const MessagesContainer = () => {
     }
 
     // Printing chat user list
-    const printingUsernames = function(){
+    const printingUsernames = async function(){
         return(
             <div>
                 {users?.map((user:User)=>(
@@ -134,34 +143,37 @@ const MessagesContainer = () => {
 
     // Generate room ID
     const createRoomId = function(id:string){   
-        if(userId && id){
-            const generatedRoomId = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
-            setRoomId(generatedRoomId)
-        }
-        else{
-            console.log('No user ID found')
+        if(id.length > 0){
+            if(userId && id){
+                const generatedRoomId = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
+                setRoomId(generatedRoomId)
+            } else {
+                console.log('No user ID found')
+            }
         }
     }
 
     // Getting message history
     const getMessageHistory = async function(chatRoomId:string){
-        try {
-            const response = await fetch(`http://localhost:2030/getchatroommessages/${chatRoomId}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            })
-            
-            if(!response.ok){
-                throw Error('Error while fetching chat history')
-            }
+        if (chatRoomId.length > 0){
+            try {
+                    const response = await fetch(`http://localhost:2030/getchatroommessages/${chatRoomId}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                    })
+                    
+                    if(!response.ok){
+                        throw Error('Error while fetching chat history')
+                    }
 
-            const history = await response.json()
-            
-            setChatHistory(history.messages)
-            
-            
-        } catch (error) {
-            console.log('Error while getting chat history',error); 
+                    const history = await response.json()
+                    
+                    setChatHistory(history.messages)
+                    
+                    
+                } catch (error) {
+                    console.log('Error while getting chat history',error); 
+                }
         }
     }
 
@@ -224,6 +236,25 @@ const MessagesContainer = () => {
         }
     };
 
+    // search for message feature
+    const testing = (e:any) => {
+        clearTimeout(timeout)
+         const findUser = async () => {
+            const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({search: e.target.value, id:userId})
+            })
+            const searchedUsers = await getUsers.json()
+            setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
+
+        }
+
+        timeout = setTimeout(async() => {
+             findUser()
+        }, doneTypingInterval)
+    }
+
     const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -231,11 +262,17 @@ const MessagesContainer = () => {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       }, [chatHistory]); 
-
     return ( 
         <div className="messages-container">
             <div className="messages-users-list-container">
-                {users && printingUsernames()}
+                <h4>search for messages</h4>
+                <input type="text" onKeyUp={testing} />
+                {
+                    users.map((user:User)=>(
+                    <div key={user._id}>
+                        <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} /></button>
+                    </div>))
+                }
             </div>
             <div className="messages-current-chat">
 
@@ -244,11 +281,11 @@ const MessagesContainer = () => {
                 </div>
                 <div ref={chatContainerRef} className="messages-current-chat-chatter">
                     <div className="messages-current-chat-chatter-message-card">
-                        {/* {roomId && chatHistory && chatHistory.map((message,index)=>(
+                        {roomId && chatHistory && chatHistory.map((message,index)=>(
                             <ul className="message-card" key={index}>
                                 {message.senderId === userId ? <li className="sent">{message.message}</li> : <li className="received">{message.message}</li>}
                             </ul>
-                        ))} */}
+                        ))}
                         {chatHistory &&  printMessageHistory()}
                     </div>
                 </div>

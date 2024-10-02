@@ -1,30 +1,8 @@
 import User from "../model/user";
 import message from "../model/messages"
-import  { Request, Response} from "express";
+import  { Request, response, Response} from "express";
 import uploadImage from "../middleware/cloudinary";
-let messages = {
-    getUser: async(req:Request, res:Response) => {
-        try {
-            const getUser = await User.find({
-
-                "$or": [
-                    // use userName if you want to see older users
-                    {usernameSearch:{$regex:req.body.search.toLowerCase()}}
-                ]
-            })
-            res.status(200).json({status:'200', data:getUser})
-        } catch (error:any) {
-            console.error('Error fetching user:', error);
-            return res.status(500).json({ status: '500', message: 'Server error', error: error.message });
-        }
-    },
-    //testing below
-    getAllUsers: async (req:Request, res:Response) => {
-        const user = await User.find()
-        res.json(user)
-    },
-    //testing above
-    getMessageHistory: async (req:Request, res:Response) => {
+const messageHistory = async (req:Request, res:Response) => {
         try {
             let checkkForDupObj = {}
 
@@ -52,12 +30,51 @@ let messages = {
             const getTheUserDocumentsYouChatedWith = await Promise.all(Object.keys(checkkForDupObj).map(async (id:any, i:number) => {
                 return queryDataBase(id)
             }))
-            
-            res.status(200).json(getTheUserDocumentsYouChatedWith)
+            console.log(getTheUserDocumentsYouChatedWith)
+            return getTheUserDocumentsYouChatedWith
         } catch (error:any) {
             console.log(error)
-            res.status(500).json({ status: '500', message: 'Server error', error: error.message });
+            return { status: '500', message: 'Server error', error: error.message };
         }
+    }
+
+
+
+let messages = {
+    getUser: async(req:Request, res:Response) => {
+        console.log(req.body)
+        let sendFoundUsersToClient:any = []
+        let lmao = await messageHistory(req,res)
+        for(let key in lmao){
+            if(lmao[key][0].userName.includes(req.body.search)){
+                sendFoundUsersToClient.push(lmao[key])
+            }
+        }
+        if(sendFoundUsersToClient.length){
+            res.status(200).json({status:'200', searchedUsers:sendFoundUsersToClient})
+        } else {
+            res.status(400).json({status:'400', searchedUsers:'no users found'})
+        }
+        console.log(sendFoundUsersToClient)
+        //lmao = lmao.filter((x:any) => x.userName.includes(req.body.search))
+        // try {
+        //     const getUser = await User.find({
+
+        //         "$or": [
+        //             // use userName if you want to see older users
+        //             {usernameSearch:{$regex:req.body.search.toLowerCase()}}
+        //         ]
+        //     })
+        //     res.status(200).json({status:'200', data:getUser})
+        // } catch (error:any) {
+        //     console.error('Error fetching user:', error);
+        //     return res.status(500).json({ status: '500', message: 'Server error', error: error.message });
+        // }
+    },
+
+    getMessageHistory: async (req:Request,res:Response) => {
+       console.log(await  messageHistory(req,res))
+        res.status(200).json({status:'200', chatHistory:  await messageHistory(req,res)})
     },
     createMessage: async (req:Request, res:Response) => {
         let img:string | unknown;

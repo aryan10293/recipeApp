@@ -20,7 +20,6 @@ router.get('/getcommentsfrompost/:id', feed.getComments)
 router.get('/getuserbookmarks/:id', profile.getBookmarks)
 router.get('/getuserlikedimages/:id', profile.getLikes)
 router.get('/getchatroommessages/:chatRoomId', messages.getMessagesFromChatRoom)
-router.get('/testing', messages.getAllUsers)
 
 router.put('/addliketopost/:id', feed.addLikeToPost)
 router.put('/addliketocomment/:id', feed.addLikeToComment)
