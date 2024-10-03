@@ -13,7 +13,7 @@ function SearchPage() {
         searchOption:searchOption,
         searchText:search
     }
-    const searchThings: string[] = ['cooks', 'meals', 'ingridents', 'type of chefs', 'other']
+    const searchThings: string[] = ['cooks', 'meals', 'type of chefs', 'other']
 
     const testingSearch = async() => {
         const searchStuff = await fetch(`http://localhost:2030/search`, {
