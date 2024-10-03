@@ -26,6 +26,8 @@ import PrivateRoute from './Routes/PrivateRoute'
 import ScrollToTop from './Utils/ScrollToTop'
 import Profile from './pages/Profile/Profile'
 import EditProfileCard from './components/EditProfileCard'
+
+import SearchPage from './pages/searchPage/SearchPage'
 function App() {
   const [userId, setUserId] = React.useState<string>('')
   const [userInfo, setUserInfo] = React.useState<any[]>([])
@@ -62,6 +64,7 @@ function App() {
             <Route path="/messages/:id" element={<Messages userId={userId}/>} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/recipe" element={<SingleCard />} />
+            <Route path="/search" element={<SearchPage />} />
           {/* </PrivateRoute> */}
         </Routes>
       </UserProvider>

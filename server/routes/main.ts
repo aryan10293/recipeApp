@@ -3,6 +3,7 @@ import auth from "../controller/auth"
 import feed from "../controller/feed"
 import profile from "../controller/profile"
 import messages from "../controller/message";
+import search from "../controller/search"
 const router = express.Router();
 router.post('/createaccount', auth.postCreateAccount)
 router.post('/login', auth.postLogin)
@@ -11,6 +12,7 @@ router.post('/createcomment', feed.commentRecipe)
 router.post('/createmessage', messages.createMessage)
 router.post('/searchforusers', messages.getUser)
 router.post('/getuserchathistory', messages.getMessageHistory)
+router.post('/search', search.iHaveNoName)
 
 router.get('/getuser/:id', auth.checkUser)
 router.get('/getuserbyid/:id', auth.getUser)
