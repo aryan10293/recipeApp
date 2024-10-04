@@ -28,7 +28,9 @@ const MessageContainer2 = () => {
     const [ws,setWs] = useState<WebSocket>()
     const [receiverId,setReceiverId] = useState<string>("")
     
-
+    // variables needed to search for users
+    let timeout: NodeJS.Timeout;             
+    let doneTypingInterval = 1000; 
 
 
     // Getting users
@@ -117,6 +119,26 @@ const MessageContainer2 = () => {
         }
     }
 
+    // search for users we have already chatted with
+    const testing = (e:any) => {
+        clearTimeout(timeout)
+        console.log(e.target.value.trim().length)
+         const findUser = async () => {
+            const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({search: e.target.value, id:userId})
+            })
+            const searchedUsers = await getUsers.json()
+            console.log(searchedUsers)
+            // setUsers(searchedUsers.data)
+        }
+        //console.log(e.target.textContent)
+        timeout = setTimeout(async() => {
+             findUser()
+        }, doneTypingInterval)
+    }
+
     useEffect(()=>{
         getUsers()
         const wss = new WebSocket('ws://localhost:2040')
@@ -154,6 +176,10 @@ const MessageContainer2 = () => {
 
     return ( 
         <div>
+            <div>
+                <h3>search for messages</h3>
+                <input type="text" onKeyUp={testing}/>
+            </div>
             {users &&  users.map((user:User)=>(
                 < div key={user._id}>
                     <button onClick={(e)=>clickingUserCard(user._id)}>{user.userName}</button>                    

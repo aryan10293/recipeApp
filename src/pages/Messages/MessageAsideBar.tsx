@@ -13,37 +13,48 @@ interface UserId{
     const [user,setUser] = useState<string>('')
     let timeout: NodeJS.Timeout;             
     let doneTypingInterval = 1000;  
-    const testing = (e:any) => {
-        clearTimeout(timeout)
-        console.log(e.target.value.trim().length)
-         const generateUser = async () => {
-            const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
-                method:'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({search: e.target.value})
-            })
-            const searchedUsers = await getUsers.json()
-            console.log(searchedUsers)
-            setUsers(searchedUsers.data)
-        }
-        //console.log(e.target.textContent)
-        timeout = setTimeout(async() => {
-             generateUser()
-        }, doneTypingInterval)
-       
-    
-    }
-    // useEffect(() => {
-    //     const generateUser = async () => {
-    //         const getUsers = await fetch(`http://localhost:2030/getusers/${user}`, {
-    //             method:'GET',
-    //             headers: {'Content-Type': 'application/json'}
+    // const testing = (e:any) => {
+    //     clearTimeout(timeout)
+    //     console.log(e.target.value.trim().length)
+    //      const generateUser = async () => {
+    //         const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
+    //             method:'POST',
+    //             headers: {'Content-Type': 'application/json'},
+    //             body: JSON.stringify({search: e.target.value})
     //         })
     //         const searchedUsers = await getUsers.json()
-    //         setUsers(searchedUsers.users)
+    //         console.log(searchedUsers)
+    //         setUsers(searchedUsers.data)
     //     }
-    //     generateUser()
-    // }, [user])
+    //     //console.log(e.target.textContent)
+    //     timeout = setTimeout(async() => {
+    //          generateUser()
+    //     }, doneTypingInterval)
+    // }
+    useEffect(() => {
+        // const generateUser = async () => {
+        //     const getUsers = await fetch(`http://localhost:2030/testing/`, {
+        //         method:'GET',
+        //         headers: {'Content-Type': 'application/json'}
+        //     })
+        //     const searchedUsers = await getUsers.json()
+        //     setUsers(searchedUsers)
+        // }
+        // generateUser()
+        const testing = async () => {
+            const getMessagedUserHistory = await fetch(`http://localhost:2030/getuserchathistory`, {
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id:userId})
+            })
+                const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
+                console.log(jsonGetMessagedUserHistory)
+                setUsers(jsonGetMessagedUserHistory.map((x:any) =>  x[0]))
+            }
+            testing()
+        }, [userId])
+
+
     const styles = {
         sidebar: {
             width: '25%',
@@ -60,12 +71,13 @@ interface UserId{
             color: 'black'
         },
     };
+    console.log(users)
     return (
     <div style={{display:'flex'}}>
         <div style={styles.sidebar}>
             <h2>search for cooks to message</h2>
-            <input type="text" style={{backgroundColor: 'white'}} onKeyUp={testing} />
-        <button onClick={testing}>button</button>
+            <input type="text" style={{backgroundColor: 'white'}} />
+        <button >button</button>
             <ul style={styles.userList}>
                 {users.map(user => (
                 <Link to={`/messages/${user._id}`}>

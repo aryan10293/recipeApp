@@ -83,6 +83,7 @@ const broadcastMessage = (roomId, message) => {
 };
 wss.on('connection', (ws) => {
     let roomId = '';
+    console.log('Connection is ready');
     ws.on('message', (message) => {
         const messageString = message.toString();
         const parsedMessage = JSON.parse(messageString);

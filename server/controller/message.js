@@ -15,20 +15,62 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../model/user"));
 const messages_1 = __importDefault(require("../model/messages"));
 const cloudinary_1 = __importDefault(require("../middleware/cloudinary"));
+const messageHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let checkkForDupObj = {};
+        const queryDataBase = (id) => __awaiter(void 0, void 0, void 0, function* () {
+            return yield user_1.default.find({ _id: id });
+        });
+        const getUsersYouChatedWith = yield messages_1.default.find({
+            "$or": [
+                { recieverId: req.body.id },
+                { senderId: req.body.id }
+            ]
+        });
+        getUsersYouChatedWith.forEach((x) => {
+            if (x.senderId !== req.body.id) {
+                if (!checkkForDupObj[x.senderId]) {
+                    checkkForDupObj[x.senderId] = x.senderId;
+                }
+            }
+            else {
+                if (!checkkForDupObj[x.recieverId]) {
+                    checkkForDupObj[x.recieverId] = x.recieverId;
+                }
+            }
+        });
+        const getTheUserDocumentsYouChatedWith = yield Promise.all(Object.keys(checkkForDupObj).map((id, i) => __awaiter(void 0, void 0, void 0, function* () {
+            return queryDataBase(id);
+        })));
+        console.log(getTheUserDocumentsYouChatedWith);
+        return getTheUserDocumentsYouChatedWith;
+    }
+    catch (error) {
+        console.log(error);
+        return { status: '500', message: 'Server error', error: error.message };
+    }
+});
 let messages = {
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const getUser = yield user_1.default.find({
-                "$or": [
-                    { usernameSearch: { $regex: req.body.search.toLowerCase() } }
-                ]
-            });
-            res.status(200).json({ status: '200', data: getUser });
+        console.log(req.body);
+        let sendFoundUsersToClient = [];
+        let lmao = yield messageHistory(req, res);
+        for (let key in lmao) {
+            if (lmao[key][0].userName.includes(req.body.search)) {
+                sendFoundUsersToClient.push(lmao[key]);
+            }
         }
-        catch (error) {
-            console.error('Error fetching user:', error);
-            return res.status(500).json({ status: '500', message: 'Server error', error: error.message });
+        if (sendFoundUsersToClient.length) {
+            res.status(200).json({ status: '200', searchedUsers: sendFoundUsersToClient });
         }
+        else {
+            res.status(400).json({ status: '400', searchedUsers: 'no users found' });
+        }
+        console.log(sendFoundUsersToClient);
+    }),
+    getMessageHistory: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(yield messageHistory(req, res));
+        res.status(200).json({ status: '200', chatHistory: yield messageHistory(req, res) });
     }),
     createMessage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let img;
