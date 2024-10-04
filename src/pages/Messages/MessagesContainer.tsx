@@ -6,6 +6,8 @@ import UserIcons from "./UserIcons";
 import { faEtsy } from "@fortawesome/free-brands-svg-icons";
 import UserContext from "../../contexts/UserContext";
 import RecipeItem from "../../components/RecipeItem";
+import useFetch from "../../assets/useFetch";
+import { useParams } from "react-router-dom";
 
 interface User{
     userName: string,
@@ -21,7 +23,7 @@ interface Message{
     imgString:string
 }
 interface Props{
-
+    receiverId:string
 }
 
 const MessagesContainer = () => {
@@ -38,6 +40,11 @@ const MessagesContainer = () => {
     const [isConnected,setIsConnected] = useState<boolean>(false)
     
     const chatBoxRef:any = useRef(null)
+
+    interface Param{
+        id:string
+    }
+    const receiverId = useParams()
 
     // Socket Handling    
     useEffect(() => {
@@ -75,7 +82,6 @@ const MessagesContainer = () => {
             console.log('Websocket error ',error);
         }
 
-
         ws.onclose = ()=>{
             console.log('Connection is closed');    
         }
@@ -85,23 +91,19 @@ const MessagesContainer = () => {
             }
         }        
     }
-    socketHandle()
-    }, [partnerId,userId,roomId])
-    
-    // const roomIdRef = useRef(roomId)
-    useEffect(()=>{
-        // if(roomIdRef.current !== roomId){
-        //     getMessageHistory(roomId)
-        //     roomIdRef.current = roomId
-        // }
-        generateUser()
-    },[roomId])
-    
-    useEffect(()=>{
-        createRoomId(partnerId)
-        console.log('Room ID',roomId)
 
-    },[partnerId,userId,roomId])
+    
+    createRoomId(partnerId)
+    socketHandle()
+    console.log('partnerId',partnerId);
+    
+    }, [partnerId,roomId])
+
+    useEffect(()=>{
+        setPartnerId(receiverId.id)
+        console.log('ReceiverId is: ',receiverId.id);
+        
+    },[])
 
     // Getting users
     const generateUser = async () => {
@@ -244,11 +246,6 @@ const MessagesContainer = () => {
                 </div>
                 <div ref={chatContainerRef} className="messages-current-chat-chatter">
                     <div className="messages-current-chat-chatter-message-card">
-                        {/* {roomId && chatHistory && chatHistory.map((message,index)=>(
-                            <ul className="message-card" key={index}>
-                                {message.senderId === userId ? <li className="sent">{message.message}</li> : <li className="received">{message.message}</li>}
-                            </ul>
-                        ))} */}
                         {chatHistory &&  printMessageHistory()}
                     </div>
                 </div>
