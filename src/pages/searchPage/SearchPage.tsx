@@ -41,7 +41,7 @@ function SearchPage() {
             body:JSON.stringify(searchInfo)
         })
         const jsonSearchStuff = await searchStuff.json()
-        setSearchData(jsonSearchStuff.getSearchData)
+        setSearchData(jsonSearchStuff.data)
         console.log(jsonSearchStuff, 12, searchInfo)
     }
   return (

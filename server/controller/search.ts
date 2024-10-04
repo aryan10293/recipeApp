@@ -5,25 +5,23 @@ let search = {
     iHaveNoName: async (req:Request, res:Response) => {
         let getSearchData:any[];
         const searchText:string = req.body.searchText;
-
+        const returnData = (data:any) => {
+            if(!data){
+                res.status(400).json({status: '400', error:'no users found for that search'})
+            } else {
+                res.status(200).json({status: '200', data}) 
+            } 
+        }
         switch(req.body.searchOption){
 
             case 'type of chefs':
                getSearchData = await User.find({cookingStyle: { $regex: searchText, $options: "i" }})
-                if(!getSearchData){
-                    res.status(400).json({status: '400', error:'no users found for that search'})
-                } else {
-                    res.status(200).json({status: '200', getSearchData}) 
-                } 
+               returnData(getSearchData) 
             break;
 
             case 'cooks':    // this option:'i' allows us to search for case insensitive  atleast bthatsb what chatgot was teaching me
                 getSearchData = await User.find({userName: { $regex: searchText, $options: "i" }})
-                if(!getSearchData){
-                    res.status(400).json({status: '400', error:'no users found for that search'})
-                } else {
-                    res.status(200).json({status: '200', getSearchData}) 
-                } 
+                returnData(getSearchData) 
             break;
 
             case 'meals':
@@ -33,11 +31,7 @@ let search = {
                     {ingridentList: { $regex: searchText, $options: "i" }}
                    ]
                 })
-                if(!getSearchData){
-                    res.status(400).json({status: '400', error:'no users found for that search'})
-                } else {
-                    res.status(200).json({status: '200', getSearchData}) 
-                }
+                returnData(getSearchData) 
             break;
 
             case 'other':
@@ -49,11 +43,7 @@ let search = {
 
                  getSearchData = [...post, ...user];
 
-                if(!getSearchData){
-                    res.status(400).json({status: '400', error:'no users found for that search'})
-                } else {
-                    res.status(200).json({status: '200', getSearchData}) 
-                }
+                returnData(getSearchData) 
 
         }
     }

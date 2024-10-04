@@ -18,24 +18,22 @@ let search = {
     iHaveNoName: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let getSearchData;
         const searchText = req.body.searchText;
+        const returnData = (data) => {
+            if (!data) {
+                res.status(400).json({ status: '400', error: 'no users found for that search' });
+            }
+            else {
+                res.status(200).json({ status: '200', data });
+            }
+        };
         switch (req.body.searchOption) {
             case 'type of chefs':
                 getSearchData = yield user_1.default.find({ cookingStyle: { $regex: searchText, $options: "i" } });
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
                 break;
             case 'cooks':
                 getSearchData = yield user_1.default.find({ userName: { $regex: searchText, $options: "i" } });
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
                 break;
             case 'meals':
                 getSearchData = yield post_1.default.find({
@@ -44,12 +42,7 @@ let search = {
                         { ingridentList: { $regex: searchText, $options: "i" } }
                     ]
                 });
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
                 break;
             case 'other':
                 const [post, user] = yield Promise.all([
@@ -57,12 +50,7 @@ let search = {
                     user_1.default.find({ bio: { $regex: searchText, $options: "i" } })
                 ]);
                 getSearchData = [...post, ...user];
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
         }
     })
 };
