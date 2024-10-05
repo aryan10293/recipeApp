@@ -56,3 +56,20 @@ export default search
 //                     {senderId:req.body.id}
 //                 ]
 //             })
+
+// const dateBetweenDates = await Model.find({
+//     $and: [
+//       { From: { $gte: DateFrom } },
+//       { To: { $lte: DateTo } },
+//     ]
+//   })
+
+
+// can use below for the macros 
+// db.inventory.find ( { quantity: { $in: [40, 1000] } } )
+
+// const query = {
+//     "$and": searchTerms.map(term => ({
+//         [searchField]: { $regex: term, $options: "i" }  // Case-insensitive regex
+//     }))
+// };
