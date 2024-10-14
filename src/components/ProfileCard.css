@@ -3,16 +3,16 @@
     flex-direction: row;
     align-items: center;
     margin: 50px auto;
-    width: 1400px;
+    width: 1500px;
     height: 1000px;
-    padding: 50px;
+    padding: 60px;
     justify-content: space-between;
     /* box-shadow: 5px 0 30px rgba(0,0,0,0.3); */
 }
 .profile-card .left{
     width: 30%;
     padding: 50px 0;
-    height: 800px;
+    height: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;

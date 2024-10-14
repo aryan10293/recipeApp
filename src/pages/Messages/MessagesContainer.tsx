@@ -1,12 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import Header from "../../assets/Header";
-import ProfileIcon from "../../assets/ProfileIcon";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import UserIcons from "./UserIcons";
-import { faEtsy } from "@fortawesome/free-brands-svg-icons";
 import UserContext from "../../contexts/UserContext";
-import RecipeItem from "../../components/RecipeItem";
-import useFetch from "../../assets/useFetch";
 import { useParams } from "react-router-dom";
 
 interface User{
@@ -39,6 +34,8 @@ const MessagesContainer = () => {
     const [wss,setWss] = useState<WebSocket>()
     const [isConnected,setIsConnected] = useState<boolean>(false)
     
+    const receiverId = useParams()
+
     const chatBoxRef:any = useRef(null)
 
      // variables needed to search for users
@@ -123,7 +120,7 @@ const MessagesContainer = () => {
     // Selecting user to chat with
     const clickingUserCard = function(usersId:string){
         setPartnerId(usersId)
-        console.log(usersId);          
+        console.log(usersId);         
     }
 
     // Printing chat user list
@@ -244,7 +241,6 @@ const MessagesContainer = () => {
             })
             const searchedUsers = await getUsers.json()
             setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
-
         }
 
         timeout = setTimeout(async() => {
@@ -259,13 +255,14 @@ const MessagesContainer = () => {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       }, [chatHistory]); 
+      
     return ( 
         <div className="messages-container">
-            <div className="messages-users-list-container">
-                <h4>search for messages</h4>
-                <input type="text" onKeyUp={testing} />
-                {
-                    users.map((user:User)=>(
+            <div className="w-1/4 flex flex-col">
+                <h4 className="text-md capitalize mb-1">search for messages</h4>
+                <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={testing} />
+                {   userId &&
+                    users && users.map((user:User)=>(
                     <div key={user._id}>
                         <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} /></button>
                     </div>))
@@ -281,9 +278,9 @@ const MessagesContainer = () => {
                         {chatHistory &&  printMessageHistory()}
                     </div>
                 </div>
-                <div className="message-input">
-                        <textarea value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
-                        <button onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
+                <div className="w-full h-[180px] flex flex-row items-center justify-between">
+                        <textarea className="h-4/5 w-11/12 bg-white rounded-sm p-2" value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
+                        <button className="p-2 rounded-md"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
                 </div>
 
             </div>

@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import Navbar from '../../assets/Navbar'
+import UserContext from '../../contexts/UserContext'
 interface SearchInfo{
     searchOption:string,
     searchText:string
 }
+
+// const user = useContext(UserContext)
+
+// useEffect(()=>{
+//     console.log(user);
+    
+// },[user])
+
 function SearchPage() {
     const [searchOption, setSearchOption] = useState<string>("cooks")
     const [search, setSearch] = useState<string>("")
@@ -47,10 +56,10 @@ function SearchPage() {
   return (
     <>
         <Navbar/>
-      <div style={{marginTop:'50px'}}>
-            <div>
+        <div className='flex flex-col w-full mt-10 items-center'>
+            <div className='flex flex-row p-3 w-full items-center justify-center'>
                 {searchThings.map((x:any) => {
-                    return <button onClick={(e:any) => setSearchOption(e.target.innerHTML)}>{x}</button>
+                    return <button className='ml-2 p-1 rounded-md capitalize' onClick={(e:any) => setSearchOption(e.target.innerHTML)}>{x}</button>
                 })}
             </div>
             <div>
@@ -66,7 +75,7 @@ function SearchPage() {
                     <p>No data available</p>
                 )}
             </div>
-      </div>
+        </div>
     </>
   )
 }

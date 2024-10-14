@@ -28,6 +28,8 @@ import Profile from './pages/Profile/Profile'
 import EditProfileCard from './components/EditProfileCard'
 
 import SearchPage from './pages/searchPage/SearchPage'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 function App() {
   const [userId, setUserId] = React.useState<string>('')
   const [userInfo, setUserInfo] = React.useState<any[]>([])
@@ -43,11 +45,15 @@ function App() {
           }
           getUser()
       }, [])
+
+      const queryClient = new QueryClient()
+
   return (
     
       <>
       <UserProvider>
         <ScrollToTop/>
+        <QueryClientProvider client={queryClient}>
         <Routes>       
           {/* public routes */}
           <Route path="/login" element={<Login />} />
@@ -64,9 +70,10 @@ function App() {
             <Route path="/messages/:id" element={<Messages userId={userId}/>} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/recipe" element={<SingleCard />} />
-            <Route path="/search" element={<SearchPage />} />
+            <Route path="/search" element={<SearchPage />} />       
           {/* </PrivateRoute> */}
         </Routes>
+        </QueryClientProvider>
       </UserProvider>
     </>
   );

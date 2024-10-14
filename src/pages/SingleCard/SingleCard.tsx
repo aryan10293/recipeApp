@@ -1,13 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import DifficultyIcon from "../../assets/DifficultyIcon";
+import { useLocation } from "react-router-dom";
 import Navbar from "../../assets/Navbar";
 import RecipeCard from "../../assets/RecipeCard";
-import TimeButton from "../../assets/TimeButton";
 import { useEffect,useState } from "react";
 import CommentList from "../../components/CommentList";
 import useFetch from "../../assets/useFetch";
 import CommentBox from "../../components/CommentBox";
-import CommentButton from "../../assets/CommentButton";
 import useUserId from "../../Utils/useGetUserId";
 
 interface RecipeCardProps{
@@ -27,7 +24,7 @@ interface Comments{
     commentorId: string,
     postId: string,
     likes:string[],
-    comment: String,
+    comment: string,
     _id:string
 }
 

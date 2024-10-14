@@ -18,7 +18,7 @@ const ProfileIcon:React.FC<ProfileIconProps> = ({img,userId}) => {
     return ( 
         <div className="profile-icon">
                 <button onClick={handleClick}>
-                < img src={img} alt="" />    
+                    < img src={img} alt="" />    
                 </button> 
            
         </div>
