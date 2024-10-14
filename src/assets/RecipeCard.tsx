@@ -1,20 +1,15 @@
 
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
-import DeleteButton from "./DeleteButton"
 import TimeButton from "./TimeButton";
 import useFetch from "./useFetch";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DifficultyIcon from "./DifficultyIcon";
 
-import { icon } from "@fortawesome/fontawesome-svg-core";
 import CommentBox from "../components/CommentBox";
 import CommentButton from "./CommentButton";
 import CommentList from "../components/CommentList";
-import Login from "../pages/AuthLayout/Login";
-import LikeCommentButton from "./LikeCommentButton";
-import UserNameButton from "../components/UsernameButton";
 import UserNameProfileButton from "../components/UserNameProfileButton";
 import FollowUserButton from "../components/FollowUserButton";
 import NutritionCard from "../components/NutritionCard";
@@ -50,7 +45,7 @@ interface Comments{
     commentorId: string,
     postId: string,
     likes:string[],
-    comment: String,
+    comment: string,
     _id:string,
 
 
@@ -79,6 +74,13 @@ const RecipeCard:React.FC<RecipeCardProps> = ({protein,carbs,fats,calories,postI
             }
         },[recipe,recipe])
 
+        
+
+        
+
+        useEffect(()=>{
+                 
+        },[])
         const iconStyle = {
             margin:'0px',
             backgroundColor:'transparent',
@@ -326,6 +328,7 @@ const printRecipeCard = function(){
     return ( 
  
         showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
+
     
      );
 }

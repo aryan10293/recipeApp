@@ -15,17 +15,14 @@ import './components/NutritionCard.css'
 import Login from './pages/AuthLayout/Login';
 import Register from './pages/AuthLayout/Register';
 import Feed from './pages/feed/Feed';
-import UserContext, { UserProvider } from './contexts/UserContext'
-import { Routes, Route, Navigate , Router, BrowserRouter} from 'react-router-dom'
+import { UserProvider } from './contexts/UserContext'
+import { Routes, Route} from 'react-router-dom'
 import Messages from './pages/Messages/Messages';
 import SavedRecipes from './pages/SavedRecipes/SavedRecipes';
 import SingleCard from './pages/SingleCard/SingleCard';
 import ProfilePage from './pages/Profile/ProfilePage'
 import EditProfile from './pages/EditProfilePage/EditProfile'
-import PrivateRoute from './Routes/PrivateRoute'
 import ScrollToTop from './Utils/ScrollToTop'
-import Profile from './pages/Profile/Profile'
-import EditProfileCard from './components/EditProfileCard'
 
 import SearchPage from './pages/searchPage/SearchPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'

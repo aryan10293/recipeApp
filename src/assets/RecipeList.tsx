@@ -4,6 +4,9 @@ import RecipeCard from "./RecipeCard";
 import UserContext from "../contexts/UserContext";
 import useGetUserDataFromId from "../Utils/useGetUserDataFromId";
 import NutritionCard from "../components/NutritionCard";
+import axios from "axios";
+import { useQueries, useQuery } from "@tanstack/react-query";
+import useQueryFetch from "../Utils/Api/useQueryFetch";
 
 interface RecipeListProps{
     url:string,
@@ -40,6 +43,9 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
     const {userFollowingNum:followings} = useGetUserDataFromId(userID)
 
     const {data:recipes} = useFetch(url)
+    
+
+    // 
 
     useEffect(()=>{
         if(recipes){
@@ -49,8 +55,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
             else{
                 setFollowedArray() 
             }
-        }
-     
+        }  
     },[recipes,showAllPosts])
 
     useEffect(()=>{
@@ -157,6 +162,21 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                 )
         }
 
+        const decider = function(){
+            if(showAllPosts){
+               return  renderedArray ? renderAllPosts() : <p>Loading...</p>
+            }
+            else{
+               return renderedFollowedArray ? renderFollowedPosts() : <p>Loading...</p>
+            }
+        }
+
+        const {data,status,error} = useQueryFetch('http://localhost:2030/getallpost')
+
+        useEffect(()=>{
+            console.log('infos',data,status,error);
+            
+        },[data,status,error])
 
     const renderFollowedPosts = function():JSX.Element{
             return(
@@ -194,14 +214,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                 )
         }
 
-        const decider = function(){
-            if(showAllPosts){
-               return  renderedArray ? renderAllPosts() : <p>Loading...</p>
-            }
-            else{
-               return renderedFollowedArray ? renderFollowedPosts() : <p>Loading...</p>
-            }
-        }
+
 
     return ( 
         decider()
