@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../model/user"));
 const post_1 = __importDefault(require("../model/post"));
 let search = {
-    iHaveNoName: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    search: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let getSearchData;
         const searchText = req.body.searchText;
         const returnData = (data) => {
@@ -51,6 +51,45 @@ let search = {
                 ]);
                 getSearchData = [...post, ...user];
                 returnData(getSearchData);
+        }
+    }),
+    mealSearch: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(req.body);
+        const conditions = [];
+        const cal = Number(req.body.maxCal);
+        const searchQuery = {
+            "perServingMacros.calories": { $lte: req.body.maxCal },
+            "perServingMacros.carbs": { $lte: req.body.maxCarb },
+            "perServingMacros.fats": { $lte: req.body.maxFat },
+            "perServingMacros.protein": { $lte: req.body.maxCal },
+        };
+        if (req.body.ingredients.length >= 1) {
+            const ingredients = req.body.ingredients.map((ingredient) => ({
+                ingridentList: { $regex: new RegExp(ingredient, 'i') }
+            }));
+            conditions.push({ $and: ingredients });
+        }
+        if (req.body.ingredientsEx.length >= 1) {
+            const ingredientsEx = req.body.ingredientsEx.map((excludeIngredient) => ({
+                ingridentList: { $not: { $regex: new RegExp(excludeIngredient, 'i') } }
+            }));
+            conditions.push({ $and: ingredientsEx });
+        }
+        if (conditions.length >= 1) {
+            searchQuery.$and = conditions;
+        }
+        try {
+            const meals = yield post_1.default.find(searchQuery);
+            if (!meals) {
+                res.status(400).json({ status: '400', error: 'i have no idea what would be the problem' });
+            }
+            else {
+                res.status(200).json({ status: '200', meals: meals });
+            }
+        }
+        catch (error) {
+            console.log(error);
+            res.status(400).json({ error: error });
         }
     })
 };
