@@ -49,6 +49,9 @@ let search = {
         }
     },
     mealSearch: async(req:Request, res:Response) => {
+        // bouta write hella if statements
+        // if req.body.maxCal is undefined? do nothing
+            // else ass it to the search query
         console.log(req.body)
         const conditions: any[] = []
         const cal:number = Number(req.body.maxCal)
@@ -62,13 +65,23 @@ let search = {
             "perServingMacros.protein": number, 
             $and?: IngredientCondition[]
         } 
-        // any solvied all my problems for now
-        const searchQuery:any = {
-            "perServingMacros.calories": { $lte: req.body.maxCal }, 
-            "perServingMacros.carbs": { $lte: req.body.maxCarb }, 
-            "perServingMacros.fats": { $lte: req.body.maxFat }, 
-            "perServingMacros.protein": { $lte: req.body.maxCal }, 
+        // "any" solvied all my problems for now
+        const searchQuery:any = {}
+
+        // the below can probably be done with some type of loop
+        if(req.body.maxCal !== undefined){
+            searchQuery["perServingMacros.calories"] =  { $lte: req.body.maxCal }
         }
+        if(req.body.maxCarb !== undefined){
+            searchQuery["perServingMacros.carbs"] =  { $lte: req.body.maxCarb }
+        }
+        if(req.body.maxFat !== undefined){
+            searchQuery["perServingMacros.fats"] =  { $lte: req.body.maxFat }
+        }
+        if(req.body.maxPro !== undefined){
+            searchQuery["perServingMacros.protein"] =  { $lte: req.body.maxPro }
+        }
+
         if(req.body.ingredients.length >= 1){
             const ingredients = req.body.ingredients.map((ingredient:string) => ({
                 ingridentList: { $regex: new RegExp(ingredient, 'i') }  

@@ -57,12 +57,19 @@ let search = {
         console.log(req.body);
         const conditions = [];
         const cal = Number(req.body.maxCal);
-        const searchQuery = {
-            "perServingMacros.calories": { $lte: req.body.maxCal },
-            "perServingMacros.carbs": { $lte: req.body.maxCarb },
-            "perServingMacros.fats": { $lte: req.body.maxFat },
-            "perServingMacros.protein": { $lte: req.body.maxCal },
-        };
+        const searchQuery = {};
+        if (req.body.maxCal !== undefined) {
+            searchQuery["perServingMacros.calories"] = { $lte: req.body.maxCal };
+        }
+        if (req.body.maxCarb !== undefined) {
+            searchQuery["perServingMacros.carbs"] = { $lte: req.body.maxCarb };
+        }
+        if (req.body.maxFat !== undefined) {
+            searchQuery["perServingMacros.fats"] = { $lte: req.body.maxFat };
+        }
+        if (req.body.maxPro !== undefined) {
+            searchQuery["perServingMacros.protein"] = { $lte: req.body.maxPro };
+        }
         if (req.body.ingredients.length >= 1) {
             const ingredients = req.body.ingredients.map((ingredient) => ({
                 ingridentList: { $regex: new RegExp(ingredient, 'i') }
