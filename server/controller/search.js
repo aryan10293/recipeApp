@@ -15,27 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../model/user"));
 const post_1 = __importDefault(require("../model/post"));
 let search = {
-    iHaveNoName: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    search: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let getSearchData;
         const searchText = req.body.searchText;
+        const returnData = (data) => {
+            if (!data) {
+                res.status(400).json({ status: '400', error: 'no users found for that search' });
+            }
+            else {
+                res.status(200).json({ status: '200', data });
+            }
+        };
         switch (req.body.searchOption) {
             case 'type of chefs':
                 getSearchData = yield user_1.default.find({ cookingStyle: { $regex: searchText, $options: "i" } });
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
                 break;
             case 'cooks':
                 getSearchData = yield user_1.default.find({ userName: { $regex: searchText, $options: "i" } });
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
                 break;
             case 'meals':
                 getSearchData = yield post_1.default.find({
@@ -44,12 +42,7 @@ let search = {
                         { ingridentList: { $regex: searchText, $options: "i" } }
                     ]
                 });
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
                 break;
             case 'other':
                 const [post, user] = yield Promise.all([
@@ -57,12 +50,53 @@ let search = {
                     user_1.default.find({ bio: { $regex: searchText, $options: "i" } })
                 ]);
                 getSearchData = [...post, ...user];
-                if (!getSearchData) {
-                    res.status(400).json({ status: '400', error: 'no users found for that search' });
-                }
-                else {
-                    res.status(200).json({ status: '200', getSearchData });
-                }
+                returnData(getSearchData);
+        }
+    }),
+    mealSearch: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(req.body);
+        const conditions = [];
+        const cal = Number(req.body.maxCal);
+        const searchQuery = {};
+        if (req.body.maxCal !== undefined) {
+            searchQuery["perServingMacros.calories"] = { $lte: req.body.maxCal };
+        }
+        if (req.body.maxCarb !== undefined) {
+            searchQuery["perServingMacros.carbs"] = { $lte: req.body.maxCarb };
+        }
+        if (req.body.maxFat !== undefined) {
+            searchQuery["perServingMacros.fats"] = { $lte: req.body.maxFat };
+        }
+        if (req.body.maxPro !== undefined) {
+            searchQuery["perServingMacros.protein"] = { $lte: req.body.maxPro };
+        }
+        if (req.body.ingredients.length >= 1) {
+            const ingredients = req.body.ingredients.map((ingredient) => ({
+                ingridentList: { $regex: new RegExp(ingredient, 'i') }
+            }));
+            conditions.push({ $and: ingredients });
+        }
+        if (req.body.ingredientsEx.length >= 1) {
+            const ingredientsEx = req.body.ingredientsEx.map((excludeIngredient) => ({
+                ingridentList: { $not: { $regex: new RegExp(excludeIngredient, 'i') } }
+            }));
+            conditions.push({ $and: ingredientsEx });
+        }
+        if (conditions.length >= 1) {
+            searchQuery.$and = conditions;
+        }
+        try {
+            const meals = yield post_1.default.find(searchQuery);
+            if (!meals) {
+                res.status(400).json({ status: '400', error: 'i have no idea what would be the problem' });
+            }
+            else {
+                res.status(200).json({ status: '200', meals: meals });
+            }
+        }
+        catch (error) {
+            console.log(error);
+            res.status(400).json({ error: error });
         }
     })
 };
