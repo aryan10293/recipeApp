@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import Navbar from '../../assets/Navbar'
-import UserContext from '../../contexts/UserContext'
+import AdvancedSearch from './AdvancedSearch'
 interface SearchInfo{
     searchOption:string,
     searchText:string
@@ -41,7 +41,7 @@ function SearchPage() {
     // really didnt know what to do with other probably shopudl delete
 
     // also wanted to add a advanced search that'll 
-    // include or exclude ingrediants, deal with prep time, ratings, calories, protein count
+    // include or exclude ingredients, deal with prep time, ratings, calories, protein count
 
     const testingSearch = async() => {
         const searchStuff = await fetch(`http://localhost:2030/search`, {
@@ -50,8 +50,11 @@ function SearchPage() {
             body:JSON.stringify(searchInfo)
         })
         const jsonSearchStuff = await searchStuff.json()
-        setSearchData(jsonSearchStuff.getSearchData)
+        setSearchData(jsonSearchStuff.data)
         console.log(jsonSearchStuff, 12, searchInfo)
+    }
+    const handleAdvance = () => {
+        console.log('lol')
     }
   return (
     <>
@@ -75,7 +78,8 @@ function SearchPage() {
                     <p>No data available</p>
                 )}
             </div>
-        </div>
+      </div>
+      <AdvancedSearch/>
     </>
   )
 }

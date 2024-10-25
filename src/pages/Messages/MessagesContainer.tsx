@@ -3,6 +3,7 @@ import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import UserIcons from "./UserIcons";
 import UserContext from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
+import useQueryFetch from "../../Utils/Api/useQueryFetch";
 
 interface User{
     userName: string,
@@ -27,6 +28,7 @@ const MessagesContainer = () => {
     const [chatHistory,setChatHistory] = useState<Message[]>([])
     const [partnerId,setPartnerId] = useState<string>("")
     const {userUsername:userUserName,userProfilePicture:userProfilePicture} = useGetUserDataFromId(partnerId)
+    const {data,error,isPending} = useQueryFetch('http://localhost:2030/getuser/')
 
     const [roomId,setRoomId] = useState<string>("")
     const [users,setUsers] = useState([])
@@ -110,7 +112,7 @@ const MessagesContainer = () => {
                     body: JSON.stringify({id:userId})
                 })
                     const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
-                    console.log(jsonGetMessagedUserHistory,'hey does this work')
+                    // console.log(jsonGetMessagedUserHistory,'hey does this work')
                     setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
                     console.log('hello')
                 }
@@ -261,12 +263,12 @@ const MessagesContainer = () => {
             <div className="w-1/4 flex flex-col">
                 <h4 className="text-md capitalize mb-1">search for messages</h4>
                 <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={testing} />
-                {   userId &&
-                    users && users.map((user:User)=>(
-                    <div key={user._id}>
-                        <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} /></button>
+                {/* {   userId &&
+                    users && users.map((user:User,index)=>(
+                    <div key={index}>
+                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} />{user[0].userName}</button>
                     </div>))
-                }
+                } */}
             </div>
             <div className="messages-current-chat">
 

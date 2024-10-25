@@ -74,7 +74,7 @@ const MessageContainer2 = () => {
 
     // Clicking user card
     const clickingUserCard = async function(usersId:string){
-        const ID:string = createRoomId(usersId)
+        const ID:string | undefined = createRoomId(usersId)
         setReceiverId(usersId)
         console.log('Receiver ID',ID);
         getChatHistory(ID)  
