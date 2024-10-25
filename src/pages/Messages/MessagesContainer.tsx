@@ -28,7 +28,7 @@ const MessagesContainer = () => {
     const [chatHistory,setChatHistory] = useState<Message[]>([])
     const [partnerId,setPartnerId] = useState<string>("")
     const {userUsername:userUserName,userProfilePicture:userProfilePicture} = useGetUserDataFromId(partnerId)
-    const {data,error,isPending} = useQueryFetch('http://localhost:2030/getuser/')
+    // const {data,error,isPending} = useQueryFetch('http://localhost:2030/getuser/')
 
     const [roomId,setRoomId] = useState<string>("")
     const [users,setUsers] = useState([])
@@ -113,8 +113,10 @@ const MessagesContainer = () => {
                 })
                     const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
                     // console.log(jsonGetMessagedUserHistory,'hey does this work')
-                    setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
-                    console.log('hello')
+                    console.log(jsonGetMessagedUserHistory.chatHistory)
+                    setUsers(jsonGetMessagedUserHistory.chatHistory)
+                    // setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
+                    // console.log('hello')
                 }
             lol()
         }, [userId])
@@ -138,15 +140,22 @@ const MessagesContainer = () => {
     }
 
     // Generate room ID
-    const createRoomId = function(id:string){   
-        if(id.length > 0){
-            if(userId && id){
-                const generatedRoomId = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
-                setRoomId(generatedRoomId)
-            } else {
-                console.log('No user ID found')
+    const createRoomId = function(id:string){
+        if(id){
+            if(id.length > 0){
+                if(userId && id){
+                    const generatedRoomId = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
+                    setRoomId(generatedRoomId)
+                } else {
+                    console.log('No user ID found')
+                }
             }
+        }   
+        else{
+            console.log('No Id Found');
+            
         }
+
     }
 
     // Getting message history
@@ -242,7 +251,11 @@ const MessagesContainer = () => {
                 body: JSON.stringify({search: e.target.value, id:userId})
             })
             const searchedUsers = await getUsers.json()
-            setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
+            // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
+            console.log(searchedUsers);
+            setUsers(searchedUsers.searchedUsers)
+            
+            
         }
 
         timeout = setTimeout(async() => {
@@ -260,15 +273,16 @@ const MessagesContainer = () => {
       
     return ( 
         <div className="messages-container">
-            <div className="w-1/4 flex flex-col">
+            <div className="w-1/4 flex flex-col overflow-auto">
                 <h4 className="text-md capitalize mb-1">search for messages</h4>
                 <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={testing} />
-                {/* {   userId &&
-                    users && users.map((user:User,index)=>(
+                {   userId &&
+                    users !== undefined && users?.map((user:[],index)=>(
                     <div key={index}>
-                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} />{user[0].userName}</button>
+                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className="user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))
-                } */}
+                }
+                
             </div>
             <div className="messages-current-chat">
 
