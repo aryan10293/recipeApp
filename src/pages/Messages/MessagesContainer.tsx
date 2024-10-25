@@ -253,9 +253,7 @@ const MessagesContainer = () => {
             const searchedUsers = await getUsers.json()
             // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
             console.log(searchedUsers);
-            setUsers(searchedUsers.searchedUsers)
-            
-            
+            setUsers(searchedUsers.searchedUsers)                 
         }
 
         timeout = setTimeout(async() => {
