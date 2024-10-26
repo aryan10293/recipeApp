@@ -265,7 +265,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowers?.length ? userFollowers?.length : <p className="pending-msg">Loading...</p>}</h4>
                     <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowings?.length ? userFollowings?.length : <p className="pending-msg">Loading...</p>}</h4> 
                 </div>
-                <button onClick={setIsEditClick}>Edit Info</button>
+                <button className="btn" onClick={setIsEditClick}>Edit Info</button>
                 {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
             </div>
         )
@@ -306,7 +306,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     {/* <h3 className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
                     
                 </div>
-                <button onClick={setIsEditClick}>Save Changes</button>
+                <button className="btn" onClick={setIsEditClick}>Save Changes</button>
             </div>
         )
     }
@@ -406,7 +406,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <h3 style={{fontWeight:'400'}}>{userName + `'s bio`}</h3>
                     <hr/>
                     <p>{newBio ? newBio : 'Loading bio...'}</p>
-                    <button onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Edit Bio</button>
+                    <button className="btn" onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Edit Bio</button>
                 </div>
         )
     }
@@ -418,7 +418,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <h3 style={{fontWeight:'400'}}>{userName + `'s bio`}</h3>
                     <hr />
                         <textarea value={newBio} onChange={e=>(setNewBio(e.target.value))} style={{width:'100%',height:'60%',resize:'none',background:'white',border:'none',fontSize:'1.2rem',padding:'5px'}} name="" id=""></textarea>
-                    <button onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Save Changes</button>
+                    <button className="btn" onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Save Changes</button>
                 </div>
         )
     }

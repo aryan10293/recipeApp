@@ -264,7 +264,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                         <option value="oz">oz</option>
                     </select>
                     <input onKeyDown={enterPress} id="ing" value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
-                    <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add</button>
+                    <button className="ingredient-btn btn" onClick={(e)=>ingredientClickHandle(e)}>Add</button>
                     {/* <button onClick={(e)=>ingredientClickHandle(e)} type="submit" form="ing" className="ingredient-btn">Add Ingredient</button> */}
                 </div>
                 
@@ -287,7 +287,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                 </div>
 
             <textarea onChange={(e)=>setSteps(e.target.value)} className="recipe-steps" placeholder={`1. Peel veggies ${"\n"}2. Boil water${"\n"}...`} name="" id=""></textarea>     
-            <button onClick={(e)=>postRecipe(e)} className="post-recipe-btn">{postButtonText}</button>    
+            <button onClick={(e)=>postRecipe(e)} className="btn mt-5">{postButtonText}</button>    
             </div>  
             
         </div>

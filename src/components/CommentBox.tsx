@@ -64,8 +64,8 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
     return ( 
         <div className={classs4}>
             <div className={classs2}>
-                {<textarea value={postContent} onChange={(e)=>setPostContent(e.target.value)} className="new-comment-input" placeholder="Your comment..." name="" id=""></textarea>}
-                <button onClick={clickHandle} className="send-comment-btn">Send</button>
+                {<textarea value={postContent} onChange={(e)=>setPostContent(e.target.value)} className="new-comment-input rounded-md" placeholder="Your comment..." name="" id=""></textarea>}
+                <button onClick={clickHandle} className="btn ml-3">Send</button>
             </div>
         </div>
      );

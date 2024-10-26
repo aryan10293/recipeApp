@@ -171,10 +171,6 @@
 }
 .recipe-box-appear-btn{
     margin:10px 0 0 0;
-    background-color:#f45d48;
-    font-size:1.1rem;
-    border-radius:5px;
-    border:none;
     transition: transform 0.1s ease-in;
 }
 .recipe-box-appear-btn:hover{
@@ -218,10 +214,6 @@
 }
 .more-recipe-btn:hover{
     transform: scale(1.1);
-}
-.nutri-btn{
-    padding: 3px 6px;
-    margin: 0 0px 0 0 ;
 }
 .post-toggle-box{
     display: flex;

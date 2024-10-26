@@ -301,8 +301,8 @@ const printRecipeCard = function(){
                             <BookmarkButton userId={userID} postId={_id}/>
                             <div className="name-n-follow-box">
                                 <UserNameProfileButton className="username-btn" postsId={_id}/>
-                                <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
-                                <button className="nutri-btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
+                                <FollowUserButton followClass="px-2 py-1 cursor-pointer bg-[#f45d48] rounded-md border-none scale-75 h-40px" personToFollow={userWhoPostId}/>
+                                <button className="btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
 
                             </div>
                             {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
