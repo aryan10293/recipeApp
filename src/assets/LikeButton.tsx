@@ -182,7 +182,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
 
     return ( 
         <div style={{display:'flex',flexDirection:'row'}} className="like-button">
-            {postLikes && <button onClick={(e)=>{clickHandle(e)}} style={postIsLiked ? style:style2}><FontAwesomeIcon icon={faHeart} /></button>}
+            {postLikes && <button onClick={(e)=>{clickHandle(e)}} className='mr-1' style={postIsLiked ? style:style2}><FontAwesomeIcon icon={faHeart} /></button>}
             <p>{likeNum}</p>         
         </div>
      );

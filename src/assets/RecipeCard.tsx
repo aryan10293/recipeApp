@@ -297,7 +297,7 @@ const printRecipeCard = function(){
                         
                         <div className="interaction-box">
                             {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/>}
-                            {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e) => handleCommentButtonClick(e)}/>}
+                            {comments && <CommentButton numberOfComments={commentNum} margin="0 5px 0 15px" handle={(e) => handleCommentButtonClick(e)}/>}
                             <BookmarkButton userId={userID} postId={_id}/>
                             <div className="name-n-follow-box">
                                 <UserNameProfileButton className="username-btn" postsId={_id}/>
