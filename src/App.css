@@ -40,7 +40,7 @@ button{
     animation: pendingAnimation 0.5s infinite;
 }
 .btn{
-    @apply px-2 py-1 bg-[#f45d48] font-medium cursor-pointer rounded-md border-none shadow-[0px_5px_10px_rgba(0,0,0,0.2)] h-[30px]
+    @apply px-2 py-1 bg-[#f45d48] font-medium cursor-pointer rounded-md border-none shadow-[0px_5px_10px_rgba(0,0,0,0.2)] h-[30px] hover:bg-opacity-80
 }
 @keyframes pendingAnimation {
     0%{

@@ -93,6 +93,31 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         fontSize:'1.5rem'
     }
 
+    // Delete post logic
+    const deletePost= async function(e:React.MouseEvent){
+        try {
+            e.stopPropagation()
+            const response = await fetch(`http://localhost:2030/deletepost/${_id}`,{
+                method:"DELETE",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+            })
+            if(!response){
+                throw new Error('Failed to fetch delete API. Response is not ok')
+            }
+            const data = await response.json()
+            if(!data){
+                throw new Error('Failed to fetch delete API. Response data is not ok')
+            }
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+            
+        }
+
+     }
+
     // Rendering dificulty icons on recipe cards
     const renderDifficultyIcon = function(levelNum:number){
         let icons:JSX.Element[] = []
@@ -136,12 +161,14 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                             <img src={recipe.image} alt="" />
                         </div>
                         <div className="right">
-                            <h3 className="name-of-dish">{recipe.nameOfDish}</h3>
+                            <h3 className="text-start w-[500px]">{recipe.nameOfDish}</h3>
                             <h3 className="time-img" ><TimeButton/></h3>
                             <h3  className="prep-time">{recipe.prepTime}</h3>
                             <div className="diff-icons">
                                 {renderDifficultyIcon(recipe.levelOfMeal)}
                             </div>
+                            <button className="btn" onClick={(e)=>deletePost(e)}>Delete</button>
+
                         </div>
                         
                     </button>

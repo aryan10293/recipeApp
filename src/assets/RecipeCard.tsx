@@ -305,7 +305,7 @@ const printRecipeCard = function(){
                                 <button className="btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
 
                             </div>
-                            {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
+                            {/* <button className="btn" onClick={(e)=>deletePost(e)}>Delete</button> */}
                         </div>
                     </div>
                 </div>
