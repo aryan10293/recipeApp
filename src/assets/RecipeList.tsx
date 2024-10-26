@@ -25,7 +25,11 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
         levelOfMeal:number,
         steps?:string,
         postIndex:number,
-        userWhoPostId:string 
+        userWhoPostId:string,
+        calories:string,
+        fats:string,
+        protein:string,
+        carbs:string
     }
 
     interface Followings{
@@ -138,7 +142,11 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                                     levelOfMeal={recipe.levelOfMeal}
                                     postIndex={index}
                                     userID={userID} 
-                                    userWhoPostId={recipe.userWhoPostId}           
+                                    userWhoPostId={recipe.userWhoPostId}     
+                                    calories={recipe.calories}
+                                    fats={recipe.fats}
+                                    carbs={recipe.carbs}
+                                    protein={recipe.protein}        
                                     /> 
                                     }
 
@@ -174,7 +182,11 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                                     levelOfMeal={recipe.levelOfMeal}
                                     postIndex={index}
                                     userID={userID} 
-                                    userWhoPostId={recipe.userWhoPostId}           
+                                    userWhoPostId={recipe.userWhoPostId}
+                                    calories={recipe.calories}
+                                    fats={recipe.fats}
+                                    carbs={recipe.carbs}
+                                    protein={recipe.protein}           
                                     />}
                                 </div>))
                         }
@@ -190,9 +202,6 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                return renderedFollowedArray ? renderFollowedPosts() : <p>Loading...</p>
             }
         }
-
-
-
 
     return ( 
         decider()

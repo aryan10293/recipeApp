@@ -95,7 +95,7 @@ const Profile:React.FC<UserId> = ({user}) => {
                         <label htmlFor=""style={{ color: 'black' }}>Profile Picture</label>
                          <input onChange={handleProfilePic} type="file" style={{ backgroundColor: 'white', outline: '2px solid black' }} />
                     </div>
-                    <button>Save Chanes</button>
+                    <button>Save Changes</button>
                 </form>
             </div>
         </div>

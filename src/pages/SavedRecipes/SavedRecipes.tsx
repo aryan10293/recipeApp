@@ -1,12 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
-import RecipeList from "../../assets/RecipeList";
-import useFetch from "../../assets/useFetch";
-import useUserId from "../../Utils/useGetUserId";
 import RecipeCard from "../../assets/RecipeCard";
-import LikeButton from "../../assets/LikeButton";
-import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 

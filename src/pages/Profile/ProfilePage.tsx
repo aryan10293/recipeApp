@@ -34,7 +34,7 @@ const ProfilePage = () => {
 
     return ( 
 
-         <div>  
+        <div>  
             <Navbar userName={userUsername} userProfilePicture={userProfilePicture}/>
             <ProfileCard userFollowingNum={userFollowingNum} userFollowerNum={userFollowerNum} bio={userBio} userID={userID} dob={userDob} cookingStyle={userCookingStyle} accountAge={userAccountAge} cookingSkill={cookingSkill} profilePicture={profilePicture} userName={userName} userFirstName={firstName} userLastName={lastName} userEmail={email} userCountry={country} />
         </div>
