@@ -54,21 +54,14 @@ let search = {
         }
     }),
     mealSearch: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(req.body);
         const conditions = [];
-        const cal = Number(req.body.maxCal);
         const searchQuery = {};
-        if (req.body.maxCal !== undefined) {
-            searchQuery["perServingMacros.calories"] = { $lte: req.body.maxCal };
-        }
-        if (req.body.maxCarb !== undefined) {
-            searchQuery["perServingMacros.carbs"] = { $lte: req.body.maxCarb };
-        }
-        if (req.body.maxFat !== undefined) {
-            searchQuery["perServingMacros.fats"] = { $lte: req.body.maxFat };
-        }
-        if (req.body.maxPro !== undefined) {
-            searchQuery["perServingMacros.protein"] = { $lte: req.body.maxPro };
+        const arr = Object.keys(req.body);
+        const cal = Number(req.body.maxCal);
+        for (let i = 0; i < arr.length; i++) {
+            if (req.body[arr[i]] === false && i > 4) {
+                searchQuery[arr[i]] = { $lte: req.body[arr[i]] };
+            }
         }
         if (req.body.ingredients.length >= 1) {
             const ingredients = req.body.ingredients.map((ingredient) => ({

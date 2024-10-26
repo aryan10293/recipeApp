@@ -10,9 +10,10 @@ interface RecipeListProps{
     userId:string | null,
     recipeNumber:number,
     showAllPosts:boolean
+    showFollow: boolean
 }
 
-const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPosts}) => {
+const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPosts, showFollow}) => {
 
     interface Recipe{
         timeOfPost:string,
@@ -171,6 +172,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                             .map((recipe:Recipe,index:number)=>(
                                 <div  className="asd" key={recipe._id}>
                                     {<RecipeCard 
+                                    showFollow={showFollow}
                                     _id={recipe._id}
                                     recipeName={recipe.nameOfDish}
                                     recipeTime={recipe.prepTime}

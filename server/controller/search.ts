@@ -49,37 +49,26 @@ let search = {
         }
     },
     mealSearch: async(req:Request, res:Response) => {
-        // bouta write hella if statements
-        // if req.body.maxCal is undefined? do nothing
-            // else ass it to the search query
-        console.log(req.body)
         const conditions: any[] = []
+        const searchQuery:any = {}
+        const arr:string[] = Object.keys(req.body)
         const cal:number = Number(req.body.maxCal)
+        // chat gpt was telling me to use these to make the searchQuery object type specific but i just used any to save the headache
         type IngredientCondition = {
             ingridentList: { $regex: RegExp } | { $nin: { $regex: RegExp } };
         };
         interface Search{
-             "perServingMacros.calories": number, 
+            "perServingMacros.calories": number, 
             "perServingMacros.carbs": number, 
             "perServingMacros.fats": number, 
             "perServingMacros.protein": number, 
             $and?: IngredientCondition[]
         } 
-        // "any" solvied all my problems for now
-        const searchQuery:any = {}
-
-        // the below can probably be done with some type of loop
-        if(req.body.maxCal !== undefined){
-            searchQuery["perServingMacros.calories"] =  { $lte: req.body.maxCal }
-        }
-        if(req.body.maxCarb !== undefined){
-            searchQuery["perServingMacros.carbs"] =  { $lte: req.body.maxCarb }
-        }
-        if(req.body.maxFat !== undefined){
-            searchQuery["perServingMacros.fats"] =  { $lte: req.body.maxFat }
-        }
-        if(req.body.maxPro !== undefined){
-            searchQuery["perServingMacros.protein"] =  { $lte: req.body.maxPro }
+        // chat gpt was telling me to use these to make the searchQuery object type specific but i just used any to save the headache
+        for(let i:number = 0; i < arr.length; i++){
+            if(req.body[arr[i]] === false && i>4){
+                searchQuery[arr[i]] =  { $lte: req.body[arr[i]] }
+            }
         }
 
         if(req.body.ingredients.length >= 1){
@@ -109,8 +98,6 @@ let search = {
             console.log(error)
             res.status(400).json({error:error})
         }
-
-        // res.status(200).json(req.body)
     }
 }
 export default search

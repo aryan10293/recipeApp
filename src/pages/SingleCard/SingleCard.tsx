@@ -17,6 +17,7 @@ interface RecipeCardProps{
     likes?:string[],
     recipeClass?:string,
     _id?:string
+    showFollow:boolean
 }
 
 interface Comments{
@@ -31,7 +32,7 @@ interface Comments{
 
 
 
-const SingleCard:React.FC<RecipeCardProps> = () => {
+const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
 
 
 
@@ -109,6 +110,7 @@ const SingleCard:React.FC<RecipeCardProps> = () => {
             datas &&
             userID && 
             <RecipeCard  
+            showFollow={true}
             levelOfMeal={recipe.post[0].levelOfMeal}
             likes={recipe.post[0].likes}
             steps={recipe.post[0].steps} 
