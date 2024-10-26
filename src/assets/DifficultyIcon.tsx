@@ -15,7 +15,7 @@ const DifficultyIcon:React.FC <IconProps>= ({style}) => {
     
 
     return ( 
-        <div className='difficulty-icon'>
+        <div className='difficulty-icon mr-1'>
             <button style={style}><FontAwesomeIcon icon={faFire}></FontAwesomeIcon></button>
         </div>
      );

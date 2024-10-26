@@ -113,7 +113,6 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             console.log(data);
         } catch (error) {
             console.log(error);
-            
         }
 
      }
