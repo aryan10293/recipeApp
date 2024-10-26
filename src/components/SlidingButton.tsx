@@ -30,6 +30,7 @@ const SlidingButton:React.FC<SlidingButtonProps> = ({btnClickHandle,btnTextOnThe
 
     useEffect(()=>{
         setClassName()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[isBtnOnTheLeft])
 
     return (  
