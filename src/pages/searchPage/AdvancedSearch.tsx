@@ -76,53 +76,53 @@ function AdvancedSearch(this: any) {
         console.log(jsonSendSearch)
     }
   return (
-    <div style={{marginTop:'50px'}}>
-            <form onSubmit={handleSearch}>
-                <div>
-                    <h1>per servings</h1>
-                    <div>
-                        <label style={{color:'black'}} htmlFor="">max protein</label>
-                        <input type="text" onChange={handlePro} />
+    <div className='w-full flex flex-col items-center' style={{marginTop:'50px'}}>
+            <form className='w-1/3' onSubmit={handleSearch}>
+                <div className='flex flex-col h-[190px] justify-between mb-8'>
+                    <h1 className='capitalize text-center mb-6 text-2xl'>per servings</h1>
+                    <div className='mb-1 w-2/5 flex flex-row'>
+                        <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">max protein</label>
+                        <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="text" onChange={handlePro} />
                     </div>
-                    <div>
-                        <label  style={{color:'black'}}htmlFor="">max carbs</label>
-                        <input type="text" onChange={handleCarb} />
+                    <div className='mb-1 w-2/5 flex flex-row'>
+                        <label className='mr-4 w-[90px] capitalize text-black'htmlFor="">max carbs</label>
+                        <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="text" onChange={handleCarb} />
                     </div>
-                    <div>
-                        <label style={{color:'black'}} htmlFor="">max fats</label>
-                        <input type="text"onChange={handleFat} />
+                    <div className='mb-1 w-2/5 flex flex-row'>
+                        <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">max fats</label>
+                        <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="text"onChange={handleFat} />
                     </div>
-                    <div>
-                        <label style={{color:'black'}}  htmlFor="">max calories</label>
-                        <input type="number" onChange={handleCal} />
+                    <div className='mb-1 w-2/5 flex flex-row'>
+                        <label className='mr-4 w-[90px] capitalize text-black'  htmlFor="">max calories</label>
+                        <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="number" onChange={handleCal} />
                     </div>
                 </div>
                 
-               <div>
-                    <h2>ingredients included</h2>
-                    <div>
-                        <label style={{color:'black'}} htmlFor="">ingredients</label>
-                        <input type="text" value={ingredientText} onChange={(e:any) => setIngredientText(e.target.value)}/>
-                        <button onClick={(e) => addOrExcludeIngredient(e,ingredients,ingredientText.toLowerCase(),setIngredients, ingredientsEx, 'include', setIngredientsEx )}>add to search</button>
+               <div className='flex flex-col h-[80px] justify-around mb-8'>
+                    <h2 className='capitalize text-center mb-6 text-xl'>ingredients included</h2>
+                    <div className='w-3/5 flex flex-row'>
+                        <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">ingredients</label>
+                        <input className='p-1 mr-4 w-[200px] bg-white border border-black rounded-md' type="text" value={ingredientText} onChange={(e:any) => setIngredientText(e.target.value)}/>
+                        <button className='p-1' onClick={(e) => addOrExcludeIngredient(e,ingredients,ingredientText.toLowerCase(),setIngredients, ingredientsEx, 'include', setIngredientsEx )}>Add to search</button>
                     </div>
                </div>
 
-               <div>
-                    <h2>ingredients excluded</h2>
-                    <div>
-                        <label style={{color:'black'}} htmlFor="">ingredients</label>
-                        <input type="text"  value={ingredientTextEx} onChange={(e:any) => setIngredientTextEx(e.target.value)}/>
-                        <button onClick={(e) => addOrExcludeIngredient(e, ingredientsEx, ingredientTextEx.toLowerCase(), setIngredientsEx, ingredients, 'exclude', setIngredients)}>Exclude From Search</button>
+               <div className='flex flex-col h-[80px] justify-around'>
+                    <h2 className='capitalize text-center mb-6 text-xl'>ingredients excluded</h2>
+                    <div className='w-2/3 flex flex-row'>
+                        <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">ingredients</label>
+                        <input className='p-1 mr-4 w-[200px] bg-white border border-black rounded-md' type="text"  value={ingredientTextEx} onChange={(e:any) => setIngredientTextEx(e.target.value)}/>
+                        <button className='p-1' onClick={(e) => addOrExcludeIngredient(e, ingredientsEx, ingredientTextEx.toLowerCase(), setIngredientsEx, ingredients, 'exclude', setIngredients)}>Exclude From Search</button>
                     </div>
                </div>
 
-               <div>
-                    <div>
-                        <label style={{color:'black'}} htmlFor="">prep time</label>
-                        <input value={prep} onChange={(e:any) => setPrep(e.target.value)} type="number" />
+               <div className='flex flex-col h-[60px] justify-around'>
+                    <div className='w-5/12 flex flex-row'>
+                        <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">prep time</label>
+                        <input className='p-1 w-[200px] bg-white border border-black rounded-md' value={prep} onChange={(e:any) => setPrep(e.target.value)} type="number" />
                     </div>
                </div>
-                <button>Search</button>
+                <button className='p-1'>Search</button>
             </form>
             <div>
                 <h1>return search stuff</h1>

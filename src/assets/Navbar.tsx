@@ -2,8 +2,7 @@ import HomeButton from "./HomeButton";
 import SavedRecipesButton from "./SavedRecipesButton";
 import MessageButton from "./MessagesButton";
 import ProfileIcon from "./ProfileIcon";
-import useFetch from "./useFetch";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SignOutButton from "./SignOutButton";
 
@@ -19,7 +18,6 @@ interface NavbarProps{
 
 const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture,userId}) => {
 
-    // const {data:picture} = useFetch(`http://localhost:2030/getuser/${localStorage.getItem("token")}`)
 
     const navigate = useNavigate()
     

@@ -25,54 +25,59 @@ const useGetUserDataFromId = (id:string | null) => {
         const signal = controller.signal;
         const getUserId = async function() {
 
-
-            try {
+            if(id){
+                try {
                 
-                const response = await fetch(`http://localhost:2030/getuserbyid/${id}`)
-                if(!response.ok){
-                    throw new Error('Issue with fetchin user data')
+                    const response = await fetch(`http://localhost:2030/getuserbyid/${id}`)
+                    if(!response.ok){
+                        throw new Error('Issue with fetchin user data')
+                    }
+                    
+                    const data = await response.json()
+                    
+    
+                    const userID =  data.user[0]._id
+                    const userName = data.user[0].userName
+                    const userPic =  data.user[0].profilePic
+                    const userBookmarks =  data.user[0].savedRecipes
+                    const userSkill =  data.user[0].skillLevel
+                    const firstName =  data.user[0].firstName
+                    const lastName =  data.user[0].lastName
+                    const email =  data.user[0].email
+                    const country =  data.user[0].country
+                    const dob =  data.user[0].dob
+                    const accountAge =  data.user[0].accountAge
+                    const cookingStyle =  data.user[0].cookingStyle
+                    const bio =  data.user[0].bio
+                    const followerNum = data.user[0].followers
+                    const followingNum = data.user[0].followings
+    
+                    setUserUsername(userName)
+                    setUserId(userID)
+                    setUserProfilePicture(userPic)
+                    setUserBookmarks(userBookmarks)
+                    setUserCookingSkill(userSkill)
+                    setUserFirstName(firstName)
+                    setUserLastName(lastName)
+                    setUserEmail(email)
+                    setUserCountry(country)
+                    setUserDob(dob)
+                    setUserAccountAge(accountAge)
+                    setUserCookingStyle(cookingStyle)
+                    setUserBio(bio)
+                    setUserFollowerNum(followerNum)
+                    setUserFollowingNum(followingNum)
+    
+                    // console.log(followerNum,followingNum);
+                    
+                } catch (error:Error | any) {
+                    console.log(error);
                 }
-                
-                const data = await response.json()
-                
-
-                const userID =  data.user[0]._id
-                const userName = data.user[0].userName
-                const userPic =  data.user[0].profilePic
-                const userBookmarks =  data.user[0].savedRecipes
-                const userSkill =  data.user[0].skillLevel
-                const firstName =  data.user[0].firstName
-                const lastName =  data.user[0].lastName
-                const email =  data.user[0].email
-                const country =  data.user[0].country
-                const dob =  data.user[0].dob
-                const accountAge =  data.user[0].accountAge
-                const cookingStyle =  data.user[0].cookingStyle
-                const bio =  data.user[0].bio
-                const followerNum = data.user[0].followers
-                const followingNum = data.user[0].followings
-
-                setUserUsername(userName)
-                setUserId(userID)
-                setUserProfilePicture(userPic)
-                setUserBookmarks(userBookmarks)
-                setUserCookingSkill(userSkill)
-                setUserFirstName(firstName)
-                setUserLastName(lastName)
-                setUserEmail(email)
-                setUserCountry(country)
-                setUserDob(dob)
-                setUserAccountAge(accountAge)
-                setUserCookingStyle(cookingStyle)
-                setUserBio(bio)
-                setUserFollowerNum(followerNum)
-                setUserFollowingNum(followingNum)
-
-                // console.log(followerNum,followingNum);
-                
-            } catch (error:Error | any) {
-                console.log(error);
             }
+            else{
+                console.log('no id found')
+            }
+            
    
         }
 

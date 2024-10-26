@@ -1,11 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import Header from "../../assets/Header";
-import ProfileIcon from "../../assets/ProfileIcon";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import UserIcons from "./UserIcons";
-import { faEtsy } from "@fortawesome/free-brands-svg-icons";
 import UserContext from "../../contexts/UserContext";
-import RecipeItem from "../../components/RecipeItem";
+import { useParams } from "react-router-dom";
+import useQueryFetch from "../../Utils/Api/useQueryFetch";
 
 interface User{
     userName: string,
@@ -21,7 +19,7 @@ interface Message{
     imgString:string
 }
 interface Props{
-
+    receiverId:string
 }
 
 const MessagesContainer = () => {
@@ -30,6 +28,7 @@ const MessagesContainer = () => {
     const [chatHistory,setChatHistory] = useState<Message[]>([])
     const [partnerId,setPartnerId] = useState<string>("")
     const {userUsername:userUserName,userProfilePicture:userProfilePicture} = useGetUserDataFromId(partnerId)
+    // const {data,error,isPending} = useQueryFetch('http://localhost:2030/getuser/')
 
     const [roomId,setRoomId] = useState<string>("")
     const [users,setUsers] = useState([])
@@ -37,6 +36,8 @@ const MessagesContainer = () => {
     const [wss,setWss] = useState<WebSocket>()
     const [isConnected,setIsConnected] = useState<boolean>(false)
     
+    const receiverId = useParams()
+
     const chatBoxRef:any = useRef(null)
 
      // variables needed to search for users
@@ -79,7 +80,6 @@ const MessagesContainer = () => {
             console.log('Websocket error ',error);
         }
 
-
         ws.onclose = ()=>{
             console.log('Connection is closed');    
         }
@@ -89,23 +89,19 @@ const MessagesContainer = () => {
             }
         }        
     }
-    socketHandle()
-    }, [partnerId,userId,roomId])
-    
-    // const roomIdRef = useRef(roomId)
-    useEffect(()=>{
-        // if(roomIdRef.current !== roomId){
-        //     getMessageHistory(roomId)
-        //     roomIdRef.current = roomId
-        // }
-        // generateUser()
-    },[roomId])
-    
-    useEffect(()=>{
-        createRoomId(partnerId)
-        console.log('Room ID',roomId)
 
-    },[partnerId,userId,roomId])
+    
+    createRoomId(partnerId)
+    socketHandle()
+    console.log('partnerId',partnerId);
+    
+    }, [partnerId,roomId])
+
+    useEffect(()=>{
+        setPartnerId(receiverId.id)
+        console.log('ReceiverId is: ',receiverId.id);
+        
+    },[])
 
     // Getting users
         useEffect(() => {
@@ -116,9 +112,11 @@ const MessagesContainer = () => {
                     body: JSON.stringify({id:userId})
                 })
                     const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
-                    console.log(jsonGetMessagedUserHistory,'hey does this work')
-                    setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
-                    console.log('hello')
+                    // console.log(jsonGetMessagedUserHistory,'hey does this work')
+                    console.log(jsonGetMessagedUserHistory.chatHistory)
+                    setUsers(jsonGetMessagedUserHistory.chatHistory)
+                    // setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
+                    // console.log('hello')
                 }
             lol()
         }, [userId])
@@ -126,7 +124,7 @@ const MessagesContainer = () => {
     // Selecting user to chat with
     const clickingUserCard = function(usersId:string){
         setPartnerId(usersId)
-        console.log(usersId);          
+        console.log(usersId);         
     }
 
     // Printing chat user list
@@ -142,15 +140,22 @@ const MessagesContainer = () => {
     }
 
     // Generate room ID
-    const createRoomId = function(id:string){   
-        if(id.length > 0){
-            if(userId && id){
-                const generatedRoomId = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
-                setRoomId(generatedRoomId)
-            } else {
-                console.log('No user ID found')
+    const createRoomId = function(id:string){
+        if(id){
+            if(id.length > 0){
+                if(userId && id){
+                    const generatedRoomId = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
+                    setRoomId(generatedRoomId)
+                } else {
+                    console.log('No user ID found')
+                }
             }
+        }   
+        else{
+            console.log('No Id Found');
+            
         }
+
     }
 
     // Getting message history
@@ -246,8 +251,9 @@ const MessagesContainer = () => {
                 body: JSON.stringify({search: e.target.value, id:userId})
             })
             const searchedUsers = await getUsers.json()
-            setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
-
+            // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
+            console.log(searchedUsers);
+            setUsers(searchedUsers.searchedUsers)                 
         }
 
         timeout = setTimeout(async() => {
@@ -262,17 +268,19 @@ const MessagesContainer = () => {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       }, [chatHistory]); 
+      
     return ( 
         <div className="messages-container">
-            <div className="messages-users-list-container">
-                <h4>search for messages</h4>
-                <input type="text" onKeyUp={testing} />
-                {
-                    users.map((user:User)=>(
-                    <div key={user._id}>
-                        <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} /></button>
+            <div className="w-1/4 flex flex-col overflow-auto">
+                <h4 className="text-md capitalize mb-1">search for messages</h4>
+                <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={testing} />
+                {   userId &&
+                    users !== undefined && users?.map((user:[],index)=>(
+                    <div key={index}>
+                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className="user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))
                 }
+                
             </div>
             <div className="messages-current-chat">
 
@@ -281,17 +289,12 @@ const MessagesContainer = () => {
                 </div>
                 <div ref={chatContainerRef} className="messages-current-chat-chatter">
                     <div className="messages-current-chat-chatter-message-card">
-                        {roomId && chatHistory && chatHistory.map((message,index)=>(
-                            <ul className="message-card" key={index}>
-                                {message.senderId === userId ? <li className="sent">{message.message}</li> : <li className="received">{message.message}</li>}
-                            </ul>
-                        ))}
                         {chatHistory &&  printMessageHistory()}
                     </div>
                 </div>
-                <div className="message-input">
-                        <textarea value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
-                        <button onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
+                <div className="w-full h-[180px] flex flex-row items-center justify-between">
+                        <textarea className="h-4/5 w-11/12 bg-white rounded-sm p-2" value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
+                        <button className="p-2 rounded-md"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
                 </div>
 
             </div>

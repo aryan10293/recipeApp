@@ -38,6 +38,10 @@ interface RecipeCardProps{
     postIndex?:number
     userID?:string | undefined,
     userWhoPostId:string,
+    calories:string,
+    fats:string,
+    carbs:string,
+    protein:string
     // showNutrition:(e:React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
@@ -56,7 +60,7 @@ interface CommentsArray{
     array:Comments[]
 }
 
-const RecipeCard:React.FC<RecipeCardProps> = ({postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal,userID,userWhoPostId}) => {
+const RecipeCard:React.FC<RecipeCardProps> = ({protein,carbs,fats,calories,postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal,userID,userWhoPostId}) => {
 
         const [url,setUrl] = useState<string>("")
         const {data:recipe} = useFetch(url)
@@ -298,9 +302,10 @@ const printRecipeCard = function(){
                             <div className="name-n-follow-box">
                                 <UserNameProfileButton className="username-btn" postsId={_id}/>
                                 <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
+                                <button className="nutri-btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
+
                             </div>
                             {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
-                            <button onClick={(e) => handleCardFace(e)}>Back side</button>
                         </div>
                     </div>
                 </div>
@@ -318,11 +323,9 @@ const printRecipeCard = function(){
         )
      }
          
-         
-
     return ( 
  
-        showNutritions ? <NutritionCard handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
+        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
     
      );
 }

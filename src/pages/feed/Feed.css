@@ -27,14 +27,14 @@
     z-index: 0;
 }
 .asd:nth-of-type(even){
-    animation: appearFromRight 0.3s ease-in forwards, appear3 0.1s ease-in forwards,twister 0.2s ease-in forwards;
+    animation: appearFromRight 0.3s ease-in forwards,twister 0.2s ease-in forwards;
     transform: translateX(600px);
-    opacity: 0;
+    opacity: 100%;
 }
 .asd:nth-of-type(odd){
-    animation: appearFromLeft 0.3s ease-in forwards, appear3 0.1s ease-in forwards,twister 0.2s ease-in forwards;
+    animation: appearFromLeft 0.3s ease-in forwards,twister 0.2s ease-in forwards;
     transform: translateX(-600px);
-    opacity: 0;
+    opacity: 100%;
 }
 .recipe-card:hover{
     cursor: pointer;
@@ -186,7 +186,8 @@
     flex-direction: row;
     width: 200px;
     justify-content: space-around;
-    margin: 0 0 0 250px ;
+    margin: 0 0 0 200px ;
+    align-items: center;
 }
 .username-btn{
     background-color: transparent;
@@ -217,6 +218,10 @@
 }
 .more-recipe-btn:hover{
     transform: scale(1.1);
+}
+.nutri-btn{
+    padding: 3px 6px;
+    margin: 0 0px 0 0 ;
 }
 .post-toggle-box{
     display: flex;

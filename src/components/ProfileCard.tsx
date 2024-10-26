@@ -1,11 +1,13 @@
 import { faTextHeight } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "../assets/RecipeCard";
 import TimeButton from "../assets/TimeButton";
 import DifficultyIcon from "../assets/DifficultyIcon";
 import FollowUserButton from "./FollowUserButton";
 import PendingMessage from "./PendingMessage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 interface ProfileCardProps{
     userName:string | null,
@@ -174,8 +176,12 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         transform:'scale(1.1)'
     };
 
+    const sendMessageToUser = function(receiverId:string){
+        // const navigate = useNavigate()
+        navigate(`/messages/${receiverId}`)
+    }
+
     return (
-        
         <div className="profile-card">
             <div className="left">
                 <div className="image">
@@ -190,13 +196,13 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                     
                 </div>
                 <div className="follow-data">
-                    {/* <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : <p className="pending-msg">Loading...</p>}</h4> */}
                     {printFollowings(userFollowingNum)}
                     {printFollowers(userFollowerNum)}
-                    {/* <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4>  */}
                 </div>
-                {userID && <FollowUserButton followClass="follow-btn" personToFollow={userID}/>}
-                {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
+                <div className="follow-message-box">
+                    {userID && <FollowUserButton followClass="follow-btn" personToFollow={userID}/>}
+                    <button onClick={(e)=>sendMessageToUser(userID)} className="message-user-btn"><FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></button>
+                </div>
             </div>
             <div className="right">
                 <div style={{overflow:'auto'}} className="bio" >

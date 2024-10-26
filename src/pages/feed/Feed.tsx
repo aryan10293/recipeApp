@@ -1,17 +1,11 @@
 import Navbar from "../../assets/Navbar";
 import CreateRecipe from "../../assets/CreateRecipe";
 import RecipeList from "../../assets/RecipeList";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Header from "../../assets/Header";
-import CommentBox from "../../components/CommentBox";
-import UserNameButton from "../../components/UsernameButton";
-import useUserId from "../../Utils/useGetUserId";
-import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
-import { faL, faSearch } from "@fortawesome/free-solid-svg-icons";
 import SlidingButton from "../../components/SlidingButton";
-import NutritionCard from "../../components/NutritionCard";
 
 
 const Feed:React.FC = () => {

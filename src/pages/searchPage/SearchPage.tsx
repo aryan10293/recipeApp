@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import Navbar from '../../assets/Navbar'
 import AdvancedSearch from './AdvancedSearch'
@@ -6,6 +6,14 @@ interface SearchInfo{
     searchOption:string,
     searchText:string
 }
+
+// const user = useContext(UserContext)
+
+// useEffect(()=>{
+//     console.log(user);
+    
+// },[user])
+
 function SearchPage() {
     const [searchOption, setSearchOption] = useState<string>("cooks")
     const [search, setSearch] = useState<string>("")
@@ -51,20 +59,20 @@ function SearchPage() {
   return (
     <>
         <Navbar/>
-      <div style={{marginTop:'50px'}}>
-            <div>
+        <div className='flex flex-col w-full mt-10 items-center'>
+            <div className='flex flex-row p-3 w-full items-center justify-center'>
                 {searchThings.map((x:any) => {
-                    return <button onClick={(e:any) => setSearchOption(e.target.innerHTML)}>{x}</button>
+                    return <button className='ml-2 p-1 rounded-md capitalize mt-2' onClick={(e:any) => setSearchOption(e.target.innerHTML)}>{x}</button>
                 })}
             </div>
-            <div>
-                <input type="text" onChange={(e:any) => setSearch(e.target.value)} />
-                <button onClick={testingSearch}>Search for the stuff</button>
+            <div className='mt-5'>
+                <input className='bg-white border border-black rounded-md p-1 mr-2' type="text" onChange={(e:any) => setSearch(e.target.value)} />
+                <button className='p-1' onClick={testingSearch}>Search for the stuff</button>
             </div>
-            <div>
+            <div className='mt-12'>
                 {searchData.length > 0 ? (
                     searchData.map((x: any, index: any) => (
-                    <p key={index}>we got something chat</p>
+                    <p className='mt-2' key={index}>we got something chat</p>
                     ))
                 ) : (
                     <p>No data available</p>
