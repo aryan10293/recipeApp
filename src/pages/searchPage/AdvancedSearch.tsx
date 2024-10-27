@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 function AdvancedSearch(this: any) {
-    const [maxCal, setMaxCal] = useState<number | undefined>(undefined)
-    const [maxCarb, setMaxCarb] = useState<number | undefined>(undefined)
-    const [maxPro, setMaxPro] = useState<number | undefined>(undefined)
-    const [maxFat, setMaxFat] = useState<number | undefined>(undefined)
+    const [maxCal, setMaxCal] = useState<number | boolean>(false)
+    const [maxCarb, setMaxCarb] = useState<number | boolean>(false)
+    const [maxPro, setMaxPro] = useState<number | boolean>(false)
+    const [maxFat, setMaxFat] = useState<number | boolean>(false)
     const [prep, setPrep] = useState<number>(0)
     const [ingredients, setIngredients] = useState<string[]>([])
     const [ingredientText, setIngredientText] = useState<string>('')
@@ -12,10 +12,10 @@ function AdvancedSearch(this: any) {
     const [ingredientsEx, setIngredientsEx] = useState<string[]>([])
     const [returnedData, setreturnedData] = useState<any[]>([])
     interface SearchData{
-        maxCal:undefined | number, 
-        maxCarb:undefined | number, 
-        maxPro:undefined | number, 
-        maxFat:undefined | number, 
+        maxCal:boolean | number, 
+        maxCarb:boolean | number, 
+        maxPro:boolean | number, 
+        maxFat:boolean | number, 
         ingredients: string[],
         ingredientsEx: string[],
         prep:number
@@ -33,16 +33,16 @@ function AdvancedSearch(this: any) {
     }
     const handleCal = (e:any) => { 
         // i want to a automatic calulations for this if all 3 other macros are preset
-        Number(e.target.value) === 0 ? setMaxCal(undefined) : setMaxCal(Number(e.target.value))
+        Number(e.target.value) === 0 ? setMaxCal(false) : setMaxCal(Number(e.target.value))
     }
     const handlePro = (e:any) => { 
-        Number(e.target.value) === 0 ? setMaxPro(undefined) : setMaxPro(Number(e.target.value))
+        Number(e.target.value) === 0 ? setMaxPro(false) : setMaxPro(Number(e.target.value))
     }
     const handleFat = (e:any) => { 
-        Number(e.target.value) === 0 ? setMaxFat(undefined) : setMaxFat(Number(e.target.value))
+        Number(e.target.value) === 0 ? setMaxFat(false) : setMaxFat(Number(e.target.value))
     }
     const handleCarb = (e:any) => { 
-        Number(e.target.value) === 0 ? setMaxCarb(undefined) : setMaxCarb(Number(e.target.value))
+        Number(e.target.value) === 0 ? setMaxCarb(false) : setMaxCarb(Number(e.target.value))
     }
     
     function addOrExcludeIngredient(e:any, ingredientsExOrIn: string[], ingredientText: string, setIngredientsExOrIn: React.Dispatch<React.SetStateAction<any[]>>, checkIfInExOrIncludeList:string[], action:string, filterIngrediant: React.Dispatch<React.SetStateAction<any[]>>){
@@ -77,22 +77,22 @@ function AdvancedSearch(this: any) {
     }
   return (
     <div className='w-full flex flex-col items-center' style={{marginTop:'50px'}}>
-            <form className='w-1/3' onSubmit={handleSearch}>
+            <form className='w-[750px]' onSubmit={handleSearch}>
                 <div className='flex flex-col h-[190px] justify-between mb-8'>
                     <h1 className='capitalize text-center mb-6 text-2xl'>per servings</h1>
-                    <div className='mb-1 w-2/5 flex flex-row'>
+                    <div className='mb-1 w-[350px] flex flex-row'>
                         <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">max protein</label>
                         <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="text" onChange={handlePro} />
                     </div>
-                    <div className='mb-1 w-2/5 flex flex-row'>
+                    <div className='mb-1 w-[350px] flex flex-row'>
                         <label className='mr-4 w-[90px] capitalize text-black'htmlFor="">max carbs</label>
                         <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="text" onChange={handleCarb} />
                     </div>
-                    <div className='mb-1 w-2/5 flex flex-row'>
+                    <div className='mb-1 w-[350px] flex flex-row'>
                         <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">max fats</label>
                         <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="text"onChange={handleFat} />
                     </div>
-                    <div className='mb-1 w-2/5 flex flex-row'>
+                    <div className='mb-1 w-[350px] flex flex-row'>
                         <label className='mr-4 w-[90px] capitalize text-black'  htmlFor="">max calories</label>
                         <input className='p-1 w-[200px] bg-white border border-black rounded-md focus:border-none focus:rounded-md focus:outline focus:outline-1' type="number" onChange={handleCal} />
                     </div>
@@ -122,7 +122,7 @@ function AdvancedSearch(this: any) {
                         <input className='p-1 w-[200px] bg-white border border-black rounded-md' value={prep} onChange={(e:any) => setPrep(e.target.value)} type="number" />
                     </div>
                </div>
-                <button className='p-1'>Search</button>
+                <button className='p-1 text-center'>Search</button>
             </form>
             <div>
                 <h1>return search stuff</h1>

@@ -42,6 +42,7 @@ interface RecipeCardProps{
     fats:string,
     carbs:string,
     protein:string
+    showFollow:boolean
     // showNutrition:(e:React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
@@ -60,7 +61,7 @@ interface CommentsArray{
     array:Comments[]
 }
 
-const RecipeCard:React.FC<RecipeCardProps> = ({protein,carbs,fats,calories,postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal,userID,userWhoPostId}) => {
+const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,calories,postIndex,_id,recipeClass,recipeName,recipeTime,ingridientList,steps,recipeImage,likes,levelOfMeal,userID,userWhoPostId}) => {
 
         const [url,setUrl] = useState<string>("")
         const {data:recipe} = useFetch(url)
@@ -301,7 +302,9 @@ const printRecipeCard = function(){
                             <BookmarkButton userId={userID} postId={_id}/>
                             <div className="name-n-follow-box">
                                 <UserNameProfileButton className="username-btn" postsId={_id}/>
-                                <FollowUserButton followClass="px-2 py-1 cursor-pointer bg-[#f45d48] rounded-md border-none scale-75 h-40px ml-5 mr-1" personToFollow={userWhoPostId}/>
+                                {showFollow ? <FollowUserButton followClass="p-0 flex flex-col items-center w-[80px] h-[40px] bg-[#f45d48] ml-6 mr-2" personToFollow={userWhoPostId}/> : (
+                                    null
+                                )}
                                 <button className="btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
 
                             </div>

@@ -1,6 +1,7 @@
 import HomeButton from "./HomeButton";
 import SavedRecipesButton from "./SavedRecipesButton";
 import MessageButton from "./MessagesButton";
+import SearchButton from "./SearchButton";
 import ProfileIcon from "./ProfileIcon";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,7 +33,7 @@ const Navbar:React.FC<NavbarProps> = ({userName,userProfilePicture,userId}) => {
             </ul>
             
             <ul className="middle-side">
-                <Link to='/search'><button>search stuff</button></Link>      
+                <li><SearchButton/></li>     
                 <li><HomeButton/></li>
                 <li><SavedRecipesButton/></li>
                 <li><MessageButton/></li>
