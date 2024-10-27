@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import Navbar from '../../assets/Navbar'
 import AdvancedSearch from './AdvancedSearch'
+import {motion} from 'framer-motion'
+
 interface SearchInfo{
     searchOption:string,
     searchText:string
@@ -59,7 +61,11 @@ function SearchPage() {
   return (
     <div className='rounded-md flex flex-col items-center'>
         <Navbar/>
-        <div className='rounded-md flex flex-col w-[1000px] items-center bg-[#078080] mt-[75px] p-5 shadow-[5px_10px_10px_rgba(0,0,0,0.2)]'>
+        <motion.div 
+        initial={{opacity:0,rotateX:90}}
+        animate={{opacity:1,rotateX:0}}
+        transition={{duration:0.3}}
+        className='rounded-md flex flex-col w-[1000px] items-center bg-[#078080] mt-[75px] p-5 shadow-[5px_10px_10px_rgba(0,0,0,0.2)]'>
         <h1 className='text-2xl mb-1 font-medium'>Simple Search</h1>
         <hr className='w-[750px] rounded-3xl outline-none border-black mb-5' />
             <div className='flex flex-row w-full items-center justify-center'>
@@ -71,7 +77,7 @@ function SearchPage() {
                 <input className='bg-white outline-none rounded-md p-1 mr-2' type="text" onChange={(e:any) => setSearch(e.target.value)} />
                 <button className='btn p-1' onClick={testingSearch}>Search</button>
             </div>
-      </div>
+      </motion.div>
       <AdvancedSearch/>
       <div className='mt-12'>
                 {searchData.length > 0 ? (

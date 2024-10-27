@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import {motion} from 'framer-motion'
+
 function AdvancedSearch(this: any) {
     const [maxCal, setMaxCal] = useState<number | boolean>(false)
     const [maxCarb, setMaxCarb] = useState<number | boolean>(false)
@@ -76,7 +78,11 @@ function AdvancedSearch(this: any) {
         console.log(jsonSendSearch)
     }
   return (
-    <div className='rounded-md w-[1000px] flex flex-col items-center bg-[#078080] mt-5 p-5 shadow-[5px_10px_10px_rgba(0,0,0,0.2)]'>
+    <motion.div 
+    initial={{opacity:0,rotateX:90}}
+    animate={{opacity:1,rotateX:0}}
+    transition={{duration:0.3,delay:0.3}}
+    className='rounded-md w-[1000px] flex flex-col items-center bg-[#078080] mt-5 p-5 shadow-[5px_10px_10px_rgba(0,0,0,0.2)]'>
             <form className='w-[750px]' onSubmit={handleSearch}>
                 <div className='flex flex-col h-[190px] justify-between mb-8'>
                     <h1 className='capitalize text-center mb-1 text-2xl font-medium'>search per servings</h1>
@@ -133,7 +139,7 @@ function AdvancedSearch(this: any) {
                     })
                 }
             </div>
-      </div>
+      </motion.div>
   )
 }
 
