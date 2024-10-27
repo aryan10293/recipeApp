@@ -57,19 +57,23 @@ function SearchPage() {
         console.log('lol')
     }
   return (
-    <>
+    <div className='rounded-md flex flex-col items-center'>
         <Navbar/>
-        <div className='flex flex-col w-full mt-10 items-center'>
-            <div className='flex flex-row p-3 w-full items-center justify-center'>
+        <div className='rounded-md flex flex-col w-[1000px] items-center bg-[#078080] mt-[75px] p-5 shadow-[5px_10px_10px_rgba(0,0,0,0.2)]'>
+        <h1 className='text-2xl mb-1 font-medium'>Simple Search</h1>
+        <hr className='w-[750px] rounded-3xl outline-none border-black mb-5' />
+            <div className='flex flex-row w-full items-center justify-center'>
                 {searchThings.map((x:any) => {
-                    return <button className='ml-2 p-1 rounded-md capitalize mt-2' onClick={(e:any) => setSearchOption(e.target.innerHTML)}>{x}</button>
+                    return <button className='btn ml-2 p-1 rounded-md capitalize mt-2' onClick={(e:any) => setSearchOption(e.target.innerHTML)}>{x}</button>
                 })}
             </div>
             <div className='mt-5'>
-                <input className='bg-white border border-black rounded-md p-1 mr-2' type="text" onChange={(e:any) => setSearch(e.target.value)} />
-                <button className='p-1' onClick={testingSearch}>Search for the stuff</button>
+                <input className='bg-white outline-none rounded-md p-1 mr-2' type="text" onChange={(e:any) => setSearch(e.target.value)} />
+                <button className='btn p-1' onClick={testingSearch}>Search</button>
             </div>
-            <div className='mt-12'>
+      </div>
+      <AdvancedSearch/>
+      <div className='mt-12'>
                 {searchData.length > 0 ? (
                     searchData.map((x: any, index: any) => (
                     <p className='mt-2' key={index}>we got something chat</p>
@@ -78,9 +82,7 @@ function SearchPage() {
                     <p>No data available</p>
                 )}
             </div>
-      </div>
-      <AdvancedSearch/>
-    </>
+    </div>
   )
 }
 
