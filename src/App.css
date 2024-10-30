@@ -65,5 +65,9 @@ button{
     }
 }
 
+.search-results{
+    @apply text-black text-base capitalize
+}
+
 
 

@@ -114,7 +114,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
                     setCommentNum(commentses.length)
                     setComments(commentses);
             } catch (error) {
-                console.log(error)
+                console.log('Could not get comments for the post: ',error)
             }
           };
         

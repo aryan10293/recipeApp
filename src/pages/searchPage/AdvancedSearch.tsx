@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import {motion} from 'framer-motion'
+import RecipeCard from '../../assets/RecipeCard'
 
 function AdvancedSearch(this: any) {
     const [maxCal, setMaxCal] = useState<number | boolean>(false)
@@ -76,14 +77,17 @@ function AdvancedSearch(this: any) {
         })
         const jsonSendSearch = await sendSearch.json()
         console.log(jsonSendSearch)
+        setreturnedData(jsonSendSearch.meals)
     }
+ 
+
   return (
     <motion.div 
     initial={{opacity:0,rotateX:90}}
     animate={{opacity:1,rotateX:0}}
     transition={{duration:0.3,delay:0.3}}
-    className='rounded-md w-[1000px] flex flex-col items-center bg-[#078080] mt-5 p-5 shadow-[5px_10px_10px_rgba(0,0,0,0.2)]'>
-            <form className='w-[750px]' onSubmit={handleSearch}>
+    className='w-[1000px] flex flex-col items-center'>
+            <form className='w-[1000px] bg-[#078080] m-[25px] p-5 shadow-[5px_10px_10px_rgba(0,0,0,0.2)] rounded-md flex flex-col items-center'  onSubmit={handleSearch}>
                 <div className='flex flex-col h-[190px] justify-between mb-8'>
                     <h1 className='capitalize text-center mb-1 text-2xl font-medium'>search per servings</h1>
                     <hr className='w-[750px] rounded-3xl outline-none border-black mb-5' />
@@ -105,25 +109,25 @@ function AdvancedSearch(this: any) {
                     </div>
                 </div>
                 
-               <div className='flex flex-col h-[80px] justify-around mb-8'>
+               <div className='flex flex-col h-[80px] justify-between mb-8 w-[750px] flex-start'>
                     <h2 className='capitalize text-center mb-6 text-xl'>ingredients included</h2>
-                    <div className='w-3/5 flex flex-row'>
+                    <div className='flex flex-row'>
                         <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">ingredients</label>
                         <input className='p-1 mr-4 w-[200px] bg-white rounded-md' type="text" value={ingredientText} onChange={(e:any) => setIngredientText(e.target.value)}/>
-                        <button className='p-1 btn' onClick={(e) => addOrExcludeIngredient(e,ingredients,ingredientText.toLowerCase(),setIngredients, ingredientsEx, 'include', setIngredientsEx )}>Add to search</button>
+                        <button className='p-1 btn translate-x-[18px]' onClick={(e) => addOrExcludeIngredient(e,ingredients,ingredientText.toLowerCase(),setIngredients, ingredientsEx, 'include', setIngredientsEx )}>Include</button>
                     </div>
                </div>
 
-               <div className='flex flex-col h-[80px] justify-around'>
+               <div className='flex flex-col h-[80px] w-[750px] justify-around'>
                     <h2 className='capitalize text-center mb-6 text-xl'>ingredients excluded</h2>
                     <div className='w-2/3 flex flex-row'>
                         <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">ingredients</label>
                         <input className='p-1 mr-4 w-[200px] bg-white rounded-md' type="text"  value={ingredientTextEx} onChange={(e:any) => setIngredientTextEx(e.target.value)}/>
-                        <button className='p-1 btn' onClick={(e) => addOrExcludeIngredient(e, ingredientsEx, ingredientTextEx.toLowerCase(), setIngredientsEx, ingredients, 'exclude', setIngredients)}>Exclude From Search</button>
+                        <button className='p-1 btn translate-x-[18px]' onClick={(e) => addOrExcludeIngredient(e, ingredientsEx, ingredientTextEx.toLowerCase(), setIngredientsEx, ingredients, 'exclude', setIngredients)}>Exclude </button>
                     </div>
                </div>
 
-               <div className='flex flex-col h-[60px] justify-around'>
+               <div className='flex flex-col h-[60px] justify-around w-[750px]'>
                     <div className='w-5/12 flex flex-row'>
                         <label className='mr-4 w-[90px] capitalize text-black' htmlFor="">prep time</label>
                         <input className='p-1 w-[200px] bg-white rounded-md' value={prep} onChange={(e:any) => setPrep(e.target.value)} type="number" />
@@ -131,11 +135,11 @@ function AdvancedSearch(this: any) {
                </div>
                 <button className='p-1 btn text-center'>Search</button>
             </form>
-            <div>
-                <h1>return search stuff</h1>
+            <div className='flex flex-col items-center'>
+                <h1 className='text-2xl'>Results</h1>
                 {
-                    returnedData.map((x:any) => {
-                       return  <h4>lol</h4>
+                    returnedData.map((result:any) => {
+                       return <RecipeCard likes={result.likes} userID={result.userWhoPostId} _id={result._id} recipeName={result.nameOfDish} recipeImage={result.image} recipeTime={result.prepTime} ingridientList={result.ingredientList} levelOfMeal={result.levelOfMeal} userWhoPostId={result.userWhoPostId} calories={result.calories} fats={result.fats} carbs={result.carbs} protein={result.protein} recipeClass='recipe-card'/>
                     })
                 }
             </div>
