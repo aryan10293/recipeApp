@@ -10,11 +10,11 @@ interface followUserButtonProps{
 
 const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,followClass}) => {
 
-    const followUserButtonStyle:React.CSSProperties = {
-        backgroundColor:'transparent',
-        position:'relative',
-        transform:'scale(1.1)'
-    } 
+    // const followUserButtonStyle:React.CSSProperties = {
+    //     backgroundColor:'#f45d48',
+    //     position:'relative',
+    //     transform:'scale(1.2)'
+    // } 
 
     const [pending,setPending] = useState<boolean>()
     const userId:string|null = useContext(UserContext)
@@ -125,14 +125,13 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
 
     const renderIcon = function(){
         return (
-            isFollowed ?  <><FontAwesomeIcon style={followUserButtonStyle} icon={faPersonWalkingArrowLoopLeft}></FontAwesomeIcon> <p style={{margin:0,fontSize:'0.6rem',textTransform:'uppercase',color:'white',fontWeight:'500'}}>Unfollow</p></> : <><FontAwesomeIcon style={followUserButtonStyle} icon={faPersonWalking}></FontAwesomeIcon><p style={{margin:0,fontSize:'0.5rem',textTransform:'uppercase',color:'white',fontWeight:'500'}}>Follow</p></> 
+            isFollowed ?  <><FontAwesomeIcon className='scale-75 m-0 p-0 text-center'  icon={faPersonWalkingArrowLoopLeft}></FontAwesomeIcon> <p className='text-white -translate-y-3 scale-[0.75] w-[80px] mt-2 m-0 p-0 text-center'>Unfollow</p></> : <><FontAwesomeIcon icon={faPersonWalking} className='scale-75 m-0 p-0 text-center'></FontAwesomeIcon><p className='text-white w-[80px] -translate-y-3 scale-[0.75] text-center m-0 p-0'>Follow</p></> 
         )
     } 
 
     return ( 
         <button className={followClass} onClick={(e)=>handleClick(e)}>
-            {/* {pending ? <p>Loading</p> : <FontAwesomeIcon icon={faPersonWalking}></FontAwesomeIcon>} */}
-            {pending ? <p className='pending-msg'>Loading...</p> : renderIcon()}
+            {pending ? <p className='text-white text-center w-[80px]'>...</p> : renderIcon()}
         </button>
      );
 }

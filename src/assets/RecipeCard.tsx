@@ -18,6 +18,7 @@ import UserNameButton from "../components/UsernameButton";
 import UserNameProfileButton from "../components/UserNameProfileButton";
 import FollowUserButton from "../components/FollowUserButton";
 import NutritionCard from "../components/NutritionCard";
+import {motion} from 'framer-motion'
 
 
 
@@ -114,7 +115,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
                     setCommentNum(commentses.length)
                     setComments(commentses);
             } catch (error) {
-                console.log(error)
+                console.log('Could not get comments for the post: ',error)
             }
           };
         
@@ -213,61 +214,13 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
              showNutritions ? setShowNutritions(false) : setShowNutritions(true)
          }
 
-//          const printRecipeCard = function(){
-//             return (
-//                 <div className="recipe-card-container">
-//                     <button onClick={handleClick} className={recipeClass}>
-
-//                     <div className="left-side">
-//                         <div className="left-top">
-//                             {recipeImage && <img src={recipeImage}/>}
-//                         </div>
-//                     </div>
-
-//             <div className="right-side">
-//                 <div className="right-top">
-//                     <div className="top-box">
-//                         <h2 className="recipe-title">{recipeName}</h2>
-//                         <TimeButton/>
-//                         {recipeTime &&  <h3 className="recipe-time">{recipeTime}</h3>}
-//                         <div className="recipe-skill-box">
-//                          {comments && renderDifficultyIcon()}
-//                         </div>
-
-//                     </div>
-//                     <div className="recipe-ingredients">
-//                         <ul>
-//                             {ingridientList && ingridientList.map((ingredient,index)=>(
-//                                 <li key={index}>{ingredient}</li>
-//                             ))}
-//                         </ul>
-//                     </div>
-//                 </div>
-//                 <div className="right-bottom">
-//                     <h2 className="recipe-steps">{steps}</h2>
-                        
-//                 <div className="interaction-box">
-//                     {userID && <LikeButton userId={userID} postId={_id} postLikes={likes?}/> }
-//                     {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e)=>handleCommentButtonClick(e)}/>}
-//                     <BookmarkButton userId={userID} postId={_id}/>
-//                     <div className="name-n-follow-box">
-//                         {<UserNameProfileButton className="username-btn" postsId={_id}/>}
-//                         <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/>
-//                     </div>
-//                     {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
-//                     <button onClick={(e)=>handleCardFace(e)}>Back side</button>
-//                 </div>
-                
-//                 </div>
-//             </div>
-//     </button>
-//     {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
-//     {commentsVisbile && renderAllUserComments()}
-// </div> )}
-
 const printRecipeCard = function(){
     return (
-        <div className="recipe-card-container">
+        <motion.div 
+        initial={{transform:'rotateX(90deg)'}}
+        animate={{transform:'rotateX(0deg)'}}
+        transition={{duration:0.3}}
+        className="recipe-card-container">
             <button onClick={handleClick} className={recipeClass}>
                 <div className="left-side">
                     <div className="left-top">
@@ -298,31 +251,34 @@ const printRecipeCard = function(){
                         
                         <div className="interaction-box">
                             {userID && <LikeButton userId={userID} postId={_id} postLikes={likes}/>}
-                            {comments && <CommentButton numberOfComments={commentNum} margin="0 0 0 15px" handle={(e) => handleCommentButtonClick(e)}/>}
+                            {comments && <CommentButton numberOfComments={commentNum} margin="0 5px 0 15px" handle={(e) => handleCommentButtonClick(e)}/>}
                             <BookmarkButton userId={userID} postId={_id}/>
                             <div className="name-n-follow-box">
                                 <UserNameProfileButton className="username-btn" postsId={_id}/>
-                                {showFollow ? <FollowUserButton followClass="card-follow-btn" personToFollow={userWhoPostId}/> : (
+                                {showFollow ? <FollowUserButton followClass="p-0 flex flex-col items-center w-[80px] h-[40px] bg-[#f45d48] ml-6 mr-2" personToFollow={userWhoPostId}/> : (
                                     null
                                 )}
-                                <button className="nutri-btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
+                                <button className="btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
 
                             </div>
-                            {/* <button onClick={(e)=>deletePost(e)}>Delete</button> */}
                         </div>
                     </div>
                 </div>
             </button>
             {datas && <CommentBox handleNewComment={handleNewComment} postId={_id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
             {commentsVisbile && renderAllUserComments()}
-        </div>
+        </motion.div>
     )
 }
 
 
      const printNutritions = function(){
         return(
-            <button onClick={(e)=>handleCardFace(e)}>Front Side</button>
+            <motion.button 
+            initial={{opacity:0}}
+            animate={{opacity:1}}
+            transition={{duration:1}}
+            onClick={(e)=>handleCardFace(e)}>Front Side</motion.button>
         )
      }
          

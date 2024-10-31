@@ -93,6 +93,30 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         fontSize:'1.5rem'
     }
 
+    // Delete post logic
+    const deletePost= async function(e:React.MouseEvent){
+        try {
+            e.stopPropagation()
+            const response = await fetch(`http://localhost:2030/deletepost/${_id}`,{
+                method:"DELETE",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+            })
+            if(!response){
+                throw new Error('Failed to fetch delete API. Response is not ok')
+            }
+            const data = await response.json()
+            if(!data){
+                throw new Error('Failed to fetch delete API. Response data is not ok')
+            }
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+
+     }
+
     // Rendering dificulty icons on recipe cards
     const renderDifficultyIcon = function(levelNum:number){
         let icons:JSX.Element[] = []
@@ -136,12 +160,14 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                             <img src={recipe.image} alt="" />
                         </div>
                         <div className="right">
-                            <h3 className="name-of-dish">{recipe.nameOfDish}</h3>
+                            <h3 className="text-start w-[500px]">{recipe.nameOfDish}</h3>
                             <h3 className="time-img" ><TimeButton/></h3>
                             <h3  className="prep-time">{recipe.prepTime}</h3>
                             <div className="diff-icons">
                                 {renderDifficultyIcon(recipe.levelOfMeal)}
                             </div>
+                            <button className="btn" onClick={(e)=>deletePost(e)}>Delete</button>
+
                         </div>
                         
                     </button>
@@ -265,7 +291,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowers?.length ? userFollowers?.length : <p className="pending-msg">Loading...</p>}</h4>
                     <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowings?.length ? userFollowings?.length : <p className="pending-msg">Loading...</p>}</h4> 
                 </div>
-                <button onClick={setIsEditClick}>Edit Info</button>
+                <button className="btn" onClick={setIsEditClick}>Edit Info</button>
                 {/* <h3 style={{fontWeight:'400'}} className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
             </div>
         )
@@ -306,7 +332,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     {/* <h3 className="date-of-registry">Member since: {'\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'} {accountAge?.split('T')[0]}</h3> */}
                     
                 </div>
-                <button onClick={setIsEditClick}>Save Changes</button>
+                <button className="btn" onClick={setIsEditClick}>Save Changes</button>
             </div>
         )
     }
@@ -406,7 +432,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <h3 style={{fontWeight:'400'}}>{userName + `'s bio`}</h3>
                     <hr/>
                     <p>{newBio ? newBio : 'Loading bio...'}</p>
-                    <button onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Edit Bio</button>
+                    <button className="btn" onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Edit Bio</button>
                 </div>
         )
     }
@@ -418,7 +444,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <h3 style={{fontWeight:'400'}}>{userName + `'s bio`}</h3>
                     <hr />
                         <textarea value={newBio} onChange={e=>(setNewBio(e.target.value))} style={{width:'100%',height:'60%',resize:'none',background:'white',border:'none',fontSize:'1.2rem',padding:'5px'}} name="" id=""></textarea>
-                    <button onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Save Changes</button>
+                    <button className="btn" onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Save Changes</button>
                 </div>
         )
     }

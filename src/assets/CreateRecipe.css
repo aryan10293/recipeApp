@@ -133,21 +133,17 @@
 }
 .top-right .ingredients-input .ingredient{
     font-size: 1rem;
+    height: 35px;
     border: none;
     width: 60%;
     border-radius: 5px;
     border: none;
     padding: 5px;
     background-color: #f8f5f2;
+    margin: 0 5px 0 0;
 }
 .top-right .ingredients-input .ingredient-btn{
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    padding: 5px;
-    background-color: #f45d48;
-    border: none;
-    width: 35%;
+    height: 35px;
     transition: transform 0.1s ease-in;
 }
 .top-right .ingredients-input .ingredient-btn:hover{

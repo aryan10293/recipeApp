@@ -294,7 +294,7 @@ const MessagesContainer = () => {
                 </div>
                 <div className="w-full h-[180px] flex flex-row items-center justify-between">
                         <textarea className="h-4/5 w-11/12 bg-white rounded-sm p-2" value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
-                        <button className="p-2 rounded-md"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
+                        <button className="btn"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
                 </div>
 
             </div>

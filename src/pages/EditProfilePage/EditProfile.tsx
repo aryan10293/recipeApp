@@ -1,9 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Navbar from "../../assets/Navbar";
-import ProfileCard from "../../components/ProfileCard";
-import UserNameButton from "../../components/UsernameButton";
-import useUserId from "../../Utils/useGetUserId";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import EditProfileCard from "../../components/EditProfileCard";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import UserContext from "../../contexts/UserContext";
@@ -12,6 +9,16 @@ import UserContext from "../../contexts/UserContext";
 const EditProfile = () => {
     
     const userId = useContext(UserContext)
+
+        // Checking if token is present
+        const isThereToken = localStorage.getItem('token')
+        const navigate = useNavigate()
+        useEffect(()=>{
+          if(!isThereToken){
+              navigate('/')
+          }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[])
 
     // const {
     //     userUsername:userName,

@@ -1,7 +1,7 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../assets/Navbar";
 import RecipeCard from "../../assets/RecipeCard";
-import { useEffect,useState } from "react";
+import { useEffect,useId,useState } from "react";
 import CommentList from "../../components/CommentList";
 import useFetch from "../../assets/useFetch";
 import CommentBox from "../../components/CommentBox";
@@ -38,7 +38,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
 
     const location = useLocation()
     const {recipe} = location.state || {};
-    
+    const navigate = useNavigate()
 
     useEffect(()=>{
         console.log("recipe: ",recipe.post[0].likes.length);
@@ -53,6 +53,14 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
     const [commentClassName3,setCommentClassName3] = useState<string>("invisible")
     const [commentClassName4,setCommentClassName4] = useState<string>("invisible")
     
+    // Checking if token is present
+    const isThereToken = localStorage.getItem('token')
+    useEffect(()=>{
+      if(!isThereToken){
+          navigate('/')
+      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
     const handleComments = function(e:React.MouseEvent){
         e.stopPropagation()
@@ -70,8 +78,6 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
             setCommentClassName3("comments-container-invisible")
             setCommentClassName4('a-invisible')
         }
-
-
     }     
 
     const renderAllUserComments = function(){

@@ -4,6 +4,7 @@ import Navbar from "../../assets/Navbar";
 import RecipeCard from "../../assets/RecipeCard";
 import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
+import { useNavigate } from "react-router-dom";
 
 interface RecipeCardProps{
     recipeName:string,
@@ -63,6 +64,16 @@ const SavedRecipes = () => {
             console.log(error)
         }
     }
+
+        // Checking if token is present
+        const isThereToken = localStorage.getItem('token')
+        const navigate = useNavigate()
+        useEffect(()=>{
+          if(!isThereToken){
+              navigate('/')
+          }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[])
 
    // Fetching and setting recipes
    const fetching = async function() {

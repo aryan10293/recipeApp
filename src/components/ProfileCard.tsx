@@ -199,8 +199,8 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                     {printFollowings(userFollowingNum)}
                     {printFollowers(userFollowerNum)}
                 </div>
-                <div className="follow-message-box">
-                    {userID && <FollowUserButton followClass="follow-btn" personToFollow={userID}/>}
+                <div className="follow-message-box mt-5">
+                    {userID && <FollowUserButton followClass="follow-btn flex flex-col items-center" personToFollow={userID}/>}
                     <button onClick={(e)=>sendMessageToUser(userID)} className="message-user-btn"><FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></button>
                 </div>
             </div>

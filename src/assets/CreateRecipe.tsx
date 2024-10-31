@@ -254,9 +254,17 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                 
 
                 <div className="ingredients-input">
-                    <input onKeyDown={enterPress} id="ing" value={newMeasurement} className="ingredient" onChange={((e)=>setNewMeasurement(e.target.value))} placeholder="2oz.." type="text" />
+                    {/* <input onKeyDown={enterPress} id="ing" value={newMeasurement} className="ingredient" onChange={((e)=>setNewMeasurement(e.target.value))} placeholder="2oz.." type="text" /> */}
+                    <select className="mr-5 px-2 bg-[#f8f5f2] rounded-md" name="" id="" onChange={((e)=>setNewMeasurement(e.target.value))}>
+                        <option value=""></option>
+                        <option value="tbsp">tbsp</option>
+                        <option value="cup">cup(s)</option>
+                        <option value="g">g</option>
+                        <option value="ml">ml</option>
+                        <option value="oz">oz</option>
+                    </select>
                     <input onKeyDown={enterPress} id="ing" value={newIngredient} className="ingredient" onChange={((e)=>setNewIngredient(e.target.value))} placeholder="2 onions.." type="text" />
-                    <button className="ingredient-btn" onClick={(e)=>ingredientClickHandle(e)}>Add Ingredient</button>
+                    <button className="ingredient-btn btn" onClick={(e)=>ingredientClickHandle(e)}>Add</button>
                     {/* <button onClick={(e)=>ingredientClickHandle(e)} type="submit" form="ing" className="ingredient-btn">Add Ingredient</button> */}
                 </div>
                 
@@ -279,7 +287,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
                 </div>
 
             <textarea onChange={(e)=>setSteps(e.target.value)} className="recipe-steps" placeholder={`1. Peel veggies ${"\n"}2. Boil water${"\n"}...`} name="" id=""></textarea>     
-            <button onClick={(e)=>postRecipe(e)} className="post-recipe-btn">{postButtonText}</button>    
+            <button onClick={(e)=>postRecipe(e)} className="btn mt-5">{postButtonText}</button>    
             </div>  
             
         </div>

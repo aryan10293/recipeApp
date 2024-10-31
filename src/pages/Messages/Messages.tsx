@@ -1,19 +1,24 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Header from "../../assets/Header";
 import Navbar from "../../assets/Navbar";
-import MessageAsideBar from "./MessageAsideBar";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
-import MessagesWindow from "./MessagesContainer";
 import MessagesContainer from "./MessagesContainer";
-import MessageContainer2 from "./MessageContainer2";
 
  const Messages = ()  => {
 
     const userID = useContext(UserContext)
     const {userProfilePicture:userProfilePicture,userUsername:userName} = useGetUserDataFromId(userID)
-
+        // Checking if token is present
+        const isThereToken = localStorage.getItem('token')
+        const navigate = useNavigate()
+        useEffect(()=>{
+          if(!isThereToken){
+              navigate('/')
+          }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[])
 
 
     return ( 
