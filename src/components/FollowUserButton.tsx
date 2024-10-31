@@ -125,7 +125,7 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
 
     const renderIcon = function(){
         return (
-            isFollowed ?  <><FontAwesomeIcon className='scale-75 m-0 p-0 text-center'  icon={faPersonWalkingArrowLoopLeft}></FontAwesomeIcon> <p className='text-white -translate-y-3 scale-[0.75] w-[80px] m-0 p-0 text-center'>Unfollow</p></> : <><FontAwesomeIcon icon={faPersonWalking} className='scale-75 m-0 p-0 text-center'></FontAwesomeIcon><p className='text-white w-[80px] -translate-y-3 scale-[0.75] text-center m-0 p-0'>Follow</p></> 
+            isFollowed ?  <><FontAwesomeIcon className='scale-75 m-0 p-0 text-center'  icon={faPersonWalkingArrowLoopLeft}></FontAwesomeIcon> <p className='text-white -translate-y-3 scale-[0.75] w-[80px] mt-2 m-0 p-0 text-center'>Unfollow</p></> : <><FontAwesomeIcon icon={faPersonWalking} className='scale-75 m-0 p-0 text-center'></FontAwesomeIcon><p className='text-white w-[80px] -translate-y-3 scale-[0.75] text-center m-0 p-0'>Follow</p></> 
         )
     } 
 

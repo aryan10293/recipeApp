@@ -76,23 +76,23 @@ const Profile:React.FC<UserId> = ({user}) => {
             <div>
                 <form onSubmit={handleProfileChanges}>
                     <div>
-                        <label htmlFor=""style={{ color: 'black' }}>Username</label>
+                        <label  style={{ color: 'black' }}>Username</label>
                          <input type="text"  onChange={(e:any) => setUserName(e.target.value)} style={{ backgroundColor: 'white', outline: '2px solid black' }} />
                     </div>
                     <div>
-                        <label htmlFor=""style={{ color: 'black' }}>Cooking Style</label>
+                        <label style={{ color: 'black' }}>Cooking Style</label>
                          <input type="text" onChange={(e:any) => setCookingStyle(e.target.value)}style={{ backgroundColor: 'white', outline: '2px solid black' }} />
                     </div>
                     <div>
-                        <label htmlFor=""style={{ color: 'black' }}>Skill Level</label>
+                        <label style={{ color: 'black' }}>Skill Level</label>
                          <input type="text" onChange={(e:any) => setSkillLevel(e.target.value)} style={{ backgroundColor: 'white', outline: '2px solid black' }} />
                     </div>
                     <div>
-                        <label htmlFor=""style={{ color: 'black' }}>Bio</label>
+                        <label style={{ color: 'black' }}>Bio</label>
                          <textarea name="" id="" onChange={(e:any) => setBio(e.target.value)} cols={20} rows={5} style={{ backgroundColor: 'white', outline: '2px solid black' }} ></textarea>
                     </div>
                     <div>
-                        <label htmlFor=""style={{ color: 'black' }}>Profile Picture</label>
+                        <label style={{ color: 'black' }}>Profile Picture</label>
                          <input onChange={handleProfilePic} type="file" style={{ backgroundColor: 'white', outline: '2px solid black' }} />
                     </div>
                     <button>Save Changes</button>

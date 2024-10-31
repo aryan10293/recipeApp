@@ -1,3 +1,4 @@
+import {motion, transform} from 'framer-motion'
 
 interface Nutrition{
     fats:number,
@@ -19,7 +20,11 @@ const NutritionCard:React.FC<Nutri> = ({fats,protein,carbs,handle,calories}) => 
 
 
     return ( 
-        <div className="nutrition-container">
+        <motion.div 
+        initial={{transform:'rotateX(90deg)'}}
+        animate={{transform:'rotateX(0deg)'}}
+        transition={{duration:0.3}}
+        className="nutrition-container">
             <div className="header">
                 <h2>Nutritions</h2>
             </div>
@@ -50,7 +55,7 @@ const NutritionCard:React.FC<Nutri> = ({fats,protein,carbs,handle,calories}) => 
                 <button onClick={handle}>Recipe Card</button>
             </div>
 
-        </div>
+        </motion.div>
      );
 }
  
