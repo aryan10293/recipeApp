@@ -1,11 +1,12 @@
 import Navbar from "../../assets/Navbar";
 import CreateRecipe from "../../assets/CreateRecipe";
 import RecipeList from "../../assets/RecipeList";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../assets/Header";
 import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import SlidingButton from "../../components/SlidingButton";
+import { useNavigate } from "react-router-dom";
 
 
 const Feed:React.FC = () => {
@@ -43,11 +44,14 @@ const Feed:React.FC = () => {
     const userId = useContext(UserContext)
     // const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useUserId()
     const {userId:ID,userUsername:userName,userProfilePicture:userProfilePicture,userBookmarks:userBookmarks} = useGetUserDataFromId(userId)
+    const navigate = useNavigate()
+    const isThereToken = localStorage.getItem('token')
 
-    // useEffect(()=>{
-    //     console.log('Context ID: ',userId);
-        
-    // },[])
+    useEffect(()=>{
+        if(!isThereToken){
+            navigate('/')
+        }
+    },[])
 
     const [showAllPosts,setShowAllPosts] = useState<boolean>(true)
     const [isBtnOnTheLeft,setIsBtnOnTheLeft] = useState<boolean>(true)
@@ -67,8 +71,6 @@ const Feed:React.FC = () => {
         }
         setRecipeNum(5)   
     }
-
-
 
 
     return ( 

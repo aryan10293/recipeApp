@@ -30,6 +30,16 @@ function SearchPage() {
         searchOption:searchOption,
         searchText:search
     }
+
+        // Checking if token is present
+        const isThereToken = localStorage.getItem('token')
+        useEffect(()=>{
+          if(!isThereToken){
+              navigate('/')
+          }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[])
+
     const searchThings: string[] = ['cooks', 'meals', 'type of chefs', 'other']
 
     useEffect(()=>{

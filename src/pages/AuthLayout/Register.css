@@ -19,7 +19,7 @@
     margin: 150px 0 0 0;
     padding: 50px 0;
     width: 450px;
-    height: 550px;
+    height: 650px;
     background-color: #078080;
     backdrop-filter: blur(1px) grayscale(25%);
     box-shadow: 8px 15px 15px rgba(0,0,0,0.7);
@@ -85,6 +85,7 @@
     padding:0;
     position: relative;
     transition: transform 0.1s ease-in;
+    margin: 3px 0 0 0;
 }
 .redirect-btn:hover{
     transform: scale(1.05);
