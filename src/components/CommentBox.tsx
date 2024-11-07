@@ -11,14 +11,14 @@ interface CommentsProps{
 }
 
 interface NewComment{
-    userId: string | undefined,
-    postId: String,
-    comment: String,
+    userId: string | null,
+    postId: string | undefined,
+    comment: any,
 }
 
 const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewComment,userId}) => {
 
-    const [postContent,setPostContent] = useState<string | null>("")
+    const [postContent,setPostContent] = useState<any>("")
 
     const sendCommentHandle = async():Promise<void>=>{   
         try {

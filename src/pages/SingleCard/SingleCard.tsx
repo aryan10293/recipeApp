@@ -129,12 +129,20 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
             recipeImage={recipe.post[0].image}
             userID={userID || undefined}
             userWhoPostId={recipe.post[0].userWhoPostId}
+            // calories={'0'}
+            // fats={'0'}
+            // protein={'0'}
+            // carbs={'0'}
+
+            // gotta get the macros of the meals and send them to the nution card
             />
             }
 
             {
             recipe &&  
-            <CommentBox postId={recipe.post[0]._id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
+            <CommentBox postId={recipe.post[0]._id} classs4={commentClassName4} classs2={commentClassName2} userId={userID} handleNewComment={function (): void {
+                    throw new Error("Function not implemented.");
+                } }/>}
         </div>
      );
 }
