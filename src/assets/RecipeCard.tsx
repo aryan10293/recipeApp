@@ -39,10 +39,10 @@ interface RecipeCardProps{
     postIndex?:number
     userID?:any,
     userWhoPostId:string,
-    calories:string,
-    fats:string,
-    carbs:string,
-    protein:string
+    calories:string | number,
+    fats:string | number,
+    carbs:string | number,
+    protein:string | number,
     showFollow:boolean
     // showNutrition:(e:React.MouseEvent<HTMLButtonElement>)=>void;
 }

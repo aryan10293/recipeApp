@@ -5,8 +5,17 @@ import RecipeCard from "../../assets/RecipeCard";
 import UserContext from "../../contexts/UserContext";
 import useGetUserDataFromId from "../../Utils/useGetUserDataFromId";
 import { useNavigate } from "react-router-dom";
-
+interface PerServingMac {
+    calories:number | string,
+    fats:number | string,
+    carbs:number | string,
+    protein:number | string
+}
 interface RecipeCardProps{
+    perServingMacros: PerServingMac;
+    nameOfDish: string;
+    prepTime: number;
+    image: string | undefined;
     recipeName:string,
     recipeImage:string,
     recipeTime:number,
@@ -17,8 +26,10 @@ interface RecipeCardProps{
     recipeClass:string,
     _id:string,
     levelOfMeal:number,
-    postIndex:number
-    userID:string | undefined
+    postIndex:number,
+    userID:string | undefined,
+    userWhoPostId:string
+
 }
 interface Recipe{
     timeOfPost:string,
@@ -97,21 +108,29 @@ const SavedRecipes = () => {
 };
     
     const printingSavedRecipes = function(){
+        console.log(rec, 'this is what were looking for')
         if(rec.length >0){
             return (
                 rec.map((recipe:RecipeCardProps,index:number)=>(
+                
                     <RecipeCard
                         _id={recipe._id}
                         recipeName={recipe.nameOfDish}
                         recipeTime={recipe.prepTime}
                         recipeImage={recipe.image}                  
-                        ingridientList={recipe.ingridentList}
+                        ingridientList={recipe.ingridientList}
                         likes={recipe.likes}
                         timeOfPost={recipe.timeOfPost}
                         recipeClass="recipe-card"
                         levelOfMeal={recipe.levelOfMeal}
                         postIndex={index}
                         userID={userID}
+                        showFollow={false}
+                        calories={recipe?.perServingMacros?.calories !== undefined ?  recipe.perServingMacros.calories :  0}
+                        fats={recipe?.perServingMacros?.fats !== undefined ?  recipe.perServingMacros.calories :  0}
+                        carbs={recipe?.perServingMacros?.carbs !== undefined ?  recipe.perServingMacros.calories :  0}
+                        protein={recipe?.perServingMacros?.protein !== undefined ?  recipe.perServingMacros.calories :  0}
+                        userWhoPostId={recipe?.userWhoPostId}
                         />
                 ))
             )
