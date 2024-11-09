@@ -103,7 +103,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
         console.log(recipe.likes);
     },)
     useEffect(()=>{
-        console.log(recipe.post[0]._id);
+        console.log(recipe.post[0].perServingMacros, 'loasjhbviu');
         
     },[recipe.post[0]._id])
     return ( 
@@ -129,12 +129,10 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
             recipeImage={recipe.post[0].image}
             userID={userID || undefined}
             userWhoPostId={recipe.post[0].userWhoPostId}
-            // calories={'0'}
-            // fats={'0'}
-            // protein={'0'}
-            // carbs={'0'}
-
-            // gotta get the macros of the meals and send them to the nution card
+            calories={recipe.post[0].perServingMacros.calories || 0}
+            fats={recipe.post[0].perServingMacros.fats || 0}
+            protein={recipe.post[0].perServingMacros.protein  || 0}
+            carbs={recipe.post[0].perServingMacros.carbs ||  0 }
             />
             }
 
