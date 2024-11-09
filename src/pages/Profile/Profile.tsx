@@ -71,7 +71,7 @@ const Profile:React.FC<UserId> = ({user}) => {
     }
     return ( 
         <div>
-            <Navbar/>
+            <Navbar userName={null}/>
             <Header text="Profile" margin="0"/>
             <div>
                 <form onSubmit={handleProfileChanges}>

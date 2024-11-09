@@ -45,7 +45,9 @@ const EditProfile = () => {
         userCookingStyle:userCookingStyle,
         userBio:userBio,
         userFollowerNum:userFollowerNum,
-        userFollowingNum:userFollowingNum}
+        userFollowingNum:userFollowingNum,
+
+    }
          = useGetUserDataFromId(userId)
 
 
@@ -63,6 +65,10 @@ const EditProfile = () => {
             bio={userBio}
             userFollowers={userFollowerNum}
             userFollowings={userFollowingNum}
+            dob={userDob}
+            cookingStyle={userCookingStyle}
+            accountAge={userAccountAge}
+            userID={userId}
             />
     </div>
     // <div>

@@ -9,11 +9,11 @@ interface Nutrition{
 }
 
 interface Nutri{
-    handle: (e: MouseEvent) => void,
-    calories:string,
-    protein: string,
-    carbs: string,
-    fats: string
+    handle: (e: React.MouseEvent<HTMLButtonElement>) => void,
+    calories:string | number,
+    protein: string | number,
+    carbs: string | number,
+    fats: string | number
 }
 
 const NutritionCard:React.FC<Nutri> = ({fats,protein,carbs,handle,calories}) => {

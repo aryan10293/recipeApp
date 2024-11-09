@@ -11,7 +11,7 @@ interface ProfileCardProps{
     userName:string | null,
     profilePicture:string | undefined,
     cookingSkill:string | undefined,
-    userID:string | undefined
+    userID:string | undefined | null
     userEmail:string | undefined,
     userCountry:string | undefined,
     userFirstName:string | undefined,
@@ -94,10 +94,10 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
     }
 
     // Delete post logic
-    const deletePost= async function(e:React.MouseEvent){
+    const deletePost= async function(e:React.MouseEvent, postId:string){
         try {
             e.stopPropagation()
-            const response = await fetch(`http://localhost:2030/deletepost/${_id}`,{
+            const response = await fetch(`http://localhost:2030/deletepost/${postId}`,{
                 method:"DELETE",
                 headers:{
                     "Content-Type":"application/json"
@@ -166,7 +166,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                             <div className="diff-icons">
                                 {renderDifficultyIcon(recipe.levelOfMeal)}
                             </div>
-                            <button className="btn" onClick={(e)=>deletePost(e)}>Delete</button>
+                            <button className="btn" onClick={(e)=>deletePost(e, recipe._id)}>Delete</button>
 
                         </div>
                         
@@ -188,11 +188,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
     const [uploadedImage,setUploadedImage] = useState<File | undefined>()
     const [convertedImage,setconvertedImage] = useState<string>("")
 
-    const [newUserName,setNewUsername] = useState<string>(userName)
-    const [newCountry,setNewCountry] = useState<string>(userCountry)
-    const [newSkillLevel,setNewSkillLevel] = useState<string>(cookingSkill)
-    const [newCookingStyle,setNewCookingStyle] = useState<string>(cookingStyle)
-    const [newDob,setNewDob] = useState<string>(dob)
+    const [newUserName,setNewUsername] = useState<any>(userName)
+    const [newCountry,setNewCountry] = useState<string  | undefined >(userCountry)
+    const [newSkillLevel,setNewSkillLevel] = useState<string | undefined>(cookingSkill)
+    const [newCookingStyle,setNewCookingStyle] = useState<string | undefined>(cookingStyle)
+    const [newDob,setNewDob] = useState<string | undefined>(dob)
 
     useEffect(()=>{
         fetchCardDetails()

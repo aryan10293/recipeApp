@@ -1,3 +1,4 @@
+import React, { KeyboardEventHandler } from 'react';
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 
@@ -77,7 +78,9 @@ const MessageContainer2 = () => {
         const ID:string | undefined = createRoomId(usersId)
         setReceiverId(usersId)
         console.log('Receiver ID',ID);
-        getChatHistory(ID)  
+        if(ID){
+            getChatHistory(ID)  
+        }
     }
 
     // Clicking send button logic
@@ -120,14 +123,14 @@ const MessageContainer2 = () => {
     }
 
     // search for users we have already chatted with
-    const testing = (e:any) => {
+    const testing: KeyboardEventHandler<HTMLInputElement> = (e) => {
         clearTimeout(timeout)
-        console.log(e.target.value.trim().length)
+        const inputValue = (e.target as HTMLInputElement).value.trim()
          const findUser = async () => {
             const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
                 method:'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({search: e.target.value, id:userId})
+                body: JSON.stringify({search: inputValue, id:userId})
             })
             const searchedUsers = await getUsers.json()
             console.log(searchedUsers)

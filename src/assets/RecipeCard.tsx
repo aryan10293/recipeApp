@@ -284,7 +284,7 @@ const printRecipeCard = function(){
          
     return ( 
  
-        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
+        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e: React.MouseEvent) => handleCardFace}/> : printRecipeCard()
     
      );
 }
