@@ -109,7 +109,7 @@ function SearchPage() {
                 
                 <div className='bg-transparent'>
                      {/* <button className='search-results'>{data.nameOfDish}</button> */}
-                     <RecipeCard likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} recipeClass='recipe-card'/>
+                     <RecipeCard likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} showFollow={false} recipeClass='recipe-card'/>
                 </div>
             )
         }
@@ -131,7 +131,7 @@ function SearchPage() {
                 
                 <div className='bg-transparent'>
                      {/* <button className='search-results'>{data.nameOfDish}</button> */}
-                     <RecipeCard likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} recipeClass='recipe-card'/>
+                     <RecipeCard showFollow={false} likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} recipeClass='recipe-card'/>
                 </div>
             )
         }

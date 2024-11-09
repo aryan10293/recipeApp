@@ -96,6 +96,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
           postId={comment._id}
           commentId={datas.comments[index]._id}
           postIndex={index} 
+          userID={recipe.post[0]._id}
            />
          ))
      }

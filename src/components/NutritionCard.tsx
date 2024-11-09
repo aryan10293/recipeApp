@@ -9,7 +9,7 @@ interface Nutrition{
 }
 
 interface Nutri{
-    handle:void,
+    handle: (e: MouseEvent) => void,
     calories:string,
     protein: string,
     carbs: string,

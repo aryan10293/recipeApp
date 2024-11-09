@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 interface PostLikeButtonProps{
     postId: string,
     userId:string
-    postLikes:string[]
+    postLikes:string[] | number | undefined
 }
 
 const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => {
