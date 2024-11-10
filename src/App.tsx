@@ -69,7 +69,7 @@ function App() {
             <Route path='/feed' element={<Feed  />} />
             <Route path="/messages" element={<Messages/>} />
             <Route path='/userprofile' element={<EditProfile/>} />
-            <Route path="/messages/:id" element={<Messages userId={userId}/>} />
+            <Route path="/messages/:id" element={<Messages />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/recipe" element={<SingleCard />} />
             <Route path="/search" element={<SearchPage />} />       

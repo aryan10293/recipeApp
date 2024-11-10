@@ -49,24 +49,6 @@ function SearchPage() {
         
     },[searchData,searchOption,userUsername])
 
-    // cooks searches through the user collection on the backend 
-    // and looks for users that matches the substring of the search you enter 
-    // will return all cooks that match the substring
-
-    // meals searches the post collections and looks for substring matches in the nameOfDish
-    // and or looks at the ingrediantlist and see if the search is included in there 
-    // if so itll return all meals that match that critera
-
-    // type of chefs return the cooks are "bakers" if thats what you enter "grill master" etc
-    // will return all that matchs critera
-
-    // other searches through post and users to see if the 
-    // substring mathces ether a phrase in the post description or users bio 
-    // will return multiple if somehow is matches more that one 
-    // really didnt know what to do with other probably shopudl delete
-
-    // also wanted to add a advanced search that'll 
-    // include or exclude ingredients, deal with prep time, ratings, calories, protein count
 
     const testingSearch = async() => {
         const searchStuff = await fetch(`http://localhost:2030/search`, {
@@ -109,7 +91,7 @@ function SearchPage() {
                 
                 <div className='bg-transparent'>
                      {/* <button className='search-results'>{data.nameOfDish}</button> */}
-                     <RecipeCard likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} recipeClass='recipe-card'/>
+                     <RecipeCard likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} showFollow={false} recipeClass='recipe-card'/>
                 </div>
             )
         }
@@ -131,7 +113,7 @@ function SearchPage() {
                 
                 <div className='bg-transparent'>
                      {/* <button className='search-results'>{data.nameOfDish}</button> */}
-                     <RecipeCard likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} recipeClass='recipe-card'/>
+                     <RecipeCard showFollow={false} likes={data.likes} userID={data.userWhoPostId} _id={data._id} recipeName={data.nameOfDish} recipeImage={data.image} recipeTime={data.prepTime} ingridientList={data.ingredientList} levelOfMeal={data.levelOfMeal} userWhoPostId={data.userWhoPostId} calories={data.calories} fats={data.fats} carbs={data.carbs} protein={data.protein} recipeClass='recipe-card'/>
                 </div>
             )
         }

@@ -22,6 +22,8 @@ interface Props{
     receiverId:string
 }
 
+
+
 const MessagesContainer = () => {
 
     const userId = useContext(UserContext) as string | null
@@ -98,7 +100,9 @@ const MessagesContainer = () => {
     }, [partnerId,roomId])
 
     useEffect(()=>{
-        setPartnerId(receiverId.id)
+        if (receiverId.id) {
+            setPartnerId(receiverId.id);
+        }
         console.log('ReceiverId is: ',receiverId.id);
         
     },[])
@@ -268,16 +272,16 @@ const MessagesContainer = () => {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       }, [chatHistory]); 
-      
+      console.log(users)
     return ( 
         <div className="messages-container">
             <div className="w-1/4 flex flex-col overflow-auto">
                 <h4 className="text-md capitalize mb-1">search for messages</h4>
                 <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={testing} />
                 {   userId &&
-                    users !== undefined && users?.map((user:[],index)=>(
+                    users !== undefined && users?.map((user:any,index)=>(
                     <div key={index}>
-                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className="user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
+                        <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))
                 }
                 

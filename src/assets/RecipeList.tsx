@@ -68,8 +68,9 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
             console.log('Followings:', followings);
         
             const arr = array.filter((recipe: Recipe) => {
-                const id:string = recipe.userWhoPostId
-                const isFollowed = followings?.includes(id); 
+                // const id:string = recipe.userWhoPostId
+                console.log(array, 'big time rush')
+                const isFollowed = (followings as string[])?.includes(recipe.userWhoPostId); 
                 console.log('Is Followed:', isFollowed);
                 return isFollowed;
             });
@@ -132,22 +133,23 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                             .map((recipe:Recipe,index:number)=>(
                                 <div  className="asd" key={recipe._id}>
                                     {<RecipeCard
-                                    _id={recipe._id}
-                                    recipeName={recipe.nameOfDish}
-                                    recipeTime={recipe.prepTime}
-                                    recipeImage={recipe.image}                  
-                                    ingridientList={recipe.ingridentList}
-                                    likes={recipe.likes}
-                                    timeOfPost={recipe.timeOfPost}
-                                    recipeClass="recipe-card"
-                                    levelOfMeal={recipe.levelOfMeal}
-                                    postIndex={index}
-                                    userID={userID} 
-                                    userWhoPostId={recipe.userWhoPostId}     
-                                    calories={recipe.calories}
-                                    fats={recipe.fats}
-                                    carbs={recipe.carbs}
-                                    protein={recipe.protein}        
+                                        showFollow={false}
+                                        _id={recipe._id}
+                                        recipeName={recipe.nameOfDish}
+                                        recipeTime={recipe.prepTime}
+                                        recipeImage={recipe.image}                  
+                                        ingridientList={recipe.ingridentList}
+                                        likes={recipe.likes}
+                                        timeOfPost={recipe.timeOfPost}
+                                        recipeClass="recipe-card"
+                                        levelOfMeal={recipe.levelOfMeal}
+                                        postIndex={index}
+                                        userID={userID} 
+                                        userWhoPostId={recipe.userWhoPostId}     
+                                        calories={recipe.calories}
+                                        fats={recipe.fats}
+                                        carbs={recipe.carbs}
+                                        protein={recipe.protein}        
                                     /> 
                                     }
 

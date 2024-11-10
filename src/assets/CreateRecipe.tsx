@@ -39,7 +39,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
     const[data,setData] = useState()
     const userId = useContext(UserContext)
 
-    const ingredientClickHandle = function(e:React.MouseEvent<HTMLButtonElement>){
+    const ingredientClickHandle = function(e? :React.MouseEvent<HTMLButtonElement>){
 
         // e.preventDefault()
         if(newIngredient === ""){
@@ -93,7 +93,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
     }
     interface recipe{
         timeOfPost:string,
-        userId: string,
+        userId: string | null,
         pictureOfFood:string,
         ingridentList:string[],
         levelOfMeal: string,
@@ -216,8 +216,9 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         })
             
     }
-    const enterPress = function(event:KeyboardEventHandler<HTMLInputElement>){
+    const enterPress = function(event:any){
         if(event.key === 'Enter'){
+            
             ingredientClickHandle()
         }     
     }

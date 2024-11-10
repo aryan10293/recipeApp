@@ -13,7 +13,7 @@ interface ProfileCardProps{
     userName:string | null,
     profilePicture:string | undefined,
     cookingSkill:string | undefined,
-    userID:string | undefined
+    userID:any
     userEmail:string | undefined,
     userCountry:string | undefined,
     userFirstName:string | undefined,
@@ -22,8 +22,8 @@ interface ProfileCardProps{
     dob:string | undefined,
     accountAge: string | undefined,
     bio: string | undefined,
-    userFollowerNum:[]
-    userFollowingNum:[]
+    userFollowerNum:any
+    userFollowingNum:any
 }
 
 interface RecipeCard{

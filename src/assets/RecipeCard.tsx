@@ -27,7 +27,7 @@ import {motion} from 'framer-motion'
 
 interface RecipeCardProps{
     recipeName:string,
-    recipeImage:string,
+    recipeImage?:string,
     recipeTime:number,
     ingridientList:string[],
     steps?:string,
@@ -37,12 +37,12 @@ interface RecipeCardProps{
     _id:string,
     levelOfMeal:number,
     postIndex?:number
-    userID?:string | undefined,
+    userID?:any,
     userWhoPostId:string,
-    calories:string,
-    fats:string,
-    carbs:string,
-    protein:string
+    calories:string | number,
+    fats:string | number,
+    carbs:string | number,
+    protein:string | number,
     showFollow:boolean
     // showNutrition:(e:React.MouseEvent<HTMLButtonElement>)=>void;
 }
@@ -258,7 +258,7 @@ const printRecipeCard = function(){
                                 {showFollow ? <FollowUserButton followClass="p-0 flex flex-col items-center w-[80px] h-[40px] bg-[#f45d48] ml-6 mr-2" personToFollow={userWhoPostId}/> : (
                                     null
                                 )}
-                                <button className="btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
+                                <button className="btn" onClick={(e:any) => handleCardFace(e)}>Nutritions</button>
 
                             </div>
                         </div>
@@ -278,13 +278,13 @@ const printRecipeCard = function(){
             initial={{opacity:0}}
             animate={{opacity:1}}
             transition={{duration:1}}
-            onClick={(e)=>handleCardFace(e)}>Front Side</motion.button>
+            onClick={(e:any)=>handleCardFace(e)}>Front Side</motion.button>
         )
      }
          
     return ( 
  
-        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
+        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e: React.MouseEvent) => handleCardFace}/> : printRecipeCard()
     
      );
 }
