@@ -127,9 +127,9 @@ const SavedRecipes = () => {
                         userID={userID}
                         showFollow={false}
                         calories={recipe?.perServingMacros?.calories !== undefined ?  recipe.perServingMacros.calories :  0}
-                        fats={recipe?.perServingMacros?.fats !== undefined ?  recipe.perServingMacros.calories :  0}
-                        carbs={recipe?.perServingMacros?.carbs !== undefined ?  recipe.perServingMacros.calories :  0}
-                        protein={recipe?.perServingMacros?.protein !== undefined ?  recipe.perServingMacros.calories :  0}
+                        fats={recipe?.perServingMacros?.fats !== undefined ?  recipe.perServingMacros.fats :  0}
+                        carbs={recipe?.perServingMacros?.carbs !== undefined ?  recipe.perServingMacros.carbs :  0}
+                        protein={recipe?.perServingMacros?.protein !== undefined ?  recipe.perServingMacros.protein :  0}
                         userWhoPostId={recipe?.userWhoPostId}
                         />
                 ))

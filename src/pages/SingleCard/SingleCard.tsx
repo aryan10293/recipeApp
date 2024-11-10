@@ -17,7 +17,7 @@ interface RecipeCardProps{
     likes?:string[],
     recipeClass?:string,
     _id?:string
-    showFollow:boolean
+    // showFollow:boolean
 }
 
 interface Comments{

@@ -35,7 +35,6 @@ function AdvancedSearch(this: any) {
 
     }
     const handleCal = (e:any) => { 
-        // i want to a automatic calulations for this if all 3 other macros are preset
         Number(e.target.value) === 0 ? setMaxCal(false) : setMaxCal(Number(e.target.value))
     }
     const handlePro = (e:any) => { 
