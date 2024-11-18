@@ -142,6 +142,9 @@ let auth = {
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield user_1.default.find({ _id: req.params.id });
         res.status(200).json({ user: user });
-    })
+    }),
+    test: (req, res) => {
+        res.send('hello world');
+    }
 };
 exports.default = auth;
