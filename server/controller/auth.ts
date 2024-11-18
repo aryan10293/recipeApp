@@ -150,6 +150,9 @@ let auth = {
     getUser: async (req,res) => {
       const user = await User.find({_id: req.params.id})
       res.status(200).json({user:user})
+    }, 
+    test: (req,res) => {
+      res.send('hello world')
     }
 }
 export default auth
