@@ -211,7 +211,8 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
 
          const handleCardFace = (e:MouseEvent)=>{
             e.stopPropagation()
-             showNutritions ? setShowNutritions(false) : setShowNutritions(true)
+            console.log(showNutritions)
+             showNutritions  ? setShowNutritions(false) : setShowNutritions(true)
          }
 
 const printRecipeCard = function(){
@@ -284,7 +285,7 @@ const printRecipeCard = function(){
          
     return ( 
  
-        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e: React.MouseEvent) => handleCardFace}/> : printRecipeCard()
+        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e: any) => handleCardFace(e)}/> : printRecipeCard()
     
      );
 }
