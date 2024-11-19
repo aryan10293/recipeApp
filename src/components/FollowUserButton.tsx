@@ -9,6 +9,7 @@ interface followUserButtonProps{
 }
 
 const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,followClass}) => {
+    console.log('follow button works', personToFollow)
 
     // const followUserButtonStyle:React.CSSProperties = {
     //     backgroundColor:'#f45d48',
@@ -22,7 +23,7 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
     const [isFollowed,setIsFollowed] = useState<boolean>()
 
     // Setting the payload for following
-    const payload:{} = {
+    const payload:any = {
         personToFollow: userId
     }
 
@@ -32,7 +33,7 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
         const userData =  await response.json()
         const followedUsersList:string[] = userData.user[0].followings
         const isItFollowed = followedUsersList.includes(personToFollow)
-
+        
         if(isItFollowed){
             setIsFollowed(true)
         }
@@ -82,12 +83,12 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
             setPending(true)
             console.log(userId,' is following ',payload);
     
-            const response = await fetch(`https://recipeapp-22ha.onrender.com0/follow/${personToFollow}`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/follow/${personToFollow}`,{
                 method: 'PUT',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({personToFollow: payload.personToFollow})
             })
             console.log(response);
             
