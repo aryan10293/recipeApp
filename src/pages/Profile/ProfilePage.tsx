@@ -31,6 +31,7 @@ const ProfilePage = () => {
         console.log(userDob,userName,userID);
         
     },[])
+    console.log(country,'looking for this', userDob, useGetUserDataFromId(userID))
 
     return ( 
 

@@ -150,19 +150,10 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         );
     };
     const printFollowings = function(followingArray: string[]){
-        if(followingArray?.length <= 0){
-            return <p>0</p>
-        }else{
-            return <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : <p className="pending-msg">Loading...</p>}</h4>
-        }
+        return <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowerNum?.length ? userFollowerNum?.length : '0'}</h4>
     };
     const printFollowers = function(followerArray: string[]){
-        if(followerArray?.length <= 0){
-            return <p>0</p>
-        }
-        else{
-            return <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : <p className="pending-msg">Loading...</p>}</h4> 
-        }
+            return <h4 style={{fontWeight:'400'}} className="followers">Following: {userFollowingNum?.length ? userFollowingNum?.length : '0'}</h4> 
     };
 
     useEffect(()=>{
@@ -188,11 +179,11 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                     <img src={profilePicture} alt="" />
                 </div>
                 <div className="info">
-                    <h2 className="username">{userName ?  userName : <PendingMessage/>}</h2>
-                    <h3 className="cooking-skill">{cookingSkill ? cookingSkill : <PendingMessage/>  }</h3>                    
-                    <h3 className="cooking-style">{cookingStyle ? cookingStyle : <PendingMessage/>  }</h3>
-                    <h3 className="country">{userCountry ? userCountry : <PendingMessage/>}</h3>
-                    <h3 className="dob">{dob ? dob : <PendingMessage/>}</h3>
+                    <h2 className="username">{userName ?  userName : ''}</h2>
+                    <h3 className="cooking-skill">{cookingSkill ? cookingSkill : ''  }</h3>                    
+                    <h3 className="cooking-style">{cookingStyle ? cookingStyle : ''  }</h3>
+                    <h3 className="country">{userCountry ? userCountry : ''}</h3>
+                    <h3 className="dob">{dob ? dob : ''}</h3>
                     
                 </div>
                 <div className="follow-data">
@@ -208,7 +199,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
                 <div style={{overflow:'auto'}} className="bio" >
                     <h3 style={{fontWeight:'500'}}>{userName ? userName+ `'s bio` : <PendingMessage/>}</h3>
                     <hr />
-                    <p>{bio ? bio : <PendingMessage/>}</p>
+                    <p>{bio ? bio : `${userName} hasn't added a bio`}</p>
                 </div>
                 <div className="recipes">   
                     <h3 style={{fontWeight:'500'}}>{userName}'s posted recipes({usersRecipes.length})</h3>
