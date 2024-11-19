@@ -45,7 +45,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
         
     },[recipe])
 
-    const {data:datas} = useFetch(`http://localhost:2030/getcommentsfrompost/${recipe.post[0]._id}`)
+    const {data:datas} = useFetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${recipe.post[0]._id}`)
     const {userUsername:userName,userProfilePicture:profilePicture,userId:userID} = useUserId()
     const [commentsVisbile,setCommentsVisible] = useState<boolean>(false)
     const [commentClassName,setCommentClassName] = useState<string>("invisible")

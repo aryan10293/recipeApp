@@ -199,7 +199,6 @@ const MessagesContainer = () => {
 
     // Clicking Send Button Logic
     const handleSendMessageClick = async () => {
-        alert('hello')
         console.log('handleSendMessageClick called');
         console.log('wss:', wss);   
 
