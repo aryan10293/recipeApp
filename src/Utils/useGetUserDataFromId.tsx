@@ -28,7 +28,7 @@ const useGetUserDataFromId = (id:string | null) => {
             if(id){
                 try {
                 
-                    const response = await fetch(`http://localhost:2030/getuserbyid/${id}`)
+                    const response = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${id}`)
                     if(!response.ok){
                         throw new Error('Issue with fetchin user data')
                     }

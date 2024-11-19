@@ -36,7 +36,7 @@ const MessageContainer2 = () => {
 
     // Getting users
     const getUsers = async function name() {
-        const response = await fetch('http://localhost:2030/getusers')
+        const response = await fetch('https://recipeapp-22ha.onrender.com/getusers')
         const data = await response.json()
         const userArray:User[] = data.users
         setUsers(userArray)
@@ -57,7 +57,7 @@ const MessageContainer2 = () => {
 
    // Getting chat history array
     const getChatHistory = async (id:string) => {
-        const response = await fetch(`http://localhost:2030/getchatroommessages/${id}`)
+        const response = await fetch(`https://recipeapp-22ha.onrender.com/getchatroommessages/${id}`)
         const data = await response.json()
         setChatHistory(data.messages)
     }
@@ -102,7 +102,7 @@ const MessageContainer2 = () => {
 
               setTypedMessage('')
 
-              const response = await fetch(`http://localhost:2030/createmessage`, {
+              const response = await fetch(`https://recipeapp-22ha.onrender.com/createmessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -127,7 +127,7 @@ const MessageContainer2 = () => {
         clearTimeout(timeout)
         const inputValue = (e.target as HTMLInputElement).value.trim()
          const findUser = async () => {
-            const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
+            const getUsers = await fetch(`https://recipeapp-22ha.onrender.com/searchforusers`, {
                 method:'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({search: inputValue, id:userId})
@@ -144,7 +144,7 @@ const MessageContainer2 = () => {
 
     useEffect(()=>{
         getUsers()
-        const wss = new WebSocket('ws://localhost:2040')
+        const wss = new WebSocket('https://recipeapp-22ha.onrender.com')
         setWs(wss)
         wss.onopen = (event)=>{
             wss.send(JSON.stringify({

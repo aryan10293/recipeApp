@@ -64,7 +64,7 @@ const sendMessage = async (e:any) => {
   if(img !== undefined){
        base64 = await convertBase64(img)
   }
-  const ws = new WebSocket('ws://localhost:2040');
+  const ws = new WebSocket('https://recipeapp-22ha.onrender.com');
   ws.onopen = async () => {
 
       const message = {
@@ -76,7 +76,7 @@ const sendMessage = async (e:any) => {
         imgString: base64
       }
 
-      const sendMessagetoDatabase = await fetch(`http://localhost:2030/createmessage`,{
+      const sendMessagetoDatabase = await fetch(`https://recipeapp-22ha.onrender.com/createmessage`,{
         method:'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(message)

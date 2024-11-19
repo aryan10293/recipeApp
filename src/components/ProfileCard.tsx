@@ -65,7 +65,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     const getUsersRecipes = async function(){
         try {
             isRecipePending(true)
-            const recipeResponse = await fetch('http://localhost:2030/getallpost')
+            const recipeResponse = await fetch('https://recipeapp-22ha.onrender.com/getallpost')
             if(!recipeResponse.ok){
                 throw new Error('Response is not okay')
             }
@@ -107,7 +107,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     // Navigating to recipe 
     const handleClick = async function(id:string){
         try {
-            const response = await fetch(`http://localhost:2030/getpost/${id}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${id}`)
             const data = await response.json()
             console.log('data: ',data.post[0]);
             const recipe = data

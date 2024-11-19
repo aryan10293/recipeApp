@@ -14,7 +14,7 @@ const DeleteButton:React.FC<postId> = ({postId})=> {
 
     const clickHandle = async (e:React.MouseEvent) => {
         e.stopPropagation()
-        const getPost = await fetch(`http://localhost:2030/deletepost/${postId}`,{
+        const getPost = await fetch(`https://recipeapp-22ha.onrender.com/deletepost/${postId}`,{
             method:"DELETE",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify({})

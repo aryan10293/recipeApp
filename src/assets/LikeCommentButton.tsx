@@ -34,7 +34,7 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
 
     const isCommentLiked = async function(){
         try {
-            const response = await fetch(`http://localhost:2030/getcommentsfrompost/${postId}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${postId}`)
             const postComments = await response.json()
 
             const comment = await postComments.comments.find((c:Comments)=>c._id === commentId)
@@ -62,7 +62,7 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
             }
             
             console.log('userId: ',payload.userId,'commentId: ',commentId)
-            const response2 = await fetch(`http://localhost:2030/addliketocomment/${commentId}`,
+            const response2 = await fetch(`https://recipeapp-22ha.onrender.com/addliketocomment/${commentId}`,
                 {
                     method:'PUT',
                     headers:{
@@ -96,7 +96,7 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
             }
             
             console.log('userId: ',payload.userId,'commentId: ',commentId)
-            const response2 = await fetch(`http://localhost:2030/unlikecomment/${commentId}`,
+            const response2 = await fetch(`https://recipeapp-22ha.onrender.com/unlikecomment/${commentId}`,
                 {
                     method:'PUT',
                     headers:{
@@ -120,7 +120,7 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
 
     const likeNumber = async function(){
         try {
-            const response = await fetch(`http://localhost:2030/getcommentsfrompost/${postId}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${postId}`)
             const comment = await response.json()
             const likes = comment.comments[postIndex].likes.length
 

@@ -53,7 +53,7 @@ const MessagesContainer = () => {
         }
         const socketHandle = function(){
         
-        const ws = new WebSocket('ws://localhost:2040')
+        const ws = new WebSocket('https://recipeapp-22ha.onrender.com')
         setWss(ws)
 
         ws.onopen = (event)=>{
@@ -110,7 +110,7 @@ const MessagesContainer = () => {
     // Getting users
         useEffect(() => {
             const lol = async () => {
-                const getMessagedUserHistory = await fetch(`http://localhost:2030/getuserchathistory`, {
+                const getMessagedUserHistory = await fetch(`https://recipeapp-22ha.onrender.com/getuserchathistory`, {
                     method:'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({id:userId})
@@ -166,7 +166,7 @@ const MessagesContainer = () => {
     const getMessageHistory = async function(chatRoomId:string){
         if (chatRoomId.length > 0){
             try {
-                    const response = await fetch(`http://localhost:2030/getchatroommessages/${chatRoomId}`, {
+                    const response = await fetch(`https://recipeapp-22ha.onrender.com/getchatroommessages/${chatRoomId}`, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
                     })
@@ -222,7 +222,7 @@ const MessagesContainer = () => {
     
         try {
     
-            const response = await fetch(`http://localhost:2030/createmessage`, {
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/createmessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
@@ -249,7 +249,7 @@ const MessagesContainer = () => {
     const testing = (e:any) => {
         clearTimeout(timeout)
          const findUser = async () => {
-            const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
+            const getUsers = await fetch(`https://recipeapp-22ha.onrender.com/searchforusers`, {
                 method:'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({search: e.target.value, id:userId})

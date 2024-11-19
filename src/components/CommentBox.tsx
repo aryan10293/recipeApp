@@ -28,7 +28,7 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
                 postId: postId,     
             }
 
-            const response = await fetch(`http://localhost:2030/createcomment`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/createcomment`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'

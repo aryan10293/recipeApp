@@ -191,7 +191,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         }
         console.log(newRecipe)
 
-        fetch("http://localhost:2030/createrecipe",{
+        fetch("https://recipeapp-22ha.onrender.com/createrecipe",{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"

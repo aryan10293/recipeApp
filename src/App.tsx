@@ -35,7 +35,7 @@ function App() {
   const [userInfo, setUserInfo] = React.useState<any[]>([])
   React.useEffect(() => {
           const getUser = async() => {
-              const checkUser = await fetch(`http://localhost:2030/getuser/${localStorage.getItem('token')}`, {
+              const checkUser = await fetch(`https://recipeapp-22ha.onrender.com/getuser/${localStorage.getItem('token')}`, {
                   method:'GET',
                   headers: {'Content-Type': 'application/json'}
               })

@@ -69,7 +69,7 @@ function AdvancedSearch(this: any) {
     }
     const handleSearch = async (e:any) => {
         e.preventDefault()
-        const sendSearch = await fetch('http://localhost:2030/advancedmealsearch', {
+        const sendSearch = await fetch('https://recipeapp-22ha.onrender.com/advancedmealsearch', {
             method:"POST",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(searchData)

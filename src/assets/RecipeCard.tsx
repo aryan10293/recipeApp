@@ -70,7 +70,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
 
         const handleClick = async function(){
 
-            setUrl(`http://localhost:2030/getpost/${_id}`)
+            setUrl(`https://recipeapp-22ha.onrender.com/getpost/${_id}`)
             
         }
 
@@ -98,7 +98,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
         }
           
         // Comment section
-        const {data:datas} = useFetch(`http://localhost:2030/getcommentsfrompost/${_id}`)
+        const {data:datas} = useFetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${_id}`)
         const [commentsVisbile,setCommentsVisible] = useState<boolean>(false)
         const [commentClassName,setCommentClassName] = useState<string>("invisible")
         const [commentClassName2,setCommentClassName2] = useState<string>("invisible")
@@ -109,7 +109,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
 
         const fetchComments = async():Promise<any> => {
             try {   
-                    const comms = await fetch(`http://localhost:2030/getcommentsfrompost/${_id}`)
+                    const comms = await fetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${_id}`)
                     const comms2 = await comms.json()
                     const commentses = comms2.comments
                     setCommentNum(commentses.length)
@@ -186,7 +186,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
          const deletePost= async function(e:React.MouseEvent){
             try {
                 e.stopPropagation()
-                const response = await fetch(`http://localhost:2030/deletepost/${_id}`,{
+                const response = await fetch(`https://recipeapp-22ha.onrender.com/deletepost/${_id}`,{
                     method:"DELETE",
                     headers:{
                         "Content-Type":"application/json"

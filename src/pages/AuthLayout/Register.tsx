@@ -44,7 +44,7 @@ function Register() {
     const handleSubmit = async (e:React.FormEvent<HTMLElement>) => {
         e.preventDefault()
         try {
-            const createUser =  await fetch('http://localhost:2030/createaccount',{
+            const createUser =  await fetch('https://recipeapp-22ha.onrender.com/createaccount',{
             method:'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(registerInfo),

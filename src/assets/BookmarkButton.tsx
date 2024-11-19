@@ -35,7 +35,7 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
     const [isRecipeSaved,setIsRecipeSaved] = useState<boolean>(false)
 
     const fetchBookmarks = async function(){
-        const response = await fetch(`http://localhost:2030/getuserbyid/${userId}`)
+        const response = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${userId}`)
         const data = await response.json()
         const userBookmarks = await data.user[0].savedRecipes
 
@@ -46,7 +46,7 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
 
     const bookmarkRecipe = async () => {
         try {
-            const response = await fetch(`http://localhost:2030/addbookmark/${userId}`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/addbookmark/${userId}`,{
                 method:"PUT",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({id:postId})
@@ -70,7 +70,7 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
             console.log('Beginning of unbookmarking');
             console.log(userId,postId);
             
-            const response = await fetch(`http://localhost:2030/unbookmark/${userId}`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/unbookmark/${userId}`,{
                 method:"PUT",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({id:postId})

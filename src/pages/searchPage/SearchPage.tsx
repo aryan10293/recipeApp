@@ -51,7 +51,7 @@ function SearchPage() {
 
 
     const testingSearch = async() => {
-        const searchStuff = await fetch(`http://localhost:2030/search`, {
+        const searchStuff = await fetch(`https://recipeapp-22ha.onrender.com/search`, {
             method:'POST',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(searchInfo)
