@@ -53,7 +53,7 @@ const MessagesContainer = () => {
         }
         const socketHandle = function(){
         
-        const ws = new WebSocket('https://recipeapp-22ha.onrender.com')
+        const ws = new WebSocket('wss://recipeapp-22ha.onrender.com')
         setWss(ws)
 
         ws.onopen = (event)=>{
@@ -79,7 +79,7 @@ const MessagesContainer = () => {
         };
 
         ws.onerror = (error)=>{
-            console.log('Websocket error ',error);
+            console.log('Websocket error ','this shit hella weak',error);
         }
 
         ws.onclose = ()=>{
@@ -116,8 +116,6 @@ const MessagesContainer = () => {
                     body: JSON.stringify({id:userId})
                 })
                     const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
-                    // console.log(jsonGetMessagedUserHistory,'hey does this work')
-                    console.log(jsonGetMessagedUserHistory.chatHistory)
                     setUsers(jsonGetMessagedUserHistory.chatHistory)
                     // setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
                     // console.log('hello')
@@ -201,6 +199,7 @@ const MessagesContainer = () => {
 
     // Clicking Send Button Logic
     const handleSendMessageClick = async () => {
+        alert('hello')
         console.log('handleSendMessageClick called');
         console.log('wss:', wss);   
 
@@ -272,7 +271,6 @@ const MessagesContainer = () => {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       }, [chatHistory]); 
-      console.log(users)
     return ( 
         <div className="messages-container">
             <div className="w-1/4 flex flex-col overflow-auto">
@@ -298,7 +296,7 @@ const MessagesContainer = () => {
                 </div>
                 <div className="w-full h-[180px] flex flex-row items-center justify-between">
                         <textarea className="h-4/5 w-11/12 bg-white rounded-sm p-2" value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
-                        <button className="btn"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
+                        <button className="btn"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>lmao</button>
                 </div>
 
             </div>

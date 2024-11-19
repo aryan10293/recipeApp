@@ -108,6 +108,6 @@ wss.on('connection', (ws) => {
         console.error('WebSocket error:', error);
     });
 });
-app.listen(process.env.PORT, () => {
-    console.log("Server is running, you better catch it! on " + process.env.PORT);
+server.listen(process.env.PORT || 2040, () => {
+    console.log(`Server is running, you better catch it! on ${process.env.PORT || 2040}`);
 });

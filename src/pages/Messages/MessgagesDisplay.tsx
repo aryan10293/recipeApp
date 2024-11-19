@@ -17,7 +17,7 @@ interface UserId{
     
     // Getting History
    const getMessageHistory = async () => {
-        const getMessages = await fetch(`http://localhost:2030/getchatroommessages/${roomId}`, {
+        const getMessages = await fetch(`https://recipeapp-22ha.onrender.com/getchatroommessages/${roomId}`, {
           method:'GET',
           headers: {'Content-Type': 'application/json'},
         })
@@ -27,7 +27,7 @@ interface UserId{
       }
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:2040');
+        const ws = new WebSocket('wss://recipeapp-22ha.onrender.com');
         if(id !== undefined){
           setRoomId(`${userId.slice(-4)}${id.slice(-4)}`.split('').sort().join(''))
         }
@@ -64,7 +64,7 @@ const sendMessage = async (e:any) => {
   if(img !== undefined){
        base64 = await convertBase64(img)
   }
-  const ws = new WebSocket('https://recipeapp-22ha.onrender.com');
+  const ws = new WebSocket('wss://recipeapp-22ha.onrender.com');
   ws.onopen = async () => {
 
       const message = {

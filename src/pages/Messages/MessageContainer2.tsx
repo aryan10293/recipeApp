@@ -144,7 +144,7 @@ const MessageContainer2 = () => {
 
     useEffect(()=>{
         getUsers()
-        const wss = new WebSocket('https://recipeapp-22ha.onrender.com')
+        const wss = new WebSocket('wss://https://recipeapp-22ha.onrender.com')
         setWs(wss)
         wss.onopen = (event)=>{
             wss.send(JSON.stringify({
