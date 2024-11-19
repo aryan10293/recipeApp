@@ -9,7 +9,6 @@ interface followUserButtonProps{
 }
 
 const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,followClass}) => {
-    console.log('follow button works', personToFollow)
 
     // const followUserButtonStyle:React.CSSProperties = {
     //     backgroundColor:'#f45d48',

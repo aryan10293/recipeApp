@@ -52,7 +52,7 @@ const SavedRecipes = () => {
     // Getting recipes from db
     const getRecipes = async function(id:string){
         try {
-            const response = await fetch(`http://localhost:2030/getpost/${id}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${id}`)
             const data = await response.json()
             const recipeInfo = data.post[0]
             return recipeInfo  
@@ -95,7 +95,7 @@ const SavedRecipes = () => {
     try {
         const s = await Promise.all(
             userBookmarks.map(async (id) => {
-                const response = await fetch(`http://localhost:2030/getpost/${id}`);
+                const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${id}`);
                 const data = await response.json();
                 return data.post[0]; // Extract the first post from each response
             })
@@ -108,7 +108,6 @@ const SavedRecipes = () => {
 };
     
     const printingSavedRecipes = function(){
-        console.log(rec, 'this is what were looking for')
         if(rec.length >0){
             return (
                 rec.map((recipe:RecipeCardProps,index:number)=>(
@@ -125,7 +124,7 @@ const SavedRecipes = () => {
                         levelOfMeal={recipe.levelOfMeal}
                         postIndex={index}
                         userID={userID}
-                        showFollow={false}
+                        showFollow={true}
                         calories={recipe?.perServingMacros?.calories !== undefined ?  recipe.perServingMacros.calories :  0}
                         fats={recipe?.perServingMacros?.fats !== undefined ?  recipe.perServingMacros.fats :  0}
                         carbs={recipe?.perServingMacros?.carbs !== undefined ?  recipe.perServingMacros.carbs :  0}

@@ -4,7 +4,7 @@ interface UserNameButtonProps{
 }
 
 const UserNameButton:React.FC<UserNameButtonProps> = ({text}) => {
-
+console.log(text)
     const handleClick = async function(){
         try {
             const token =  localStorage.getItem("token")

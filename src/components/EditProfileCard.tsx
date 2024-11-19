@@ -110,7 +110,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             if(!data){
                 throw new Error('Failed to fetch delete API. Response data is not ok')
             }
-            console.log(data);
+            if(data.status === '200'){
+                alert(data.message)
+            } else if(data.status === '400'){
+                alert(data.message)
+            }
         } catch (error) {
             console.log(error);
         }
@@ -212,7 +216,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
     // Fetching profile card info
     const fetchCardDetails = async function(){
         try {
-            const response = await fetch (`http://localhost:2030/getuserbyid/${userId}`)
+            const response = await fetch (`https://recipeapp-22ha.onrender.com/getuserbyid/${userId}`)
             const data = await response.json()
             
             const userCookingStyle = data.user[0].cookingStyle           
@@ -255,7 +259,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         console.log('Data to see 1: ',detailData);
         
         try {
-            const response = await fetch(`http://localhost:2030/updateprofile/${userId}`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/updateprofile/${userId}`,{
                 method:'PUT',
                 headers:{
                     'Content-Type':'application/json'
@@ -281,11 +285,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                     <img src={profilePicture} alt="" />
                 </div>
                 <div className="info">
-                    <h2 className="username">{newUserName ? newUserName : <PendingMessage/>}</h2>
-                    <h3 className="cooking-skill">{newSkillLevel ? newSkillLevel : <PendingMessage/>} </h3>           
-                    <h3 className="cooking-style">{newCookingStyle ? newCookingStyle : <PendingMessage/>}</h3>
-                    <h3 className="country">{newCountry ? newCountry : <PendingMessage/>}</h3>
-                    <h3 className="dob">{newDob ? newDob : <PendingMessage/>}</h3>
+                    <h2 className="username">{newUserName ? newUserName : ''}</h2>
+                    <h3 className="cooking-skill">{newSkillLevel ? newSkillLevel : ''} </h3>           
+                    <h3 className="cooking-style">{newCookingStyle ? newCookingStyle : ''}</h3>
+                    <h3 className="country">{newCountry ? newCountry : ''}</h3>
+                    <h3 className="dob">{newDob ? newDob : ''}</h3>
                 </div>
                 <div className="follow-data">
                     <h4 style={{fontWeight:'400'}} className="following">Followers: {userFollowers?.length ? userFollowers?.length : <p className="pending-msg">Loading...</p>}</h4>
@@ -374,7 +378,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
 
     // Fetching bio data from database
     const fetchBio = async function(){
-        const response = await fetch(`http://localhost:2030/getuserbyid/${userId}`)
+        const response = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${userId}`)
         const data = await response.json()
         const userBio = data.user[0].bio
         console.log('Bio is fetched');
@@ -401,7 +405,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
     // Sending bio update PUT request
     const handleBioSave = async function(){
         try {
-            const response = await fetch(`http://localhost:2030/updateprofile/${userId}`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/updateprofile/${userId}`,{
                 method:'PUT',
                 headers:{
                     'Content-Type':'application/json'
@@ -431,7 +435,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             <div style={{overflow:'auto'}} className="bio">
                     <h3 style={{fontWeight:'400'}}>{userName + `'s bio`}</h3>
                     <hr/>
-                    <p>{newBio ? newBio : 'Loading bio...'}</p>
+                    <p>{newBio ? newBio : 'Tell the other cooks about yourself!'}</p>
                     <button className="btn" onClick={setIsEditingBioClick} style={{textAlign:'end'}}>Edit Bio</button>
                 </div>
         )
@@ -448,6 +452,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                 </div>
         )
     }
+    
 
     return ( 
         <div className="profile-card">
