@@ -67,7 +67,7 @@ let auth = {
                 if (err) {
                   return next(err);
                 }
-                const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1h' });
+                const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1m' });
                 res.send(
                   { token, newUser: user, status:'200' }
                 )

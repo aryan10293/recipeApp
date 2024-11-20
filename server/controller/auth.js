@@ -71,7 +71,7 @@ let auth = {
                     if (err) {
                         return next(err);
                     }
-                    const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+                    const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1m' });
                     res.send({ token, newUser: user, status: '200' });
                 });
             });
