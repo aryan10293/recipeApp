@@ -138,7 +138,7 @@ let auth = {
           if (err) {
             // Token is invalid or expired
             // Handle unauthorized access
-            res.status(401).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
+            res.status(400).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
           } else {
             const userId = decoded.sub;
             // Fetch user account data from the database based on userId
