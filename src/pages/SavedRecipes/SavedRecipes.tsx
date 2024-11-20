@@ -97,16 +97,18 @@ const SavedRecipes = () => {
             userBookmarks.map(async (id) => {
                 const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${id}`);
                 const data = await response.json();
-                return data.post[0]; // Extract the first post from each response
+                if(data.post.length === 1){
+                  return data.post[0];  // Extract the first post from each response
+                }
             })
         );
-        setRec(s); // Update the rec state directly
-        console.log(s[1]?._id); // Safely log the second item's _id if it exists
+        setRec(s.filter((recipe:any) => recipe !== undefined)); // Update the rec state directly
+        //console.log(s[1]?._id); // Safely log the second item's _id if it exists
     } catch (error) {
         console.error('Error fetching recipes:', error);
     }
 };
-    
+
     const printingSavedRecipes = function(){
         if(rec.length >0){
             return (
@@ -133,7 +135,7 @@ const SavedRecipes = () => {
                         />
                 ))
             )
-        }
+        } 
         
            
         
@@ -141,6 +143,7 @@ const SavedRecipes = () => {
 
 
     const [rec,setRec] = useState<any>([])
+     console.log(rec, 'looking for this')
     useEffect(()=>{
 
         fetching()
@@ -173,7 +176,7 @@ const SavedRecipes = () => {
                     userID={userID} />
                 ))
             } */}
-            {rec.length > 0 && printingSavedRecipes()}
+            {rec.length > 0 ? printingSavedRecipes() : <p>you have no saved recipes</p>}
         </div>
      );
 }
