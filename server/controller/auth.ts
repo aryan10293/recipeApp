@@ -115,7 +115,7 @@ let auth = {
               return next(err);
             }
             req.flash("success", { msg: "Success! You are logged in." });
-             const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1h' })
+             const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1m' })
              res.status(200).send(
                   { token, newUser: user, status:'200' }
                 )
