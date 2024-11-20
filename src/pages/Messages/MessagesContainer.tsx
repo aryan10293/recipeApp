@@ -122,20 +122,20 @@ const MessagesContainer = () => {
                 }
             lol()
         }, [userId])
-
+console.log(users.map((x:any) => x[0]))
     // Selecting user to chat with
     const clickingUserCard = function(usersId:string){
         setPartnerId(usersId)
-        console.log(usersId);         
+        console.log(usersId,userId,'looking for this');         
     }
 
     // Printing chat user list
     const printingUsernames = async function(){
         return(
-            <div>
-                {users?.map((user:User)=>(
+            <div className="lol">
+                {users?.map((user:any)=>(
                     <div key={user._id}>
-                        <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} /></button>
+                        <button  onClick={(e)=>clickingUserCard(user[0]._id)} className={ `user-msg-btn`}><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))}
             </div>
         )
@@ -278,7 +278,7 @@ const MessagesContainer = () => {
                 {   userId &&
                     users !== undefined && users?.map((user:any,index)=>(
                     <div key={index}>
-                        <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
+                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className=" user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))
                 }
                 
@@ -295,7 +295,7 @@ const MessagesContainer = () => {
                 </div>
                 <div className="w-full h-[180px] flex flex-row items-center justify-between">
                         <textarea className="h-4/5 w-11/12 bg-white rounded-sm p-2" value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
-                        <button className="btn"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>lmao</button>
+                        <button className="btn"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={(e)=>handleSendMessageClick()}>Send</button>
                 </div>
 
             </div>
