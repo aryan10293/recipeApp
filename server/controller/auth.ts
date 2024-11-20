@@ -143,7 +143,7 @@ let auth = {
             const userId = decoded.sub;
             // Fetch user account data from the database based on userId
             let thisIsAwe = await User.find({_id: userId}) // user info if token is not expired
-            res.status(200).json({success: true, message:'lebron james is elite', userinfo: thisIsAwe})
+            res.status(200).json({success: true, message:'success', userinfo: thisIsAwe})
           }
         });
     },
