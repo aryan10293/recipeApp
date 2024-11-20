@@ -97,6 +97,7 @@ const SavedRecipes = () => {
             userBookmarks.map(async (id) => {
                 const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${id}`);
                 const data = await response.json();
+      
                 if(data.post.length === 1){
                   return data.post[0];  // Extract the first post from each response
                 }
