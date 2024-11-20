@@ -42,17 +42,15 @@ const messageHistory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const getTheUserDocumentsYouChatedWith = yield Promise.all(Object.keys(checkkForDupObj).map((id, i) => __awaiter(void 0, void 0, void 0, function* () {
             return queryDataBase(id);
         })));
-        console.log(getTheUserDocumentsYouChatedWith);
         return getTheUserDocumentsYouChatedWith;
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
         return { status: '500', message: 'Server error', error: error.message };
     }
 });
 let messages = {
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(req.body);
         let sendFoundUsersToClient = [];
         let lmao = yield messageHistory(req, res);
         for (let key in lmao) {
@@ -66,10 +64,8 @@ let messages = {
         else {
             res.status(400).json({ status: '400', searchedUsers: 'no users found' });
         }
-        console.log(sendFoundUsersToClient);
     }),
     getMessageHistory: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(yield messageHistory(req, res));
         res.status(200).json({ status: '200', chatHistory: yield messageHistory(req, res) });
     }),
     createMessage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -82,7 +78,7 @@ let messages = {
                 img = yield (0, cloudinary_1.default)(req.body.imgString);
             }
             catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
         const createMessage = {
@@ -126,7 +122,7 @@ let messages = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     })
 };

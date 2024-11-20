@@ -88,7 +88,7 @@ let search = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
             res.status(400).json({ error: error });
         }
     })

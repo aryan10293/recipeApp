@@ -21,7 +21,6 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
             useFindAndModify: false,
             useCreateIndex: true,
         });
-        console.log(`MongoDB Connected: ${(yield conn).connection.host} ${process.env.PORT}`);
     }
     catch (err) {
         console.error(err);

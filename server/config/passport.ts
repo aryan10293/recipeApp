@@ -14,10 +14,6 @@ const configurePassport = (passport) => {
         }
         if (!password) {
           return done(null, false, {
-            // lol:user.password,
-            // yoo:user.email,
-            // adwef:password,
-            // yeqoo:email,
             msg:
               'Your account was registered using a sign-in provider. To enable password login, sign in using a provider, and then set a password under your user profile.',
           });

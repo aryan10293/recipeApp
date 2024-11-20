@@ -40,8 +40,6 @@ const UserSchema = new Schema<UserI>({
   cookingStyle: {type: String, default:'Grill Master'},
   country: {type: String, default: 'Hungary'},
   accountAge: {type: Date, default: Date.now()},
-  // below is a note to drej from drej so if you dont understand its fine 
-  // add a bookmarks to the user model and add the postId here instead of the other way i was thinking
 });
 
 // Password hash middleware.

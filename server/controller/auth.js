@@ -18,7 +18,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = __importDefault(require("../model/user"));
 let auth = {
     postCreateAccount: (req, res, next) => {
-        console.log(req.body);
         const validationErrors = [];
         const validEmail = {
             msg: "Please enter a valid email address."
@@ -111,7 +110,7 @@ let auth = {
                     return next(err);
                 }
                 req.flash("success", { msg: "Success! You are logged in." });
-                const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1m' });
+                const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY);
                 res.status(200).send({ token, newUser: user, status: '200' });
             });
         })(req, res, next);

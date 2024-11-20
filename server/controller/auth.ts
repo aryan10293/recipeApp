@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import User from "../model/user";
 let auth = {
     postCreateAccount: (req, res, next) => {
-      console.log(req.body)
         //const validationErrors = [];
         interface Message {
             msg: string;

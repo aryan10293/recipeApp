@@ -30,10 +30,9 @@ const messageHistory = async (req:Request, res:Response) => {
             const getTheUserDocumentsYouChatedWith = await Promise.all(Object.keys(checkkForDupObj).map(async (id:any, i:number) => {
                 return queryDataBase(id)
             }))
-            console.log(getTheUserDocumentsYouChatedWith)
             return getTheUserDocumentsYouChatedWith
         } catch (error:any) {
-            console.log(error)
+            console.error(error)
             return { status: '500', message: 'Server error', error: error.message };
         }
     }
@@ -42,7 +41,6 @@ const messageHistory = async (req:Request, res:Response) => {
 
 let messages = {
     getUser: async(req:Request, res:Response) => {
-        console.log(req.body)
         let sendFoundUsersToClient:any = []
         let lmao = await messageHistory(req,res)
         for(let key in lmao){
@@ -55,25 +53,9 @@ let messages = {
         } else {
             res.status(400).json({status:'400', searchedUsers:'no users found'})
         }
-        console.log(sendFoundUsersToClient)
-        //lmao = lmao.filter((x:any) => x.userName.includes(req.body.search))
-        // try {
-        //     const getUser = await User.find({
-
-        //         "$or": [
-        //             // use userName if you want to see older users
-        //             {usernameSearch:{$regex:req.body.search.toLowerCase()}}
-        //         ]
-        //     })
-        //     res.status(200).json({status:'200', data:getUser})
-        // } catch (error:any) {
-        //     console.error('Error fetching user:', error);
-        //     return res.status(500).json({ status: '500', message: 'Server error', error: error.message });
-        // }
     },
 
     getMessageHistory: async (req:Request,res:Response) => {
-       console.log(await  messageHistory(req,res))
         res.status(200).json({status:'200', chatHistory:  await messageHistory(req,res)})
     },
     createMessage: async (req:Request, res:Response) => {
@@ -85,7 +67,7 @@ let messages = {
             try {
                 img = await uploadImage(req.body.imgString as string)
             } catch (error) {
-                console.log(error)
+                console.error(error)
             }
         }
         interface Message{
@@ -133,7 +115,7 @@ let messages = {
                 res.status(200).json({status:'200', message:'success liking the message'})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 }
