@@ -247,15 +247,28 @@ console.log(users.map((x:any) => x[0]))
     const testing = (e:any) => {
         clearTimeout(timeout)
          const findUser = async () => {
-            const getUsers = await fetch(`https://recipeapp-22ha.onrender.com/searchforusers`, {
-                method:'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({search: e.target.value, id:userId})
-            })
-            const searchedUsers = await getUsers.json()
-            // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
-            console.log(searchedUsers);
-            setUsers(searchedUsers.searchedUsers)                 
+            try {
+                const getUsers = await fetch(`https://recipeapp-22ha.onrender.com/searchforusers`, {
+                    method:'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({search: e.target.value, id:userId})
+                })
+
+                if(getUsers.status === 400){
+                    setUsers([])
+                    console.log();
+                    
+                    return
+                }
+                const searchedUsers = await getUsers.json()
+                // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
+                console.log(searchedUsers);
+                setUsers(searchedUsers.searchedUsers) 
+            } catch (error) {
+                console.log(error)
+                setUsers([])
+                return
+            }                
         }
 
         timeout = setTimeout(async() => {
@@ -275,10 +288,12 @@ console.log(users.map((x:any) => x[0]))
             <div className="w-1/4 flex flex-col overflow-auto">
                 <h4 className="text-md capitalize mb-1">search for messages</h4>
                 <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={testing} />
-                {   userId &&
+                {   
+                    users.length === 0 ? <p>No user found</p> :
+                    userId &&
                     users !== undefined && users?.map((user:any,index)=>(
                     <div key={index}>
-                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className=" user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
+                        <button onClick={()=>clickingUserCard(user[0]._id)} className=" user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))
                 }
                 
@@ -295,7 +310,7 @@ console.log(users.map((x:any) => x[0]))
                 </div>
                 <div className="w-full h-[180px] flex flex-row items-center justify-between">
                         <textarea className="h-4/5 w-11/12 bg-white rounded-sm p-2" value={messageToSend} onChange={(e)=>setMessage(e.target.value)} ></textarea>
-                        <button className="btn"  onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={()=>handleSendMessageClick()}>Send</button>
+                        <button className="btn" onKeyDown={(e)=>e.key === 'Enter' && handleSendMessageClick()}  onClick={()=>handleSendMessageClick()}>Send</button>
                 </div>
 
             </div>
