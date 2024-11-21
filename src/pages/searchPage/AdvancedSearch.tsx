@@ -75,7 +75,7 @@ function AdvancedSearch(this: any) {
             body:JSON.stringify(searchData)
         })
         const jsonSendSearch = await sendSearch.json()
-        console.log(jsonSendSearch)
+        // console.log(jsonSendSearch)
         setreturnedData(jsonSendSearch.meals)
     }
  

@@ -51,7 +51,7 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
     const unfollowUser = async function(){
         try {               
             setPending(true)
-            console.log(userId,' is following ',payload);
+            // console.log(userId,' is following ',payload);
     
             const response = await fetch(`https://recipeapp-22ha.onrender.com/unfollow/${personToFollow}`,{
                 method: 'PUT',
@@ -60,19 +60,19 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
                 },
                 body: JSON.stringify(payload)
             })
-            console.log(response);
+            // console.log(response);
             
             if(!response.ok){
                 throw new Error('Error while unfollowing user')
             }
 
             const data = await response.json()
-            console.log('User successfully unfollowed!',data);
+            // console.log('User successfully unfollowed!',data);
             alert(`User is unfollowed!`)
             setPending(false)
 
         } catch (error) {
-            console.log('Issue while unfollowing user',error); 
+            // console.log('Issue while unfollowing user',error); 
         }
     }
 
@@ -80,7 +80,7 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
     const followUser = async function(){
         try {               
             setPending(true)
-            console.log(userId,' is following ',payload);
+            // console.log(userId,' is following ',payload);
     
             const response = await fetch(`https://recipeapp-22ha.onrender.com/follow/${personToFollow}`,{
                 method: 'PUT',
@@ -89,19 +89,19 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
                 },
                 body: JSON.stringify({personToFollow: payload.personToFollow})
             })
-            console.log(response);
+            // console.log(response);
             
             if(!response.ok){
                 throw new Error('Error while following user')
             }
 
             const data = await response.json()
-            console.log('User successfully followed!',data);
+            // console.log('User successfully followed!',data);
             alert(`User is followed!`)
             setPending(false)
 
         } catch (error) {
-            console.log('Issue while following user',error); 
+            // console.log('Issue while following user',error); 
         }
     }
 
@@ -109,7 +109,7 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
     const handleClick = async function(e:React.MouseEvent){
         e.stopPropagation()
         const isUserFollowed = await checkIfPersonIsFollowed()
-        console.log(isUserFollowed)
+        // console.log(isUserFollowed)
         if(isUserFollowed){
             await unfollowUser()
             setIsFollowed(false)

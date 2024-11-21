@@ -71,11 +71,11 @@ const useGetUserDataFromId = (id:string | null) => {
                     // console.log(followerNum,followingNum);
                     
                 } catch (error:Error | any) {
-                    console.log(error);
+                    // console.log(error);
                 }
             }
             else{
-                console.log('no id found')
+                // console.log('no id found')
             }
             
    

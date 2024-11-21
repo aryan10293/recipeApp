@@ -38,7 +38,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
             setLikeNum(likes)
             
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -59,7 +59,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
             return likes
             
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -90,11 +90,11 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
             }
 
             const data = await response.json()
-            console.log('Success!',data)
+            // console.log('Success!',data)
             setPostIsLiked(true)
             likeNumber()
         } catch (error) {
-            console.log('Failed!',error)
+            // console.log('Failed!',error)
         }
         
     }
@@ -126,11 +126,11 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
 
             const data = await response.json()
 
-            console.log('Success!',data)
+            // console.log('Success!',data)
             setPostIsLiked(false)
             likeNumber()
         } catch (error) {
-            console.log('Failed!',error)
+            // console.log('Failed!',error)
         }
     }
 
@@ -172,7 +172,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
             // Check if the current user's ID is in the list of likes
             setPostIsLiked(likes.includes(userId));
         } catch (error) {
-            console.log('Error checking if post is liked:', error);
+            // console.log('Error checking if post is liked:', error);
         }
     };
     useEffect(()=>{

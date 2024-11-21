@@ -13,7 +13,7 @@ const useFetch = (url:string)=>{
                 setData(data)
             })
             .catch((err)=>{
-                console.log(err.message)
+                // console.log(err.message)
             })
     },[url])
     return {data}

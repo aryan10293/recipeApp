@@ -57,7 +57,7 @@ const SavedRecipes = () => {
             const recipeInfo = data.post[0]
             return recipeInfo  
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             return null
         }
     }
@@ -72,7 +72,7 @@ const SavedRecipes = () => {
             setRecipes(recipesArray.filter(recipe=>recipe!==null))
             
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -144,7 +144,7 @@ const SavedRecipes = () => {
 
 
     const [rec,setRec] = useState<any>([])
-     console.log(rec, 'looking for this')
+    //  console.log(rec, 'looking for this')
     useEffect(()=>{
 
         fetching()

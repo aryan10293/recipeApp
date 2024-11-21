@@ -43,9 +43,9 @@ function SearchPage() {
     const searchThings: string[] = ['cooks', 'meals', 'type of chefs', 'other']
 
     useEffect(()=>{
-        console.log('Result: ',searchData);
-        console.log('Search Option: ',searchOption)
-        console.log('UserName: ',userUsername);
+        // console.log('Result: ',searchData);
+        // console.log('Search Option: ',searchOption)
+        // console.log('UserName: ',userUsername);
         
     },[searchData,searchOption,userUsername])
 
@@ -58,11 +58,11 @@ function SearchPage() {
         })
         const jsonSearchStuff = await searchStuff.json()
         setSearchData(jsonSearchStuff.data)
-        console.log(jsonSearchStuff, 12, searchInfo)
+        // console.log(jsonSearchStuff, 12, searchInfo)
     }
     
     const handleAdvance = () => {
-        console.log('lol')
+        // console.log('lol')
     }
 
     // User Result Clicking
@@ -72,7 +72,7 @@ function SearchPage() {
 
     // Choosing what type of data will be printed and print it
     const printTypeSetter = function(data:any,key:number){
-        console.log('Search data',data);
+        // console.log('Search data',data);
         if(searchOption=== 'cooks' && data.userName){
             return (
                 <button onClick={()=>handleUserCardClick(data._id)} className='bg-[#078080] w-[1000px] flex flex-row items-center justify-start mb-2 p-5 hover:bg-opacity-80' key={data._id}>

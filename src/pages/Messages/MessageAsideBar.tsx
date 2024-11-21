@@ -22,7 +22,7 @@ interface UserId{
                 body: JSON.stringify({id:userId})
             })
                 const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
-                console.log(jsonGetMessagedUserHistory)
+                // console.log(jsonGetMessagedUserHistory)
                 setUsers(jsonGetMessagedUserHistory.map((x:any) =>  x[0]))
             }
             testing()
@@ -45,7 +45,7 @@ interface UserId{
             color: 'black'
         },
     };
-    console.log(users)
+    // console.log(users)
     return (
     <div style={{display:'flex'}}>
         <div style={styles.sidebar}>

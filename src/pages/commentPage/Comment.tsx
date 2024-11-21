@@ -79,20 +79,20 @@ function Comment() {
                 body: JSON.stringify(createComment),
             })
             const commentData = await postComment.json()
-            console.log(commentData)
+            // console.log(commentData)
             if(commentData.status == '200'){
                 getCommentInfo()
                 setComment('')
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
     const handleLike = async (e:any) => {
         //switch the e to type strictness later drej. im just to lazy to do it know
         e.preventDefault()
         let likeUnlike:string = ''
-        console.log(e.target.textContent)
+        // console.log(e.target.textContent)
         if(e.target.textContent === 'Like'){
             likeUnlike = 'addliketocomment'
         } else {
@@ -105,7 +105,7 @@ function Comment() {
             body: JSON.stringify(likeObj)
         })
         const handleLikesData = await handlelikes.json()
-        console.log(handleLikesData)
+        // console.log(handleLikesData)
         getCommentInfo()
     }
     if (!post || !post.post || post.post.length === 0) {

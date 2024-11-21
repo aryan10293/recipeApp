@@ -9,10 +9,10 @@ const PrivateRoute:React.FC<lol> = ({children}) =>{
     const userId = useContext(UserContext)
 
     if(!userId){
-        console.log('No token found')
+        // console.log('No token found')
         return <Navigate to={'/login'}/>
     }
-    console.log('Token found');
+    // console.log('Token found');
 
     return children
 }

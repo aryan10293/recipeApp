@@ -57,9 +57,9 @@ const MessagesContainer = () => {
         setWss(ws)
 
         ws.onopen = (event)=>{
-            console.log('Socket is open')
+            // console.log('Socket is open')
             const message = JSON.stringify({type:'connect',message:'Hello server',roomId:roomId})
-            console.log('Sending message to the websocket server: ',message)
+            // console.log('Sending message to the websocket server: ',message)
             ws.send(JSON.stringify({
                 content: `user ${userId} joined the chat room ${roomId}`,
                 chatRoomId: roomId,
@@ -73,17 +73,17 @@ const MessagesContainer = () => {
         ws.onmessage = async (event) => {
             const message = event.data
             setChatHistory((prevChatHistory) => [...prevChatHistory, message]);
-            console.log('New message received: ',message);
+            // console.log('New message received: ',message);
             
             await getMessageHistory(roomId)
         };
 
         ws.onerror = (error)=>{
-            console.log('Websocket error ','this shit hella weak',error);
+            // console.log('Websocket error ','this shit hella weak',error);
         }
 
         ws.onclose = ()=>{
-            console.log('Connection is closed');    
+            // console.log('Connection is closed');    
         }
         return ()=>{
             if(ws){
@@ -95,7 +95,7 @@ const MessagesContainer = () => {
     
     createRoomId(partnerId)
     socketHandle()
-    console.log('partnerId',partnerId);
+    // console.log('partnerId',partnerId);
     
     }, [partnerId,roomId])
 
@@ -103,7 +103,7 @@ const MessagesContainer = () => {
         if (receiverId.id) {
             setPartnerId(receiverId.id);
         }
-        console.log('ReceiverId is: ',receiverId.id);
+        // console.log('ReceiverId is: ',receiverId.id);
         
     },[])
 
@@ -122,11 +122,11 @@ const MessagesContainer = () => {
                 }
             lol()
         }, [userId])
-console.log(users.map((x:any) => x[0]))
+// console.log(users.map((x:any) => x[0]))
     // Selecting user to chat with
     const clickingUserCard = function(usersId:string){
         setPartnerId(usersId)
-        console.log(usersId,userId,'looking for this');         
+        // console.log(usersId,userId,'looking for this');         
     }
 
     // Printing chat user list
@@ -149,12 +149,12 @@ console.log(users.map((x:any) => x[0]))
                     const generatedRoomId = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
                     setRoomId(generatedRoomId)
                 } else {
-                    console.log('No user ID found')
+                    // console.log('No user ID found')
                 }
             }
         }   
         else{
-            console.log('No Id Found');
+            // console.log('No Id Found');
             
         }
 
@@ -179,7 +179,7 @@ console.log(users.map((x:any) => x[0]))
                     
                     
                 } catch (error) {
-                    console.log('Error while getting chat history',error); 
+                    // console.log('Error while getting chat history',error); 
                 }
         }
     }
@@ -199,11 +199,11 @@ console.log(users.map((x:any) => x[0]))
 
     // Clicking Send Button Logic
     const handleSendMessageClick = async () => {
-        console.log('handleSendMessageClick called');
-        console.log('wss:', wss);   
+        // console.log('handleSendMessageClick called');
+        // console.log('wss:', wss);   
 
         if(!wss || wss.readyState !== WebSocket.OPEN){
-            console.log('wss is not yet set or not open')
+            // console.log('wss is not yet set or not open')
             return;
         }
 
@@ -230,16 +230,16 @@ console.log(users.map((x:any) => x[0]))
                 throw new Error('Error while sending message');
             }
             if (isConnected && wss && wss.readyState === WebSocket.OPEN) {
-                console.log('Sending message:', payload);
+                // console.log('Sending message:', payload);
                 wss.send(JSON.stringify(payload));
-                console.log('wss:', wss,'Sent');    
+                // console.log('wss:', wss,'Sent');    
             }
             const jsonResponse = await response.json()
             setMessage('');
             
             await getMessageHistory(roomId)
         } catch (error) {
-            console.error(error);
+            // console.error(error);
         }
     };
 
@@ -256,16 +256,16 @@ console.log(users.map((x:any) => x[0]))
 
                 if(getUsers.status === 400){
                     setUsers([])
-                    console.log();
+                    // console.log();
                     
                     return
                 }
                 const searchedUsers = await getUsers.json()
                 // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
-                console.log(searchedUsers);
+                // console.log(searchedUsers);
                 setUsers(searchedUsers.searchedUsers) 
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 setUsers([])
                 return
             }                

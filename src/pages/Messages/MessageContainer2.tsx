@@ -47,11 +47,11 @@ const MessageContainer2 = () => {
         if(userId && id){
             const generatedRoomId:string = (id.slice(-4)+userId.slice(-4)).split("").sort().join("")
             setRoomId(generatedRoomId)
-            console.log('generatedRoomId:',generatedRoomId);
+            // console.log('generatedRoomId:',generatedRoomId);
             return generatedRoomId
         }
         else{
-            console.log('No user ID found')
+            // console.log('No user ID found')
         }
     }
 
@@ -77,7 +77,7 @@ const MessageContainer2 = () => {
     const clickingUserCard = async function(usersId:string){
         const ID:string | undefined = createRoomId(usersId)
         setReceiverId(usersId)
-        console.log('Receiver ID',ID);
+        // console.log('Receiver ID',ID);
         if(ID){
             getChatHistory(ID)  
         }
@@ -86,7 +86,7 @@ const MessageContainer2 = () => {
     // Clicking send button logic
     const sendMessage = async function(){
         if(ws && ws.readyState === WebSocket.OPEN){
-            console.log('Sending message',typedMessage);
+            // console.log('Sending message',typedMessage);
             
 
 
@@ -98,7 +98,7 @@ const MessageContainer2 = () => {
                 recieverId: receiverId
               }));
 
-              console.log('Message sent: ',typedMessage);
+            //   console.log('Message sent: ',typedMessage);
 
               setTypedMessage('')
 
@@ -114,11 +114,11 @@ const MessageContainer2 = () => {
                 })
               })
               const data = await response.json()
-              console.log(data);
+            //   console.log(data);
             //   await getChatHistory(roomId)
         }
         else{
-            console.log('Connection is not open');
+            // console.log('Connection is not open');
         }
     }
 
@@ -133,7 +133,7 @@ const MessageContainer2 = () => {
                 body: JSON.stringify({search: inputValue, id:userId})
             })
             const searchedUsers = await getUsers.json()
-            console.log(searchedUsers)
+            // console.log(searchedUsers)
             // setUsers(searchedUsers.data)
         }
         //console.log(e.target.textContent)
@@ -153,27 +153,27 @@ const MessageContainer2 = () => {
                 type:'join',
                 userId: userId
               }));
-            console.log('Socket is open');
+            // console.log('Socket is open');
         }
 
         wss.onerror = (error)=>{
-            console.log('Websocket error ',error);      
+            // console.log('Websocket error ',error);      
         }
 
         wss.onmessage = async (event) => {
             try {
                 const message = event.data
-                console.log(message);
+                // console.log(message);
                 setChatHistory((prevChatHistory) => [...prevChatHistory, message]); // Pushing message to chat history
                 await getChatHistory(roomId) // Getting chat history
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 
             }
         }
 
         wss.onclose = (event)=>{
-            console.log('Connection is closed');
+            // console.log('Connection is closed');
         }
     },[roomId,userId,receiverId])
 

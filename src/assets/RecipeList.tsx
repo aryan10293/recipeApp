@@ -65,19 +65,19 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
     const setFollowedArray = async function() {
         try {
             let array: Recipe[] = recipes?.post || [];
-            console.log('Followings:', followings);
+            // console.log('Followings:', followings);
         
             const arr = array.filter((recipe: Recipe) => {
                 // const id:string = recipe.userWhoPostId
-                console.log(array, 'big time rush')
+                // console.log(array, 'big time rush')
                 const isFollowed = (followings as string[])?.includes(recipe.userWhoPostId); 
-                console.log('Is Followed:', isFollowed);
+                // console.log('Is Followed:', isFollowed);
                 return isFollowed;
             });
     
             if(arr){
-                console.log(arr.length);
-                console.log(recipeNumber);
+                // console.log(arr.length);
+                // console.log(recipeNumber);
                 
                 if(arr?.length-recipeNumber<=0){
                     let array:Recipe[] = arr.slice(0,arr?.length)
@@ -85,13 +85,13 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
                 }
                 else{
                     let array:Recipe[] = arr?.slice(arr?.length-recipeNumber,arr?.length)
-                    console.log(array);
+                    // console.log(array);
                     
                     setRenderedFollowedArray(array)
                 }
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
     
@@ -112,7 +112,7 @@ const RecipeList:React.FC<RecipeListProps> = ({url,recipeNumber,userId,showAllPo
             }  
             }  
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
       }
 

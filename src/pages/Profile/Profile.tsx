@@ -7,7 +7,7 @@ interface UserId{
 
 
 const Profile:React.FC<UserId> = ({user}) => {
-    console.log(user)
+    // console.log(user)
     const [userId, setUserId] =  useState<string>(user[0]._id)
     const [bio, setBio] = useState<string>(user[0].bio)
     const [cookingStyle, setCookingStyle] = useState<string>(user[0].cookingStyle)
@@ -48,7 +48,7 @@ const Profile:React.FC<UserId> = ({user}) => {
     };
     // add this function to the input element for the file as a onchange function
     const handleProfilePic = async (e:any) => {
-        console.log(e.currentTarget.files[0])
+        // console.log(e.currentTarget.files[0])
         const img:any = await convertBase64(e.currentTarget.files[0])
         setProfilePic(img)
     }
@@ -67,7 +67,7 @@ const Profile:React.FC<UserId> = ({user}) => {
             body: JSON.stringify(profileUpdate)
         })
          const lmao = await updatingProfile.json()
-         console.log(profileUpdate)
+        //  console.log(profileUpdate)
     }
     return ( 
         <div>

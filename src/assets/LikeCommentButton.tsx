@@ -45,7 +45,7 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
             setLikeNum(comment.likes.length)
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -61,7 +61,7 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
                 throw new Error('postId is undefined')
             }
             
-            console.log('userId: ',payload.userId,'commentId: ',commentId)
+            // console.log('userId: ',payload.userId,'commentId: ',commentId)
             const response2 = await fetch(`https://recipeapp-22ha.onrender.com/addliketocomment/${commentId}`,
                 {
                     method:'PUT',
@@ -76,10 +76,10 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
             }
             setCommentIsLiked(true)
             likeNumber()
-            console.log('comment is liked:',commeIsLiked)
+            // console.log('comment is liked:',commeIsLiked)
 
         } catch (error) {
-            console.error(error)
+            // console.error(error)
         }              
     }
 
@@ -95,7 +95,7 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
                 throw new Error('postId is undefined')
             }
             
-            console.log('userId: ',payload.userId,'commentId: ',commentId)
+            // console.log('userId: ',payload.userId,'commentId: ',commentId)
             const response2 = await fetch(`https://recipeapp-22ha.onrender.com/unlikecomment/${commentId}`,
                 {
                     method:'PUT',
@@ -108,13 +108,13 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
             if(!response2.ok){
                 throw Error('Problem with deducting like from comment')
             }
-            console.log('Comment like is withdrawn'); 
+            // console.log('Comment like is withdrawn'); 
             setCommentIsLiked(false)
             likeNumber() 
-            console.log('comment is liked:',commeIsLiked)
+            // console.log('comment is liked:',commeIsLiked)
             
         } catch (error) {
-            console.error(error)
+            // console.error(error)
         }           
     }
 
@@ -125,10 +125,10 @@ const LikeCommentButton:React.FC<LikeCommentButtonProps> = ({likeLength,commentI
             const likes = comment.comments[postIndex].likes.length
 
             setLikeNum(likes)
-            console.log('comment is liked:',commeIsLiked)
+            // console.log('comment is liked:',commeIsLiked)
             
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 

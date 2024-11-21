@@ -81,7 +81,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             // console.log(usersRecipesArray);
             
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -116,7 +116,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                 alert(data.message)
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
 
      }
@@ -138,12 +138,12 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         try {
             const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${id}`)
             const data = await response.json()
-            console.log('data: ',data.post[0]);
+            // console.log('data: ',data.post[0]);
             const recipe = data
             
             navigate('/recipe',{state:{recipe:recipe}})
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             
         } 
     }
@@ -181,7 +181,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
      };
     
     useEffect(()=>{
-        console.log('ID',userId);
+        // console.log('ID',userId);
         
         getUsersRecipes()
     },[])
@@ -233,9 +233,9 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             setconvertedImage(userImage)
             setNewUsername(userUsername)
 
-            console.log('Data is fetched and set');
+            // console.log('Data is fetched and set');
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }        
     }
 
@@ -246,17 +246,17 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
             setIsEditingDetails(true)
         }
         else{
-            console.log('Data to see 0: ',detailData);
+            // console.log('Data to see 0: ',detailData);
             await handleDetailsUpload()
             await fetchCardDetails()
-            console.log('Data to see 2: ',detailData);
+            // console.log('Data to see 2: ',detailData);
             setIsEditingDetails(false)
         }      
     }
 
     // Sends user data update PUT request
     const handleDetailsUpload = async function(){
-        console.log('Data to see 1: ',detailData);
+        // console.log('Data to see 1: ',detailData);
         
         try {
             const response = await fetch(`https://recipeapp-22ha.onrender.com/updateprofile/${userId}`,{
@@ -270,9 +270,9 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                 throw new Error('Error while saving details data')
             }
             const data = await response.json()
-            console.log('Success! Details are updated',data);   
+            // console.log('Success! Details are updated',data);   
         } catch (error) {
-            console.log(error);  
+            // console.log(error);  
         }
     }
 
@@ -381,7 +381,7 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
         const response = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${userId}`)
         const data = await response.json()
         const userBio = data.user[0].bio
-        console.log('Bio is fetched');
+        // console.log('Bio is fetched');
         setNewBio(userBio)
     }
 
@@ -421,11 +421,11 @@ const EditProfileCard:React.FC<ProfileCardProps> = ({
                 throw new Error('Error while saving bio data')
             }
             const data = await response.json()
-            console.log('Success! Bio is updated',data);
+            // console.log('Success! Bio is updated',data);
             await fetchBio()
             
         } catch (error) {
-            console.log(error);  
+            // console.log(error);  
         }
     }
 

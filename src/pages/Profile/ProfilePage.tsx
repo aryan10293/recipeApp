@@ -28,10 +28,10 @@ const ProfilePage = () => {
     const {userBio:userBio,userAccountAge:userAccountAge,userDob:userDob,userCookingStyle:userCookingStyle,userProfilePicture:profilePicture,userUsername:userName,userFirstName:firstName,userLastName:lastName,userEmail:email,userCountry:country,userCookingSkill:cookingSkill,userFollowerNum:userFollowerNum,userFollowingNum:userFollowingNum} = useGetUserDataFromId(userID)
     
     useEffect(()=>{
-        console.log(userDob,userName,userID);
+        // console.log(userDob,userName,userID);
         
     },[])
-    console.log(country,'looking for this', userDob, useGetUserDataFromId(userID))
+    // console.log(country,'looking for this', userDob, useGetUserDataFromId(userID))
 
     return ( 
 

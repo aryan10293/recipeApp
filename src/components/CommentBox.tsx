@@ -42,13 +42,13 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
                 }
 
                 const data = await response.json()
-                console.log('Sucess! Data: ',data,postBody)
+                // console.log('Sucess! Data: ',data,postBody)
                 setPostContent("")
                 await handleNewComment()
                 
 
         } catch (error) {
-            console.log('Issue with creating comment',error)
+            // console.log('Issue with creating comment',error)
         }
     }
 
@@ -56,7 +56,7 @@ const CommentBox:React.FC<CommentsProps> = ({classs2,classs4,postId,handleNewCom
         try {
             await sendCommentHandle()
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 

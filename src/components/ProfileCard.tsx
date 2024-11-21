@@ -69,7 +69,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
             if(!recipeResponse.ok){
                 throw new Error('Response is not okay')
             }
-            console.log('User Id: ',userID);
+            // console.log('User Id: ',userID);
             
             const recipeList = await recipeResponse.json()
             const usersRecipesArray:RecipeCard[] = await recipeList.post.filter((recipe:any)=>{
@@ -78,10 +78,10 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
 
             setUsersRecipes(usersRecipesArray)
             isRecipePending(false)
-            console.log(usersRecipesArray);
+            // console.log(usersRecipesArray);
             
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 
@@ -109,12 +109,12 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
         try {
             const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${id}`)
             const data = await response.json()
-            console.log('data: ',data.post[0]);
+            // console.log('data: ',data.post[0]);
             const recipe = data
             
             navigate('/recipe',{state:{recipe:recipe}})
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 
@@ -158,7 +158,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
 
     useEffect(()=>{
         getUsersRecipes()
-        console.log("Followers: ",userFollowerNum)
+        // console.log("Followers: ",userFollowerNum)
     },[])
 
     const followUserButtonStyle:React.CSSProperties = {

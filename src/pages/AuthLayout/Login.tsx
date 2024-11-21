@@ -24,13 +24,13 @@ function Login() {
                 window.localStorage.setItem('token', HandleLogin.token) 
                 window.location.href = '/feed'
             } else {
-                console.log(HandleLogin, 'failure')
+                // console.log(HandleLogin, 'failure')
                 new Error('Cannot login')
                 
             }
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             alert('Issue with credentials!')
         }
     }

@@ -11,7 +11,7 @@ interface IProps {
 const CommentItem: React.FC<IProps> = ({ timeOfPost, commentorId, comment, likes }) => {
     const params = useParams()
     const id = params.id
-    console.log(id)
+    // console.log(id)
     const [commentorName , setCommentorName] = React.useState<string>('')
     
     React.useEffect(() => {

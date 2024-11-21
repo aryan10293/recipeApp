@@ -15,7 +15,7 @@ export const UserProvider:React.FC<UserContextProps> = ({children}) =>{
                 const token = localStorage.getItem('token')
                 if(!token){
                     setLoading(false)
-                    console.log('No token found')    
+                    // console.log('No token found')    
                     return
                 }
 
@@ -25,10 +25,10 @@ export const UserProvider:React.FC<UserContextProps> = ({children}) =>{
                 } 
                 const data = await response.json()
                 setUser(data.userinfo[0]._id)
-                console.log('Logged In User ID: ',data.userinfo[0]._id);
+                // console.log('Logged In User ID: ',data.userinfo[0]._id);
                 
             } catch (error) {
-                console.error('Error with fetching the user/token',error);
+                // console.error('Error with fetching the user/token',error);
             }
             finally{
                 setLoading(false)

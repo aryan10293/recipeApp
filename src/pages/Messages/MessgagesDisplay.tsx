@@ -41,16 +41,16 @@ interface UserId{
           }));         
         }; 
         ws.onmessage = (event) => {
-          console.log(`Message from server: ${event.data}`);
+          // console.log(`Message from server: ${event.data}`);
           getMessageHistory()
         };
 
         ws.onclose = () => {
-          console.log('WebSocket connection closed');
+          // console.log('WebSocket connection closed');
         };
 
         ws.onerror = (error) => {
-          console.error('WebSocket error:', error);
+          // console.error('WebSocket error:', error);
         };
 
         getMessageHistory()
@@ -88,14 +88,14 @@ const sendMessage = async (e:any) => {
         ws.send(JSON.stringify(message))
         getMessageHistory() 
       } else {
-        console.log(messageFromDatabase.message)
+        // console.log(messageFromDatabase.message)
       }
 
     };
 
   ws.onmessage = (event) => {
     // i dont think this does anything
-      console.log(`Message from server:`, event.data);
+      // console.log(`Message from server:`, event.data);
     }
 }
 

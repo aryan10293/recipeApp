@@ -53,22 +53,22 @@ function Register() {
         const createUserRequestInfo = await createUser.json()
         if(createUserRequestInfo.status === '200'){
             alert('Succesful registration!')
-            console.log(createUserRequestInfo)
-            console.log(createUser)
+            // console.log(createUserRequestInfo)
+//             console.log(createUser)
             window.location.href = '/login'
         } else {
             alert('there was an error')
         }
-        console.log('Sent registration data: ',registerInfo);
-        console.log('Created user data: ',createUserRequestInfo)
+        // console.log('Sent registration data: ',registerInfo);
+        // console.log('Created user data: ',createUserRequestInfo)
         
         
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
 
         useEffect(()=>{
-            console.log(username);
+            // console.log(username);
             
         },[username])
        

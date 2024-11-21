@@ -43,12 +43,12 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
 
         // e.preventDefault()
         if(newIngredient === ""){
-            console.log('Cannot be empty')
+            // console.log('Cannot be empty')
         }
         else{
             getItemFromNutritionApi()
-            console.log("Adding ingredient: " + newIngredient + newMeasurement)
-            console.log(ingredientListToTrackMacros)
+            // console.log("Adding ingredient: " + newIngredient + newMeasurement)
+            // console.log(ingredientListToTrackMacros)
             setIngredients([...ingredients,newIngredient])
             setNewIngredient("")
         }   
@@ -75,7 +75,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         }
 
         ingredientToDelete.forEach(Reflect.deleteProperty.bind(null, dupOfIngredientListToTrackMacros));
-        console.log(`deleted ${ingredients[index]}`, dupOfIngredientListToTrackMacros)
+        // console.log(`deleted ${ingredients[index]}`, dupOfIngredientListToTrackMacros)
 
         setIngredients(ingredients.filter((ingredient,i)=>{
             return i !== index
@@ -189,7 +189,7 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
             servings:servings,
             perServingMacros: perServingMacros
         }
-        console.log(newRecipe)
+        // console.log(newRecipe)
 
         fetch("https://recipeapp-22ha.onrender.com/createrecipe",{
             method:"POST",
@@ -207,12 +207,12 @@ const CreateRecipe:React.FC<classNameProps> = ({className,className2,className3}
         })
         .then((data)=>{
             setData(data)
-            console.log("Success!",data)
+            // console.log("Success!",data)
             setIsPending(false);
             window.location.reload()
         })
         .catch((err)=>{
-            console.log("Failed",err.message)
+            // console.log("Failed",err.message)
         })
             
     }

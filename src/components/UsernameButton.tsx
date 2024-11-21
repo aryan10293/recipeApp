@@ -4,7 +4,7 @@ interface UserNameButtonProps{
 }
 
 const UserNameButton:React.FC<UserNameButtonProps> = ({text}) => {
-console.log(text)
+// console.log(text)
     const handleClick = async function(){
         try {
             const token =  localStorage.getItem("token")
@@ -12,7 +12,7 @@ console.log(text)
             const userData = await user.json()
             const userId = userData.userinfo[0]._id    
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 

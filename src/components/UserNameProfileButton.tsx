@@ -36,14 +36,14 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
             setPosterUsername(userName)
             setPending(false)
         } catch (error) {
-            console.log('Error while fetching the user/username',error)
+            // console.log('Error while fetching the user/username',error)
             setPending(false)
         }
     }
 
     // Finding the recipe owner if no commentorId is present
     const findRecipeOwner = async function(){
-        console.log(postsId)
+        // console.log(postsId)
         try {
             setPending(true)
             const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${postsId}`)
@@ -51,7 +51,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
                 throw new Error('Failed to fetch user data')
             }
             const data = await response.json()
-            console.log(data)
+            // console.log(data)
             if(!data){
                 throw new Error('Recipe is not found')
             }
@@ -72,7 +72,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
             setPosterUsername(recipeOwnerUsername)
             setPending(false)
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             setPending(false)
         }
     }
@@ -88,7 +88,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
                 findRecipeOwner()
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             setPending(false)
         }
     }
@@ -102,7 +102,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
             e.stopPropagation()
             navigate('/profile',{state:{userID:posterId}})
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 

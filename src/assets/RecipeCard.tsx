@@ -115,7 +115,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
                     setCommentNum(commentses.length)
                     setComments(commentses);
             } catch (error) {
-                console.log('Could not get comments for the post: ',error)
+                // console.log('Could not get comments for the post: ',error)
             }
           };
         
@@ -158,12 +158,12 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
                 await fetchComments()
                 
             } catch (error) {
-                console.log(error)
+                // console.log(error)
             }
         };
 
           const renderAllUserComments = function(){
-            console.log('Comments are rendered')
+            // console.log('Comments are rendered')
             return comments?.map((comment:Comments,index:number)=>(
                 
               <CommentList 
@@ -199,9 +199,9 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
                 if(!data){
                     throw new Error('Failed to fetch delete API. Response data is not ok')
                 }
-                console.log(data);
+                // console.log(data);
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 
             }
 
@@ -211,7 +211,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
 
          const handleCardFace = (e:MouseEvent)=>{
             e.stopPropagation()
-            console.log(showNutritions)
+            // console.log(showNutritions)
              showNutritions  ? setShowNutritions(false) : setShowNutritions(true)
          }
 

@@ -41,7 +41,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
     const navigate = useNavigate()
 
     useEffect(()=>{
-        console.log("recipe: ",recipe.post[0].likes.length);
+        // console.log("recipe: ",recipe.post[0].likes.length);
         
     },[recipe])
 
@@ -81,7 +81,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
     }     
 
     const renderAllUserComments = function(){
-        console.log(datas)
+        // console.log(datas)
         return datas.map((comment:Comments,index:number)=>(
             
           <CommentList 
@@ -101,10 +101,10 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
          ))
      }
     useEffect(()=>{
-        console.log(recipe.likes);
+        // console.log(recipe.likes);
     },)
     useEffect(()=>{
-        console.log(recipe.post[0].perServingMacros, 'loasjhbviu');
+        // console.log(recipe.post[0].perServingMacros, 'loasjhbviu');
         
     },[recipe.post[0]._id])
     return ( 

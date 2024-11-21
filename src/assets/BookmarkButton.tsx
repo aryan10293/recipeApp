@@ -56,19 +56,19 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
                 throw new Error('Could not bookmark')
             }
             
-            console.log('Success!',response, 'User ID: ',userId);
+            // console.log('Success!',response, 'User ID: ',userId);
             alert('Recipe saved')
             await fetchBookmarks()
              
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 
     const unBookmarkRecipe = async () => {
         try {
-            console.log('Beginning of unbookmarking');
-            console.log(userId,postId);
+            // console.log('Beginning of unbookmarking');
+            // console.log(userId,postId);
             
             const response = await fetch(`https://recipeapp-22ha.onrender.com/unbookmark/${userId}`,{
                 method:"PUT",
@@ -80,12 +80,12 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
                 throw new Error('Could not remove bookmark')
             }
             
-            console.log('Success! Recipe is unbookmarked',response, 'User ID: ',userId);
+            // console.log('Success! Recipe is unbookmarked',response, 'User ID: ',userId);
             alert('Recipe unsaved')
             await fetchBookmarks()
            
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -99,7 +99,7 @@ const BookmarkButton:React.FC<PostId> = ({postId, userId})=> {
     const handleBookmark = async function(e:React.MouseEvent){
         e.stopPropagation()
         const bookmarked:boolean | undefined = await checkIfRecipeIsBookmarked()
-        console.log(bookmarked);
+        // console.log(bookmarked);
         
         if(!bookmarked){
             bookmarkRecipe()
