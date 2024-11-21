@@ -7,7 +7,7 @@
 
 </a>
 
-An app to help find your cooking needs and connect with other chefs or hobbyist!
+An app to help find your cooking needs and connect with other chefs or hobbyists!
 
 
 ## Tech used:
