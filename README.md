@@ -21,6 +21,8 @@ Platform to help connect athletes!
 ![EXPRESS BADGE](https://img.shields.io/static/v1?label=|&message=EXPRESS&color=bbb111&style=plastic&logo=express)
 ![MONGODB BADGE](https://img.shields.io/static/v1?label=|&message=MONGODB&color=cdd148&style=plastic&logo=mongodb)
 ![WEBSOCKET BADGE](https://img.shields.io/static/v1?label=|&message=WEBSOCKET&color=7289DA&style=plastic&logo=websocket)
+![VERCEL BADGE](https://img.shields.io/static/v1?label=|&message=VERCEL&color=cdd148&style=plastic&logo=vercel)
+![RENDER BADGE](https://img.shields.io/static/v1?label=|&message=RENDER&color=7289DA&style=plastic&logo=render)
 
 
 
