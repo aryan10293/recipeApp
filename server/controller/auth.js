@@ -18,7 +18,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = __importDefault(require("../model/user"));
 let auth = {
     postCreateAccount: (req, res, next) => {
-        console.log(req.body);
         const validationErrors = [];
         const validEmail = {
             msg: "Please enter a valid email address."
@@ -71,7 +70,7 @@ let auth = {
                     if (err) {
                         return next(err);
                     }
-                    const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+                    const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1m' });
                     res.send({ token, newUser: user, status: '200' });
                 });
             });
@@ -111,7 +110,7 @@ let auth = {
                     return next(err);
                 }
                 req.flash("success", { msg: "Success! You are logged in." });
-                const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+                const token = jsonwebtoken_1.default.sign({ sub: user._id }, process.env.SECRET_KEY);
                 res.status(200).send({ token, newUser: user, status: '200' });
             });
         })(req, res, next);
@@ -130,18 +129,21 @@ let auth = {
     checkUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         jsonwebtoken_1.default.verify(req.params.id, process.env.SECRET_KEY, (err, decoded) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
-                res.status(401).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
+                res.status(400).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
             }
             else {
                 const userId = decoded.sub;
                 let thisIsAwe = yield user_1.default.find({ _id: userId });
-                res.status(200).json({ success: true, message: 'lebron james is elite', userinfo: thisIsAwe });
+                res.status(200).json({ success: true, message: 'success', userinfo: thisIsAwe });
             }
         }));
     }),
     getUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield user_1.default.find({ _id: req.params.id });
         res.status(200).json({ user: user });
-    })
+    }),
+    test: (req, res) => {
+        res.send('hello world');
+    }
 };
 exports.default = auth;

@@ -22,17 +22,17 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
     const [isFollowed,setIsFollowed] = useState<boolean>()
 
     // Setting the payload for following
-    const payload:{} = {
+    const payload:any = {
         personToFollow: userId
     }
 
     // Check if the owner of the post is followed or not
     const checkIfPersonIsFollowed = async function(){
-        const response = await fetch(`http://localhost:2030/getuserbyid/${userId}`)
+        const response = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${userId}`)
         const userData =  await response.json()
         const followedUsersList:string[] = userData.user[0].followings
         const isItFollowed = followedUsersList.includes(personToFollow)
-
+        
         if(isItFollowed){
             setIsFollowed(true)
         }
@@ -53,7 +53,7 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
             setPending(true)
             console.log(userId,' is following ',payload);
     
-            const response = await fetch(`http://localhost:2030/unfollow/${personToFollow}`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/unfollow/${personToFollow}`,{
                 method: 'PUT',
                 headers:{
                     'Content-Type':'application/json'
@@ -82,12 +82,12 @@ const FollowUserButton:React.FC<followUserButtonProps> = ({personToFollow,follow
             setPending(true)
             console.log(userId,' is following ',payload);
     
-            const response = await fetch(`http://localhost:2030/follow/${personToFollow}`,{
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/follow/${personToFollow}`,{
                 method: 'PUT',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({personToFollow: payload.personToFollow})
             })
             console.log(response);
             

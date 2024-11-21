@@ -12,9 +12,9 @@ import configurePassport from "./config/passport.js";
 import dotenv from "dotenv";
 import * as bodyParser from 'body-parser';
 import WebSocket, { WebSocketServer } from 'ws';
-const wss = new WebSocketServer({ port: 2040 });
 const app = express();
 const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
 const MongoStore = connectMongo(session);
 
 let router: Router = express.Router();
@@ -112,6 +112,6 @@ wss.on('connection', (ws) => {
 });
 
 
-app.listen(process.env.PORT, () => {
-  console.log("Server is running, you better catch it! on " + process.env.PORT);
+server.listen(process.env.PORT || 2040, () => {
+  console.log(`Server is running, you better catch it! on ${process.env.PORT || 2040}`);
 });

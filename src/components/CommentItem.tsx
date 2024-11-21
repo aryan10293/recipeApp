@@ -16,7 +16,7 @@ const CommentItem: React.FC<IProps> = ({ timeOfPost, commentorId, comment, likes
     
     React.useEffect(() => {
         const getCommentorName = async() => {
-            const getName = await fetch (`http://localhost:2020/getuserbyid/${commentorId}`, {
+            const getName = await fetch (`https://recipeapp-22ha.onrender.com/getuserbyid/${commentorId}`, {
                 method:'GET',
                 headers: {'Content-Type': 'application/json'}
             })

@@ -29,7 +29,7 @@ let feed = {
             }
             
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     getAllPost: async(req: Request, res: Response) => {
@@ -41,7 +41,7 @@ let feed = {
                 res.status(200).json({success: '200', post:post})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     getPost: async(req: Request, res: Response) => {
@@ -53,7 +53,7 @@ let feed = {
                 res.status(200).json({success: '200', post:post})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     addLikeToPost: async(req: Request, res: Response) => {
@@ -62,14 +62,13 @@ let feed = {
                 {$push:{likes: req.body.userId}},
                 {new : true}
             )
-                console.log(postToAddALikeToo)
             if(!postToAddALikeToo){
                 return res.status(400).json({status:'400', message:"post was not liked, please try again"})
             } else {
                 return res.status(200).json({status:'200', message:"post was liked successfully"})
             }
         } catch (error) {
-           console.log(error) 
+           console.error(error) 
         }
     },
     unlikePost: async(req: Request, res: Response) => {
@@ -84,7 +83,7 @@ let feed = {
                 res.status(200).json({status:'200', message:"unliking post was successful"})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     commentRecipe: async(req: Request, res: Response) => {
@@ -101,7 +100,7 @@ let feed = {
                 return res.status(200).json({ status:'200', message:'comment was sucessfully posted'});
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     getComments: async (req: Request,res: Response) => {
@@ -124,7 +123,7 @@ let feed = {
                 return res.status(200).json({ status:'200', message:'like was successfully added'});
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     unlikeComment: async(req: Request, res: Response) => {
@@ -133,14 +132,14 @@ let feed = {
                 {$pull:{likes: req.body.userId}},
                 {new : true}
             )
-            console.log(removeLike)
+            console.error(removeLike)
             if(!removeLike){
                 return res.status(400).json({status:'400', message:'failed to remove like'})
             } else {
                 return res.status(200).json({ status:'200', message:'removing like was successfully added'});
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     bookmark: async(req: Request, res: Response) => {
@@ -155,7 +154,7 @@ let feed = {
                     res.status(200).json({status:'200', message:"bookmark was successfully added"})
                 }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     unbookmark: async(req: Request, res: Response) => {
@@ -170,7 +169,7 @@ let feed = {
                     res.status(200).json({status:'200', message:"bookmark was successfully removed"})
                 }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     deletePost: async(req:Request, res:Response) => {
@@ -190,7 +189,7 @@ let feed = {
                 res.status(200).json({status:'200', message:'post was deleted'})
             }
         } catch (error) {
-            console.log('error deleting item', error)
+            console.error('error deleting item', error)
         }
     }
     

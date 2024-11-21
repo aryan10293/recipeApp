@@ -4,11 +4,11 @@ interface UserNameButtonProps{
 }
 
 const UserNameButton:React.FC<UserNameButtonProps> = ({text}) => {
-
+console.log(text)
     const handleClick = async function(){
         try {
-            const token =  await localStorage.getItem("token")
-            const user = await fetch(`http://localhost:2030/getuser/${token}`)
+            const token =  localStorage.getItem("token")
+            const user = await fetch(`https://recipeapp-22ha.onrender.com/getuser/${token}`)
             const userData = await user.json()
             const userId = userData.userinfo[0]._id    
         } catch (error) {

@@ -20,7 +20,7 @@ let search = {
                returnData(getSearchData) 
             break;
 
-            case 'cooks':    // this option:'i' allows us to search for case insensitive  atleast bthatsb what chatgot was teaching me
+            case 'cooks':  
                 getSearchData = await User.find({userName: { $regex: searchText, $options: "i" }})
                 returnData(getSearchData) 
             break;
@@ -36,7 +36,6 @@ let search = {
             break;
 
             case 'other':
-                // trying search through two collection and asked chat gippity to make the logic 
                 const [post, user] = await Promise.all([
                     Post.find({ steps: { $regex: searchText, $options: "i" } }),  
                     User.find({ bio: { $regex: searchText, $options: "i" } })   
@@ -53,7 +52,6 @@ let search = {
         const searchQuery:any = {}
         const arr:string[] = Object.keys(req.body)
         const cal:number = Number(req.body.maxCal)
-        // chat gpt was telling me to use these to make the searchQuery object type specific but i just used any to save the headache
         type IngredientCondition = {
             ingridentList: { $regex: RegExp } | { $nin: { $regex: RegExp } };
         };
@@ -64,7 +62,6 @@ let search = {
             "perServingMacros.protein": number, 
             $and?: IngredientCondition[]
         } 
-        // chat gpt was telling me to use these to make the searchQuery object type specific but i just used any to save the headache
         for(let i:number = 0; i < arr.length; i++){
             if(req.body[arr[i]] === false && i>4){
                 searchQuery[arr[i]] =  { $lte: req.body[arr[i]] }
@@ -95,33 +92,9 @@ let search = {
                 res.status(200).json({status:'200', meals:meals})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
             res.status(400).json({error:error})
         }
     }
 }
 export default search
-
-// const getUsersYouChatedWith = await message.find({
-//                 "$or": [
-//                     {recieverId:req.body.id},
-//                     {senderId:req.body.id}
-//                 ]
-//             })
-
-// const dateBetweenDates = await Model.find({
-//     $and: [
-//       { From: { $gte: DateFrom } },
-//       { To: { $lte: DateTo } },
-//     ]
-//   })
-
-
-// can use below for the macros 
-// db.inventory.find ( { quantity: { $in: [40, 1000] } } )
-
-// const query = {
-//     "$and": searchTerms.map(term => ({
-//         [searchField]: { $regex: term, $options: "i" }  // Case-insensitive regex
-//     }))
-// };

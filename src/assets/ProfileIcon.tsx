@@ -4,7 +4,7 @@ import useUserId from "../Utils/useGetUserId";
 
 interface ProfileIconProps{
     img:string | undefined,
-    userId:string | undefined
+    userId:string | undefined | null
 }
 
 const ProfileIcon:React.FC<ProfileIconProps> = ({img,userId}) => {

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 interface PostLikeButtonProps{
     postId: string,
     userId:string
-    postLikes:string[]
+    postLikes:string[] | number | undefined
 }
 
 const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => {
@@ -32,7 +32,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
       
     const likeNumber = async function(){
         try {
-            const response = await fetch(`http://localhost:2030/getpost/${postId}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${postId}`)
             const post = await response.json()
             const likes = post.post[0].likes.length
             setLikeNum(likes)
@@ -48,7 +48,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
                 throw new Error('Post ID is not found while getting current like array')
             }
             
-            const response = await fetch(`http://localhost:2030/getpost/${postId}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${postId}`)
             if(!response.ok){
                 throw new Error('No response while fetching like array')
             }
@@ -75,7 +75,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
                 userId:userId,
             }
 
-            const response = await fetch(`http://localhost:2030/addliketopost/${postId}`,
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/addliketopost/${postId}`,
                 {
                     method:'PUT',
                     headers:{
@@ -110,7 +110,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
                 userId:userId,
             }
 
-            const response = await fetch(`http://localhost:2030/unlikepost/${postId}`,
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/unlikepost/${postId}`,
                 {
                     method:'PUT',
                     headers:{
@@ -162,7 +162,7 @@ const LikeButton:React.FC<PostLikeButtonProps> = ({postId,userId,postLikes}) => 
 
     const checkIfPostIsLiked = async () => {
         try {
-            const response = await fetch(`http://localhost:2030/getpost/${postId}`);
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${postId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch post data');
             }

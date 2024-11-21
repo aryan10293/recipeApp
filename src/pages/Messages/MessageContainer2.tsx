@@ -1,3 +1,4 @@
+import React, { KeyboardEventHandler } from 'react';
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 
@@ -35,7 +36,7 @@ const MessageContainer2 = () => {
 
     // Getting users
     const getUsers = async function name() {
-        const response = await fetch('http://localhost:2030/getusers')
+        const response = await fetch('https://recipeapp-22ha.onrender.com/getusers')
         const data = await response.json()
         const userArray:User[] = data.users
         setUsers(userArray)
@@ -56,7 +57,7 @@ const MessageContainer2 = () => {
 
    // Getting chat history array
     const getChatHistory = async (id:string) => {
-        const response = await fetch(`http://localhost:2030/getchatroommessages/${id}`)
+        const response = await fetch(`https://recipeapp-22ha.onrender.com/getchatroommessages/${id}`)
         const data = await response.json()
         setChatHistory(data.messages)
     }
@@ -77,7 +78,9 @@ const MessageContainer2 = () => {
         const ID:string | undefined = createRoomId(usersId)
         setReceiverId(usersId)
         console.log('Receiver ID',ID);
-        getChatHistory(ID)  
+        if(ID){
+            getChatHistory(ID)  
+        }
     }
 
     // Clicking send button logic
@@ -99,7 +102,7 @@ const MessageContainer2 = () => {
 
               setTypedMessage('')
 
-              const response = await fetch(`http://localhost:2030/createmessage`, {
+              const response = await fetch(`https://recipeapp-22ha.onrender.com/createmessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -120,14 +123,14 @@ const MessageContainer2 = () => {
     }
 
     // search for users we have already chatted with
-    const testing = (e:any) => {
+    const testing: KeyboardEventHandler<HTMLInputElement> = (e) => {
         clearTimeout(timeout)
-        console.log(e.target.value.trim().length)
+        const inputValue = (e.target as HTMLInputElement).value.trim()
          const findUser = async () => {
-            const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
+            const getUsers = await fetch(`https://recipeapp-22ha.onrender.com/searchforusers`, {
                 method:'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({search: e.target.value, id:userId})
+                body: JSON.stringify({search: inputValue, id:userId})
             })
             const searchedUsers = await getUsers.json()
             console.log(searchedUsers)
@@ -141,7 +144,7 @@ const MessageContainer2 = () => {
 
     useEffect(()=>{
         getUsers()
-        const wss = new WebSocket('ws://localhost:2040')
+        const wss = new WebSocket('wss://https://recipeapp-22ha.onrender.com')
         setWs(wss)
         wss.onopen = (event)=>{
             wss.send(JSON.stringify({

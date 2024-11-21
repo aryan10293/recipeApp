@@ -43,7 +43,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     getAllPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -57,7 +57,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     getPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -71,13 +71,12 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     addLikeToPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const postToAddALikeToo = yield post_1.default.findByIdAndUpdate(req.params.id, { $push: { likes: req.body.userId } }, { new: true });
-            console.log(postToAddALikeToo);
             if (!postToAddALikeToo) {
                 return res.status(400).json({ status: '400', message: "post was not liked, please try again" });
             }
@@ -86,7 +85,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     unlikePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -100,7 +99,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     commentRecipe: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -119,7 +118,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     getComments: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -142,13 +141,13 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     unlikeComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const removeLike = yield comments_1.default.findByIdAndUpdate(req.params.id, { $pull: { likes: req.body.userId } }, { new: true });
-            console.log(removeLike);
+            console.error(removeLike);
             if (!removeLike) {
                 return res.status(400).json({ status: '400', message: 'failed to remove like' });
             }
@@ -157,7 +156,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     bookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -171,7 +170,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     unbookmark: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -185,7 +184,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -200,7 +199,7 @@ let feed = {
             }
         }
         catch (error) {
-            console.log('error deleting item', error);
+            console.error('error deleting item', error);
         }
     })
 };

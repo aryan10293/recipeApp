@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import User from "../model/user";
 let auth = {
     postCreateAccount: (req, res, next) => {
-      console.log(req.body)
         //const validationErrors = [];
         interface Message {
             msg: string;
@@ -67,7 +66,7 @@ let auth = {
                 if (err) {
                   return next(err);
                 }
-                const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1h' });
+                const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1m' });
                 res.send(
                   { token, newUser: user, status:'200' }
                 )
@@ -115,7 +114,7 @@ let auth = {
               return next(err);
             }
             req.flash("success", { msg: "Success! You are logged in." });
-             const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , { expiresIn: '1h' })
+             const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY as string , ) //{ expiresIn: '1m' }
              res.status(200).send(
                   { token, newUser: user, status:'200' }
                 )
@@ -138,18 +137,21 @@ let auth = {
           if (err) {
             // Token is invalid or expired
             // Handle unauthorized access
-            res.status(401).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
+            res.status(400).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
           } else {
             const userId = decoded.sub;
             // Fetch user account data from the database based on userId
             let thisIsAwe = await User.find({_id: userId}) // user info if token is not expired
-            res.status(200).json({success: true, message:'lebron james is elite', userinfo: thisIsAwe})
+            res.status(200).json({success: true, message:'success', userinfo: thisIsAwe})
           }
         });
     },
     getUser: async (req,res) => {
       const user = await User.find({_id: req.params.id})
       res.status(200).json({user:user})
+    }, 
+    test: (req,res) => {
+      res.send('hello world')
     }
 }
 export default auth

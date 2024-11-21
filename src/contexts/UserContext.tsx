@@ -19,7 +19,7 @@ export const UserProvider:React.FC<UserContextProps> = ({children}) =>{
                     return
                 }
 
-                const response = await fetch(`http://localhost:2030/getuser/${token}`)
+                const response = await fetch(`https://recipeapp-22ha.onrender.com/getuser/${token}`)
                 if(!response.ok){
                     throw new Error('Issue with fetching!')
                 } 

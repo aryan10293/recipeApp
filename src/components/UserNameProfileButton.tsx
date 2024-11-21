@@ -21,7 +21,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
     const findCommentOwner = async function(id:string){
         try {
             setPending(true)
-            const response = await fetch(`http://localhost:2030/getuserbyid/${id}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${id}`)
             const user = await response.json()
             if(!response.ok){
                 throw new Error('Response is not okay. Could not fetch user.')
@@ -43,14 +43,15 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
 
     // Finding the recipe owner if no commentorId is present
     const findRecipeOwner = async function(){
+        console.log(postsId)
         try {
             setPending(true)
-            const response = await fetch(`http://localhost:2030/getpost/${postsId}`)
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/getpost/${postsId}`)
             if(!response.ok){
                 throw new Error('Failed to fetch user data')
             }
             const data = await response.json()
-            
+            console.log(data)
             if(!data){
                 throw new Error('Recipe is not found')
             }
@@ -61,7 +62,7 @@ const UserNameProfileButton:React.FC<UserNameButtonProps> = ({postsId,className,
                 throw new Error('Did not find the user who posted the recipe')
             }
             
-            const ownerResponse = await fetch(`http://localhost:2030/getuserbyid/${id}`) 
+            const ownerResponse = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${id}`) 
             const recipeOwnerData = await ownerResponse.json()
             if(!response.ok){
                 throw new Error('Did not find post owner')

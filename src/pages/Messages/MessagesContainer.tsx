@@ -22,6 +22,8 @@ interface Props{
     receiverId:string
 }
 
+
+
 const MessagesContainer = () => {
 
     const userId = useContext(UserContext) as string | null
@@ -51,7 +53,7 @@ const MessagesContainer = () => {
         }
         const socketHandle = function(){
         
-        const ws = new WebSocket('ws://localhost:2040')
+        const ws = new WebSocket('wss://recipeapp-22ha.onrender.com')
         setWss(ws)
 
         ws.onopen = (event)=>{
@@ -77,7 +79,7 @@ const MessagesContainer = () => {
         };
 
         ws.onerror = (error)=>{
-            console.log('Websocket error ',error);
+            console.log('Websocket error ','this shit hella weak',error);
         }
 
         ws.onclose = ()=>{
@@ -98,7 +100,9 @@ const MessagesContainer = () => {
     }, [partnerId,roomId])
 
     useEffect(()=>{
-        setPartnerId(receiverId.id)
+        if (receiverId.id) {
+            setPartnerId(receiverId.id);
+        }
         console.log('ReceiverId is: ',receiverId.id);
         
     },[])
@@ -106,34 +110,32 @@ const MessagesContainer = () => {
     // Getting users
         useEffect(() => {
             const lol = async () => {
-                const getMessagedUserHistory = await fetch(`http://localhost:2030/getuserchathistory`, {
+                const getMessagedUserHistory = await fetch(`https://recipeapp-22ha.onrender.com/getuserchathistory`, {
                     method:'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({id:userId})
                 })
                     const jsonGetMessagedUserHistory = await getMessagedUserHistory.json()
-                    // console.log(jsonGetMessagedUserHistory,'hey does this work')
-                    console.log(jsonGetMessagedUserHistory.chatHistory)
                     setUsers(jsonGetMessagedUserHistory.chatHistory)
                     // setUsers(jsonGetMessagedUserHistory.chatHistory.map((x:any) =>  x[0]))
                     // console.log('hello')
                 }
             lol()
         }, [userId])
-
+console.log(users.map((x:any) => x[0]))
     // Selecting user to chat with
     const clickingUserCard = function(usersId:string){
         setPartnerId(usersId)
-        console.log(usersId);         
+        console.log(usersId,userId,'looking for this');         
     }
 
     // Printing chat user list
     const printingUsernames = async function(){
         return(
-            <div>
-                {users?.map((user:User)=>(
+            <div className="lol">
+                {users?.map((user:any)=>(
                     <div key={user._id}>
-                        <button onClick={(e)=>clickingUserCard(user._id)} className="user-msg-btn"><UserIcons userName={user.userName} userProfilePic={user.profilePic} /></button>
+                        <button  onClick={(e)=>clickingUserCard(user[0]._id)} className={ `user-msg-btn`}><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))}
             </div>
         )
@@ -162,7 +164,7 @@ const MessagesContainer = () => {
     const getMessageHistory = async function(chatRoomId:string){
         if (chatRoomId.length > 0){
             try {
-                    const response = await fetch(`http://localhost:2030/getchatroommessages/${chatRoomId}`, {
+                    const response = await fetch(`https://recipeapp-22ha.onrender.com/getchatroommessages/${chatRoomId}`, {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
                     })
@@ -218,7 +220,7 @@ const MessagesContainer = () => {
     
         try {
     
-            const response = await fetch(`http://localhost:2030/createmessage`, {
+            const response = await fetch(`https://recipeapp-22ha.onrender.com/createmessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
@@ -244,25 +246,16 @@ const MessagesContainer = () => {
     // search for message feature
     const testing = (e:any) => {
         clearTimeout(timeout)
-         const findUser = async () => {          
-            try {
-                const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
-                    method:'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({search: e.target.value, id:userId})
-                })
-                if(!getUsers.ok){
-                    console.log('Fetching error',getUsers.status);
-                    setUsers([])
-                    return             
-                }
-                const searchedUsers = await getUsers.json()
-                // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
-                console.log(searchedUsers);
-                setUsers(searchedUsers.searchedUsers)  
-            } catch (error) {
-                console.log(error);
-            } 
+         const findUser = async () => {
+            const getUsers = await fetch(`https://recipeapp-22ha.onrender.com/searchforusers`, {
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({search: e.target.value, id:userId})
+            })
+            const searchedUsers = await getUsers.json()
+            // setUsers(searchedUsers.searchedUsers.map((x:any) =>  x[0]))
+            console.log(searchedUsers);
+            setUsers(searchedUsers.searchedUsers)                 
         }
 
         timeout = setTimeout(async() => {
@@ -277,20 +270,15 @@ const MessagesContainer = () => {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
       }, [chatHistory]); 
-      
     return ( 
         <div className="messages-container">
             <div className="w-1/4 flex flex-col overflow-auto">
                 <h4 className="text-md capitalize mb-1">search for messages</h4>
-                <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={(e)=>testing(e)} />
-                
-                {   
-                users.length === 0 ? <p>No users found</p> :
-                    userId &&
-                    users !== undefined && 
-                    users.length !== 0 && users?.map((user:[],index)=>(
+                <input className="bg-white w-[90%] mb-2 rounded-sm p-1 text-md" type="text" onKeyUp={testing} />
+                {   userId &&
+                    users !== undefined && users?.map((user:any,index)=>(
                     <div key={index}>
-                        <button onClick={()=>clickingUserCard(user[0]._id)} className="user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
+                        <button onClick={(e)=>clickingUserCard(user[0]._id)} className=" user-msg-btn"><UserIcons userName={user[0].userName} userProfilePic={user[0].profilePic} /></button>
                     </div>))
                 }
                 

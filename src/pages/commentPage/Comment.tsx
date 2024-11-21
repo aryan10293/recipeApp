@@ -161,7 +161,7 @@ function Comment() {
                 postComments.map( (x:any, i:any) => {
                     const getNameOfThatCommentedOnPost = async () => {
 
-                        const getCommentorName = await fetch(`http://localhost:2020/getuserbyid/${x.commentorId}`, {
+                        const getCommentorName = await fetch(`https://recipeapp-22ha.onrender.com/getuserbyid/${x.commentorId}`, {
                         method:'GET',
                         headers: {'Content-Type': 'application/json'},
                     })

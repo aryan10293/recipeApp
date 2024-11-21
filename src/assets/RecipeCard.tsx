@@ -27,7 +27,7 @@ import {motion} from 'framer-motion'
 
 interface RecipeCardProps{
     recipeName:string,
-    recipeImage:string,
+    recipeImage?:string,
     recipeTime:number,
     ingridientList:string[],
     steps?:string,
@@ -37,12 +37,12 @@ interface RecipeCardProps{
     _id:string,
     levelOfMeal:number,
     postIndex?:number
-    userID?:string | undefined,
+    userID?:any,
     userWhoPostId:string,
-    calories:string,
-    fats:string,
-    carbs:string,
-    protein:string
+    calories:string | number,
+    fats:string | number,
+    carbs:string | number,
+    protein:string | number,
     showFollow:boolean
     // showNutrition:(e:React.MouseEvent<HTMLButtonElement>)=>void;
 }
@@ -70,7 +70,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
 
         const handleClick = async function(){
 
-            setUrl(`http://localhost:2030/getpost/${_id}`)
+            setUrl(`https://recipeapp-22ha.onrender.com/getpost/${_id}`)
             
         }
 
@@ -98,7 +98,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
         }
           
         // Comment section
-        const {data:datas} = useFetch(`http://localhost:2030/getcommentsfrompost/${_id}`)
+        const {data:datas} = useFetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${_id}`)
         const [commentsVisbile,setCommentsVisible] = useState<boolean>(false)
         const [commentClassName,setCommentClassName] = useState<string>("invisible")
         const [commentClassName2,setCommentClassName2] = useState<string>("invisible")
@@ -109,7 +109,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
 
         const fetchComments = async():Promise<any> => {
             try {   
-                    const comms = await fetch(`http://localhost:2030/getcommentsfrompost/${_id}`)
+                    const comms = await fetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${_id}`)
                     const comms2 = await comms.json()
                     const commentses = comms2.comments
                     setCommentNum(commentses.length)
@@ -186,7 +186,7 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
          const deletePost= async function(e:React.MouseEvent){
             try {
                 e.stopPropagation()
-                const response = await fetch(`http://localhost:2030/deletepost/${_id}`,{
+                const response = await fetch(`https://recipeapp-22ha.onrender.com/deletepost/${_id}`,{
                     method:"DELETE",
                     headers:{
                         "Content-Type":"application/json"
@@ -211,7 +211,8 @@ const RecipeCard:React.FC<RecipeCardProps> = ({showFollow, protein,carbs,fats,ca
 
          const handleCardFace = (e:MouseEvent)=>{
             e.stopPropagation()
-             showNutritions ? setShowNutritions(false) : setShowNutritions(true)
+            console.log(showNutritions)
+             showNutritions  ? setShowNutritions(false) : setShowNutritions(true)
          }
 
 const printRecipeCard = function(){
@@ -258,7 +259,7 @@ const printRecipeCard = function(){
                                 {showFollow ? <FollowUserButton followClass="p-0 flex flex-col items-center w-[80px] h-[40px] bg-[#f45d48] ml-6 mr-2" personToFollow={userWhoPostId}/> : (
                                     null
                                 )}
-                                <button className="btn" onClick={(e) => handleCardFace(e)}>Nutritions</button>
+                                <button className="btn" onClick={(e:any) => handleCardFace(e)}>Nutritions</button>
 
                             </div>
                         </div>
@@ -278,13 +279,13 @@ const printRecipeCard = function(){
             initial={{opacity:0}}
             animate={{opacity:1}}
             transition={{duration:1}}
-            onClick={(e)=>handleCardFace(e)}>Front Side</motion.button>
+            onClick={(e:any)=>handleCardFace(e)}>Front Side</motion.button>
         )
      }
          
     return ( 
  
-        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e:MouseEvent)=>handleCardFace(e)}/> : printRecipeCard()
+        showNutritions ? <NutritionCard fats={fats} carbs={carbs} protein={protein} calories={calories} handle={(e: any) => handleCardFace(e)}/> : printRecipeCard()
     
      );
 }

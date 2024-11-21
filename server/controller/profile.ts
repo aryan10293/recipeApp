@@ -50,7 +50,7 @@ let profile = {
             }
             
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     getBookmarks: async(req:Request,res:Response) => {
@@ -62,7 +62,7 @@ let profile = {
                 res.status(200).json({status:'200', message:'sucess', bookmarks:getUserBookmarks})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     getLikes: async(req:Request,res:Response) => {
@@ -75,7 +75,7 @@ let profile = {
                 res.status(200).json({status:200, message:'success getting likes', likedpost:getUserLikes})
             }
         } catch (error) {
-           console.log(error) 
+           console.error(error) 
         }
     },
     follow: async(req:Request,res:Response) => {
@@ -94,7 +94,7 @@ let profile = {
                 res.status(200).json({status:200, message:'success following user'})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     },
     unfollow: async(req:Request,res:Response) => {
@@ -113,7 +113,7 @@ let profile = {
                 res.status(200).json({status:200, message:'success following user'})
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 }

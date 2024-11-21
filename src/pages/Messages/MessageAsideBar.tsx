@@ -13,34 +13,8 @@ interface UserId{
     const [user,setUser] = useState<string>('')
     let timeout: NodeJS.Timeout;             
     let doneTypingInterval = 1000;  
-    // const testing = (e:any) => {
-    //     clearTimeout(timeout)
-    //     console.log(e.target.value.trim().length)
-    //      const generateUser = async () => {
-    //         const getUsers = await fetch(`http://localhost:2030/searchforusers`, {
-    //             method:'POST',
-    //             headers: {'Content-Type': 'application/json'},
-    //             body: JSON.stringify({search: e.target.value})
-    //         })
-    //         const searchedUsers = await getUsers.json()
-    //         console.log(searchedUsers)
-    //         setUsers(searchedUsers.data)
-    //     }
-    //     //console.log(e.target.textContent)
-    //     timeout = setTimeout(async() => {
-    //          generateUser()
-    //     }, doneTypingInterval)
-    // }
+
     useEffect(() => {
-        // const generateUser = async () => {
-        //     const getUsers = await fetch(`http://localhost:2030/testing/`, {
-        //         method:'GET',
-        //         headers: {'Content-Type': 'application/json'}
-        //     })
-        //     const searchedUsers = await getUsers.json()
-        //     setUsers(searchedUsers)
-        // }
-        // generateUser()
         const testing = async () => {
             const getMessagedUserHistory = await fetch(`http://localhost:2030/getuserchathistory`, {
                 method:'POST',

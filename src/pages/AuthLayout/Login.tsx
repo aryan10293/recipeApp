@@ -14,7 +14,7 @@ function Login() {
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const handleLoggingInUser = await fetch('http://localhost:2030/login', {
+            const handleLoggingInUser = await fetch('https://recipeapp-22ha.onrender.com/login', {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(loginInfo),

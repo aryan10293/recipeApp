@@ -58,7 +58,7 @@ let profile = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     getBookmarks: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -72,7 +72,7 @@ let profile = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     getLikes: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -87,7 +87,7 @@ let profile = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     follow: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -102,7 +102,7 @@ let profile = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }),
     unfollow: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -117,7 +117,7 @@ let profile = {
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     })
 };

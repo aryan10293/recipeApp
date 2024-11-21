@@ -61,7 +61,7 @@ const Profile:React.FC<UserId> = ({user}) => {
         //     img = await convertBase64(img)
         //     setProfilePic(img)
         // }
-        const updatingProfile = await fetch(`http://localhost:2030/updateprofile/${userId}`, {
+        const updatingProfile = await fetch(`https://recipeapp-22ha.onrender.com/updateprofile/${userId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(profileUpdate)
@@ -71,7 +71,7 @@ const Profile:React.FC<UserId> = ({user}) => {
     }
     return ( 
         <div>
-            <Navbar/>
+            <Navbar userName={null}/>
             <Header text="Profile" margin="0"/>
             <div>
                 <form onSubmit={handleProfileChanges}>

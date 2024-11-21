@@ -35,7 +35,6 @@ function AdvancedSearch(this: any) {
 
     }
     const handleCal = (e:any) => { 
-        // i want to a automatic calulations for this if all 3 other macros are preset
         Number(e.target.value) === 0 ? setMaxCal(false) : setMaxCal(Number(e.target.value))
     }
     const handlePro = (e:any) => { 
@@ -70,7 +69,7 @@ function AdvancedSearch(this: any) {
     }
     const handleSearch = async (e:any) => {
         e.preventDefault()
-        const sendSearch = await fetch('http://localhost:2030/advancedmealsearch', {
+        const sendSearch = await fetch('https://recipeapp-22ha.onrender.com/advancedmealsearch', {
             method:"POST",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(searchData)
@@ -139,7 +138,7 @@ function AdvancedSearch(this: any) {
                 <h1 className='text-2xl'>Results</h1>
                 {
                     returnedData.map((result:any) => {
-                       return <RecipeCard likes={result.likes} userID={result.userWhoPostId} _id={result._id} recipeName={result.nameOfDish} recipeImage={result.image} recipeTime={result.prepTime} ingridientList={result.ingredientList} levelOfMeal={result.levelOfMeal} userWhoPostId={result.userWhoPostId} calories={result.calories} fats={result.fats} carbs={result.carbs} protein={result.protein} recipeClass='recipe-card'/>
+                       return <RecipeCard showFollow={false} likes={result.likes} userID={result.userWhoPostId} _id={result._id} recipeName={result.nameOfDish} recipeImage={result.image} recipeTime={result.prepTime} ingridientList={result.ingredientList} levelOfMeal={result.levelOfMeal} userWhoPostId={result.userWhoPostId} calories={result.calories} fats={result.fats} carbs={result.carbs} protein={result.protein} recipeClass='recipe-card'/>
                     })
                 }
             </div>

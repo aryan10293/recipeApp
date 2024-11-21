@@ -17,7 +17,7 @@ interface RecipeCardProps{
     likes?:string[],
     recipeClass?:string,
     _id?:string
-    showFollow:boolean
+    // showFollow:boolean
 }
 
 interface Comments{
@@ -45,7 +45,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
         
     },[recipe])
 
-    const {data:datas} = useFetch(`http://localhost:2030/getcommentsfrompost/${recipe.post[0]._id}`)
+    const {data:datas} = useFetch(`https://recipeapp-22ha.onrender.com/getcommentsfrompost/${recipe.post[0]._id}`)
     const {userUsername:userName,userProfilePicture:profilePicture,userId:userID} = useUserId()
     const [commentsVisbile,setCommentsVisible] = useState<boolean>(false)
     const [commentClassName,setCommentClassName] = useState<string>("invisible")
@@ -96,6 +96,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
           postId={comment._id}
           commentId={datas.comments[index]._id}
           postIndex={index} 
+          userID={recipe.post[0]._id}
            />
          ))
      }
@@ -103,7 +104,7 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
         console.log(recipe.likes);
     },)
     useEffect(()=>{
-        console.log(recipe.post[0]._id);
+        console.log(recipe.post[0].perServingMacros, 'loasjhbviu');
         
     },[recipe.post[0]._id])
     return ( 
@@ -129,12 +130,18 @@ const SingleCard:React.FC<RecipeCardProps> = (showFollow) => {
             recipeImage={recipe.post[0].image}
             userID={userID || undefined}
             userWhoPostId={recipe.post[0].userWhoPostId}
+            calories={recipe.post[0].perServingMacros.calories || 0}
+            fats={recipe.post[0].perServingMacros.fats || 0}
+            protein={recipe.post[0].perServingMacros.protein  || 0}
+            carbs={recipe.post[0].perServingMacros.carbs ||  0 }
             />
             }
 
             {
             recipe &&  
-            <CommentBox postId={recipe.post[0]._id} classs4={commentClassName4} classs2={commentClassName2} userId={userID}/>}
+            <CommentBox postId={recipe.post[0]._id} classs4={commentClassName4} classs2={commentClassName2} userId={userID} handleNewComment={function (): void {
+                    throw new Error("Function not implemented.");
+                } }/>}
         </div>
      );
 }

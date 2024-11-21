@@ -40,9 +40,9 @@ const passport_js_1 = __importDefault(require("./config/passport.js"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const bodyParser = __importStar(require("body-parser"));
 const ws_1 = __importStar(require("ws"));
-const wss = new ws_1.WebSocketServer({ port: 2040 });
 const app = (0, express_1.default)();
 const server = http_1.default.createServer(app);
+const wss = new ws_1.WebSocketServer({ server });
 const MongoStore = (0, connect_mongo_1.default)(express_session_1.default);
 let router = express_1.default.Router();
 router.use(bodyParser.text());
@@ -108,6 +108,6 @@ wss.on('connection', (ws) => {
         console.error('WebSocket error:', error);
     });
 });
-app.listen(process.env.PORT, () => {
-    console.log("Server is running, you better catch it! on " + process.env.PORT);
+server.listen(process.env.PORT || 2040, () => {
+    console.log(`Server is running, you better catch it! on ${process.env.PORT || 2040}`);
 });

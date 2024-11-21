@@ -1,9 +1,11 @@
 import { JSXElementConstructor, ReactElement, useContext } from "react"
 import UserContext from "../contexts/UserContext"
 import { Navigate, redirectDocument } from "react-router-dom"
+interface lol{
+    children:any
+}
 
-
-const PrivateRoute = ({children}) =>{
+const PrivateRoute:React.FC<lol> = ({children}) =>{
     const userId = useContext(UserContext)
 
     if(!userId){
