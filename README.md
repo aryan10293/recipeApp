@@ -1,10 +1,6 @@
 <a href="https://recipe-app-nine-iota.vercel.app/" target="_blank">Visit Here</a>
 <a href="https://recipe-app-nine-iota.vercel.app/" target="_blank">
-
-<img src="https://github.com/aryan10293/lockerroom/assets/64954226/cc5c0e6e-e401-47b8-9c65-eda967d7bc87" width="100%" alt="https://lockerroom.vercel.app/"/>
-
-
-
+<img width="1439" alt="recipappe" src="https://github.com/user-attachments/assets/04cb72df-a455-4877-8c4b-98b3cab4615b">
 </a>
 
 An app to help find your cooking needs and connect with other chefs or hobbyists!
