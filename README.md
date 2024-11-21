@@ -7,7 +7,7 @@
 
 </a>
 
-An app to help find your cooking needs and connect with other chefs or hobbiest!
+An app to help find your cooking needs and connect with other chefs or hobbyist!
 
 
 ## Tech used:
@@ -28,11 +28,11 @@ An app to help find your cooking needs and connect with other chefs or hobbiest!
 
 
 ## Optimizations
-I want to add an athlete calendar and activity tab! To plan running events and more, and let followers join in. Display workout routines on your profile. Also, work on the routing and blocking pages if not logged in and not sending athletes back to the home page after page refresh.
+I would like to add AI to help users with recipe options in case they don't see one they like or have the main ingredients to make one they see, by inputting current ingredients and receiving back options! 
 
 ## Lessons Learned
 
-In this project, I delved into the fascinating world of WebSocket for seamless messaging. The real challenge, however, was mastering the art of updating user information effectively. From handling user images to ensuring all posts and comments displayed the correct, updated photos.
+In this project, I wanted to dive deeper into my backend skillset. trying to implement quality restful APIS for my frontend teammate! learning how to use search queries for a search feature we implemented in the app. implementing web sockets again. Using typescript in the backend I wanted to ensure safe type-checked code to the best of my ability. Working in a team dealing with merge conflicts and getting used to a GitHub workflow. In the future, I would like to get better at implementing secure login options. overall an amazing experience building this app with my partner!
 
 
 ## Demo Login
@@ -46,21 +46,20 @@ Demo password: 12345678
 ## Installation
 
 1. Clone repo
-2. cd backend
+2. cd server
 3. run `npm install`
 4. go to config folder and make a .env file
 DB_STRING = 
-PORT = 2012
+PORT = 
 CLOUDINARY_API_KEY = 
 CLOUDINARY_API_SECRET = 
 CLOUDINARY_NAME = 
-5. need a Mongo db string, and CLOUDINARY API keys, and port
-6. add all those variables to the .env file
+5. add all those variables to the .env file
 
 ## Usage
+1, run `npx tsc` 
+2. run `node server.js`
 
-1. run `node server.js`
-2. Navigate to `localhost:2012`
 
 
 
