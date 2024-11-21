@@ -7,7 +7,7 @@
 
 </a>
 
-Platform to help connect athletes! 
+An app to help find your cooking needs and connect with other chefs or hobbiest!
 
 
 ## Tech used:
